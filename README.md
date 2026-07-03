@@ -1,19 +1,30 @@
-# ⚛️ Stack Frontend del Proyecto
-
+# ⚛️ Stack Frontend del Proyecto: Tecnologías principales y justificación
 A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
 
 * Node.js 24.18.0
+
 * Next.js 16 con App Router (`app`)
+
 * React 19
+
 * TypeScript 6
-* Prime React 10
+
+* Shad cn
+
 * React Hook Form 7
+
 * Sass
+
 * Tailwind CSS 4
+
 * tailwind-merge 3
+
 * clsx 2
+
 * Zustand 5
+
 * Luxon 3
+
 * react-icons 5
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
