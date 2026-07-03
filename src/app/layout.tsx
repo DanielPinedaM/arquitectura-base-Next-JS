@@ -1,6 +1,6 @@
 //#region ⚠️ estilos globales de Next JS - NO modificar esta sección 🚨
-import '../styles/global/tailwind/import.css';
-import '../styles/global/scss/main.scss';
+import '../styles/global/css/theme/main.css'; // CSS
+import '../styles/global/scss/main.scss'; // SCSS
 //#endregion
 
 import FixedLoaderProvider from '@/shared/ui/loader/FixedLoaderProvider';
