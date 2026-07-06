@@ -1,7 +1,6 @@
 'use client';
 import ErrorToast from '@/shared/ui/overlay/toast/ErrorToast';
 
-import { titleCase } from '@/shared/utils/func/general.utils';
 import {
   sessionStorageDeleteSpecific,
   sessionStorageListValue,
@@ -105,7 +104,7 @@ export default function MenuResponsive() {
               'border-2 border-blue-600 rounded-md p-2',
             )}
           >
-            {titleCase(item.text)}
+            item.text
           </a>
         </li>
       ))}
