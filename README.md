@@ -1,4 +1,4 @@
-# ⚛️ Stack Frontend del Proyecto: Tecnologías principales y justificación
+# ⚛️ Stack Frontend del Proyecto
 A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
 
 * Node.js 24.18.0
