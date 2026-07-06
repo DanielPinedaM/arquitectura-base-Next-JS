@@ -13,7 +13,7 @@ A continuación, se presenta un resumen de las tecnologías mas importantes del 
 
 * React Hook Form 7
 
-* **CSS:** `@layer` soluciona problemas de especificidad, herencia y cascada al controlar el orden de prioridad entre las capas. Además, CSS ya se encuentra muy maduro y ha incorporado muchas características que antes solo existían en Sass, como CSS Nesting.
+* **CSS:** `@layer` resuelve problemas de especificidad y cascada al controlar el orden de prioridad entre las capas, reduciendo la necesidad de usar !important. Además, CSS ha alcanzado un alto nivel de madurez e incorpora características que antes solo existían en Sass, como CSS Nesting.
 
 * Tailwind CSS 4
 
