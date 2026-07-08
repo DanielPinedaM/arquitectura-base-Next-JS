@@ -46,7 +46,7 @@ export default function MenuResponsive() {
   3) descomentar el codigo q esta comentado
   4) cambiar el parametro URL de la funcion listUrl q esta en src/services/auth.ts por la URL q tiene en endpoint para listar menu
   5) la API tiene q responder asi 
-  interface IResponse {
+  interface ApiResponse {
     success: boolean;
     status: number;
     message: string;

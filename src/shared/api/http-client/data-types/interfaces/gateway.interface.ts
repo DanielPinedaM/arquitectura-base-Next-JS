@@ -28,14 +28,14 @@ export interface IObjectLogs {
   method?: Method;
   url?: string;
   options?: IRequestOptions;
-  result?: IResponse;
+  result?: ApiResponse;
   response?: Response | null;
   showLogger?: boolean;
 }
 
 /**
-asi es como responde la API */
-export interface IResponse<T = any> {
+* Contrato que define el tipo de dato con el que responden todas las APIs */
+export interface ApiResponse<T = any> {
   success: boolean;
   status: number;
   message: string;
@@ -45,7 +45,7 @@ export interface IResponse<T = any> {
 /**
 validar respuesta del backend */
 export interface IValidateApiResponse<T = any> {
-  result: IResponse | T;
+  result: ApiResponse | T;
   responseType: TResponseType;
   method: Method;
   url: string;

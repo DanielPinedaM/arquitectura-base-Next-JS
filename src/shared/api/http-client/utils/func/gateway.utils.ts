@@ -3,7 +3,7 @@ import {
   IObjectLogs,
   IParamsValidateOptions,
   IRequestOptions,
-  IResponse,
+  ApiResponse,
   IIsValidOptions,
   IValidateApiResponse,
 } from '@/shared/api/http-client/data-types/interfaces/gateway.interface';
@@ -249,7 +249,7 @@ export function successLogs(objectLogs: IObjectLogs): void {
 
   const { success: successApi, status: statusApi, message: messageApi, data: dataApi } = result ?? {};
 
-  const objectSuccesResponse: IResponse = {
+  const objectSuccesResponse: ApiResponse = {
     success: (validateResponse ? successApi : response?.ok) as boolean,
     status: (validateResponse ? statusApi : response?.status) as number,
     message: (validateResponse ? messageApi : response?.statusText) as string,
@@ -367,19 +367,19 @@ export function validateApiResponse({
   method,
   url,
   options,
-}: IValidateApiResponse): IResponse | Blob | FormData {
+}: IValidateApiResponse): ApiResponse | Blob | FormData {
   const errorMessage: string =
     '❌ Error 503 Service Unavailable - Posibles causas: \n' +
     '1) La API del backend podría estar caída. \n' +
-    '2) El backend no está respondiendo con el tipo esperado (IResponse). \n' +
+    '2) El backend no está respondiendo con el tipo esperado (ApiResponse). \n' +
     '3) Si está intentando descargar un archivo, asegúrese de que el backend responda con el tipo json | text | blob | arrayBuffer | formData';
 
   /* -------- ❌ respuesta ERRONEA -------- */
-  const safeResult: IResponse | any = result ?? {};
-  const { success, status, message, data, ...rest }: IResponse | any = safeResult;
+  const safeResult: ApiResponse | any = result ?? {};
+  const { success, status, message, data, ...rest }: ApiResponse | any = safeResult;
 
   // objeto q se devuelve en caso de q NO funcione la respuesta de la API del back
-  const finalResponse: IResponse = {
+  const finalResponse: ApiResponse = {
     success: false,
     status: 503,
     message: errorMessage,

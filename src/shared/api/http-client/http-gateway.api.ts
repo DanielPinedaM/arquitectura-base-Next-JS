@@ -18,7 +18,7 @@ import {
 } from '@/shared/api/http-client/utils/func/gateway.utils';
 import {
   IRequestOptions,
-  IResponse,
+  ApiResponse,
   IIsValidOptions,
 } from '@/shared/api/http-client/data-types/interfaces/gateway.interface';
 import { Method } from '@/shared/api/http-client/data-types/types/gateway.type';
@@ -32,7 +32,7 @@ async function executeRequest<T = any>(
   method: Method,
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   const {
     body,
     queryParams,
@@ -162,7 +162,7 @@ async function executeRequest<T = any>(
 
   // intenta convertir la respuesta de la API a 'json' | 'text' | 'blob' | 'arrayBuffer' | 'formData'
   // y guarda la respuesta de la API
-  let result: IResponse | any = {
+  let result: ApiResponse | any = {
     success: false,
     status: 500,
     message: 'sin procesar',
@@ -307,8 +307,8 @@ async function executeRequest<T = any>(
     }
 
     // retornar respuesta de la API sin importar si fue exitosa o no
-    if (validateResponse) {
-      // forzar a q la API responda con el tipo IResponse ó con un archivo
+    if (validateApiResponse) {
+      // forzar a q la API responda con el tipo ApiResponse ó con un archivo
       return validateApiResponse({ result, response, responseType, method, url, options });
     } else {
       // la API puede responder con lo q sea
@@ -334,34 +334,34 @@ async function executeRequest<T = any>(
 export async function GET(
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   return executeRequest('GET', url, options);
 }
 
 export async function POST(
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   return executeRequest('POST', url, options);
 }
 
 export async function PUT(
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   return executeRequest('PUT', url, options);
 }
 
 export async function PATCH(
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   return executeRequest('PATCH', url, options);
 }
 
 export async function DELETE(
   url: string = '',
   options: IRequestOptions = {},
-): Promise<IResponse | any> {
+): Promise<ApiResponse | any> {
   return executeRequest('DELETE', url, options);
 }
