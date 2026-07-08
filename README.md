@@ -945,7 +945,7 @@ export default function MyComponent() {
 }
 ```
 
-# 📝 Formularios - Integración Prime React y React Hook Form
+# 📝 Formularios - Integración Shad cn y React Hook Form
 
 Todos los formularios del proyecto deben utilizar obligatoriamente:
 
