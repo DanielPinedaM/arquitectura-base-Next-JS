@@ -7,7 +7,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * Node.js 24.18.0
 
-* [**Next.js 16 con App Router (`app`):**](https://youtu.be/_SPoSMmN3ZU?si=QCw1smESqt2qE_6a): _Framework semi-opinionado_ que evita configurar el proyecto desde cero, a diferencia de _React + Vite_, que es mas _abierto_. Incluye soporte nativo para _SSR (Server-Side Rendering)_, _SSG (Static Site Generation)_, _ISR (Incremental Static Regeneration)_ y _CSR (Client-Side Rendering)_.
+* [**Next.js 16 con App Router (`app`):**](https://youtu.be/_SPoSMmN3ZU?si=QCw1smESqt2qE_6a) _Framework semi-opinionado_ que evita configurar el proyecto desde cero, a diferencia de _React + Vite_, que es mas _abierto_. Incluye soporte nativo para _SSR (Server-Side Rendering)_, _SSG (Static Site Generation)_, _ISR (Incremental Static Regeneration)_ y _CSR (Client-Side Rendering)_.
 
 * [**React 19:**](https://youtu.be/rLoWMU4L_qE?si=JIle2kdd3Etv5D41) Es la _biblioteca de frontend_ mas usada, tiene muchas _librerias_ que ofrecen soluciones a muchos problemas.
 
