@@ -14,11 +14,11 @@ selector universal
 3. Restablece todos los bordes.
 */
 
-*:not([class*='p-']),
-*:not([class*='p-'])::after,
-*:not([class*='p-'])::before,
-*:not([class*='p-'])::backdrop,
-*:not([class*='p-'])::file-selector-button {
+*,
+*::after,
+*::before,
+*::backdrop,
+*::file-selector-button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
