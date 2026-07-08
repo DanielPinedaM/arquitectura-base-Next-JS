@@ -1,3 +1,7 @@
+![logo-next-js](./docs/readme-md/img/logo-next-js.png)
+
+---
+
 # ⚛️ Stack Frontend del Proyecto
 A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
 
