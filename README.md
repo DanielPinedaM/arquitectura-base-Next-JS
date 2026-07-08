@@ -17,7 +17,7 @@ A continuación, se presenta un resumen de las tecnologías mas importantes del 
 
 * React Hook Form 7
 
-* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite usar la misma sintaxis de validación en frontend y backend. En **frontend** valida formularios y datos de entrada, con excelente integración con **React Hook Form**; en **backend** valida requests (body, query y params) y garantiza la integridad de los datos antes de procesarlos.
+* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la misma sintaxis de código y reutilizar los mismos **esquemas de validación** en frontend y backend. Además, se integra con **TypeScript**, ofrece validación de tipos en **tiempo de compilación** y validación de datos en **tiempo de ejecución (runtime)**. En **frontend** valida formularios y datos de entrada, con excelente integración con **React Hook Form** (React) y **Forms with Signals** (Angular). En **backend** valida `body`, `query` y `params` de las solicitudes, garantizando la integridad de los datos antes de procesarlos.
 
 * [**CSS:**](https://developer.mozilla.org/en-US/docs/Web/CSS) `@layer` resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar `!important`. Además, CSS ha alcanzado un alto nivel de madurez e incorpora features que antes solo existían en Sass, como _CSS Nesting_.
 
