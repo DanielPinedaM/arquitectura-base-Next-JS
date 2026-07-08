@@ -29,7 +29,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
 
-* [**react-icons 5:**](https://react-icons.github.io/react-icons/) Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y se pueden personalizar con **Tailwind**
+* [**react-icons 5:**](https://react-icons.github.io/react-icons/) Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y se pueden personalizar con _Tailwind_.
 
 > [!TIP]
 > # 🎥 **Aprende**
