@@ -3,35 +3,38 @@
 ---
 
 # ⚛️ Stack Frontend del Proyecto
-A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
+A continuación se resumen las principales tecnologías del proyecto y el motivo por el que se utilizan. No se incluyen todas las dependencias.
 
 * Node.js 24.18.0
 
-* Next.js 16 con App Router (`app`)
+* [**Next.js 16 con App Router (`app`):**](https://youtu.be/_SPoSMmN3ZU?si=QCw1smESqt2qE_6a): _Framework semi-opinionado_ que evita configurar el proyecto desde cero, a diferencia de _React + Vite_, que es mas _abierto_. Incluye soporte nativo para _SSR (Server-Side Rendering)_, _SSG (Static Site Generation)_, _ISR (Incremental Static Regeneration)_ y _CSR (Client-Side Rendering)_.
 
-* React 19
+* [**React 19:**](https://youtu.be/rLoWMU4L_qE?si=JIle2kdd3Etv5D41) Es la _biblioteca de frontend_ mas usada, tiene muchas _librerias_ que ofrecen soluciones a muchos problemas.
 
-* TypeScript 6
+* [**TypeScript 6:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Agrega _tipado estático_ al lenguaje, permitiendo detectar errores durante el desarrollo y mejorar el _autocompletado_, la _refactorización_ y el _mantenimiento del código_. Además, permite tener el mismo lenguaje de programación en frontend y backend.
 
-* Shad cn
+* [**Shad cn:**](https://youtu.be/URpcaFga8rY?si=F9o2SuH-U5FKLkqw) Tiene una lista de _componentes UI_ muy completa, con integración nativa con _Tailwind_ y soporte para _React Hook Form_. Además, al no ser totalmente _headless_, tiene estilos por defecto que son fáciles de personalizar sin recurrir a hacks de CSS como _`::ng-deep`_ o _`!important`_.
 
-* React Hook Form 7
+* [**React Hook Form 7:**](https://youtu.be/1MxevPIZgVc?si=Sa1YjhpGw-mQ0dST) Evita el _boilerplate_ de los formularios mediante _register_ y _watch_ de _React Hook Form_, sin _gestionar manualmente el estado_ con _useState_ y _onChange_ de _React_.
 
-* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la misma sintaxis de código y reutilizar los mismos **esquemas de validación** en frontend y backend. Además, se integra con **TypeScript**, ofrece validación de tipos en **tiempo de compilación** y validación de datos en **tiempo de ejecución (runtime)**. En **frontend** valida formularios y datos de entrada, con excelente integración con **React Hook Form** (React) y **Forms with Signals** (Angular). En **backend** valida `body`, `query` y `params` de las solicitudes, garantizando la integridad de los datos antes de procesarlos.
+* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la _misma sintaxis de código_ y reutilizar los mismos _esquemas de validación_ en frontend y backend. Además, se integra con _TypeScript_, ofrece validación de tipos en _tiempo de compilación_ y validación de datos en _tiempo de ejecución (runtime)_. En _frontend_ valida _formularios_ y _datos de entrada_, con excelente integración con _React Hook Form_ (_React_) y _Forms with Signals_ (_Angular_). En _backend_ valida _`body`_, _`query`_ y _`params`_ de las _solicitudes http_, garantizando la integridad de los datos antes de procesarlos.
 
-* [**CSS:**](https://developer.mozilla.org/en-US/docs/Web/CSS) `@layer` resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar `!important`. Además, CSS ha alcanzado un alto nivel de madurez e incorpora features que antes solo existían en Sass, como _CSS Nesting_.
+* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby) _`@layer`_ resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar _`!important`_. Además, CSS ha alcanzado un alto nivel de madurez e incorpora _CSS Nesting_, equivalente al _anidamiento de Sass_, y _Custom Properties_, equivalentes a las _variables de Sass_. En este proyecto se usa en _estilso globales_.
 
-* Tailwind CSS 4
+* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa _clases utilitarias_ para aplicar estilos, evitando la mayoría de los problemas de _especificidad_, _herencia_ y _cascada_ de CSS. En este proyecto se usa en _estilos de los componentes_.
 
-* tailwind-merge 3
+* [**tailwind-merge 3 y clsx 2:**](https://youtu.be/cJsRaYmrSQM?si=_DdWe3mQwTBAA1jo) Ambos se integran con _Tailwind_. _`clsx`_ evita escribir el _boilerplate_ en los _estilos condicionales_ que genera el _operador condicional ternario_, _template strings_, _concatenacion de strigs_, _`if`_ y _`switch`_, mientras que _`tailwind-merge`_ resuelve conflictos entre _clases de Tailwind_ que se sobrescriben.
 
-* clsx 2
+* [**Zustand 5:**](https://youtu.be/pAHPHivDbuE?si=mUAwvgn-O1UhVva6) _Manejador global de estado_ con menos _boilerplate_ que _Redux_ y una API más simple. A diferencia de _useContext_, no requiere un _Context.Provider_ y evita re-renderizados innecesarios mediante suscripciones selectivas al estado.
 
-* Zustand 5
+* [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
 
-* Luxon 3
+* [**react-icons 5:**](https://react-icons.github.io/react-icons/) Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y se pueden personalizar con **Tailwind**
 
-* react-icons 5
+> [!TIP]
+> # 🎥 **Aprende**
+>
+> Puedes hacer clic en el nombre de cada tecnología para ver cursos y aprenderlas
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
@@ -43,7 +46,7 @@ Para que la configuración funcione, debes tener instalado:
 
 * [Node.js](https://nodejs.org/)
 
-* [Claude Code](https://cursos.devtalles.com/courses/claude-code-guia-completa)
+* [Claude Code](https://youtu.be/Bf7hfpItrDk?si=5pW919OUbtSqJlyP)
 
 * [pnpm](https://pnpm.io/installation)
 
