@@ -1809,8 +1809,6 @@ Está guía de estilos para botones está basada en:
 
 - [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
 
-La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades.
-
 **❌ Incorrecto:**
 
 Usar los [botones de Shad cn](https://ui.shadcn.com/docs/components/base/button):
