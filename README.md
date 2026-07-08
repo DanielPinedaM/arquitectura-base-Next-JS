@@ -39,11 +39,11 @@ A continuación, se presenta un resumen de las tecnologías mas importantes del 
 Para que la configuración funcione, debes tener instalado:
 * [VS Code](https://code.visualstudio.com/) o cualquier editor basado en VS Code ([Antigravity](https://antigravity.google/product), [Cursor](https://cursor.com/get-started), Windsurf, etc.)
 
-* [Git Bash](https://git-scm.com/install/)
+* [Git Bash](https://youtu.be/niPExbK8lSw?si=tHx4IYZBdrUmW6ey)
 
 * [Node.js](https://nodejs.org/)
 
-* [Claude Code](https://code.claude.com/docs/en/quickstart)
+* [Claude Code](https://cursos.devtalles.com/courses/claude-code-guia-completa)
 
 * [pnpm](https://pnpm.io/installation)
 
