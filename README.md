@@ -1493,8 +1493,14 @@ table {
 ```tsx
 // MyComponent.tsx
 
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 const PRODUCTS = [
   { id: 1, name: 'Laptop', price: 2500 },
@@ -1503,11 +1509,24 @@ const PRODUCTS = [
 
 export default function MyComponent() {
   return (
-    <DataTable value={PRODUCTS}>
-      <Column field='id' header='ID' />
-      <Column field='name' header='Nombre' />
-      <Column field='price' header='Precio' />
-    </DataTable>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>ID</TableHead>
+          <TableHead>Nombre</TableHead>
+          <TableHead>Precio</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {PRODUCTS.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell>{product.id}</TableCell>
+            <TableCell>{product.name}</TableCell>
+            <TableCell>{product.price}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
 ```
