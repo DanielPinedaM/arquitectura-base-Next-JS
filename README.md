@@ -40,7 +40,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 ## 🛠️ Antes de Empezar
 Para que la configuración funcione, debes tener instalado:
-* [VS Code](https://code.visualstudio.com/) o cualquier editor basado en VS Code ([Antigravity](https://antigravity.google/product), [Cursor](https://cursor.com/get-started), Windsurf, etc.)
+* [VS Code](https://code.visualstudio.com/) o cualquier editor basado en VS Code ([Antigravity IDE](https://antigravity.google/product/antigravity-ide), [Cursor](https://cursor.com/get-started), Windsurf, etc.)
 
 * [Git Bash](https://youtu.be/niPExbK8lSw?si=tHx4IYZBdrUmW6ey)
 
