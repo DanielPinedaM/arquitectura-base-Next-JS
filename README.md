@@ -311,9 +311,6 @@ src/
         │   ├── _scroll-bar.scss → estilos globales de barra de scroll
         │   ├── _variables.scss → variables globales de Sass
         │   │
-        │   ├── prime-react/ → sobrescribir estilos de Prime NG
-        │   │   └── index-prime-react.scss → con @use importa estilos .scss para Prime React, NO debe contener estilos directos
-        │   │
         │   └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
         │       ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
         │       ├── _base.scss → Reset CSS para botones
@@ -956,7 +953,7 @@ No crear formularios con manejo manual de estado cuando exista un componente Rea
 
 ## `src/shared/ui/prime-react`
 
-Contiene componentes visuales basados en Prime React.
+Contiene componentes visuales basados en Shad cn.
 
 Su responsabilidad es únicamente encapsular y estandarizar la UI.
 
@@ -966,11 +963,11 @@ Estos componentes:
 - No contienen lógica de negocio
 - No contienen reglas del dominio
 
-## `src/shared/ui/prime-react/react-hook-form`
+## `src/shared/ui/shad-cn/react-hook-form`
 
 Contiene adaptadores entre:
 
-- Prime React
+- Shad cn
 - React Hook Form
 - Componentes visuales
 
@@ -1010,7 +1007,7 @@ src/shared/ui/prime-react/react-hook-form
 - Prohibido usar formularios no controlados con `useRef`.
 - React Hook Form es la única fuente válida de estado del formulario.
 
-### 4. Flujo de React Hook Form y Prime React
+### 4. Flujo de React Hook Form y Shad cn
 
 ```text
 ┌──────────────────────┐
@@ -1027,7 +1024,7 @@ src/shared/ui/prime-react/react-hook-form
            │
            ▼
 ┌─────────────────────────────────────────────┐
-│ src/shared/ui/prime-react/react-hook-form   │
+│ src/shared/ui/shad-cn/react-hook-form       │
 │   useController()                           │
 │   Controller                                │
 │   field.value                               │
@@ -1098,11 +1095,11 @@ Un input reutilizable debe:
   - `input type="number"`
   - `input type="email"`
 
-### 8. UI (Prime React)
+### 8. UI (Shad cn)
 
-- PrimeReact solo maneja la capa visual.
+- Shad cn solo maneja la capa visual.
 - `disabled`, `placeholder`, `className` son props de UI.
-- Prime React no puede modificar el estado del formulario.
+- Shad cn no puede modificar el estado del formulario.
 - Solo refleja el estado final derivado de React Hook Form.
 
 ### 9. Validaciones
@@ -1797,38 +1794,29 @@ La arquitectura está diseñada para proyectos grandes y escalables, separando r
 
 **❌ Incorrecto:**
 
-Usar los [botones de Prime React](https://primereact.org/button/):
+Usar los [botones de Shad cn](https://ui.shadcn.com/docs/components/base/button):
 
 - Componente `Button`
 
-- Props visuales del componente: `severity`, `outlined`, `label`, `icon`, `severity`, `size`, etc.
+- Props visuales del componente: `variant`, `size`, `asChild`, etc.
 
 ```tsx
-import { Button } from 'primereact/button';
+import { Button } from '@/components/ui/button';
 
 export default function MyComponent() {
   return (
-    <Button
-      label='Guardar'
-      icon='pi pi-check'
-      severity='success'
-      size='large'
-      rounded
-      raised
-      text
-    />
+    <Button variant='destructive' size='lg'>
+      Guardar
+    </Button>
   );
 }
 ```
-
-La razón es que los [botones de Prime React](https://primereact.org/button/) agregan estilos por defecto que alteran los estilos globales de `index-buttons.scss`
 
 **✅ Correcto:**
 
 Usar etiqueta `button` nativa de HTML:
 
 ```tsx
-import { Button } from 'primereact/button';
 import { MdArrowForward } from 'react-icons/md';
 
 export default function MyComponent() {
