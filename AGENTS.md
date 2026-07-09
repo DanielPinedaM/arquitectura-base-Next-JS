@@ -6,28 +6,22 @@ Antes de realizar cualquier trabajo con Next.js, busca y lee la documentación c
 
 <!-- END:nextjs-agent-rules -->
 
-# Entorno de Ejecución
-Node.js
+# Ejecución de Proyecto
 
-# Manejador de Paquetes
-`pnpm` y `pnpm-lock.yaml`
+* Runtime: Node.js
+* Administrador de versiones: fnm
+* Manejador de paquetes: pnpm
+* Archivo de bloqueo: pnpm-lock.yaml
 
-# Administrador de Versiones para Node.js
-`fnm`
-
-# Comandos
-
-# Ejecutar Proyecto
-
-| Comando            | Apunta a... | Ruta Archivo                   |
+| Comando            | Entorno     | Archivo de configuración       |
 | ------------------ | ----------- | ------------------------------ |
 | `pnpm start:local` | Local host  | `environments/.env.localhost`  |
 | `pnpm start:test`  | Pruebas     | `environments/.env.test`       |
 | `pnpm start:prod`  | Producción  | `environments/.env.production` |
 
-# Generar build (dist) para Desplegar
+# Builds para despliegue
 
-| Comando           | Apunta a... | Ruta Archivo                   |
+| Comando           | Entorno     | Archivo de configuración       |
 | ----------------- | ----------- | ------------------------------ |
 | `pnpm build:test` | Pruebas     | `environments/.env.test`       |
 | `pnpm build:prod` | Producción  | `environments/.env.production` |
