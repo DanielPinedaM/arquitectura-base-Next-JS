@@ -2754,3 +2754,39 @@ export default function MyComponent() {
   );
 }
 ```
+
+## Uso de shad cn
+Los componentes de spartan ng estan instalados en `src\shared\ui\shad-cn`
+
+En los formularios, es obligatorio utilizar los componentes de shad cn para todos los controles disponibles.
+
+Cuando sea necesario utilizar un componente de interfaz (UI), seguir el siguiente orden de prioridad:
+
+1. Utilizar un componente de shad cn incluido en la siguiente lista. Queda prohibido instalar componentes nuevos o utilizar su equivalente en HTML nativo.
+
+2. Si el componente requerido no existe en esta lista, maquetarlo con Tailwind.
+
+Componentes permitidos:
+
+* accordion
+* Alert Dialog
+* Combobox
+* Date Picker
+* carousel
+* checkbox
+* Data Table
+* Dialog
+* Drawer
+* dropdown-menu
+* input
+* label
+* pagination
+* popover
+* Radio Group
+* Select
+* Sheet
+* Sonner (Toast)
+* Switch
+* Tabs
+* textarea
+* tooltip
