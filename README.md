@@ -375,7 +375,7 @@ Código **completamente agnóstico al dominio**: utilidades técnicas reutilizab
 
 Ejemplos:
 
-- `src/shared/ui/prime-react/react-hook-form/InputText.tsx`
+- `src/shared/ui/shad-cn/react-hook-form/InputText.tsx`
 - `src/shared/utils/func/luxon.utils.ts`
 - `src/shared/ui/buttons/Button.tsx`
 
@@ -947,11 +947,11 @@ export default function MyComponent() {
 Todos los formularios del proyecto deben utilizar obligatoriamente:
 
 - React Hook Form
-- Componentes ubicados en `src/shared/ui/prime-react/react-hook-form`
+- Componentes ubicados en `src/shared/ui/shad-cn/react-hook-form`
 
 No crear formularios con manejo manual de estado cuando exista un componente React Hook Form equivalente.
 
-## `src/shared/ui/prime-react`
+## `src/shared/ui/shad-cn`
 
 Contiene componentes visuales basados en Shad cn.
 
@@ -996,7 +996,7 @@ No representan formularios del negocio.
 Es obligatorio usar los componentes reutilizables de inputs ubicados en:
 
 ```txt
-src/shared/ui/prime-react/react-hook-form
+src/shared/ui/shad-cn/react-hook-form
 ```
 
 ### 3. Restricciones estrictas
@@ -1115,7 +1115,7 @@ Un input reutilizable debe:
 
 ### 11. Mensajes de error de formulario
 
-- Todo componente de campo ubicado en `src/shared/ui/prime-react/react-hook-form` debe usar `FormErrorMessages` para mostrar los mensajes de error de React Hook Form.
+- Todo componente de campo ubicado en `src/shared/ui/shad-cn/react-hook-form` debe usar `FormErrorMessages` para mostrar los mensajes de error de React Hook Form.
 
 * Prohibido mostrar errores de validación con elementos HTML propios, lógica manual o cualquier otro componente alternativo.
 
@@ -1143,7 +1143,7 @@ Un input reutilizable debe:
 - Definir `defaultValues` fuera de `useForm`.
 - Duplicar control de estado entre RHF y UI.
 - Usar `map` para renderizar los campos de los formularios.
-- Mostrar errores de validación sin usar `FormErrorMessages` en componentes de `src/shared/ui/prime-react/react-hook-form`.
+- Mostrar errores de validación sin usar `FormErrorMessages` en componentes de `src/shared/ui/shad-cn/react-hook-form`.
 
 ## Resultado esperado
 
@@ -1153,9 +1153,9 @@ Un input reutilizable debe:
 - Separación estricta entre lógica y UI.
 - Mantenimiento simple en proyectos grandes.
 
-## Prohibido agregar lógica de negocio dentro de src/shared/ui/prime-react/react-hook-form
+## Prohibido agregar lógica de negocio dentro de src/shared/ui/shad-cn/react-hook-form
 
-En `src/shared/ui/prime-react/react-hook-form` nunca agregar:
+En `src/shared/ui/shad-cn/react-hook-form` nunca agregar:
 
 - Reglas de negocio
 - Reglas específicas de una feature
