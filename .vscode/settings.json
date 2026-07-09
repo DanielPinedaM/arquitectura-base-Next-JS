@@ -89,6 +89,7 @@
 
   /* Tailwind 4 */
   "tailwindCSS.experimental.configFile": "src/styles/global/css/theme/main.css" /* ruta donde se importa Tailwind 4 en archivo .css, necesario para q funcione auto-completado en Tailwind 4 */,
+  "tailwindCSS.classFunctions": ["hlm", "cva", "classes"],
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.includeLanguages": {
     "javascript": "javascript",
