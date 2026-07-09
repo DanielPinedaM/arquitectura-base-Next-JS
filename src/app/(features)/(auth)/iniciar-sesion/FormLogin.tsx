@@ -1,6 +1,6 @@
 'use client';
 import ErrorToast from '@/shared/ui/overlay/toast/ErrorToast';
-import FormErrorMessages from '@/shared/ui/prime-react/react-hook-form/FormErrorMessages';
+import FormErrorMessages from '@/shared/ui/shad-cn/react-hook-form/FormErrorMessages';
 import { cookieOptions } from '@/app/(features)/(auth)/iniciar-sesion/data-types/constants/cookies-options.const';
 import { deleteCookie, getCookies, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
