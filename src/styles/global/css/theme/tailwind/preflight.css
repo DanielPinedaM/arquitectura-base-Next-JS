@@ -58,40 +58,34 @@ body {
 }
 
 /*
-Tema oscuro y claro
+Tema oscuro y claro compatible con shad cn
 */
-
-@theme inline {
-  /* tema oscuro y claro para shad cn */
-  --color-background: var(--theme-background-color);
-  --color-foreground: var(--theme-color-text);
-}
 
 :root {
   /* tema claro */
   color-scheme: light;
 
-  --theme-background-color: oklch(100% 0 0);
-  --theme-color-text: oklch(0% 0 0);
+  --background: oklch(100% 0 0);
+  --foreground: oklch(0% 0 0);
 }
 
 :root.dark {
   /* tema oscuro */
   color-scheme: dark;
 
-  --theme-background-color: oklch(2.75381% 0 0);
-  --theme-color-text: oklch(100% 0 0);
+  --background: oklch(2.75381% 0 0);
+  --foreground: oklch(100% 0 0);
 }
 
 html,
 body {
   /* color fondo de toda la pagina web */
-  background-color: var(--theme-background-color);
+  background-color: var(--background);
 }
 
 body {
   /* color de texto */
-  color: var(--theme-color-text);
+  color: var(--foreground);
 }
 
 /*

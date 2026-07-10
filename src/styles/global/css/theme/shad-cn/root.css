@@ -51,6 +51,7 @@ https://ui.shadcn.com/docs/theming */
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* tema claro de shad cn */
 :root {
   /* Radio de bordes (border-radius) */
   --radius: 0.625rem;
@@ -95,7 +96,8 @@ https://ui.shadcn.com/docs/theming */
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+/* tema oscuro de shad cn */
+:root.dark {
   /* Superficies elevadas: cards y popovers */
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
