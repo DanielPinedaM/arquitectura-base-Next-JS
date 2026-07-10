@@ -4,7 +4,7 @@
 
 /**
  * Orden de capas explícito: determina la prioridad en cascada (de menor a mayor) */
-@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, shadcnRoot, TailwindUtilities;
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, shadcnTheme, TailwindUtilities;
 
 /**
  * custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
@@ -22,14 +22,14 @@
 
 /**
  * custom properties con colores de componentes de shad cn */
-@import './shad-cn/root.css' layer(shadcnRoot);
+@import './shad-cn/theme.css' layer(shadcnTheme);
 
 /**
  * Estilos base de shad cn
  * Sin layer() a propósito: este archivo define @custom-variant, @utility y @property
  * de nivel superior, que Tailwind/CSS exigen fuera de cualquier @layer (error de build
  * si quedan anidados). Los bloques @theme que también contiene solo definen @keyframes,
- * no custom properties de color/radio, por lo que no compiten con shadcnRoot */
+ * no custom properties de color/radio, por lo que no compiten con shadcnTheme */
 @import 'shadcn/tailwind.css';
 
 /**
