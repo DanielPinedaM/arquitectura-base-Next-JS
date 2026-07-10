@@ -2,10 +2,6 @@
 https://ui.shadcn.com/docs/theming */
 
 @theme inline {
-  /* Fondo y texto base */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
   /* Superficies elevadas: cards y popovers */
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -59,10 +55,6 @@ https://ui.shadcn.com/docs/theming */
   /* Radio de bordes (border-radius) */
   --radius: 0.625rem;
 
-  /* Fondo y texto base */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-
   /* Superficies elevadas: cards y popovers */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -104,10 +96,6 @@ https://ui.shadcn.com/docs/theming */
 }
 
 .dark {
-  /* Fondo y texto base */
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-
   /* Superficies elevadas: cards y popovers */
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -151,9 +139,5 @@ https://ui.shadcn.com/docs/theming */
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
