@@ -84,7 +84,7 @@ body {
 }
 
 body {
-  /* color de texto */
+  /* color por defecto de todos los textos de la pagina web */
   color: var(--foreground);
 }
 
