@@ -2,7 +2,7 @@
 https://tailwindcss.com/docs/preflight */
 
 /* Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
-@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, /* shadcnBase, */  TailwindUtilities;
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, shadcnRoot, shadcnBase,  TailwindUtilities;
 
 /* custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
 @import 'tailwindcss/theme.css' layer(TailwindBaseTheme);
@@ -13,10 +13,11 @@ https://tailwindcss.com/docs/preflight */
 /* Reset CSS */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
-/* Estilos base de shad cn */
-/* @import 'shadcn/tailwind.css' layer(shadcnBase); */
-
 /* custom properties con colores de componentes de shad cn */
+@import './shad-cn/root.css' layer(shadcnRoot);
+
+/* Estilos base de shad cn */
+@import 'shadcn/tailwind.css' layer(shadcnBase);
 
 /* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
 @import 'tailwindcss/utilities.css' layer(TailwindUtilities);
