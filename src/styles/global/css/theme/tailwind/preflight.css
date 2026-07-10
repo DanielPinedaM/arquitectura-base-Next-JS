@@ -60,6 +60,13 @@ body {
 /*
 Tema oscuro y claro
 */
+
+@theme inline {
+  /* tema oscuro y claro para shad cn */
+  --color-background: var(--theme-background-color);
+  --color-foreground: var(--theme-color-text);
+}
+
 :root {
   /* tema claro */
   color-scheme: light;
