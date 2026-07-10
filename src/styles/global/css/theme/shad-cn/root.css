@@ -1,6 +1,7 @@
-/*  colores de componentes de shad cn
+/*
+custom propierties con
+colores de componentes de shad cn
 https://ui.shadcn.com/docs/theming */
-
 @theme inline {
   /* Superficies elevadas: cards y popovers */
   --color-card: var(--card);
