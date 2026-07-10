@@ -59,11 +59,30 @@ body {
 Tema oscuro y claro
 */
 :root {
+  /* tema claro */
   color-scheme: light;
+
+  --theme-background-color: oklch(100% 0 0);
+  --theme-color-text: oklch(0% 0 0);
 }
 
 :root.dark {
+  /* tema oscuro */
   color-scheme: dark;
+
+  --theme-background-color: oklch(2.75381% 0 0);
+  --theme-color-text: oklch(100% 0 0);
+}
+
+html,
+body {
+  /* color fondo de toda la pagina web */
+  background-color: var(--theme-background-color);
+}
+
+body {
+  /* color de texto */
+  color: var(--theme-color-text);
 }
 
 /*
