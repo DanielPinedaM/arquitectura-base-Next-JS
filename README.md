@@ -304,6 +304,20 @@ Es la guía principal que determina cómo se organiza el código, no una lista e
 ```txt
 src/
 │
+├── shared/
+│   └── ui/
+│       └── shad-cn/ → componentes de shad cn
+│           ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, sonner, tooltip)
+│           ├── react-hook-form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción; todos usan react hook form Controller excepto button
+│           │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
+│           │   ├── date/ → selección de fechas (calendar, date-picker)
+│           │   ├── selection/ → elegir entre opciones predefinidas (checkbox, combobox, radio-group, select, switch)
+│           │   └── text/ → entrada de texto libre y su etiqueta (input, input-group, label, textarea)
+│           ├── navigation/ → componentes de navegación (accordion, pagination, tabs)
+│           ├── data-display/ → componentes de presentación de datos (carousel, data-table)
+│           ├── hooks/ → hooks personalizados de shad cn
+│           └── utils/ → NO es un componente: expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
+│
 └── styles/
     └── global/
         ├── scss/
@@ -327,21 +341,6 @@ src/
             ├── import.css → importar Tailwind
             ├── preflight.css → Reset CSS basado en Tailwind
             └── theme.css → variables de Tailwind
-```
-
-```txt
-src/shared/ui/
-└── shad-cn/ → componentes de shad cn
-    ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, sonner, tooltip)
-    ├── react-hook-form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción
-    │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
-    │   ├── date/ → selección de fechas (calendar, date-picker)
-    │   ├── selection/ → elegir entre opciones predefinidas (checkbox, combobox, radio-group, select, switch)
-    │   └── text/ → entrada de texto libre y su etiqueta (input, input-group, label, textarea)
-    ├── navigation/ → componentes de navegación (accordion, pagination, tabs)
-    ├── data-display/ → componentes de presentación de datos (carousel, data-table)
-    ├── hooks/ → hooks personalizados de shad cn
-    └── utils/ → NO es un componente: expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
 ```
 
 # Feature Architecture
