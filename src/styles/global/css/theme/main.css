@@ -1,29 +1,45 @@
-/* #region ⚠️ NO modificar esta sección - configurar estilos de Tailwind 4 y shadcn 🚨
-https://tailwindcss.com/docs/preflight */
+/**
+ * #region ⚠️ NO modificar esta sección - configurar estilos de Tailwind 4 y shadcn 🚨
+ * https://tailwindcss.com/docs/preflight */
 
-/* Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
-@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, shadcnRoot, shadcnBase,  TailwindUtilities;
+/**
+ * Orden de capas explícito: determina la prioridad en cascada (de menor a mayor) */
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, shadcnRoot, TailwindUtilities;
 
-/* custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
+/**
+ * custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
 @import 'tailwindcss/theme.css' layer(TailwindBaseTheme);
 
-/* custom properties propias del proyecto que sobrescriben/extienden las de BaseTheme */
+/**
+ * custom properties propias del proyecto que sobrescriben/extienden las de BaseTheme */
 @import './tailwind/theme.css' layer(TailwindCustomTheme);
 
-/* Reset CSS */
+/**
+ * Reset CSS
+ * basado en Tailwind 4
+ * https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/preflight.css */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
-/* custom properties con colores de componentes de shad cn */
+/**
+ * custom properties con colores de componentes de shad cn */
 @import './shad-cn/root.css' layer(shadcnRoot);
 
-/* Estilos base de shad cn */
-@import 'shadcn/tailwind.css' layer(shadcnBase);
+/**
+ * Estilos base de shad cn
+ * Sin layer() a propósito: este archivo define @custom-variant, @utility y @property
+ * de nivel superior, que Tailwind/CSS exigen fuera de cualquier @layer (error de build
+ * si quedan anidados). Los bloques @theme que también contiene solo definen @keyframes,
+ * no custom properties de color/radio, por lo que no compiten con shadcnRoot */
+@import 'shadcn/tailwind.css';
 
-/* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
+/**
+ * Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
 @import 'tailwindcss/utilities.css' layer(TailwindUtilities);
 
-/* configurar tema oscuro en Tailwind y shad cn
-https://tailwindcss.com/docs/dark-mode */
+/**
+ * configurar tema oscuro en Tailwind y shad cn
+ * https://tailwindcss.com/docs/dark-mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* #endregion */
+/**
+ * #endregion */

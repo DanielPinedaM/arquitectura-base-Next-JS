@@ -28,7 +28,61 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      /* -------------  carpeta contenedora de codigo fuente ------------- */
+      "@/*": ["./src/*"],
+
+      /* ------------- shad cn ------------- */
+      /* data-display */
+      "@shad-cn/carousel": ["./src/shared/ui/shad-cn/data-display/carousel/src/index.tsx"],
+      "@shad-cn/data-table": ["./src/shared/ui/shad-cn/data-display/data-table/src/index.tsx"],
+
+      /* react-hook-form/action */
+      "@shad-cn/button": ["./src/shared/ui/shad-cn/react-hook-form/action/button/src/index.tsx"],
+
+      /* react-hook-form/date */
+      "@shad-cn/calendar": ["./src/shared/ui/shad-cn/react-hook-form/date/calendar/src/index.tsx"],
+      "@shad-cn/date-picker": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/date-picker/src/index.tsx"
+      ],
+
+      /* react-hook-form/selection */
+      "@shad-cn/checkbox": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/checkbox/src/index.tsx"
+      ],
+      "@shad-cn/combobox": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/src/index.tsx"
+      ],
+      "@shad-cn/radio-group": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/radio-group/src/index.tsx"
+      ],
+      "@shad-cn/select": ["./src/shared/ui/shad-cn/react-hook-form/selection/select/src/index.tsx"],
+      "@shad-cn/switch": ["./src/shared/ui/shad-cn/react-hook-form/selection/switch/src/index.tsx"],
+
+      /* react-hook-form/text */
+      "@shad-cn/input": ["./src/shared/ui/shad-cn/react-hook-form/text/input/src/index.tsx"],
+      "@shad-cn/input-group": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/src/index.tsx"
+      ],
+      "@shad-cn/label": ["./src/shared/ui/shad-cn/react-hook-form/text/label/src/index.tsx"],
+      "@shad-cn/textarea": ["./src/shared/ui/shad-cn/react-hook-form/text/textarea/src/index.tsx"],
+
+      /* navigation */
+      "@shad-cn/accordion": ["./src/shared/ui/shad-cn/navigation/accordion/src/index.tsx"],
+      "@shad-cn/pagination": ["./src/shared/ui/shad-cn/navigation/pagination/src/index.tsx"],
+      "@shad-cn/tabs": ["./src/shared/ui/shad-cn/navigation/tabs/src/index.tsx"],
+
+      /* overlay */
+      "@shad-cn/alert-dialog": ["./src/shared/ui/shad-cn/overlay/alert-dialog/src/index.tsx"],
+      "@shad-cn/dialog": ["./src/shared/ui/shad-cn/overlay/dialog/src/index.tsx"],
+      "@shad-cn/drawer": ["./src/shared/ui/shad-cn/overlay/drawer/src/index.tsx"],
+      "@shad-cn/dropdown-menu": ["./src/shared/ui/shad-cn/overlay/dropdown-menu/src/index.tsx"],
+      "@shad-cn/popover": ["./src/shared/ui/shad-cn/overlay/popover/src/index.tsx"],
+      "@shad-cn/sheet": ["./src/shared/ui/shad-cn/overlay/sheet/src/index.tsx"],
+      "@shad-cn/sonner": ["./src/shared/ui/shad-cn/overlay/sonner/src/index.tsx"],
+      "@shad-cn/tooltip": ["./src/shared/ui/shad-cn/overlay/tooltip/src/index.tsx"],
+
+      /* utils */
+      "@shad-cn/utils": ["./src/shared/ui/shad-cn/utils/src/index.ts"]
     },
     "strict": false
   },

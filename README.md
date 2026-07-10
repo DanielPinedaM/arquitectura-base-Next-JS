@@ -329,6 +329,21 @@ src/
             └── theme.css → variables de Tailwind
 ```
 
+```txt
+src/shared/ui/
+└── shad-cn/ → componentes de shad cn
+    ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, sonner, tooltip)
+    ├── react-hook-form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción
+    │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
+    │   ├── date/ → selección de fechas (calendar, date-picker)
+    │   ├── selection/ → elegir entre opciones predefinidas (checkbox, combobox, radio-group, select, switch)
+    │   └── text/ → entrada de texto libre y su etiqueta (input, input-group, label, textarea)
+    ├── navigation/ → componentes de navegación (accordion, pagination, tabs)
+    ├── data-display/ → componentes de presentación de datos (carousel, data-table)
+    ├── hooks/ → hooks personalizados de shad cn
+    └── utils/ → NO es un componente: expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
+```
+
 # Feature Architecture
 
 Esta sección es la definición oficial de la arquitectura del proyecto. Toda decisión sobre dónde ubicar un archivo o carpeta debe respetarla de forma estricta.
@@ -1374,28 +1389,33 @@ Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, i
 * Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
 
 ### Componentes permitidos
-* accordion
-* Alert Dialog
-* Combobox
-* Date Picker
-* carousel
-* checkbox
-* Data Table (con @tanstack/react-table, paginación y sorting)
-* Dialog
-* Drawer
-* dropdown-menu
-* input
-* label
-* pagination
-* popover
-* Radio Group
-* Select
-* Sheet
-* Sonner (Toast)
-* Switch
-* Tabs
-* textarea
-* tooltip
+| Nombre legible | import alias |
+| -------------- | ------------ |
+| Accordion | `@shad-cn/accordion` |
+| Alert Dialog | `@shad-cn/alert-dialog` |
+| Button | `@shad-cn/button` |
+| Calendar | `@shad-cn/calendar` |
+| Carousel | `@shad-cn/carousel` |
+| Checkbox | `@shad-cn/checkbox` |
+| Combobox | `@shad-cn/combobox` |
+| Data Table (con `@tanstack/react-table`, paginación y sorting) | `@shad-cn/data-table` |
+| Date Picker | `@shad-cn/date-picker` |
+| Dialog | `@shad-cn/dialog` |
+| Drawer | `@shad-cn/drawer` |
+| Dropdown Menu | `@shad-cn/dropdown-menu` |
+| Input | `@shad-cn/input` |
+| Input Group | `@shad-cn/input-group` |
+| Label | `@shad-cn/label` |
+| Pagination | `@shad-cn/pagination` |
+| Popover | `@shad-cn/popover` |
+| Radio Group | `@shad-cn/radio-group` |
+| Select | `@shad-cn/select` |
+| Sheet | `@shad-cn/sheet` |
+| Sonner (Toast) | `@shad-cn/sonner` |
+| Switch | `@shad-cn/switch` |
+| Tabs | `@shad-cn/tabs` |
+| Textarea | `@shad-cn/textarea` |
+| Tooltip | `@shad-cn/tooltip` |
 
 ## 🧱 Configuración de Tailwind 4
 
