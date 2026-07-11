@@ -1,4 +1,4 @@
-/* Funciones traductoras Luxon <-> Date del Calendario de shad cn
+/** Funciones traductoras Luxon <-> Date del Calendario de shad cn
 
 Queda prohibido utilizar instancias de new Date()
 
@@ -45,16 +45,16 @@ import type {
   LuxonOnSelectHandler,
 } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';
 
-// Convierte un DateTime de Luxon a Date nativo, unico tipo que react-day-picker acepta internamente.
+/** Convierte un DateTime de Luxon a Date nativo, unico tipo que react-day-picker acepta internamente. */
 const dateTimeToJsDate = (dateTime: DateTime | undefined): Date | undefined =>
   dateTime instanceof DateTime && dateTime.isValid ? dateTime.toJSDate() : undefined;
 
-// Convierte el Date nativo que emite react-day-picker de vuelta a DateTime de Luxon,
-// que es lo que expone la interfaz publica del Calendar.
+/** Convierte el Date nativo que emite react-day-picker de vuelta a DateTime de Luxon,
+que es lo que expone la interfaz publica del Calendar. */
 const jsDateToDateTime = (date: Date | undefined): DateTime | undefined =>
   date instanceof Date ? DateTime.fromJSDate(date) : undefined;
 
-// Traduce un unico matcher Luxon al Matcher nativo (Date) que consume react-day-picker.
+/** Traduce un unico matcher Luxon al Matcher nativo (Date) que consume react-day-picker. */
 function toDayPickerMatcher(matcher: LuxonMatcher): Matcher {
   if (typeof matcher === 'boolean') return matcher;
   if (typeof matcher === 'function') return (date: Date) => matcher(DateTime.fromJSDate(date));
@@ -65,7 +65,7 @@ function toDayPickerMatcher(matcher: LuxonMatcher): Matcher {
     return { from: dateTimeToJsDate(matcher.from), to: dateTimeToJsDate(matcher.to) };
   }
 
-  // Restante: before (DateBefore), after (DateAfter) o ambos (DateInterval).
+  /** Restante: before (DateBefore), after (DateAfter) o ambos (DateInterval). */
   const interval: { before?: Date; after?: Date } = {};
   if ('before' in matcher && matcher.before instanceof DateTime) {
     interval.before = matcher.before.toJSDate();
@@ -76,14 +76,14 @@ function toDayPickerMatcher(matcher: LuxonMatcher): Matcher {
   return interval as Matcher;
 }
 
-// Traduce el valor de disabled/hidden (un matcher o un arreglo de matchers) a su equivalente nativo.
+/** Traduce el valor de disabled/hidden (un matcher o un arreglo de matchers) a su equivalente nativo. */
 function toDayPickerMatchers(
   value: LuxonMatcher | LuxonMatcher[] | undefined,
 ): Matcher | Matcher[] | undefined {
   if (value === undefined) return undefined;
 
   if (Array.isArray(value)) {
-    // DateTime[] es en si mismo un matcher (lista de fechas); si todos son DateTime se convierte directo.
+    /** DateTime[] es en si mismo un matcher (lista de fechas); si todos son DateTime se convierte directo. */
     if (value.every((item) => item instanceof DateTime)) {
       return (value as DateTime[]).map((dateTime) => dateTime.toJSDate());
     }
@@ -93,8 +93,8 @@ function toDayPickerMatchers(
   return toDayPickerMatcher(value);
 }
 
-// Envuelve un handler de dia Luxon para que reciba el Date nativo que emite react-day-picker
-// y lo entregue al consumidor como DateTime.
+/** Envuelve un handler de dia Luxon para que reciba el Date nativo que emite react-day-picker
+y lo entregue al consumidor como DateTime. */
 function wrapDayEventHandler<E>(
   handler: LuxonDayEventHandler<E> | undefined,
 ): ((date: Date, modifiers: Modifiers, e: E) => void) | undefined {
@@ -103,15 +103,15 @@ function wrapDayEventHandler<E>(
     : undefined;
 }
 
-// Envuelve un handler de cambio de mes Luxon para recibir el Date nativo de react-day-picker.
+/** Envuelve un handler de cambio de mes Luxon para recibir el Date nativo de react-day-picker. */
 function wrapMonthChangeHandler(
   handler: LuxonMonthChangeHandler | undefined,
 ): ((month: Date) => void) | undefined {
   return handler ? (month) => handler(DateTime.fromJSDate(month)) : undefined;
 }
 
-// Convierte las estructuras CalendarDay/CalendarWeek/CalendarMonth (con Date nativo) que emite
-// react-day-picker a sus equivalentes Luxon para los formatters, labels y components del consumidor.
+/** Convierte las estructuras CalendarDay/CalendarWeek/CalendarMonth (con Date nativo) que emite
+react-day-picker a sus equivalentes Luxon para los formatters, labels y components del consumidor. */
 function toLuxonCalendarDay(day: CalendarDay): LuxonCalendarDay {
   return {
     date: DateTime.fromJSDate(day.date),
@@ -131,8 +131,8 @@ function toLuxonCalendarMonth(month: CalendarMonth): LuxonCalendarMonth {
   return { date: DateTime.fromJSDate(month.date), weeks: month.weeks.map(toLuxonCalendarWeek) };
 }
 
-// Envuelve los formatters Luxon del consumidor: cada wrapper recibe el Date nativo que emite
-// react-day-picker y lo entrega al consumidor ya convertido a DateTime.
+/** Envuelve los formatters Luxon del consumidor: cada wrapper recibe el Date nativo que emite
+react-day-picker y lo entrega al consumidor ya convertido a DateTime. */
 function wrapFormatters(formatters: Partial<LuxonFormatters> | undefined): Partial<Formatters> {
   if (!formatters) return {};
 
@@ -165,7 +165,7 @@ function wrapFormatters(formatters: Partial<LuxonFormatters> | undefined): Parti
   return wrapped;
 }
 
-// Envuelve los labels Luxon del consumidor con el mismo patron que wrapFormatters.
+/** Envuelve los labels Luxon del consumidor con el mismo patron que wrapFormatters. */
 function wrapLabels(labels: Partial<LuxonLabels> | undefined): Partial<Labels> | undefined {
   if (!labels) return undefined;
 
@@ -206,10 +206,10 @@ function wrapLabels(labels: Partial<LuxonLabels> | undefined): Partial<Labels> |
   return wrapped;
 }
 
-// Envuelve los componentes personalizados Luxon del consumidor: cada wrapper recibe las props
-// nativas (CalendarDay/CalendarWeek/CalendarMonth/Date) de react-day-picker y las traduce a
-// DateTime antes de delegar en el componente del consumidor. Los componentes que no exponen
-// fechas pasan sin modificacion.
+/** Envuelve los componentes personalizados Luxon del consumidor: cada wrapper recibe las props
+nativas (CalendarDay/CalendarWeek/CalendarMonth/Date) de react-day-picker y las traduce a
+DateTime antes de delegar en el componente del consumidor. Los componentes que no exponen
+fechas pasan sin modificacion. */
 function wrapComponents(components: Partial<LuxonCustomComponents>): Partial<CustomComponents> {
   const { Day, DayButton, Month, MonthCaption, Week, WeekNumber, Nav, ...passthrough } = components;
 
@@ -272,9 +272,9 @@ function wrapComponents(components: Partial<LuxonCustomComponents>): Partial<Cus
   return wrapped;
 }
 
-// Traduce la seleccion Luxon de la interfaz publica a la seleccion Date que consume react-day-picker,
-// y envuelve onSelect para devolver DateTime al consumidor (incluido triggerDate, el segundo
-// parametro de OnSelectHandler). Esta es la unica frontera Luxon <-> Date.
+/** Traduce la seleccion Luxon de la interfaz publica a la seleccion Date que consume react-day-picker,
+y envuelve onSelect para devolver DateTime al consumidor (incluido triggerDate, el segundo
+parametro de OnSelectHandler). Esta es la unica frontera Luxon <-> Date. */
 function toDayPickerSelection(
   mode: CalendarSelectionProps['mode'],
   selected: DateTime | DateTime[] | DateTimeRange | undefined,

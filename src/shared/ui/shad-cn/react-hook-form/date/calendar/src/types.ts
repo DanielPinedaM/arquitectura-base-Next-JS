@@ -1,4 +1,4 @@
-/* Tipos del Calendario de shad cn migrados a Luxon (DateTime)
+/** Tipos del Calendario de shad cn migrados a Luxon (DateTime)
 
 Por cada tipo de node_modules/react-day-picker que use Date (ej. Matcher, Formatters, Labels,
 CustomComponents, CalendarDay, CalendarWeek, CalendarMonth, DateRange, etc.), existe aqui un
@@ -18,13 +18,13 @@ import type { DateTime } from 'luxon';
 
 import type { Button } from '@shad-cn/button';
 
-// Rango de fechas expresado con DateTime de Luxon (equivalente al DateRange nativo de
-// react-day-picker, que internamente usa Date).
+/** Rango de fechas expresado con DateTime de Luxon (equivalente al DateRange nativo de
+react-day-picker, que internamente usa Date). */
 type DateTimeRange = { from: DateTime | undefined; to?: DateTime | undefined };
 
-// Matchers de dias expresados con DateTime de Luxon (equivalen a los Matcher de react-day-picker,
-// que internamente usan Date). Nota: en dayOfWeek los indices siguen la convencion nativa
-// getDay() (0 = domingo ... 6 = sabado) porque son numeros, no fechas.
+/** Matchers de dias expresados con DateTime de Luxon (equivalen a los Matcher de react-day-picker,
+que internamente usan Date). Nota: en dayOfWeek los indices siguen la convencion nativa
+getDay() (0 = domingo ... 6 = sabado) porque son numeros, no fechas. */
 type LuxonDateBefore = { before: DateTime };
 type LuxonDateAfter = { after: DateTime };
 type LuxonDateInterval = { before: DateTime; after: DateTime };
@@ -40,9 +40,9 @@ type LuxonMatcher =
   | LuxonDateInterval
   | LuxonDayOfWeek;
 
-// Props de navegacion y matchers del Calendar, migradas a DateTime de Luxon.
-// Toda la superficie de fechas de la interfaz publica trabaja con Luxon; la conversion a Date
-// nativo ocurre unicamente en la frontera con react-day-picker.
+/** Props de navegacion y matchers del Calendar, migradas a DateTime de Luxon.
+Toda la superficie de fechas de la interfaz publica trabaja con Luxon; la conversion a Date
+nativo ocurre unicamente en la frontera con react-day-picker. */
 type CalendarDateProps = {
   defaultMonth?: DateTime;
   month?: DateTime;
@@ -54,8 +54,8 @@ type CalendarDateProps = {
   modifiers?: Record<string, LuxonMatcher | LuxonMatcher[] | undefined>;
 };
 
-// Event handlers de dias/meses expresados con DateTime de Luxon (equivalen a DayEventHandler y
-// MonthChangeEventHandler de react-day-picker, que exponen Date). Asi ninguna prop publica expone Date.
+/** Event handlers de dias/meses expresados con DateTime de Luxon (equivalen a DayEventHandler y
+MonthChangeEventHandler de react-day-picker, que exponen Date). Asi ninguna prop publica expone Date. */
 type LuxonDayEventHandler<E> = (date: DateTime, modifiers: Modifiers, e: E) => void;
 type LuxonMonthChangeHandler = (month: DateTime) => void;
 
@@ -71,9 +71,9 @@ type CalendarEventProps = {
   onPrevClick?: LuxonMonthChangeHandler;
 };
 
-// Handler de seleccion expresado con DateTime de Luxon (equivale a OnSelectHandler<T> de
-// react-day-picker, cuyo segundo parametro triggerDate es Date). Replica los 4 parametros de la
-// firma nativa: seleccion, dia que disparo el evento, modifiers y evento de React.
+/** Handler de seleccion expresado con DateTime de Luxon (equivale a OnSelectHandler<T> de
+react-day-picker, cuyo segundo parametro triggerDate es Date). Replica los 4 parametros de la
+firma nativa: seleccion, dia que disparo el evento, modifiers y evento de React. */
 type LuxonOnSelectHandler<T> = (
   selected: T,
   triggerDate: DateTime,
@@ -81,7 +81,7 @@ type LuxonOnSelectHandler<T> = (
   e: React.MouseEvent | React.KeyboardEvent,
 ) => void;
 
-// Variantes de seleccion de la interfaz publica del Calendar, ya migradas a DateTime de Luxon.
+/** Variantes de seleccion de la interfaz publica del Calendar, ya migradas a DateTime de Luxon. */
 type CalendarSelectionProps =
   | {
       mode?: 'single';
@@ -99,10 +99,10 @@ type CalendarSelectionProps =
       onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>;
     };
 
-// Formatters expresados con DateTime de Luxon (equivalen al tipo Formatters de react-day-picker,
-// cuyas funciones reciben Date). Los parametros internos options/dateLib de las firmas nativas
-// no se exponen porque pertenecen a la libreria de fechas interna de react-day-picker (date-fns)
-// y filtrarian tipos nativos a la interfaz publica.
+/** Formatters expresados con DateTime de Luxon (equivalen al tipo Formatters de react-day-picker,
+cuyas funciones reciben Date). Los parametros internos options/dateLib de las firmas nativas
+no se exponen porque pertenecen a la libreria de fechas interna de react-day-picker (date-fns)
+y filtrarian tipos nativos a la interfaz publica. */
 type LuxonFormatters = {
   formatCaption: (month: DateTime) => string;
   formatDay: (date: DateTime) => string;
@@ -113,9 +113,9 @@ type LuxonFormatters = {
   formatYearDropdown: (year: DateTime) => string;
 };
 
-// Labels (aria-labels) expresados con DateTime de Luxon (equivalen al tipo Labels de
-// react-day-picker, cuyas funciones reciben Date). Igual que en LuxonFormatters, se omiten
-// los parametros internos options/dateLib.
+/** Labels (aria-labels) expresados con DateTime de Luxon (equivalen al tipo Labels de
+react-day-picker, cuyas funciones reciben Date). Igual que en LuxonFormatters, se omiten
+los parametros internos options/dateLib. */
 type LuxonLabels = {
   labelNav: () => string;
   labelGrid: (date: DateTime) => string;
@@ -130,9 +130,9 @@ type LuxonLabels = {
   labelWeekNumberHeader: () => string;
 };
 
-// Equivalentes Luxon de las clases CalendarDay/CalendarWeek/CalendarMonth de react-day-picker,
-// que exponen Date nativo en date y displayMonth. Los campos isoDate/displayMonthId/dateMonthId
-// son strings estables (utiles como keys) y se conservan tal cual.
+/** Equivalentes Luxon de las clases CalendarDay/CalendarWeek/CalendarMonth de react-day-picker,
+que exponen Date nativo en date y displayMonth. Los campos isoDate/displayMonthId/dateMonthId
+son strings estables (utiles como keys) y se conservan tal cual. */
 type LuxonCalendarDay = {
   date: DateTime;
   displayMonth: DateTime;
@@ -144,7 +144,7 @@ type LuxonCalendarDay = {
 type LuxonCalendarWeek = { weekNumber: number; days: LuxonCalendarDay[] };
 type LuxonCalendarMonth = { date: DateTime; weeks: LuxonCalendarWeek[] };
 
-// Props de los componentes personalizables que exponen fechas, re-expresadas con Luxon.
+/** Props de los componentes personalizables que exponen fechas, re-expresadas con Luxon. */
 type LuxonDayProps = Omit<React.ComponentProps<CustomComponents['Day']>, 'day'> & {
   day: LuxonCalendarDay;
 };
@@ -169,9 +169,9 @@ type LuxonNavProps = Omit<
   'previousMonth' | 'nextMonth'
 > & { previousMonth?: DateTime; nextMonth?: DateTime };
 
-// CustomComponents con la superficie de fechas migrada a Luxon: los componentes que reciben
-// CalendarDay/CalendarMonth/CalendarWeek o Date nativo se reemplazan por sus equivalentes
-// DateTime; el resto de componentes no expone fechas y se conserva con su tipo original.
+/** CustomComponents con la superficie de fechas migrada a Luxon: los componentes que reciben
+CalendarDay/CalendarMonth/CalendarWeek o Date nativo se reemplazan por sus equivalentes
+DateTime; el resto de componentes no expone fechas y se conserva con su tipo original. */
 type LuxonCustomComponents = Omit<
   CustomComponents,
   'Day' | 'DayButton' | 'Month' | 'MonthCaption' | 'Week' | 'WeekNumber' | 'Nav'
@@ -185,16 +185,16 @@ type LuxonCustomComponents = Omit<
   Nav: (props: LuxonNavProps) => React.JSX.Element;
 };
 
-// Props de personalizacion (formatters, labels, components) migradas a DateTime de Luxon.
+/** Props de personalizacion (formatters, labels, components) migradas a DateTime de Luxon. */
 type CalendarCustomizationProps = {
   formatters?: Partial<LuxonFormatters>;
   labels?: Partial<LuxonLabels>;
   components?: Partial<LuxonCustomComponents>;
 };
 
-// Ademas de las props de fecha, se excluyen del Omit:
-// - formatters, labels, components: se reemplazan por sus equivalentes Luxon (CalendarCustomizationProps).
-// - dateLib y noonSafe: marcadas @experimental en react-day-picker; su uso esta prohibido en este proyecto.
+/** Ademas de las props de fecha, se excluyen del Omit:
+- formatters, labels, components: se reemplazan por sus equivalentes Luxon (CalendarCustomizationProps).
+- dateLib y noonSafe: marcadas @experimental en react-day-picker; su uso esta prohibido en este proyecto. */
 type CalendarProps = Omit<
   PropsBase,
   | 'mode'
@@ -227,8 +227,8 @@ type CalendarProps = Omit<
   CalendarSelectionProps &
   CalendarCustomizationProps;
 
-// Seleccion en el formato que exige react-day-picker (Date nativo), con la firma completa de
-// OnSelectHandler para poder traducir triggerDate a DateTime en la frontera.
+/** Seleccion en el formato que exige react-day-picker (Date nativo), con la firma completa de
+OnSelectHandler para poder traducir triggerDate a DateTime en la frontera. */
 type DayPickerSelectionProps =
   | {
       mode: 'single';

@@ -1,6 +1,6 @@
 'use client';
 
-/* Calendario de shad cn
+/** Calendario de shad cn
 
 Queda prohibido utilizar instancias de new Date()
 
@@ -83,14 +83,14 @@ function Calendar({
 
   const selectionProps = toDayPickerSelection(mode, selected, onSelect);
 
-  // Los wrappers de components se memorizan para que su identidad sea estable entre renders;
-  // recrearlos en cada render haria que react-day-picker desmonte y vuelva a montar el subarbol.
+  /** Los wrappers de components se memorizan para que su identidad sea estable entre renders;
+  recrearlos en cada render haria que react-day-picker desmonte y vuelva a montar el subarbol. */
   const dayPickerComponents = React.useMemo(
     () => (components ? wrapComponents(components) : undefined),
     [components],
   );
 
-  // Convierte el record de modifiers (matchers Luxon) al formato nativo de react-day-picker.
+  /** Convierte el record de modifiers (matchers Luxon) al formato nativo de react-day-picker. */
   const dayPickerModifiers: Record<string, Matcher | Matcher[] | undefined> | undefined = modifiers
     ? Object.fromEntries(
         Object.entries(modifiers).map(([key, value]): [string, Matcher | Matcher[] | undefined] => [

@@ -1,4 +1,4 @@
-/* Calendario de shad cn — Barrel Export (unico punto de entrada publico del modulo)
+/** Calendario de shad cn — Barrel Export (unico punto de entrada publico del modulo)
 
 Queda prohibido utilizar instancias de new Date()
 

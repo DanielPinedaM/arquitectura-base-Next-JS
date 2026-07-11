@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 import { cn } from '@shad-cn/utils';
 import { Button } from '@shad-cn/button';
 
-/* CalendarDayButton es el DayButton por defecto que se registra directamente en <DayPicker>,
+/** CalendarDayButton es el DayButton por defecto que se registra directamente en <DayPicker>,
 por lo que recibe las props nativas de la libreria (day: CalendarDay, cuyo campo date es Date).
 Es un punto de contacto interno con react-day-picker, no interfaz publica del Calendar: el
 consumidor que personaliza components.DayButton recibe day como LuxonCalendarDay (DateTime)
