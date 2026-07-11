@@ -1,12 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Nullable } from 'primereact/ts-helpers';
 import { DateTime } from 'luxon';
+
+// Tipos de valor de fecha que formatDate acepta y puede retornar. Cuando la entrada no es válida
+// o no es formateable, la función devuelve el valor original recibido (de ahí la unión).
+type FormatDateValue = Date | string | Nullable<Date> | DateTime;
 
 /**
 Eliminar espacio en blanco reemplazando:
 - "p. m" por "p.m"
 - "a. m" por "a.m" */
-const replaceAmPm = (date: Date | string | any): string | any => {
+const replaceAmPm = (date: string): string => {
   if (!date) return date;
 
   return date
@@ -18,9 +21,9 @@ const replaceAmPm = (date: Date | string | any): string | any => {
 /**
 formato de fecha y/o hora con formato personalizado */
 export const formatDate = (
-  date: Date | string | Nullable<Date> | DateTime,
+  date: FormatDateValue,
   format: string = 'd-LLL-yyyy',
-): string | any => {
+): FormatDateValue => {
   let dateTime: DateTime;
 
   if (date instanceof DateTime) {
