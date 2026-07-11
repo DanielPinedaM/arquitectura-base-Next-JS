@@ -1388,11 +1388,14 @@ Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, i
 * Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
 
 ### Componentes permitidos
+Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
+
+Cada fila indica el alias de import, definido en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@spartan-ng/<componente>`).
+
 | Nombre legible | import alias |
 | -------------- | ------------ |
 | Accordion | `@shad-cn/accordion` |
 | Alert Dialog | `@shad-cn/alert-dialog` |
-| Button | `@shad-cn/button` |
 | Calendar | `@shad-cn/calendar` |
 | Carousel | `@shad-cn/carousel` |
 | Checkbox | `@shad-cn/checkbox` |
