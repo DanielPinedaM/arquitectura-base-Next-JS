@@ -3,7 +3,6 @@ import { DateTime } from 'luxon';
 /**
 convierte cualquier fecha (string, Date o DateTime) al formato personalizado indicado,
 siempre retornando un DateTime de luxon (o null si la fecha es inválida) */
-type FormatDateValue = string | Date | DateTime;
 export const formatDate = (
   rawDate: string | Date | DateTime,
   format: string = "yyyy-MM-dd'T'HH:mm:ss'Z'",
