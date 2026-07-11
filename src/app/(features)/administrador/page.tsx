@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import FetchData from '@/app/(features)/administrador/fetch/fetchData';
+import FetchData from '@/app/(features)/administrador/fetch/FetchData';
 
 /* Page() crea la ruta  http://localhost:3000/fetch-ssr */
 export default function Page() {

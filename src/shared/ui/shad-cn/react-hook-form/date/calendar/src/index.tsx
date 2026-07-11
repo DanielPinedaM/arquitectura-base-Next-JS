@@ -38,13 +38,13 @@ b) El valor que retorna este componente
 Estructura del modulo:
 - types.ts               → tipos publicos e internos migrados a Luxon
 - converters.tsx         → funciones traductoras Luxon <-> Date (frontera con react-day-picker)
-- calendar.tsx           → componente principal Calendar
-- calendar-day-button.tsx → componente CalendarDayButton (DayButton por defecto) */
+- Calendar.tsx           → componente principal Calendar
+- CalendarDayButton.tsx  → componente CalendarDayButton (DayButton por defecto) */
 
 'use client';
 
-export { Calendar } from './calendar';
-export { CalendarDayButton } from './calendar-day-button';
+export { Calendar } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/Calendar';
+export { CalendarDayButton } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/CalendarDayButton';
 export type {
   CalendarProps,
   CalendarDateProps,
@@ -62,4 +62,4 @@ export type {
   LuxonCalendarDay,
   LuxonCalendarWeek,
   LuxonCalendarMonth,
-} from './types';
+} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';

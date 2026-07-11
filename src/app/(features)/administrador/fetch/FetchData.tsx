@@ -1,4 +1,4 @@
-import ListData from '@/app/(features)/administrador/fetch/listData';
+import ListData from '@/app/(features)/administrador/fetch/ListData';
 import { GET } from '@/shared/api/http-client/http-gateway.api';
 import { IRequestOptions } from '@/shared/api/http-client/data-types/interfaces/gateway.interface';
 

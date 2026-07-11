@@ -34,7 +34,7 @@ import { cn } from '@shad-cn/utils';
 import { buttonVariants } from '@shad-cn/button';
 import { LuChevronLeft, LuChevronRight, LuChevronDown } from 'react-icons/lu';
 
-import { CalendarDayButton } from './calendar-day-button';
+import { CalendarDayButton } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/CalendarDayButton';
 import {
   dateTimeToJsDate,
   toDayPickerMatchers,
@@ -44,8 +44,8 @@ import {
   wrapFormatters,
   wrapLabels,
   wrapMonthChangeHandler,
-} from './converters';
-import type { CalendarProps } from './types';
+} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/converters';
+import type { CalendarProps } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';
 
 function Calendar({
   className,

@@ -19,7 +19,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/shared/ui/shad-cn/data-display/data-table/src/table';
+} from '@/shared/ui/shad-cn/data-display/data-table/src/Table';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
