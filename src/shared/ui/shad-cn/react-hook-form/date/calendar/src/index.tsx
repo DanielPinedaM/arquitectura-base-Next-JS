@@ -8,9 +8,15 @@ que se usa porque es una dependencia de DayPicker,
 pero siempre las fechas de react-day-picker se transforman a Luxon
 
 REGLAS OBLIGATORIAS:
-Deben ser de tipo Luxon (DateTime):
-1) Todas las props que recibe este componente
-2) El valor que retorna este componente */
+1) Deben ser de tipo Luxon (DateTime):
+a) Todas las props que recibe este componente
+b) El valor que retorna este componente
+
+2) PROHIBIDO usar funciones experimentales como dateLib
+
+3) OBLIGATORIO usar Barrel Exports
+
+4) los tipos de datos de node_modules/react-day-picker tienen que coincidir con su equivalente en luxon */
 
 'use client';
 
@@ -18,7 +24,12 @@ import * as React from 'react';
 import {
   DayPicker,
   getDefaultClassNames,
-  type DayButton,
+  type CalendarDay,
+  type CalendarMonth,
+  type CalendarWeek,
+  type CustomComponents,
+  type Formatters,
+  type Labels,
   type Locale,
   type PropsBase,
   type DateRange,
@@ -102,6 +113,102 @@ type CalendarSelectionProps =
       onSelect?: (range: DateTimeRange | undefined) => void;
     };
 
+// Formatters expresados con DateTime de Luxon (equivalen al tipo Formatters de react-day-picker,
+// cuyas funciones reciben Date). Los parametros internos options/dateLib de las firmas nativas
+// no se exponen porque pertenecen a la libreria de fechas interna de react-day-picker (date-fns)
+// y filtrarian tipos nativos a la interfaz publica.
+type LuxonFormatters = {
+  formatCaption: (month: DateTime) => string;
+  formatDay: (date: DateTime) => string;
+  formatMonthDropdown: (month: DateTime) => string;
+  formatWeekNumber: (weekNumber: number) => string;
+  formatWeekNumberHeader: () => string;
+  formatWeekdayName: (weekday: DateTime) => string;
+  formatYearDropdown: (year: DateTime) => string;
+};
+
+// Labels (aria-labels) expresados con DateTime de Luxon (equivalen al tipo Labels de
+// react-day-picker, cuyas funciones reciben Date). Igual que en LuxonFormatters, se omiten
+// los parametros internos options/dateLib.
+type LuxonLabels = {
+  labelNav: () => string;
+  labelGrid: (date: DateTime) => string;
+  labelGridcell: (date: DateTime, modifiers?: Modifiers) => string;
+  labelMonthDropdown: () => string;
+  labelYearDropdown: () => string;
+  labelNext: (month: DateTime | undefined) => string;
+  labelPrevious: (month: DateTime | undefined) => string;
+  labelDayButton: (date: DateTime, modifiers: Modifiers) => string;
+  labelWeekday: (date: DateTime) => string;
+  labelWeekNumber: (weekNumber: number) => string;
+  labelWeekNumberHeader: () => string;
+};
+
+// Equivalentes Luxon de las clases CalendarDay/CalendarWeek/CalendarMonth de react-day-picker,
+// que exponen Date nativo en date y displayMonth. Los campos isoDate/displayMonthId/dateMonthId
+// son strings estables (utiles como keys) y se conservan tal cual.
+type LuxonCalendarDay = {
+  date: DateTime;
+  displayMonth: DateTime;
+  outside: boolean;
+  isoDate: string;
+  displayMonthId: string;
+  dateMonthId: string;
+};
+type LuxonCalendarWeek = { weekNumber: number; days: LuxonCalendarDay[] };
+type LuxonCalendarMonth = { date: DateTime; weeks: LuxonCalendarWeek[] };
+
+// Props de los componentes personalizables que exponen fechas, re-expresadas con Luxon.
+type LuxonDayProps = Omit<React.ComponentProps<CustomComponents['Day']>, 'day'> & {
+  day: LuxonCalendarDay;
+};
+type LuxonDayButtonProps = Omit<React.ComponentProps<CustomComponents['DayButton']>, 'day'> & {
+  day: LuxonCalendarDay;
+};
+type LuxonMonthProps = Omit<React.ComponentProps<CustomComponents['Month']>, 'calendarMonth'> & {
+  calendarMonth: LuxonCalendarMonth;
+};
+type LuxonMonthCaptionProps = Omit<
+  React.ComponentProps<CustomComponents['MonthCaption']>,
+  'calendarMonth'
+> & { calendarMonth: LuxonCalendarMonth };
+type LuxonWeekProps = Omit<React.ComponentProps<CustomComponents['Week']>, 'week'> & {
+  week: LuxonCalendarWeek;
+};
+type LuxonWeekNumberProps = Omit<React.ComponentProps<CustomComponents['WeekNumber']>, 'week'> & {
+  week: LuxonCalendarWeek;
+};
+type LuxonNavProps = Omit<
+  React.ComponentProps<CustomComponents['Nav']>,
+  'previousMonth' | 'nextMonth'
+> & { previousMonth?: DateTime; nextMonth?: DateTime };
+
+// CustomComponents con la superficie de fechas migrada a Luxon: los componentes que reciben
+// CalendarDay/CalendarMonth/CalendarWeek o Date nativo se reemplazan por sus equivalentes
+// DateTime; el resto de componentes no expone fechas y se conserva con su tipo original.
+type LuxonCustomComponents = Omit<
+  CustomComponents,
+  'Day' | 'DayButton' | 'Month' | 'MonthCaption' | 'Week' | 'WeekNumber' | 'Nav'
+> & {
+  Day: (props: LuxonDayProps) => React.JSX.Element;
+  DayButton: (props: LuxonDayButtonProps) => React.JSX.Element;
+  Month: (props: LuxonMonthProps) => React.JSX.Element;
+  MonthCaption: (props: LuxonMonthCaptionProps) => React.JSX.Element;
+  Week: (props: LuxonWeekProps) => React.JSX.Element;
+  WeekNumber: (props: LuxonWeekNumberProps) => React.JSX.Element;
+  Nav: (props: LuxonNavProps) => React.JSX.Element;
+};
+
+// Props de personalizacion (formatters, labels, components) migradas a DateTime de Luxon.
+type CalendarCustomizationProps = {
+  formatters?: Partial<LuxonFormatters>;
+  labels?: Partial<LuxonLabels>;
+  components?: Partial<LuxonCustomComponents>;
+};
+
+// Ademas de las props de fecha, se excluyen del Omit:
+// - formatters, labels, components: se reemplazan por sus equivalentes Luxon (CalendarCustomizationProps).
+// - dateLib y noonSafe: marcadas @experimental en react-day-picker; su uso esta prohibido en este proyecto.
 type CalendarProps = Omit<
   PropsBase,
   | 'mode'
@@ -122,11 +229,17 @@ type CalendarProps = Omit<
   | 'onMonthChange'
   | 'onNextClick'
   | 'onPrevClick'
+  | 'formatters'
+  | 'labels'
+  | 'components'
+  | 'dateLib'
+  | 'noonSafe'
 > & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
 } & CalendarDateProps &
   CalendarEventProps &
-  CalendarSelectionProps;
+  CalendarSelectionProps &
+  CalendarCustomizationProps;
 
 // Seleccion en el formato que exige react-day-picker (Date nativo).
 type DayPickerSelectionProps =
@@ -207,6 +320,168 @@ function wrapMonthChangeHandler(
   return handler ? (month) => handler(DateTime.fromJSDate(month)) : undefined;
 }
 
+// Convierte las estructuras CalendarDay/CalendarWeek/CalendarMonth (con Date nativo) que emite
+// react-day-picker a sus equivalentes Luxon para los formatters, labels y components del consumidor.
+function toLuxonCalendarDay(day: CalendarDay): LuxonCalendarDay {
+  return {
+    date: DateTime.fromJSDate(day.date),
+    displayMonth: DateTime.fromJSDate(day.displayMonth),
+    outside: day.outside,
+    isoDate: day.isoDate,
+    displayMonthId: day.displayMonthId,
+    dateMonthId: day.dateMonthId,
+  };
+}
+
+function toLuxonCalendarWeek(week: CalendarWeek): LuxonCalendarWeek {
+  return { weekNumber: week.weekNumber, days: week.days.map(toLuxonCalendarDay) };
+}
+
+function toLuxonCalendarMonth(month: CalendarMonth): LuxonCalendarMonth {
+  return { date: DateTime.fromJSDate(month.date), weeks: month.weeks.map(toLuxonCalendarWeek) };
+}
+
+// Envuelve los formatters Luxon del consumidor: cada wrapper recibe el Date nativo que emite
+// react-day-picker y lo entrega al consumidor ya convertido a DateTime.
+function wrapFormatters(formatters: Partial<LuxonFormatters> | undefined): Partial<Formatters> {
+  if (!formatters) return {};
+
+  const {
+    formatCaption,
+    formatDay,
+    formatMonthDropdown,
+    formatWeekNumber,
+    formatWeekNumberHeader,
+    formatWeekdayName,
+    formatYearDropdown,
+  } = formatters;
+
+  const wrapped: Partial<Formatters> = {};
+
+  if (formatCaption) wrapped.formatCaption = (month) => formatCaption(DateTime.fromJSDate(month));
+  if (formatDay) wrapped.formatDay = (date) => formatDay(DateTime.fromJSDate(date));
+  if (formatMonthDropdown) {
+    wrapped.formatMonthDropdown = (month) => formatMonthDropdown(DateTime.fromJSDate(month));
+  }
+  if (formatWeekNumber) wrapped.formatWeekNumber = (weekNumber) => formatWeekNumber(weekNumber);
+  if (formatWeekNumberHeader) wrapped.formatWeekNumberHeader = () => formatWeekNumberHeader();
+  if (formatWeekdayName) {
+    wrapped.formatWeekdayName = (weekday) => formatWeekdayName(DateTime.fromJSDate(weekday));
+  }
+  if (formatYearDropdown) {
+    wrapped.formatYearDropdown = (year) => formatYearDropdown(DateTime.fromJSDate(year));
+  }
+
+  return wrapped;
+}
+
+// Envuelve los labels Luxon del consumidor con el mismo patron que wrapFormatters.
+function wrapLabels(labels: Partial<LuxonLabels> | undefined): Partial<Labels> | undefined {
+  if (!labels) return undefined;
+
+  const {
+    labelNav,
+    labelGrid,
+    labelGridcell,
+    labelMonthDropdown,
+    labelYearDropdown,
+    labelNext,
+    labelPrevious,
+    labelDayButton,
+    labelWeekday,
+    labelWeekNumber,
+    labelWeekNumberHeader,
+  } = labels;
+
+  const wrapped: Partial<Labels> = {};
+
+  if (labelNav) wrapped.labelNav = () => labelNav();
+  if (labelGrid) wrapped.labelGrid = (date) => labelGrid(DateTime.fromJSDate(date));
+  if (labelGridcell) {
+    wrapped.labelGridcell = (date, modifiers) =>
+      labelGridcell(DateTime.fromJSDate(date), modifiers);
+  }
+  if (labelMonthDropdown) wrapped.labelMonthDropdown = () => labelMonthDropdown();
+  if (labelYearDropdown) wrapped.labelYearDropdown = () => labelYearDropdown();
+  if (labelNext) wrapped.labelNext = (month) => labelNext(jsDateToDateTime(month));
+  if (labelPrevious) wrapped.labelPrevious = (month) => labelPrevious(jsDateToDateTime(month));
+  if (labelDayButton) {
+    wrapped.labelDayButton = (date, modifiers) =>
+      labelDayButton(DateTime.fromJSDate(date), modifiers);
+  }
+  if (labelWeekday) wrapped.labelWeekday = (date) => labelWeekday(DateTime.fromJSDate(date));
+  if (labelWeekNumber) wrapped.labelWeekNumber = (weekNumber) => labelWeekNumber(weekNumber);
+  if (labelWeekNumberHeader) wrapped.labelWeekNumberHeader = () => labelWeekNumberHeader();
+
+  return wrapped;
+}
+
+// Envuelve los componentes personalizados Luxon del consumidor: cada wrapper recibe las props
+// nativas (CalendarDay/CalendarWeek/CalendarMonth/Date) de react-day-picker y las traduce a
+// DateTime antes de delegar en el componente del consumidor. Los componentes que no exponen
+// fechas pasan sin modificacion.
+function wrapComponents(components: Partial<LuxonCustomComponents>): Partial<CustomComponents> {
+  const { Day, DayButton, Month, MonthCaption, Week, WeekNumber, Nav, ...passthrough } = components;
+
+  const wrapped: Partial<CustomComponents> = { ...passthrough };
+
+  if (Day) {
+    const WrappedDay = ({ day, ...props }: LuxonDayProps) => (
+      <Day day={toLuxonCalendarDay(day)} {...props} />
+    );
+    WrappedDay.displayName = 'Day';
+    wrapped.Day = WrappedDay;
+  }
+  if (DayButton) {
+    const WrappedDayButton = ({ day, ...props }: LuxonDayButtonProps) => (
+      <DayButton day={toLuxonCalendarDay(day)} {...props} />
+    );
+    WrappedDayButton.displayName = 'DayButton';
+    wrapped.DayButton = WrappedDayButton;
+  }
+  if (Month) {
+    const WrappedMonth = ({ calendarMonth, ...props }: LuxonMonthProps) => (
+      <Month calendarMonth={toLuxonCalendarMonth(calendarMonth)} {...props} />
+    );
+    WrappedMonth.displayName = 'Month';
+    wrapped.Month = WrappedMonth;
+  }
+  if (MonthCaption) {
+    const WrappedMonthCaption = ({ calendarMonth, ...props }: LuxonMonthCaptionProps) => (
+      <MonthCaption calendarMonth={toLuxonCalendarMonth(calendarMonth)} {...props} />
+    );
+    WrappedMonthCaption.displayName = 'MonthCaption';
+    wrapped.MonthCaption = WrappedMonthCaption;
+  }
+  if (Week) {
+    const WrappedWeek = ({ week, ...props }: LuxonWeekProps) => (
+      <Week week={toLuxonCalendarWeek(week)} {...props} />
+    );
+    WrappedWeek.displayName = 'Week';
+    wrapped.Week = WrappedWeek;
+  }
+  if (WeekNumber) {
+    const WrappedWeekNumber = ({ week, ...props }: LuxonWeekNumberProps) => (
+      <WeekNumber week={toLuxonCalendarWeek(week)} {...props} />
+    );
+    WrappedWeekNumber.displayName = 'WeekNumber';
+    wrapped.WeekNumber = WrappedWeekNumber;
+  }
+  if (Nav) {
+    const WrappedNav = ({ previousMonth, nextMonth, ...props }: LuxonNavProps) => (
+      <Nav
+        previousMonth={jsDateToDateTime(previousMonth)}
+        nextMonth={jsDateToDateTime(nextMonth)}
+        {...props}
+      />
+    );
+    WrappedNav.displayName = 'Nav';
+    wrapped.Nav = WrappedNav;
+  }
+
+  return wrapped;
+}
+
 // Traduce la seleccion Luxon de la interfaz publica a la seleccion Date que consume react-day-picker,
 // y envuelve onSelect para devolver DateTime al consumidor. Esta es la unica frontera Luxon <-> Date.
 function toDayPickerSelection(
@@ -265,6 +540,7 @@ function Calendar({
   buttonVariant = 'ghost',
   locale,
   formatters,
+  labels,
   components,
   mode,
   selected,
@@ -291,6 +567,13 @@ function Calendar({
   const defaultClassNames = getDefaultClassNames();
 
   const selectionProps = toDayPickerSelection(mode, selected, onSelect);
+
+  // Los wrappers de components se memorizan para que su identidad sea estable entre renders;
+  // recrearlos en cada render haria que react-day-picker desmonte y vuelva a montar el subarbol.
+  const dayPickerComponents = React.useMemo(
+    () => (components ? wrapComponents(components) : undefined),
+    [components],
+  );
 
   // Convierte el record de modifiers (matchers Luxon) al formato nativo de react-day-picker.
   const dayPickerModifiers: Record<string, Matcher | Matcher[] | undefined> | undefined = modifiers
@@ -336,8 +619,9 @@ function Calendar({
           DateTime.fromJSDate(date)
             .setLocale(locale?.code ?? 'en-US')
             .toLocaleString({ month: 'short' }),
-        ...formatters,
+        ...wrapFormatters(formatters),
       }}
+      labels={wrapLabels(labels)}
       classNames={{
         root: cn('w-fit', defaultClassNames.root),
         months: cn('relative flex flex-col gap-4 md:flex-row', defaultClassNames.months),
@@ -438,20 +722,26 @@ function Calendar({
             </td>
           );
         },
-        ...components,
+        ...dayPickerComponents,
       }}
       {...props}
     />
   );
 }
 
+/* CalendarDayButton es el DayButton por defecto que se registra directamente en <DayPicker>,
+por lo que recibe las props nativas de la libreria (day: CalendarDay, cuyo campo date es Date).
+Es un punto de contacto interno con react-day-picker, no interfaz publica del Calendar: el
+consumidor que personaliza components.DayButton recibe day como LuxonCalendarDay (DateTime)
+via wrapComponents. Toda fecha que este boundary necesita usar (data-day) se transforma a
+Luxon antes de usarse, sin instanciar new Date(). */
 function CalendarDayButton({
   className,
   day,
   modifiers,
   locale,
   ...props
-}: React.ComponentProps<typeof DayButton> & { locale?: Partial<Locale> }) {
+}: React.ComponentProps<CustomComponents['DayButton']> & { locale?: Partial<Locale> }) {
   const defaultClassNames = getDefaultClassNames();
 
   const ref = React.useRef<HTMLButtonElement>(null);
@@ -463,7 +753,9 @@ function CalendarDayButton({
     <Button
       variant='ghost'
       size='icon'
-      data-day={day.date.toLocaleDateString(locale?.code)}
+      data-day={DateTime.fromJSDate(day.date)
+        .setLocale(locale?.code ?? 'en-US')
+        .toLocaleString()}
       data-selected-single={
         modifiers.selected &&
         !modifiers.range_start &&
@@ -484,4 +776,17 @@ function CalendarDayButton({
 }
 
 export { Calendar, CalendarDayButton };
-export type { CalendarProps, CalendarDateProps, CalendarEventProps, DateTimeRange, LuxonMatcher };
+export type {
+  CalendarProps,
+  CalendarDateProps,
+  CalendarEventProps,
+  CalendarCustomizationProps,
+  DateTimeRange,
+  LuxonMatcher,
+  LuxonFormatters,
+  LuxonLabels,
+  LuxonCustomComponents,
+  LuxonCalendarDay,
+  LuxonCalendarWeek,
+  LuxonCalendarMonth,
+};
