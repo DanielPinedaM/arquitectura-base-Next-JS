@@ -42,6 +42,7 @@ import type {
   LuxonLabels,
   LuxonMatcher,
   LuxonMonthChangeHandler,
+  LuxonOnSelectHandler,
 } from './types';
 
 // Convierte un DateTime de Luxon a Date nativo, unico tipo que react-day-picker acepta internamente.
@@ -272,52 +273,63 @@ function wrapComponents(components: Partial<LuxonCustomComponents>): Partial<Cus
 }
 
 // Traduce la seleccion Luxon de la interfaz publica a la seleccion Date que consume react-day-picker,
-// y envuelve onSelect para devolver DateTime al consumidor. Esta es la unica frontera Luxon <-> Date.
+// y envuelve onSelect para devolver DateTime al consumidor (incluido triggerDate, el segundo
+// parametro de OnSelectHandler). Esta es la unica frontera Luxon <-> Date.
 function toDayPickerSelection(
   mode: CalendarSelectionProps['mode'],
   selected: DateTime | DateTime[] | DateTimeRange | undefined,
   onSelect:
-    | ((date: DateTime | undefined) => void)
-    | ((dates: DateTime[] | undefined) => void)
-    | ((range: DateTimeRange | undefined) => void)
+    | LuxonOnSelectHandler<DateTime | undefined>
+    | LuxonOnSelectHandler<DateTime[] | undefined>
+    | LuxonOnSelectHandler<DateTimeRange | undefined>
     | undefined,
 ): DayPickerSelectionProps {
   if (mode === 'multiple') {
     const luxonSelected = selected as DateTime[] | undefined;
-    const luxonOnSelect = onSelect as ((dates: DateTime[] | undefined) => void) | undefined;
+    const luxonOnSelect = onSelect as LuxonOnSelectHandler<DateTime[] | undefined> | undefined;
 
     return {
       mode: 'multiple',
       selected: luxonSelected?.map((dateTime) => dateTime.toJSDate()),
-      onSelect: (dates) => luxonOnSelect?.(dates?.map((date) => DateTime.fromJSDate(date))),
+      onSelect: (dates, triggerDate, modifiers, e) =>
+        luxonOnSelect?.(
+          dates?.map((date) => DateTime.fromJSDate(date)),
+          DateTime.fromJSDate(triggerDate),
+          modifiers,
+          e,
+        ),
     };
   }
 
   if (mode === 'range') {
     const luxonSelected = selected as DateTimeRange | undefined;
-    const luxonOnSelect = onSelect as ((range: DateTimeRange | undefined) => void) | undefined;
+    const luxonOnSelect = onSelect as LuxonOnSelectHandler<DateTimeRange | undefined> | undefined;
 
     return {
       mode: 'range',
       selected: luxonSelected
         ? { from: dateTimeToJsDate(luxonSelected.from), to: dateTimeToJsDate(luxonSelected.to) }
         : undefined,
-      onSelect: (range) =>
+      onSelect: (range, triggerDate, modifiers, e) =>
         luxonOnSelect?.(
           range
             ? { from: jsDateToDateTime(range.from), to: jsDateToDateTime(range.to) }
             : undefined,
+          DateTime.fromJSDate(triggerDate),
+          modifiers,
+          e,
         ),
     };
   }
 
   const luxonSelected = selected as DateTime | undefined;
-  const luxonOnSelect = onSelect as ((date: DateTime | undefined) => void) | undefined;
+  const luxonOnSelect = onSelect as LuxonOnSelectHandler<DateTime | undefined> | undefined;
 
   return {
     mode: 'single',
     selected: dateTimeToJsDate(luxonSelected),
-    onSelect: (date) => luxonOnSelect?.(jsDateToDateTime(date)),
+    onSelect: (date, triggerDate, modifiers, e) =>
+      luxonOnSelect?.(jsDateToDateTime(date), DateTime.fromJSDate(triggerDate), modifiers, e),
   };
 }
 

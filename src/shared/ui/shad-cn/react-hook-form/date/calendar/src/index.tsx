@@ -33,6 +33,8 @@ b) El valor que retorna este componente
 
 6) PROHIBIDO modificar node_modules
 
+7) PROHIBIDO actualizar react-day-picker@10.0.1 porque puede dañar el componente de calendario
+
 Estructura del modulo:
 - types.ts               → tipos publicos e internos migrados a Luxon
 - converters.tsx         → funciones traductoras Luxon <-> Date (frontera con react-day-picker)
@@ -47,9 +49,13 @@ export type {
   CalendarProps,
   CalendarDateProps,
   CalendarEventProps,
+  CalendarSelectionProps,
   CalendarCustomizationProps,
   DateTimeRange,
   LuxonMatcher,
+  LuxonDayEventHandler,
+  LuxonMonthChangeHandler,
+  LuxonOnSelectHandler,
   LuxonFormatters,
   LuxonLabels,
   LuxonCustomComponents,

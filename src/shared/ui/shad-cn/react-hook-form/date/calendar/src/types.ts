@@ -7,7 +7,13 @@ forma/estructura (misma cantidad de campos o parametros, mismo proposito), pero 
 reemplazado por DateTime en cada posicion donde aparezca. */
 
 import type * as React from 'react';
-import type { CustomComponents, DateRange, Modifiers, PropsBase } from 'react-day-picker';
+import type {
+  CustomComponents,
+  DateRange,
+  Modifiers,
+  OnSelectHandler,
+  PropsBase,
+} from 'react-day-picker';
 import type { DateTime } from 'luxon';
 
 import type { Button } from '@shad-cn/button';
@@ -65,22 +71,32 @@ type CalendarEventProps = {
   onPrevClick?: LuxonMonthChangeHandler;
 };
 
+// Handler de seleccion expresado con DateTime de Luxon (equivale a OnSelectHandler<T> de
+// react-day-picker, cuyo segundo parametro triggerDate es Date). Replica los 4 parametros de la
+// firma nativa: seleccion, dia que disparo el evento, modifiers y evento de React.
+type LuxonOnSelectHandler<T> = (
+  selected: T,
+  triggerDate: DateTime,
+  modifiers: Modifiers,
+  e: React.MouseEvent | React.KeyboardEvent,
+) => void;
+
 // Variantes de seleccion de la interfaz publica del Calendar, ya migradas a DateTime de Luxon.
 type CalendarSelectionProps =
   | {
       mode?: 'single';
       selected?: DateTime;
-      onSelect?: (date: DateTime | undefined) => void;
+      onSelect?: LuxonOnSelectHandler<DateTime | undefined>;
     }
   | {
       mode: 'multiple';
       selected?: DateTime[];
-      onSelect?: (dates: DateTime[] | undefined) => void;
+      onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>;
     }
   | {
       mode: 'range';
       selected?: DateTimeRange;
-      onSelect?: (range: DateTimeRange | undefined) => void;
+      onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>;
     };
 
 // Formatters expresados con DateTime de Luxon (equivalen al tipo Formatters de react-day-picker,
@@ -211,18 +227,23 @@ type CalendarProps = Omit<
   CalendarSelectionProps &
   CalendarCustomizationProps;
 
-// Seleccion en el formato que exige react-day-picker (Date nativo).
+// Seleccion en el formato que exige react-day-picker (Date nativo), con la firma completa de
+// OnSelectHandler para poder traducir triggerDate a DateTime en la frontera.
 type DayPickerSelectionProps =
-  | { mode: 'single'; selected: Date | undefined; onSelect: (date: Date | undefined) => void }
+  | {
+      mode: 'single';
+      selected: Date | undefined;
+      onSelect: OnSelectHandler<Date | undefined>;
+    }
   | {
       mode: 'multiple';
       selected: Date[] | undefined;
-      onSelect: (dates: Date[] | undefined) => void;
+      onSelect: OnSelectHandler<Date[] | undefined>;
     }
   | {
       mode: 'range';
       selected: DateRange | undefined;
-      onSelect: (range: DateRange | undefined) => void;
+      onSelect: OnSelectHandler<DateRange | undefined>;
     };
 
 export type {
@@ -235,6 +256,7 @@ export type {
   LuxonMatcher,
   LuxonDayEventHandler,
   LuxonMonthChangeHandler,
+  LuxonOnSelectHandler,
   LuxonFormatters,
   LuxonLabels,
   LuxonCustomComponents,
