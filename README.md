@@ -307,7 +307,7 @@ src/
 ├── shared/
 │   └── ui/
 │       └── shad-cn/ → componentes de shad cn
-│           ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, sonner, tooltip)
+│           ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, toast/sonner, tooltip)
 │           ├── react-hook-form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción; todos usan react hook form Controller excepto button
 │           │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
 │           │   ├── date/ → selección de fechas (calendar, date-picker)
