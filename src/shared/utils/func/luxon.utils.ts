@@ -1,9 +1,4 @@
-import { Nullable } from 'primereact/ts-helpers';
 import { DateTime } from 'luxon';
-
-// Tipos de valor de fecha que formatDate acepta y puede retornar. Cuando la entrada no es válida
-// o no es formateable, la función devuelve el valor original recibido (de ahí la unión).
-type FormatDateValue = Date | string | Nullable<Date> | DateTime;
 
 /**
 Eliminar espacio en blanco reemplazando:
@@ -20,6 +15,7 @@ const replaceAmPm = (date: string): string => {
 
 /**
 formato de fecha y/o hora con formato personalizado */
+type FormatDateValue = string | Date | DateTime;
 export const formatDate = (
   date: FormatDateValue,
   format: string = 'd-LLL-yyyy',
