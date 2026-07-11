@@ -140,3 +140,8 @@ En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto
 
 ## Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
+
+## REGLA OBLIGATORIA
+Está **TOTALMENTE PROHIBIDO** realizar cualquier modificación cuando te solicite hacer un **commit**.
+
+Si detectas algún problema, **infórmamelo y espera mi autorización explícita para poder modificar**. **Nunca** realices cambios por iniciativa propia ni asumas autorización sin antes preguntarme.
