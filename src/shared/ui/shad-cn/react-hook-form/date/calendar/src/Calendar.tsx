@@ -44,7 +44,7 @@ import {
   wrapFormatters,
   wrapLabels,
   wrapMonthChangeHandler,
-} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/converters';
+} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/Converters';
 import type { CalendarProps } from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';
 
 function Calendar({

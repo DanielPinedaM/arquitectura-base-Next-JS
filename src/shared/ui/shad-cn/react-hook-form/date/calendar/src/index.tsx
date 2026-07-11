@@ -37,7 +37,7 @@ b) El valor que retorna este componente
 
 Estructura del modulo:
 - types.ts               → tipos publicos e internos migrados a Luxon
-- converters.tsx         → funciones traductoras Luxon <-> Date (frontera con react-day-picker)
+- Converters.tsx         → funciones traductoras Luxon <-> Date (frontera con react-day-picker)
 - Calendar.tsx           → componente principal Calendar
 - CalendarDayButton.tsx  → componente CalendarDayButton (DayButton por defecto) */
 
