@@ -78,7 +78,7 @@
       "@shad-cn/dropdown-menu": ["./src/shared/ui/shad-cn/overlay/dropdown-menu/src/index.tsx"],
       "@shad-cn/popover": ["./src/shared/ui/shad-cn/overlay/popover/src/index.tsx"],
       "@shad-cn/sheet": ["./src/shared/ui/shad-cn/overlay/sheet/src/index.tsx"],
-      "@shad-cn/sonner": ["./src/shared/ui/shad-cn/overlay/sonner/src/index.tsx"],
+      "@shad-cn/toast": ["./src/shared/ui/shad-cn/overlay/toast/src/index.tsx"],
       "@shad-cn/tooltip": ["./src/shared/ui/shad-cn/overlay/tooltip/src/index.tsx"],
 
       /* utils */
