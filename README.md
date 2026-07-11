@@ -1347,7 +1347,7 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
    En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
 ### Refuerzo para formularios
-Además de lo anterior, en formularios es obligatorio usar los componentes de Spartan de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+Además de lo anterior, en formularios es obligatorio usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
 
 Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
 
@@ -1390,34 +1390,34 @@ Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, i
 ### Componentes permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
 
-Cada fila indica el alias de import, definido en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@spartan-ng/<componente>`).
+Cada fila indica el alias de import, definido en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<componente>`).
 
-| Nombre legible | import alias |
-| -------------- | ------------ |
-| Accordion | `@shad-cn/accordion` |
-| Alert Dialog | `@shad-cn/alert-dialog` |
-| Calendar | `@shad-cn/calendar` |
-| Carousel | `@shad-cn/carousel` |
-| Checkbox | `@shad-cn/checkbox` |
-| Combobox | `@shad-cn/combobox` |
-| Data Table (con `@tanstack/react-table`, paginación y sorting) | `@shad-cn/data-table` |
-| Date Picker | `@shad-cn/date-picker` |
-| Dialog | `@shad-cn/dialog` |
-| Drawer | `@shad-cn/drawer` |
-| Dropdown Menu | `@shad-cn/dropdown-menu` |
-| Input | `@shad-cn/input` |
-| Input Group | `@shad-cn/input-group` |
-| Label | `@shad-cn/label` |
-| Pagination | `@shad-cn/pagination` |
-| Popover | `@shad-cn/popover` |
-| Radio Group | `@shad-cn/radio-group` |
-| Select | `@shad-cn/select` |
-| Sheet | `@shad-cn/sheet` |
-| Sonner (Toast) | `@shad-cn/sonner` |
-| Switch | `@shad-cn/switch` |
-| Tabs | `@shad-cn/tabs` |
-| Textarea | `@shad-cn/textarea` |
-| Tooltip | `@shad-cn/tooltip` |
+| Nombre                                                         | import alias             |
+| -------------------------------------------------------------- | ------------------------ |
+| Accordion                                                      | `@shad-cn/accordion`     |
+| Alert Dialog                                                   | `@shad-cn/alert-dialog`  |
+| Calendar                                                       | `@shad-cn/calendar`      |
+| Carousel                                                       | `@shad-cn/carousel`      |
+| Checkbox                                                       | `@shad-cn/checkbox`      |
+| Combobox                                                       | `@shad-cn/combobox`      |
+| Data Table (con `@tanstack/react-table`, paginación y sorting) | `@shad-cn/data-table`    |
+| Date Picker                                                    | `@shad-cn/date-picker`   |
+| Dialog                                                         | `@shad-cn/dialog`        |
+| Drawer                                                         | `@shad-cn/drawer`        |
+| Dropdown Menu                                                  | `@shad-cn/dropdown-menu` |
+| Input                                                          | `@shad-cn/input`         |
+| Input Group                                                    | `@shad-cn/input-group`   |
+| Label                                                          | `@shad-cn/label`         |
+| Pagination                                                     | `@shad-cn/pagination`    |
+| Popover                                                        | `@shad-cn/popover`       |
+| Radio Group                                                    | `@shad-cn/radio-group`   |
+| Select                                                         | `@shad-cn/select`        |
+| Sheet                                                          | `@shad-cn/sheet`         |
+| Toast (Sonner)                                                 | `@shad-cn/toast`         |
+| Switch                                                         | `@shad-cn/switch`        |
+| Tabs                                                           | `@shad-cn/tabs`          |
+| Textarea                                                       | `@shad-cn/textarea`      |
+| Tooltip                                                        | `@shad-cn/tooltip`       |
 
 ## 🧱 Configuración de Tailwind 4
 
