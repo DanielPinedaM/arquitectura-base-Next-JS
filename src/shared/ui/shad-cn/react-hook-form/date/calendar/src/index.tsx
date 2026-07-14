@@ -36,7 +36,7 @@ b) El valor que retorna este componente
 7) PROHIBIDO actualizar react-day-picker@10.0.1 porque puede dañar el componente de calendario
 
 Estructura del modulo:
-- types.ts               → tipos publicos e internos migrados a Luxon
+- calendar.types.ts      → tipos publicos e internos migrados a Luxon
 - Converters.tsx         → funciones traductoras Luxon <-> Date (frontera con react-day-picker)
 - Calendar.tsx           → componente principal Calendar
 - CalendarDayButton.tsx  → componente CalendarDayButton (DayButton por defecto) */
@@ -62,4 +62,4 @@ export type {
   LuxonCalendarDay,
   LuxonCalendarWeek,
   LuxonCalendarMonth,
-} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';
+} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/calendar.types';

@@ -43,7 +43,7 @@ import type {
   LuxonMatcher,
   LuxonMonthChangeHandler,
   LuxonOnSelectHandler,
-} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/types';
+} from '@/shared/ui/shad-cn/react-hook-form/date/calendar/src/calendar.types';
 
 /** Convierte un DateTime de Luxon a Date nativo, unico tipo que react-day-picker acepta internamente. */
 const dateTimeToJsDate = (dateTime: DateTime | undefined): Date | undefined =>
