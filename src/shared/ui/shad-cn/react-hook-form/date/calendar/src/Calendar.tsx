@@ -28,6 +28,7 @@ b) El valor que retorna este componente
 
 import * as React from 'react';
 import { DayPicker, getDefaultClassNames, type Matcher } from 'react-day-picker';
+import { es } from 'react-day-picker/locale';
 import { DateTime } from 'luxon';
 
 import { cn } from '@shad-cn/utils';
@@ -53,7 +54,7 @@ function Calendar({
   showOutsideDays = true,
   captionLayout = 'label',
   buttonVariant = 'ghost',
-  locale,
+  locale = es,
   formatters,
   labels,
   components,
@@ -132,7 +133,7 @@ function Calendar({
       formatters={{
         formatMonthDropdown: (date) =>
           DateTime.fromJSDate(date)
-            .setLocale(locale?.code ?? 'en-US')
+            .setLocale(locale?.code ?? 'es')
             .toLocaleString({ month: 'short' }),
         ...wrapFormatters(formatters),
       }}

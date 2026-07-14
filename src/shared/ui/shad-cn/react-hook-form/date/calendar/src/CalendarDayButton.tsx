@@ -32,7 +32,7 @@ function CalendarDayButton({
       variant='ghost'
       size='icon'
       data-day={DateTime.fromJSDate(day.date)
-        .setLocale(locale?.code ?? 'en-US')
+        .setLocale(locale?.code ?? 'es')
         .toLocaleString()}
       data-selected-single={
         modifiers.selected &&
