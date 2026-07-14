@@ -796,165 +796,19 @@ Un componente pertenece a `components` cuando conoce el dominio, participa en un
 La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
 # 📅 Fechas
+* **OBLITATORIO** usar Luxon para el manejo de fechas.
 
-Usar la librería **Luxon** para el manejo de fechas. **NO** usar `new Date()` **NI** librerías como Moment.js.
+* **PROHIBIDO** usar `new Date()` nativo de JavaScript.
 
-Esto se debe a que:
+*  **PROHIBIDO** usar cualquier otra libreria diferente a luxon.
 
-- `new Date()` tiene comportamientos inconsistentes entre zonas horarias.
+* En los calendarios de shad cn ubicados en `src/shared/ui/shad-cn/react-hook-form/date`, toda su interfaz pública de fechas (props y callbacks, como `onSelect`) es de tipo Luxon `DateTime`.
 
-- `new Date()` Es difícil de formatear y manipular de forma segura.
+* **OBLIGATORIO** usar los calendarios ubicados en `src/shared/ui/shad-cn/react-hook-form/date` para la selección de fechas.
 
-- `new Date()` No maneja bien timezones ni conversiones complejas.
+* **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
 
-- [Moment.js está en modo legacy/deprecado y ya no se recomienda para proyectos modernos.](https://momentjs.com/docs/#/-project-status/)
-
-- Luxon ofrece una API más clara, moderna y robusta para fechas, tiempos y zonas horarias.
-
-**_❌ Incorrecto - usar `new Date()`_**
-
-```ts
-const now = new Date();
-const formatted = now.toLocaleDateString();
-```
-
-**_❌ Incorrecto - usar moment.js_**
-
-```ts
-import moment from 'moment';
-
-const today = moment().format('YYYY-MM-DD');
-```
-
-**_✅ Correcto - usar Luxon_**
-
-```ts
-import { DateTime } from 'luxon';
-
-const now = DateTime.now();
-const formatted = now.toFormat('yyyy-MM-dd');
-```
-
-En `src\shared\utils\func\luxon.utils.ts` hay funciones para el manejo (formateo) de fecha y hora usando Luxon.
-
-**_❌ Incorrecto - NO usar `formatDate`, usar Luxon directo_**
-
-Problemas de este enfoque:
-
-- Repetición de código en múltiples componentes
-
-- cada dev formatea fechas de forma distinta, sin estandarización.
-
-```ts
-'use client';
-import { DateTime } from 'luxon';
-
-export default function MyComponent() {
-
-  const getDate = () => {
-    const now = DateTime.now();
-
-    const formatted = now
-      .setLocale('es')
-      .toFormat('d-LLL-yyyy hh:mm:ss a');
-
-    console.log(formatted);
-  };
-
-  return (
-      <button onClick={getDate}>
-        Mostrar fecha
-      </button>
-  );
-}
-```
-
-**_✅ Correcto - usar `formatDate`_**
-
-```ts
-'use client';
-import { DateTime } from 'luxon';
-import { formatDate } from "@/shared/utils/func/luxon.utils";
-
-export default function MyComponent() {
-
-  const getDate = () => {
-    const formatted = formatDate(
-      DateTime.now(),
-      'd-LLL-yyyy hh:mm:ss a'
-    );
-
-    console.log(formatted);
-  };
-
-  return (
-      <button onClick={getDate}>
-        Mostrar fecha
-      </button>
-  );
-}
-```
-
-En `src\shared\utils\func\luxon.utils.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada
-
-**_❌ Incorrecto - usar Luxon directamente para obtener fecha y hora actual_**
-
-Problemas de este enfoque:
-
-- Repetición de código en múltiples componentes
-
-- cada dev formatea fechas de forma distinta, sin estandarización.
-
-```ts
-'use client';
-import { DateTime } from 'luxon';
-
-export default function MyComponent() {
-
-  const getCurrentDateTime = () => {
-    const now = DateTime.now()
-      .setLocale('es')
-      .toFormat('d-LLL-yyyy hh:mm:ss a')
-      .replace(/\.$/, '');
-
-    const fixed = now
-      .replace(/p\.\s?m/gi, 'p.m')
-      .replace(/a\.\s?m/gi, 'a.m');
-
-    console.log(fixed);
-  };
-
-  return (
-      <button onClick={getCurrentDateTime}>
-        Mostrar fecha actual
-      </button>
-  );
-}
-```
-
-**_✅ Ejemplo correcto - usar `luxon.utils.ts`_**
-
-```ts
-'use client';
-import { currentDateAndTime } from "@/shared/utils/func/luxon.utils";
-
-export default function MyComponent() {
-
-  const getCurrentDateTime = () => {
-    const current = currentDateAndTime(
-      'd-LLL-yyyy hh:mm:ss a'
-    );
-
-    console.log(current);
-  };
-
-  return (
-      <button onClick={getCurrentDateTime}>
-        Mostrar fecha actual
-      </button>
-  );
-}
-```
+* En `src\shared\utils\func\luxon.utils.ts` hay funciones que puedes usar, sin logica de negocio para el manejo (formateo) de fecha y hora usando Luxon.
 
 # 📝 Formularios - Integración Shad cn y React Hook Form
 
