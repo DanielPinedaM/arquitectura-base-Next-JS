@@ -799,34 +799,32 @@ La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 # 📅 Fechas
 1. **OBLIGATORIO** usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería diferente de Luxon.
 
-2. En todos los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, toda su interfaz pública de fechas (`input()` y `output()`, como `dateChange`) es de tipo Luxon `DateTime`.
+2. En todos los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, toda su interfaz pública de fechas (props, como `selected`, `onSelect`, `date` u `onDateChange`) es de tipo Luxon `DateTime`.
 
 3. **OBLIGATORIO** usar los calendarios  para la selección de fechas definidos en "Componentes de Calendarios". **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
 
 4. **OBLIGATORIO** utilizar exclusivamente los componentes definidos en la sección **"Componentes Permitidos de Calendarios"** para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
 
-5. **OBLIGATORIO** mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección **"Calendarios permitidos"**, a través de sus `input()` y `output()` (`date`, `dateChange`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. **OBLIGATORIO** que ese valor viaje en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
+5. **OBLIGATORIO** mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, a través de sus props (`selected`, `onSelect`, `date`, `onDateChange`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. **OBLIGATORIO** que ese valor viaje en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
 
-6. En `src/shared/services/Luxon.service.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. **OBLIGATORIO** reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
+6. En `src/shared/utils/func/luxon.utils.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. **OBLIGATORIO** reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
 
 ## Componentes Permitidos de Calendarios
 
-### `src\shared\design\ui\spartan-ng\form\date\calendar`
-* `hlm-calendar`
-* `hlm-calendar-range`
-* `hlm-calendar-multi`
+### `src\shared\ui\shad-cn\react-hook-form\date\calendar`
+* `Calendar` con prop `mode="single"`: selección de una única fecha `selected?: DateTime`, `onSelect?: LuxonOnSelectHandler<DateTime | undefined>`
+* `Calendar` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
+* `Calendar` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
 
-### `src\shared\design\ui\spartan-ng\form\date\date-picker`
-* `hlm-date-picker`
-* `hlm-date-picker-multi`
-* `hlm-date-range-picker`
+### `src\shared\ui\shad-cn\react-hook-form\date\date-picker`
+* `DatePicker`: props `date?: DateTime`, `onDateChange (date: DateTime | undefined) => void`
 
 # 📝 Formularios - Integración Shad cn y React Hook Form
 
 Todos los formularios del proyecto deben utilizar obligatoriamente:
 
 - React Hook Form
-- Componentes ubicados en `src/shared/ui/shad-cn/react-hook-form`
+- Componentes ubicados en `src\shared\ui\shad-cn\react-hook-form`
 
 No crear formularios con manejo manual de estado cuando exista un componente React Hook Form equivalente.
 
