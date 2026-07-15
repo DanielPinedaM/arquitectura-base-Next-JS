@@ -58,7 +58,7 @@ function Calendar({
   formatters,
   labels,
   components,
-  mode,
+  mode = 'single',
   selected,
   onSelect,
   defaultMonth,
