@@ -191,7 +191,7 @@ pn i
 | `pn build:test` | Pruebas     | `environments/.env.test`       |
 | `pn build:prod` | Producción  | `environments/.env.production` |
 
-# Configuración de Next.js con IA
+# ⚛️ Configuración de Next.js con IA
 Estas configuraciones son oficiales del equipo de Vercel, que es quien desarrolla Next.js.
 
 No tiene que hacer nada, ya todo está configurado. Solo tiene que abrir una IA en el bash/CLI en la ruta de este proyecto y funcionará.
