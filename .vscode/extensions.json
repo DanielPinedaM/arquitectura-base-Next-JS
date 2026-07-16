@@ -4,6 +4,12 @@
     "dbaeumer.vscode-eslint",
     "usernamehw.errorlens",
     "EditorConfig.EditorConfig",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "WallabyJs.console-ninja",
+    "dsznajder.es7-react-js-snippets",
+    "christian-kohler.path-intellisense",
+    "steoates.autoimport",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag"
   ]
 }
