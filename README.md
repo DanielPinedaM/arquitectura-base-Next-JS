@@ -145,6 +145,52 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.mjs`
 
+# ⚙️ Entorno de Ejecución
+Obligatorio el uso de Node.js, prohibido usar alternativas como:
+
+* Bun
+* Deno
+
+# 📦 Manejador de Paquetes
+Obligatorio el uso de `pnpm` y `pnpm-lock.yaml` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
+
+* npm
+* npx
+* package-lock.json
+* yarn
+
+# 🟢 Administrador de Versiones para Node.js
+Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
+
+* nvm
+* volta
+
+Este proyecto usa Node.js 24.18.0
+
+# 🏷️ Alias
+Para todos los comandos de `pnpm` usar el alias `pn`
+
+# 📦 Instalar Paquetes
+
+```console
+pn i
+```
+
+# ▶️ Scripts de desarrollo
+
+| Comando          | Entorno     | Archivo de configuración       |
+| ---------------- | ----------- | ------------------------------ |
+| `pn start:local` | Local host  | `environments/.env.localhost`  |
+| `pn start:test`  | Pruebas     | `environments/.env.test`       |
+| `pn start:prod`  | Producción  | `environments/.env.production` |
+
+# 🚀 Generar build (dist) para Desplegar
+
+| Comando         | Entorno     | Archivo de configuración       |
+| --------------- | ----------- | ------------------------------ |
+| `pn build:test` | Pruebas     | `environments/.env.test`       |
+| `pn build:prod` | Producción  | `environments/.env.production` |
+
 # Configuración de Next.js con IA
 Estas configuraciones son oficiales del equipo de Vercel, que es quien desarrolla Next.js.
 
@@ -254,56 +300,6 @@ Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar e
 - Conocimiento de la estructura completa del código.
 - Acceso al sistema operativo (archivos y carpetas).
 - Capacidad para realizar cambios respetando la arquitectura del proyecto.
-
----
-
-# 📋 Contexto para la IA
-
-# ⚙️ Entorno de Ejecución
-Obligatorio el uso de Node.js, prohibido usar alternativas como:
-
-* Bun
-* Deno
-
-# 📦 Manejador de Paquetes
-Obligatorio el uso de `pnpm` y `pnpm-lock.yaml` version `>=11.0.0 <12.0.0`. Esta **BLOQUEADO** el uso de otras alternativas como:
-
-* npm
-* npx
-* package-lock.json
-* yarn
-
-# 🟢 Administrador de Versiones para Node.js
-Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
-
-* nvm
-* volta
-
-Este proyecto usa Node.js 24.18.0
-
-# 🏷️ Alias
-Para todos los comandos de `pnpm` usar el alias `pn`
-
-# 📦 Instalar Paquetes
-
-```console
-pn i
-```
-
-# ▶️ Scripts de desarrollo
-
-| Comando          | Entorno     | Archivo de configuración       |
-| ---------------- | ----------- | ------------------------------ |
-| `pn start:local` | Local host  | `environments/.env.localhost`  |
-| `pn start:test`  | Pruebas     | `environments/.env.test`       |
-| `pn start:prod`  | Producción  | `environments/.env.production` |
-
-# 🚀 Generar build (dist) para Desplegar
-
-| Comando         | Entorno     | Archivo de configuración       |
-| --------------- | ----------- | ------------------------------ |
-| `pn build:test` | Pruebas     | `environments/.env.test`       |
-| `pn build:prod` | Producción  | `environments/.env.production` |
 
 # 📁 Estructura Base del Proyecto
 
