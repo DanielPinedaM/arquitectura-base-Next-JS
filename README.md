@@ -216,18 +216,50 @@ pn i
 >
 > Aunque es un texto largo, aprenderás la arquitectura, buenas prácticas y a detectar revisando el código, cuando la IA alucina
 
-# ⚛️ Configuración de Next.js con IA
+# 🤖 Uso de IA
+
+> [!CAUTION]
+> # ⚠️ **IMPORTANTE** 🚨
+>
+> ****Ignorar esta sección ocasionará que la IA genere código que no respeta la arquitectura, estructura ni las convenciones del proyecto, produciendo código legacy, inconsistente, desordenado y con malas practicas****
+
+## Principales IA para Desarrollo de Software
+
+| Empresa ↓ \ Plataforma → | Web                                                                                     | Desktop                                                               | Terminal / Bash / CLI                                              |
+| ------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Anthropic                | [Claude Web](https://claude.ai/)                                                        | [Claude Desktop](https://youtu.be/DYwZy7VNKws?si=cXTPumpZ3Jr9rNn9)    | [Claude Code](https://youtu.be/Bf7hfpItrDk?si=wjUIcIgtDX_Loyey)    |
+| Open AI                  | [Chat GPT](https://chatgpt.com/)                                                        | [GPT Codex Desktop](https://youtu.be/bgx8ownl3O4?si=TzbOntfYIBVN1PGU) | [Codex](https://youtu.be/Ub-K1n4YYsg?si=EoIXGCzEa4ZxyRqA)          |
+| Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
+| Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
+| Cursor                   | [Cursor Web](https://cursor.com/agents)                                                 | [Cursor Desktop](https://youtu.be/XWsOQTqVl0w?si=0OVGRnYSCH46v2zf)    | [Cursor CLI](https://cursor.com/es/cli)                            |
+
+## ✏️ Edición de Código
+Este proyecto esta configurado para usar _IAs de pago y desde la terminal_. **NO** sirve si usas IAs gratis o desde una pagina web, porque estan limitadas.
+
+**Razones:**
+* Si copias y pegas codigo desde plataforma web al proyecto, es probable que cometas errores
+
+Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
+
+* Mayor comprensión del proyecto y de la estructura completa del código (_contexto_ y _tokens_).
+
+* Acceso al sistema operativo (archivos y carpetas) y capacidad para ejecutar comandos.
+
+* Capacidad para realizar cambios respetando la arquitectura del proyecto.
+
+* Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
+
+# [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
+
+# ⚛️ Configurar Nest.js para que Funcione con IA
 Estas configuraciones son oficiales del equipo de Vercel, que es quien desarrolla Next.js.
 
-No tiene que hacer nada, ya todo está configurado. Solo tiene que abrir una IA en el bash/CLI en la ruta de este proyecto y funcionará.
+Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
-```console
-cd /ruta/a/tu/proyecto
-```
+# `AGENTS.md`
+Contiene instrucciones que se inyectan SIEMPRE en cada prompt, para que la IA respete arquitectura del proyecto.
 
-Este proyecto ya tiene configurado lo siguiente:
-
-1. **[Archivo AGENTS.md](https://nextjs.org/docs/app/guides/ai-agents) en la raíz del proyecto:** Permite a la IA acceder a la documentación oficial que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
+Permite a la IA acceder a la documentación oficial que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
 
 Para probar que funcione:
 
@@ -243,7 +275,29 @@ La salida debe contener algo similar a esto:
 Cita textual de node_modules/next/dist/docs
 ```
 
-2. **[Skill `vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices):** Permite escribir código limpio de React.
+# Skills
+
+## 🌿 `git-commit`
+Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
+
+Trabajar bajo el principio:
+
+> 1 commit = 1 feature
+
+El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
+
+***Ejemplos:***
+
+```console
+/git-commit
+```
+
+```console
+hacer commit y push
+```
+
+## [`vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices)
+Permite escribir código limpio de React.
 
 Para probar que funcione:
 
@@ -274,57 +328,6 @@ Read 57 lines
 > mover `.agents\skills\vercel-react-best-practices` a `.claude\skills\vercel-react-best-practices`
 >
 > eliminar `skills-lock.json`
-
-# Skills
-
-## 🌿 `git-commit`
-Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
-
-Trabajar bajo el principio:
-
-> 1 commit = 1 feature
-
-El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
-
-***Ejemplos:***
-
-```console
-/git-commit
-```
-
-```console
-hacer commit y push
-```
-
-# 🤖 Uso de IA
-
-> [!WARNING]
->
-> # ⚠️ ***IMPORTANTE*** 🚨
->
-> *Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistente, desordenado y con malas practicas*
-
-# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
-
-Esta sección está diseñada para utilizarse como contexto en herramientas de IA.
-
-## Principales IA para Desarrollo de Software
-
-| Empresa ↓ \ Plataforma → | Web                                                                                     | Desktop                                                               | Terminal / Bash / CLI                                              |
-| ------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Anthropic                | [Claude Web](https://claude.ai/)                                                        | [Claude Desktop](https://youtu.be/DYwZy7VNKws?si=cXTPumpZ3Jr9rNn9)    | [Claude Code](https://youtu.be/Bf7hfpItrDk?si=wjUIcIgtDX_Loyey)    |
-| Open AI                  | [Chat GPT](https://chatgpt.com/)                                                        | [GPT Codex Desktop](https://youtu.be/bgx8ownl3O4?si=TzbOntfYIBVN1PGU) | [Codex](https://youtu.be/Ub-K1n4YYsg?si=EoIXGCzEa4ZxyRqA)          |
-| Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
-| Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
-| Cursor                   | [Cursor Web](https://cursor.com/agents)                                                 | [Cursor Desktop](https://youtu.be/XWsOQTqVl0w?si=0OVGRnYSCH46v2zf)    | [Cursor CLI](https://cursor.com/es/cli)                            |
-
-## ✏️ Edición de Código
-Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
-
-- Mayor contexto del proyecto.
-- Conocimiento de la estructura completa del código.
-- Acceso al sistema operativo (archivos y carpetas).
-- Capacidad para realizar cambios respetando la arquitectura del proyecto.
 
 # 📁 Estructura Base del Proyecto
 
