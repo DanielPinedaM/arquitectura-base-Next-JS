@@ -2,29 +2,35 @@
   // 🎨 Tema VS Code adaptado a la paleta de colores de React
   "workbench.colorCustomizations": {
     // Barra lateral izquierda (explorador, extensiones, etc.)
-    "activityBar.background": "#61DAFB",
-    "activityBar.foreground": "#20232A",
-    "activityBar.activeBackground": "#4FCFE0",
-    "activityBar.activeBorder": "#20232A",
-    "activityBarBadge.background": "#20232A",
-    "activityBarBadge.foreground": "#61DAFB",
+    "activityBar.background": "#087EA4",
+    "activityBar.foreground": "#FFFFFF",
+    "activityBar.inactiveForeground": "#FFFFFFCC",
+    "activityBar.activeBackground": "#045975",
+    "activityBar.activeBorder": "#58C4DC",
+    "activityBarBadge.background": "#58C4DC",
+    "activityBarBadge.foreground": "#23272F",
 
     // Barra superior (título)
-    "titleBar.activeBackground": "#61DAFB",
-    "titleBar.activeForeground": "#20232A",
-    "titleBar.inactiveBackground": "#4FCFE0",
-    "titleBar.inactiveForeground": "#20232A99",
+    "titleBar.activeBackground": "#087EA4",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveBackground": "#045975",
+    "titleBar.inactiveForeground": "#FFFFFFCC",
 
     // Barra inferior (status bar)
-    "statusBar.background": "#61DAFB",
-    "statusBar.foreground": "#20232A",
-    "statusBarItem.hoverBackground": "#4FCFE0",
-    "statusBarItem.remoteBackground": "#61DAFB",
-    "statusBarItem.remoteForeground": "#20232A"
+    "statusBar.background": "#087EA4",
+    "statusBar.foreground": "#FFFFFF",
+    "statusBarItem.hoverBackground": "#045975",
+    "statusBarItem.remoteBackground": "#087EA4",
+    "statusBarItem.remoteForeground": "#FFFFFF",
+
+    // Minimapa, bordes y elementos activos
+    "focusBorder": "#FFFFFF80",
+    "commandCenter.border": "#FFFFFF55",
+    "sash.hoverBorder": "#FFFFFF88"
   },
 
   // peacock extensión
-  "peacock.color": "#61DAFB",
+  "peacock.color": "#087EA4",
 
   // Prettier: formateador de codigo
   "[css]": {
