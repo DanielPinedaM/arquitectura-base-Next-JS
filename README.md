@@ -155,8 +155,8 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 # ⚙️ Entorno de Ejecución
 Obligatorio el uso de Node.js, prohibido usar alternativas como:
 
-* Bun
-* Deno
+* [Bun](https://bun.com/)
+* [Deno](https://deno.com/)
 
 # 📦 Manejador de Paquetes
 Obligatorio el uso de `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
