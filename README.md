@@ -159,12 +159,12 @@ Obligatorio el uso de Node.js, prohibido usar alternativas como:
 * Deno
 
 # 📦 Manejador de Paquetes
-Obligatorio el uso de `pnpm` y `pnpm-lock.yaml` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
+Obligatorio el uso de `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
 
-* npm
-* npx
-* package-lock.json
-* yarn
+| Concepto ⬇️ / Nombre gestor de paquetes ➡️               | `npm`                                   | `yarn`                              |
+| --------------------------------------------------------- | --------------------------------------- | ----------------------------------- |
+| Lockfile                                                  | `package-lock.json`                     | `yarn.lock`                         |
+| Ejecutar un paquete temporal (sin instalarlo globalmente) | `npx <paquete>`<br>`npm exec <paquete>` | `yarn dlx <paquete>` *(Yarn Berry)* |
 
 # 🟢 Administrador de Versiones para Node.js
 Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
