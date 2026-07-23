@@ -222,6 +222,39 @@ video {
 }
 
 /*
+1. Heredar el color del texto del ancestro en vez del color nativo del control.
+2. Quitar el border-radius nativo (las utilidades rounded-* lo redefinen).
+3. Quitar el color de fondo nativo en todos los navegadores.
+4. Opacidad consistente para los estados deshabilitados en todos los navegadores.
+*/
+
+button,
+input,
+select,
+optgroup,
+textarea,
+::file-selector-button {
+  font: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  color: inherit; /* 1 */
+  border-radius: 0; /* 2 */
+  background-color: transparent; /* 3 */
+  opacity: 1; /* 4 */
+}
+
+/*
+permitir estilar los botones de forma consistente entre navegadores
+*/
+
+button,
+input:where([type='button'], [type='reset'], [type='submit']),
+::file-selector-button {
+  appearance: button;
+}
+
+/*
 cursor de elementos HTML activados
 */
 
