@@ -203,11 +203,11 @@ pn i
 > [!TIP]
 > # Deja de escribir `console.log()` para ver valores de variables y estados, mejor usa el debugging
 
-| Comando          | Ambiente      | Variable de Entorno                         | Configuración de `.vscode/launch.json` |
-| ---------------- | ------------- | ------------------------------------------- | -------------------------------------- |
-| `pn start:local` | Local host    | `src/environments/environment.localhost.ts` | `🐞 debugging en Chrome local host`    |
-| `pn start:test`  | Pruebas       | `src/environments/environment.test.ts`      | `🐞 debugging en Chrome pruebas`       |
-| `pn start:prod`  | Producción    | `src/environments/environment.prod.ts`      | `🐞 debugging en Chrome produccion`    |
+| Comando          | Ambiente      | Variable de Entorno            | Configuración de `.vscode/launch.json` |
+| ---------------- | ------------- | ------------------------------ | -------------------------------------- |
+| `pn start:local` | Local host    | `environments/.env.localhost`  | `🐞 debugging en Chrome local host`    |
+| `pn start:test`  | Pruebas       | `environments/.env.test`       | `🐞 debugging en Chrome pruebas`       |
+| `pn start:prod`  | Producción    | `environments/.env.production` | `🐞 debugging en Chrome produccion`    |
 
 Para que los scripts `start:*` sirvan para depurar se tiene que escribir `debugger;` en el código.
 
@@ -240,7 +240,7 @@ Existen dos formas de ejecutar el debugger desde VS Code (o cualquier editor bas
 | ¿Donde se ven los breakpoints en el codigo despues de iniciar el debugging? | En el editor de código (VS Code)                                                                    | En las herramientas de desarrollo (DevTools) de Chrome en la pestaña "Fuentes" ("Sources") |
 | ¿Se puede usar desde cualquier navegador?                                   | ❌ No. `launch.json` y `tasks.json` estan configurados para funcionar unicamente con Google Chrome | ✅ Si. El desarrollador puede abrir cualquier navegador                                    |
 
-En ambas formas, el debugger se vuelve a adjuntar automáticamente cada vez que `ng serve` reinicia el proceso durante el Hot Reload (reinicio automático de la aplicación), por lo que los breakpoints continúan funcionando después de guardar un archivo.
+En ambas formas, el debugger se vuelve a adjuntar automáticamente cada vez que `next dev` reinicia el proceso durante el Hot Reload (reinicio automático de la aplicación), por lo que los breakpoints continúan funcionando después de guardar un archivo.
 
 ## ❔ ¿Cual Usar?
 **Launch:** Es menos práctico de usar porque requiere del editor. Usar cuando necesite depurar y editar el código al mismo tiempo desde el editor.
@@ -284,7 +284,7 @@ debugger;
 2. Ejecute el frontend con el entorno que quiere depurar `pn start:local`, `pn start:test` o `pn start:prod`.
 
 3. Abrir herramientas de desarrollo (DevTools):
-   * Abrir navegador en `http://localhost:4200/`
+   * Abrir navegador en `http://localhost:4100/`
    * Clic derecho sobre la pagina web
    * Seleccione **inspeccionar**
 
