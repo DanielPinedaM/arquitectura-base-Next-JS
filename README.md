@@ -284,9 +284,9 @@ debugger;
 2. Ejecute el frontend con el entorno que quiere depurar `pn start:local`, `pn start:test` o `pn start:prod`.
 
 3. Abrir herramientas de desarrollo (DevTools):
-  * Abrir navegador en `http://localhost:4200/`
-  * Clic derecho sobre la pagina web
-  * Seleccione **inspeccionar**
+   * Abrir navegador en `http://localhost:4200/`
+   * Clic derecho sobre la pagina web
+   * Seleccione **inspeccionar**
 
 4. Navegue hasta la pantalla donde se encuentra el componente que contiene el `debugger;`
 
