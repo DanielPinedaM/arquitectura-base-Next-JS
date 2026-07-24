@@ -13,7 +13,7 @@ Antes de realizar cualquier trabajo con Next.js, busca y lee la documentación c
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
 
-| Comando            | Entorno     | Archivo de configuración       |
+| Comando            | Ambiente    | Variable de Entorno            |
 | ------------------ | ----------- | ------------------------------ |
 | `pnpm start:local` | Local host  | `environments/.env.localhost`  |
 | `pnpm start:test`  | Pruebas     | `environments/.env.test`       |
@@ -21,7 +21,7 @@ Antes de realizar cualquier trabajo con Next.js, busca y lee la documentación c
 
 # Builds para despliegue
 
-| Comando           | Entorno     | Archivo de configuración       |
+| Comando           | Ambiente    | Variable de Entorno            |
 | ----------------- | ----------- | ------------------------------ |
 | `pnpm build:test` | Pruebas     | `environments/.env.test`       |
 | `pnpm build:prod` | Producción  | `environments/.env.production` |

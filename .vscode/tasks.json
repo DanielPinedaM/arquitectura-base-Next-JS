@@ -1,0 +1,83 @@
+{
+  // Tareas para levantar el servidor de Next.js en cada entorno antes de iniciar el debugging
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "pnpm run start:local",
+      "label": "start:local",
+      "isBackground": true,
+      "runOptions": {
+        /* evita que VS Code levante una segunda instancia de la misma tarea */
+        "instanceLimit": 1
+      },
+      "presentation": {
+        /* panel propio por entorno, para ubicarlo y detenerlo facilmente */
+        "panel": "dedicated",
+        "group": "dev-server"
+      },
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "▲ Next\\.js",
+          /* mensaje del builder de Turbopack de Next.js 16, indica que el bundle ya esta listo */
+          "endsPattern": "Ready in"
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "command": "pnpm run start:test",
+      "label": "start:test",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "▲ Next\\.js",
+          "endsPattern": "Ready in"
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "type": "shell",
+      "command": "pnpm run start:prod",
+      "label": "start:prod",
+      "isBackground": true,
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "▲ Next\\.js",
+          "endsPattern": "Ready in"
+        }
+      }
+    }
+  ]
+}

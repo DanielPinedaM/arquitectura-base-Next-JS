@@ -185,7 +185,7 @@ pn i
 
 # ▶️ Scripts de desarrollo
 
-| Comando          | Entorno     | Archivo de configuración       |
+| Comando          | Ambiente    | Variable de Entorno            |
 | ---------------- | ----------- | ------------------------------ |
 | `pn start:local` | Local host  | `environments/.env.localhost`  |
 | `pn start:test`  | Pruebas     | `environments/.env.test`       |
@@ -193,10 +193,104 @@ pn i
 
 # 🚀 Generar build (dist) para Desplegar
 
-| Comando         | Entorno     | Archivo de configuración       |
+| Comando         | Ambiente    | Variable de Entorno            |
 | --------------- | ----------- | ------------------------------ |
 | `pn build:test` | Pruebas     | `environments/.env.test`       |
 | `pn build:prod` | Producción  | `environments/.env.production` |
+
+# 🐞 Scripts para Hacer Debugging
+
+> [!TIP]
+> # Deja de escribir `console.log()` para ver valores de variables y estados, mejor usa el debugging
+
+| Comando          | Ambiente      | Variable de Entorno                         | Configuración de `.vscode/launch.json` |
+| ---------------- | ------------- | ------------------------------------------- | -------------------------------------- |
+| `pn start:local` | Local host    | `src/environments/environment.localhost.ts` | `🐞 debugging en Chrome local host`    |
+| `pn start:test`  | Pruebas       | `src/environments/environment.test.ts`      | `🐞 debugging en Chrome pruebas`       |
+| `pn start:prod`  | Producción    | `src/environments/environment.prod.ts`      | `🐞 debugging en Chrome produccion`    |
+
+Para que los scripts `start:*` sirvan para depurar se tiene que escribir `debugger;` en el código.
+
+**Ejemplo:**
+
+```tsx
+'use client';
+import { useEffect } from 'react';
+
+export function ExampleComponent() {
+  useEffect(() => {
+    const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV;
+    alert(`Ambiente ${NODE_ENV}`);
+    debugger; // debugger breakpoint
+  }, []);
+
+  return <h1>Ambiente</h1>;
+}
+```
+
+## 🤔 Diferencia entre Navegador y Launch
+Existen dos formas de ejecutar el debugger desde VS Code (o cualquier editor basado en VS Code).
+
+|                                                                             | **Launch**                                                                                          | **Navegador**                                                                              |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| ¿Quién arranca el frontend?                                                 | El editor, al presionar `F5`                                                                        | El desarrollador, en la terminal                                                           |
+| ¿Quién elige el entorno?                                                    | La configuración de `launch.json` y `tasks.json`                                                    | El script que se ejecutó en la terminal                                                    |
+| Frontend ya en ejecución                                                    | Lo arranca de cero                                                                                  | Se adjunta al que ya está corriendo                                                        |
+| ¿Quién abre el navegador?                                                   | VS Code abre automáticamente una nueva ventana del navegador                                        | El desarrollador debe abrir el navegador manualmente                                       |
+| ¿Donde se ven los breakpoints en el codigo despues de iniciar el debugging? | En el editor de código (VS Code)                                                                    | En las herramientas de desarrollo (DevTools) de Chrome en la pestaña "Fuentes" ("Sources") |
+| ¿Se puede usar desde cualquier navegador?                                   | ❌ No. `launch.json` y `tasks.json` estan configurados para funcionar unicamente con Google Chrome | ✅ Si. El desarrollador puede abrir cualquier navegador                                    |
+
+En ambas formas, el debugger se vuelve a adjuntar automáticamente cada vez que `ng serve` reinicia el proceso durante el Hot Reload (reinicio automático de la aplicación), por lo que los breakpoints continúan funcionando después de guardar un archivo.
+
+## ❔ ¿Cual Usar?
+**Launch:** Es menos práctico de usar porque requiere del editor. Usar cuando necesite depurar y editar el código al mismo tiempo desde el editor.
+
+**Desde navegador:** Es mas rápido de usar, solamente abra el navegador y empiece a depurar. Usar cuando necesite una depuración rápida sin editar código.
+
+## 1️⃣ Launch: el editor ejecuta el script
+1. Si el frontend ya esta ejecutandose con `pn start:local`, `pn start:test` o `pn start:prod`, deténgalo antes de iniciar el debugging. De lo contrario, se producirán errores.
+
+2. Colocar los breakpoints, escribiendo en el código
+
+```ts
+debugger;
+```
+
+3. Abrir la pestaña Ejecucion y Depuración (Run and Debug)
+
+4. Seleccionar el entorno que quiere depurar en la lista, según la tabla de scripts:
+
+```txt
+🐞 debugging en Chrome local host
+
+🐞 debugging en Chrome pruebas
+
+🐞 debugging en Chrome produccion
+```
+
+5. Para que el editor de codigo ejecute el frontend, presionar:
+   * `F5` en un computador de escritorio.
+   * `Fn + F5` en un computador portátil.
+
+6. En el editor de codigo abrir el archivo que se quiere depurar y que contiene `debugger;`
+
+## 2️⃣ Desde navegador
+1. Colocar los breakpoints, escribiendo en el código:
+
+```ts
+debugger;
+```
+
+2. Ejecute el frontend con el entorno que quiere depurar `pn start:local`, `pn start:test` o `pn start:prod`.
+
+3. Abrir herramientas de desarrollo (DevTools):
+  * Abrir navegador en `http://localhost:4200/`
+  * Clic derecho sobre la pagina web
+  * Seleccione **inspeccionar**
+
+4. Navegue hasta la pantalla donde se encuentra el componente que contiene el `debugger;`
+
+5. Automaticamente el navegador abre la pestaña "Fuentes" ("Sources") de las devtools donde puede ver el código a depurar que contiene `debugger;`
 
 # Arquitectura del Proyecto
 

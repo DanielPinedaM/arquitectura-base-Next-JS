@@ -5,10 +5,29 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "debugging en Chrome local host",
-      "url": "http://localhost:9000",
+      "name": "🐞 debugging en Chrome local host",
+      "url": "http://localhost:4100",
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "preLaunchTask": "start:local"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🐞 debugging en Chrome pruebas",
+      "url": "http://localhost:4100",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "start:test"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🐞 debugging en Chrome produccion",
+      "url": "http://localhost:4100",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "start:prod"
     }
   ]
 }
