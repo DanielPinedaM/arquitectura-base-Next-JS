@@ -204,7 +204,7 @@ pn i
 ## Regla
 El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el `build`, NO se define al ejecutar `pn start`.
 
-***Motivo:*** Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pnpm build:test` o `pnpm build:prod`, y `pn start` únicamente los sirve.
+***Motivo:*** Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pn build:test` o `pn build:prod`, y `pn start` únicamente los sirve.
 
 ## Pasos
 1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección "Generar Carpeta `.next` (`build`) para Desplegar"
@@ -218,7 +218,7 @@ pn start
 3. En el navegador abrir `http://localhost:2000`
 
 ## Cambiar de Ambiente
-Volver a ejecutar `pn start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pnpm build:test` o `pnpm build:prod` según el ambiente requerido, y después ejecutar `pn start`.
+Volver a ejecutar `pn start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pn build:test` o `pn build:prod` según el ambiente requerido, y después ejecutar `pn start`.
 
 # 🐞 Scripts para Hacer Debugging
 
@@ -440,7 +440,7 @@ Read 57 lines
 > Instalar
 >
 > ```bash
-> pnpm dlx skills add vercel-labs/agent-skills/skills/react-best-practices
+> pn dlx skills add vercel-labs/agent-skills/skills/react-best-practices
 > ```
 >
 > mover `.agents\skills\vercel-react-best-practices` a `.claude\skills\vercel-react-best-practices`
@@ -1406,7 +1406,7 @@ Si un componente de "Componentes permitidos" depende de otros componentes de sha
 Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, incluyendo paginación y sorting. **No** está permitido usar el primitivo `Table` de shadcn por sí solo ni la etiqueta `<table>` nativa de HTML
 
 ### Prohibiciones
-* Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pnpm dlx shadcn@latest add <componente>`) distintos a los de "Componentes permitidos".
+* Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pn dlx shadcn@latest add <componente>`) distintos a los de "Componentes permitidos".
 
 * Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
 
