@@ -1,11 +1,3 @@
-<!-- BEGIN:nextjs-agent-rules -->
-
-# Next.js: SIEMPRE lee la documentación antes de programar
-
-Antes de realizar cualquier trabajo con Next.js, busca y lee la documentación correspondiente en `node_modules/next/dist/docs/`. Tus datos de entrenamiento sobre Next.js están desactualizados; la documentación es la fuente de la verdad.
-
-<!-- END:nextjs-agent-rules -->
-
 # Ejecución de Proyecto
 
 * Runtime: Node.js
@@ -86,3 +78,11 @@ Es decir:
 3. El nombre de la carpeta dentro de `src/app/` (el segmento de ruta) va en español.
 
 Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuperar-clave/page.tsx` — ambos en español. El resto del código dentro de esa carpeta (archivos `.tsx`, componentes, funciones, hooks, variables) sigue en inglés según la sección anterior.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# Next.js: SIEMPRE lee la documentación antes de programar
+
+Antes de realizar cualquier trabajo con Next.js, busca y lee la documentación correspondiente en `node_modules/next/dist/docs/`. Tus datos de entrenamiento sobre Next.js están desactualizados; la documentación es la fuente de la verdad.
+
+<!-- END:nextjs-agent-rules -->
