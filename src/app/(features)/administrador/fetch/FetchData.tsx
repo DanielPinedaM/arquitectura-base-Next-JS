@@ -4,7 +4,7 @@ import { IRequestOptions } from '@/shared/api/http-client/data-types/interfaces/
 
 export default async function FetchData() {
   const { success, data } = await GET(
-    `${process.env.NEXT_PUBLIC_JSON_PLACE_HOLDER}/todos`,
+    `https://jsonplaceholder.typicode.com/todos/todos`,
   );
 
   let posts = [];
@@ -14,7 +14,7 @@ export default async function FetchData() {
     posts = [];
   }
 
-  /* ListData es un componente del lado del cliente 
+  /* ListData es un componente del lado del cliente
   que recibe los datos y los renderiza del lado del cliente */
   return (
     <>

@@ -1,7 +1,6 @@
 'use client';
 import ErrorToast from '@/shared/ui/overlay/toast/ErrorToast';
 import FormErrorMessages from '@/shared/ui/shad-cn/react-hook-form/FormErrorMessages';
-import { cookieOptions } from '@/app/(features)/(auth)/iniciar-sesion/data-types/constants/cookies-options.const';
 import { deleteCookie, getCookies, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { InputText } from 'primereact/inputtext';
@@ -116,7 +115,7 @@ export default function FormLogin() {
         return;
       }
 
-      setCookie(key, forceConvertToString(value), cookieOptions({ maxAge }));
+     // setCookie(key, forceConvertToString(value), cookieOptions({ maxAge }));
     });
   };
 
@@ -148,7 +147,7 @@ export default function FormLogin() {
       },
     };
 
-    //const { success, message, data } = await POST(process.env.NEXT_PUBLIC_AUTH_LOGIN, optionsApi);
+    //const { success, message, data } = await POST(`${process.env.NEXT_PUBLIC_API}auth/login`, optionsApi);
 
     //if (success) {
     // este codigo se tiene q borrar porq queme los datos
