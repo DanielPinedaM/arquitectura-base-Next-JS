@@ -84,7 +84,9 @@ const nextConfig: NextConfig = {
 
   reactCompiler: true /** activar optimización automática de re-renders sin necesidad de escribir codigo con memo, useMemo, useCallback */,
 
-  productionBrowserSourceMaps: process.env.NEXT_PUBLIC_NODE_ENV !== 'production',
+  productionBrowserSourceMaps:
+    process.env.NEXT_PUBLIC_NODE_ENV !==
+    'production' /** generar source maps en el build para depurar el codigo original en el navegador, excepto en produccion para no exponer el codigo fuente */,
 };
 
 export default nextConfig;
