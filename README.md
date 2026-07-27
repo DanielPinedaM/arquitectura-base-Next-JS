@@ -199,7 +199,7 @@ pn i
 | `pn build:prod` | Producción  | `environments/.env.production` |
 
 # Ejecutar Carpeta `.next` con Archivos de Compilación
-El ambiente queda **congelado dentro de la carpeta `.next`** en el momento del `build`, NO se define al ejecutar `pn start`.
+El ambiente queda **hardcodeado dentro de la carpeta `.next`** en el momento del `build`, NO se define al ejecutar `pn start`.
 
 Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso `pn start` NO recibe variables de entorno: solamente sirve los archivos que `pn build:test` o `pn build:prod` ya generaron con el ambiente incrustado.
 
