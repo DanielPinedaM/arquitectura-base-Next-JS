@@ -202,7 +202,7 @@ pn i
 `pn start` ejecuta en `http://localhost:2000` los archivos ya compilados dentro de la carpeta `.next`. NO recibe ni lee variables de entorno.
 
 ## Regla
-El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el `build`, NO se define al ejecutar `pn start`.
+El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el build. NO se define al ejecutar `pn start`.
 
 ***Motivo:*** Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pn build:test` o `pn build:prod`, y `pn start` únicamente los sirve.
 
