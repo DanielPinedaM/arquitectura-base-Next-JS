@@ -14,8 +14,12 @@ function readEnvFileKeys(fileName: string): string[] {
   return readFileSync(join(ENV_FOLDER, fileName), 'utf8')
     .split('\n')
     .map((line: string) => line.trim())
-    .filter((line: string) => line.length > 0 && !line.startsWith('#')) // Se ignoran las lineas vacias y los comentarios (#)
-    .map((line: string) => line.slice(0, line.indexOf('=')).trim()) // y se toma como key todo lo que aparece antes del primer signo igual
+    .filter(
+      (line: string) => line.length > 0 && !line.startsWith('#'),
+    ) /** Se ignoran las lineas vacias y los comentarios (#) */
+    .map((line: string) =>
+      line.slice(0, line.indexOf('=')).trim(),
+    ) /** y se toma como key todo lo que aparece antes del primer signo igual */
     .filter((key: string) => key.length > 0);
 }
 
