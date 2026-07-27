@@ -199,8 +199,14 @@ pn i
 | `pn build:prod` | Producción  | `environments/.env.production` |
 
 # Ejecutar Carpeta `.next` con Archivos de Compilación
-El ambiente queda **hardcodeado dentro de la carpeta `.next`** en el momento del `build`, NO se define al ejecutar `pn start`, porque Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila; por eso `pn start` NO recibe variables de entorno: solamente sirve los archivos que `pn build:test` o `pn build:prod` ya generaron con el ambiente incrustado.
+`pn start` ejecuta en `http://localhost:2000` los archivos ya compilados dentro de la carpeta `.next`. NO recibe ni lee variables de entorno.
 
+## Regla
+El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el `build`, NO se define al ejecutar `pn start`.
+
+***Motivo:*** Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pnpm build:test` o `pnpm build:prod`, y `pn start` únicamente los sirve.
+
+## Pasos
 1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección "Generar Carpeta `.next` (`build`) para Desplegar"
 
 2. Ejecutar la carpeta `.next`
@@ -211,7 +217,8 @@ pn start
 
 3. En el navegador abrir `http://localhost:2000`
 
-Para cambiar de ambiente NO basta con re-ejecutar `pn start`, hay que volver a generar la carpeta `.next` con el comando `pn build:test` o `pn build:prod` del ambiente correspondiente.
+## Cambiar de Ambiente
+Volver a ejecutar `pn start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pnpm build:test` o `pnpm build:prod` según el ambiente requerido, y después ejecutar `pn start`.
 
 # 🐞 Scripts para Hacer Debugging
 

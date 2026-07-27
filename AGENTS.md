@@ -11,12 +11,32 @@
 | `pnpm start:test`  | Pruebas     | `environments/.env.test`       |
 | `pnpm start:prod`  | Producción  | `environments/.env.production` |
 
-# Builds para despliegue
+# Generar Carpeta `.next` (`build`) para Desplegar
 
 | Comando           | Ambiente    | Variable de Entorno            |
 | ----------------- | ----------- | ------------------------------ |
 | `pnpm build:test` | Pruebas     | `environments/.env.test`       |
 | `pnpm build:prod` | Producción  | `environments/.env.production` |
+
+# Ejecutar Carpeta `.next` con Archivos de Compilación
+`pnpm start` ejecuta en `http://localhost:2000` los archivos ya compilados dentro de la carpeta `.next`. NO recibe ni lee variables de entorno.
+
+## Regla
+El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el `build`, NO se define al ejecutar `pnpm start`.
+
+Motivo: Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pnpm build:test` o `pnpm build:prod`, y `pnpm start` únicamente los sirve.
+
+## Pasos
+1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección "Generar Carpeta `.next` (`build`) para Desplegar"
+
+2. Ejecutar la carpeta `.next`
+
+```bash
+pnpm start
+```
+
+## Cambiar de Ambiente
+Volver a ejecutar `pnpm start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pnpm build:test` o `pnpm build:prod` según el ambiente requerido, y después ejecutar `pnpm start`.
 
 # Reglas Obligatorias para la IA
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
