@@ -208,7 +208,7 @@ export function errorLogs(objectLogs: IObjectLogs): void {
 
   if (url) objError.url = url;
 
-  if (process?.env?.NEXT_PUBLIC_NODE_ENV)
+  if (process.env.NEXT_PUBLIC_NODE_ENV)
     objError.environment = `las variables de entorno estan apuntando al ambiente de ➡️ ${process.env.NEXT_PUBLIC_NODE_ENV} ⬅️`;
 
   objError.timestamp = currentDateAndTime();
@@ -227,7 +227,7 @@ export function errorLogs(objectLogs: IObjectLogs): void {
 logs de peticiones HTTP exitosas ✅ */
 export function successLogs(objectLogs: IObjectLogs): void {
   // NO imprimir logs en produccion
-  if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') return;
+ /*  if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') return;
 
   const { method, url, options, response, result, showLogger } = objectLogs;
 
@@ -297,7 +297,7 @@ export function successLogs(objectLogs: IObjectLogs): void {
 
   objectSuccesResponse.data = dataMessage;
 
-  console.info(objectSuccesResponse, '\n');
+  console.info(objectSuccesResponse, '\n'); */
 }
 
 /**
@@ -309,10 +309,11 @@ export function errorHandling(status: number | undefined, url: string): void {
   }
 
   if (
-    status === 401 &&
+    status === 401
+    //&&
     // NO detener la ejecucion del codigo al de-codificar token en middleware.ts
     // redirect() solamente funciona en componentes servidor, NO en middleware.ts
-    url !== process.env.NEXT_PUBLIC_AUTH_PROFILE
+    //  url !== process.env.NEXT_PUBLIC_AUTH_PROFILE
   ) {
     console.error(
       '❌ http.service.ts - Error 401: unauthenticated',
@@ -357,7 +358,7 @@ export function errorHandling(status: number | undefined, url: string): void {
 }
 
 /**
-validar respuesta de la API 
+validar respuesta de la API
 para NO detener la ejecucion del front
 cuando la API (backend) esta caida */
 export function validateApiResponse({
