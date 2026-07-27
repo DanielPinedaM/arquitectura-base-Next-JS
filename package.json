@@ -11,15 +11,15 @@
     }
   },
   "scripts": {
-    "build:prod": "env-cmd -f ./environments/.env.production -- node --max_old_space_size=100000 ./node_modules/next/dist/bin/next build",
-    "build:test": "env-cmd -f ./environments/.env.test -- node --max_old_space_size=100000 ./node_modules/next/dist/bin/next build",
     "start:local": "env-cmd -f ./environments/.env.localhost -- next dev -p 4100",
     "start:prod": "env-cmd -f ./environments/.env.production -- next dev -p 4100",
     "start:test": "env-cmd -f ./environments/.env.test -- next dev -p 4100",
+    "build:prod": "env-cmd -f ./environments/.env.production -- node --max_old_space_size=100000 ./node_modules/next/dist/bin/next build",
+    "build:test": "env-cmd -f ./environments/.env.test -- node --max_old_space_size=100000 ./node_modules/next/dist/bin/next build",
+    "start": "next start -p 2000",
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "start": "next start",
     "prepare": "husky"
   },
   "dependencies": {
