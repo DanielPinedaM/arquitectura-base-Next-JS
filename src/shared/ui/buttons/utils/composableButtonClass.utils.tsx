@@ -14,6 +14,18 @@ type ComposableButtonClassParams = {
   size?: ButtonSize;
   modifiers?: ButtonModifier[];
   effects?: ButtonEffect[];
+
+  /**
+   * Clases externas inyectadas en tiempo de ejecución.
+   *
+   * NO forma parte de la API pública de los botones: el consumidor tiene prohibido
+   * pasar `className` (por eso los tres componentes lo excluyen de su tipo con `Omit`).
+   *
+   * Existe porque Base UI, al usar la prop `render`, fusiona sus propias clases y se
+   * las pasa al elemento recibido. Si no se fusionaran aquí, esas clases pisarían las
+   * clases composables `.btn-*` y el botón quedaría sin estilos.
+   */
+  className?: string;
 };
 
 export default function composableButtonClass({
@@ -22,6 +34,7 @@ export default function composableButtonClass({
   size = 'base',
   modifiers,
   effects,
+  className,
 }: ComposableButtonClassParams): string {
   return clsx(
     // ── Reset CSS para botón - requerido siempre ──────────────────────────────────────
@@ -41,5 +54,8 @@ export default function composableButtonClass({
 
     // ── Modificadores de efectos visuales ──────────────────────────────────────────────────
     effects?.map((effect) => `btn-${effect}`),
+
+    // ── Clases inyectadas por Base UI a través de la prop `render` ─────────────
+    className,
   );
 }

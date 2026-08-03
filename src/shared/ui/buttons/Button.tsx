@@ -10,6 +10,15 @@ import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonCla
 
 type ButtonProps = ButtonVisualProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>;
 
+/**
+ * Props internas de la implementación.
+ *
+ * `className` NO forma parte de la API pública (`ButtonComponent` la excluye), pero Base UI
+ * la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+type InternalButtonProps = ButtonProps & { className?: string };
+
 type StandardButtonProps = SharedStandardButtonProps &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { ref?: Ref<HTMLButtonElement> };
 
@@ -81,18 +90,29 @@ type ButtonComponent = {
  *   Procesando...
  * </Button>
  */
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, InternalButtonProps>(
   (
-    { theme, variant, size = 'base', modifiers, effects, children, type = 'button', ...rest },
+    {
+      theme,
+      variant,
+      size = 'base',
+      modifiers,
+      effects,
+      children,
+      type = 'button',
+      className,
+      ...rest
+    },
     ref,
   ) => {
     return (
       <button
         ref={ref}
+        {...rest}
         // variant="link" fuerza type="button" para no enviar formularios accidentalmente
         type={variant === 'link' ? 'button' : type}
-        className={composableButtonClass({ theme, variant, size, modifiers, effects })}
-        {...rest}
+        // className va después de {...rest} para que las clases composables nunca sean pisadas
+        className={composableButtonClass({ theme, variant, size, modifiers, effects, className })}
       >
         {children}
       </button>

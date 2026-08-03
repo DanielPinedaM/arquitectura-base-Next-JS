@@ -11,6 +11,15 @@ import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonCla
 type AnchorButtonProps = ButtonVisualProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'>;
 
+/**
+ * Props internas de la implementación.
+ *
+ * `className` NO forma parte de la API pública (`AnchorButtonComponent` la excluye), pero
+ * Base UI la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+type InternalAnchorButtonProps = AnchorButtonProps & { className?: string };
+
 type StandardAnchorButtonProps = SharedStandardButtonProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> & { ref?: Ref<HTMLAnchorElement> };
 
@@ -71,9 +80,20 @@ type AnchorButtonComponent = {
  *   Ver documentación
  * </AnchorButton>
  */
-const AnchorButton = forwardRef<HTMLAnchorElement, AnchorButtonProps>(
+const AnchorButton = forwardRef<HTMLAnchorElement, InternalAnchorButtonProps>(
   (
-    { theme, variant, size = 'base', modifiers, effects, children, target, rel, ...rest },
+    {
+      theme,
+      variant,
+      size = 'base',
+      modifiers,
+      effects,
+      children,
+      target,
+      rel,
+      className,
+      ...rest
+    },
 
     ref,
   ) => {
@@ -85,10 +105,11 @@ const AnchorButton = forwardRef<HTMLAnchorElement, AnchorButtonProps>(
     return (
       <a
         ref={ref}
-        className={composableButtonClass({ theme, variant, size, modifiers, effects })}
+        {...rest}
         target={target}
         rel={safeRel}
-        {...rest}
+        // className va después de {...rest} para que las clases composables nunca sean pisadas
+        className={composableButtonClass({ theme, variant, size, modifiers, effects, className })}
       >
         {children}
       </a>

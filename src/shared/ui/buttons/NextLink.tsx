@@ -12,6 +12,15 @@ import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonCla
 type NextLinkButtonProps = ButtonVisualProps &
   Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>;
 
+/**
+ * Props internas de la implementación.
+ *
+ * `className` NO forma parte de la API pública (`NextLinkComponent` la excluye), pero Base UI
+ * la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+type InternalNextLinkProps = NextLinkButtonProps & { className?: string };
+
 type StandardNextLinkProps = SharedStandardButtonProps &
   Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'> & {
     ref?: React.Ref<HTMLAnchorElement>;
@@ -70,13 +79,14 @@ type NextLinkComponent = {
  *   <MdNotifications />
  * </NextLink>
  */
-const NextLink = forwardRef<HTMLAnchorElement, NextLinkButtonProps>(
-  ({ theme, variant, size = 'base', modifiers, effects, children, ...rest }, ref) => {
+const NextLink = forwardRef<HTMLAnchorElement, InternalNextLinkProps>(
+  ({ theme, variant, size = 'base', modifiers, effects, children, className, ...rest }, ref) => {
     return (
       <Link
         ref={ref}
-        className={composableButtonClass({ theme, variant, size, modifiers, effects })}
         {...rest}
+        // className va después de {...rest} para que las clases composables nunca sean pisadas
+        className={composableButtonClass({ theme, variant, size, modifiers, effects, className })}
       >
         {children}
       </Link>
