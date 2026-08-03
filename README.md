@@ -351,6 +351,8 @@ debugger;
 
 # [🔗 Enlace - Benchmark de IA](https://artificialanalysis.ai/)
 
+# [🔗 Enlace - Harness de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
+
 ## ✏️ Edición de Código
 Este proyecto esta configurado para usar _IAs de pago y desde la terminal_. **NO** sirve si usas IAs gratis o desde una pagina web, porque estan limitadas.
 
