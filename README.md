@@ -1435,7 +1435,7 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
    Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar `<Dialog>` de shadcn.
 
 2. **¿El componente es un botón?**
-   Usar **SIEMPRE** el componente de `src\shared\ui\buttons`. Está prohibido usar `Button` de shadcn y está prohibido usar la etiqueta `<button>` nativa de HTML. Esta regla aplica en todos los casos, incluidos los botones internos de componentes compuestos (ver "Botones dentro de componentes compuestos").
+   Ir a **"Orden de Decisión para Botones"** y aplicar sus 3 pasos. Esa sección resuelve el caso completo: **no** continuar con los pasos 3 ni 4 de esta lista.
 
 3. **¿El componente NO está en la lista y NO es un botón?**
    Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado. Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
@@ -1444,40 +1444,182 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
    El HTML nativo solo está prohibido en dos situaciones:
    * (a) Cuando existe un equivalente en "Componentes permitidos": usar shadcn, no el nativo.
 
-   * (b) La etiqueta `<button>` nativa: usar siempre `src\shared\ui\buttons`. En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
+   * (b) La etiqueta `<button>` nativa: ver **"Orden de Decisión para Botones"**.
+
+   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
 ### Refuerzo para formularios
 Además de lo anterior, en formularios es obligatorio usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
 
 Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
 
-### Botones dentro de componentes compuestos
-Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos mediante el patrón `asChild` de Base UI (triggers, acciones, footers).
+### Orden de Decisión para Botones
 
-El componente de `src\shared\ui\buttons` ya implementa `React.forwardRef` y propaga props, por lo que es compatible con `asChild`. En **todos** los escenarios se usa `src\shared\ui\buttons`, nunca `Button` de shadcn:
+> [!CAUTION]
+> Evaluar los 3 pasos **en orden** y **detenerse en el primer caso que aplique**. No saltar pasos ni combinarlos.
 
-* Trigger que abre el modal / drawer / menú → `src\shared\ui\buttons`
+Todo se decide con una sola pregunta: **¿el archivo que estás editando _implementa_ la librería de UI, o la _consume_?**
 
-* Botones de acción internos (footer de Dialog, `AlertDialogAction` / `AlertDialogCancel`, etc.) → `src\shared\ui\buttons`
+| El archivo que estás editando…             | Rol           | Botón que se usa                  |
+| ------------------------------------------ | ------------- | --------------------------------- |
+| Está dentro de `src/shared/ui/shad-cn`     | Implementa    | `Button` de shadcn → **paso 1**   |
+| Está en cualquier otra ruta de `src`       | Consume       | Botón composable → **paso 2**     |
 
-* Botones sueltos que no usan `asChild` → `src\shared\ui\buttons`
+#### Paso 1 - Botón interno de la librería de UI → `Button` de shadcn
+**Condición:** el botón se escribe **dentro** de `src/shared/ui/shad-cn`, en el archivo que implementa o define un componente de shadcn.
 
-Ejemplo:
+**Usar:** `Button` de `src/shared/ui/shad-cn/react-hook-form/action/button/src/index.tsx` — alias `@shad-cn/button`.
+
+Así lo hace la propia librería:
 
 ```tsx
-<DialogTrigger asChild>
-  <Button variant="primary">Abrir</Button>   {/* Button de src\shared\ui\buttons */}
-</DialogTrigger>
+/* src/shared/ui/shad-cn/overlay/dialog/src/index.tsx */
+import { Button } from '@shad-cn/button';
+
+<DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>;
+```
+
+**Alcance:** esta regla aplica **únicamente** al código que implementa o define los componentes de la librería de UI. **NO** aplica al código de la aplicación donde esos componentes son consumidos — ese caso lo resuelve el paso 2.
+
+#### Paso 2 - Botón fuera de la librería de UI → botón composable
+**Condición:** el botón **NO** se escribe dentro de `src/shared/ui/shad-cn`. Ocurre en cualquiera de estos dos casos:
+
+**2.1. El botón se usa al consumir un componente de la librería de UI.**
+Ejemplo: al usar `Dialog`, `Drawer`, `Sheet`, `AlertDialog` o `DropdownMenu` — tanto el trigger que abre el overlay como los botones de acción de su contenido (Guardar, Cancelar).
+
+**2.2. El botón pertenece a la interfaz de usuario de la aplicación.**
+Ejemplo: Iniciar sesión, Guardar, Cancelar, Crear, Editar, Eliminar, Buscar, Aceptar, Continuar.
+
+**Usar:** Botón composable de `src/shared/ui/buttons` de acuerdo al siguiente criterio:
+
+| Componente                               | Renderiza           | Cuándo usarlo                                  |
+| ---------------------------------------- | ------------------- | ---------------------------------------------- |
+| `src/shared/ui/buttons/Button.tsx`       | `<button>`          | Acciones que no navegan                        |
+| `src/shared/ui/buttons/AnchorButton.tsx` | `<a>`               | Enlaces externos, descargas, `target="_blank"` |
+| `src/shared/ui/buttons/NextLink.tsx`     | `<Link>` de Next.js | Navegación interna con prefetch                |
+
+**PROHIBIDO** usar `Button` de shadcn (`@shad-cn/button`) fuera de `src/shared/ui/shad-cn`.
+
+#### PROHIBIDA la etiqueta `<button>` nativa de HTML
+Aplica a los pasos 1 y 2. Al escribir un componente de React **nunca** se construye un botón con la etiqueta `<button>`: siempre se usa `Button` de `src/shared/ui/buttons`.
+
+La única etiqueta `<button>` nativa del proyecto vive dentro de `src/shared/ui/buttons/Button.tsx`, que es donde se aplican los estilos composables. Ningún otro archivo la escribe.
+
+La misma regla aplica a los elementos **con apariencia de botón**: un `<a>` estilizado como botón usa `AnchorButton`, y un `<Link>` de Next.js estilizado como botón usa `NextLink`.
+
+**Ejemplo Incorrecto:**
+```tsx
+<button className="btn btn-primary btn-background" onClick={onSave}>Guardar</button>
+```
+
+**Ejemplo Correcto:**
+```tsx
+<Button theme="primary" variant="background" onClick={onSave}>Guardar</Button>
+```
+
+#### Cómo pasar el botón composable a un componente de la librería
+Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un componente. Los props internos del componente (`onClick`, `aria-*`, `data-*`, `ref`, `className`) se fusionan sobre el elemento recibido.
+
+**OBLIGATORIO** escribir el contenido del botón **dentro** del elemento que se pasa a `render`, y dejar el componente de Base UI autocerrado:
+
+**Motivo:** los tres botones composables declaran `children` como prop **obligatoria**, así que `<Button theme="primary" variant="background" />` no compila. Además Base UI fusiona con `mergeProps(props, render.props)`, donde el objeto de la derecha gana: los `children` del elemento de `render` sobrescriben a los del componente de Base UI.
+
+**Ejemplo Incorrecto:**
+
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background" />}>Abrir</DialogTrigger>
+```
+
+**Ejemplo Correcto:**
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+```
+
+**Base UI NO usa `asChild`.** `asChild` es de Radix UI y en `@base-ui/react` no existe. Su equivalente es `render`.
+
+**Ejemplo Incorrecto:**
+```tsx
+<DialogTrigger asChild><Button theme="primary" variant="background">Abrir</Button></DialogTrigger>
+```
+
+**Ejemplo Correcto:**
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+```
+
+**Ejemplo completo — `Dialog` consumido desde la aplicación:**
+
+```tsx
+<Dialog>
+  {/* 2.1 — trigger: botón composable vía render */}
+  <DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Título</DialogTitle>
+    </DialogHeader>
+
+    <DialogFooter>
+      {/* 2.1 — cerrar: botón composable vía render */}
+      <DialogClose render={<Button theme="secondary" variant="outline">Cancelar</Button>} />
+
+      {/* 2.2 — acción de la aplicación: botón composable suelto */}
+      <Button theme="primary" variant="background" type="submit">
+        Guardar
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+#### Piezas que traen el `Button` de shadcn incrustado
+Algunos sub-componentes **son** el `Button` de shadcn por definición. No todos se pueden reemplazar, así que se resuelven caso por caso:
+
+| Pieza                               | ¿Botón incrustado?     | Qué hacer                                                    |
+| ----------------------------------- | ---------------------- | ------------------------------------------------------------ |
+| `DialogTrigger` / `DialogClose`     | No                     | `render={<Button …>texto</Button>}`                          |
+| `SheetTrigger` / `SheetClose`       | No                     | `render={<Button …>texto</Button>}`                          |
+| `DrawerTrigger` / `DrawerClose`     | No                     | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogTrigger`                | No                     | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogCancel`                 | Sí, **sobrescribible** | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogAction`                 | Sí, NO sobrescribible  | **PROHIBIDO.** Poner un botón composable suelto en el footer |
+| `InputGroupButton`                  | Sí                     | **Permitido**: es cromo interno del `InputGroup`             |
+| `CarouselPrevious` / `CarouselNext` | Sí                     | **Permitido**: es cromo interno del `Carousel`               |
+
+**Criterio que resuelve cualquier pieza que no esté en la tabla:**
+* El botón representa una **acción de la aplicación** (Guardar, Cancelar, Eliminar) → botón composable. Su apariencia pertenece a la aplicación.
+
+* El botón es **cromo interno del componente** (flechas del `Carousel`, addon del `InputGroup`) → botón de la librería. Su apariencia pertenece al componente, no a la aplicación.
+
+`AlertDialogAction` está prohibido porque solo aporta estilos: **no cierra el diálogo**, así que reemplazarlo por un botón composable no pierde ningún comportamiento.
+
+```tsx
+<AlertDialogFooter>
+  {/* sobrescribible con render */}
+  <AlertDialogCancel render={<Button theme="secondary" variant="outline">Cancelar</Button>} />
+
+  {/* en vez de AlertDialogAction, botón composable suelto */}
+  <Button theme="danger" variant="background" onClick={onDelete}>
+    Eliminar
+  </Button>
+</AlertDialogFooter>
 ```
 
 ### Dependencias internas de los componentes permitidos
 
-Si un componente de "Componentes permitidos" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Ejemplos:
+Si un componente de "Componentes permitidos" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Dependencias reales de este proyecto:
 
-- `Combobox` requiere `Command` (cmdk) + `popover` → permitido.
-- `Date Picker` requiere `Calendar` + `popover` → permitido.
+| Componente    | Depende de                        |
+| ------------- | --------------------------------- |
+| `Combobox`    | `Input Group` + `Button`          |
+| `Date Picker` | `Calendar` + `Popover` + `Button` |
+| `Calendar`    | `Button`                          |
+| `Input Group` | `Input` + `Textarea` + `Button`   |
+| `Carousel`    | `Button`                          |
 
-Única excepción: los botones internos, que siempre se resuelven con `src\shared\ui\buttons` (nunca `Button` de shadcn).
+`Button` (`@shad-cn/button`) es el único de esos requisitos que **no** aparece en la tabla "Componentes permitidos", y es justamente el caso que cubre esta regla: la librería lo usa internamente para construir los demás componentes.
+
+Los botones se resuelven aparte, con **"Orden de Decisión para Botones"**: dentro de `src/shared/ui/shad-cn` se usa el `Button` de shadcn, y al consumir esos componentes desde la aplicación se usa el botón composable de `src/shared/ui/buttons`.
 
 ### Data Table
 Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, incluyendo paginación y sorting. **No** está permitido usar el primitivo `Table` de shadcn por sí solo ni la etiqueta `<table>` nativa de HTML
