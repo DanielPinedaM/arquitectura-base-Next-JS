@@ -1423,7 +1423,7 @@ Prohibido crear use state loading false/true para manejar el loading en componen
 # 💅 Maquetación
 
 ## Componentes de interfaz (UI): uso y maquetación
-Los componentes de shadcn están instalados en `src\shared\ui\shad-cn`.
+Este proyecto usa Base UI y los componentes de shad cn que están instalados en `src\shared\ui\shad-cn`.
 
 Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
 
@@ -1438,15 +1438,13 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
    Usar **SIEMPRE** el componente de `src\shared\ui\buttons`. Está prohibido usar `Button` de shadcn y está prohibido usar la etiqueta `<button>` nativa de HTML. Esta regla aplica en todos los casos, incluidos los botones internos de componentes compuestos (ver "Botones dentro de componentes compuestos").
 
 3. **¿El componente NO está en la lista y NO es un botón?**
-   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado.
-   Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
+   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado. Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
 
 4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
    El HTML nativo solo está prohibido en dos situaciones:
    * (a) Cuando existe un equivalente en "Componentes permitidos": usar shadcn, no el nativo.
 
-   * (b) La etiqueta `<button>` nativa: usar siempre `src\shared\ui\buttons`.
-   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
+   * (b) La etiqueta `<button>` nativa: usar siempre `src\shared\ui\buttons`. En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
 ### Refuerzo para formularios
 Además de lo anterior, en formularios es obligatorio usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
@@ -1454,7 +1452,7 @@ Además de lo anterior, en formularios es obligatorio usar los componentes de sh
 Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
 
 ### Botones dentro de componentes compuestos
-Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos mediante el patrón `asChild` de Radix (triggers, acciones, footers).
+Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos mediante el patrón `asChild` de Base UI (triggers, acciones, footers).
 
 El componente de `src\shared\ui\buttons` ya implementa `React.forwardRef` y propaga props, por lo que es compatible con `asChild`. En **todos** los escenarios se usa `src\shared\ui\buttons`, nunca `Button` de shadcn:
 
