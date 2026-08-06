@@ -32,57 +32,378 @@
       "@/*": ["./src/*"],
 
       /* ------------- shad cn ------------- */
-      /* data-display */
-      "@shad-cn/carousel": ["./src/shared/ui/shad-cn/data-display/carousel/src/index.tsx"],
-      "@shad-cn/data-table": ["./src/shared/ui/shad-cn/data-display/data-table/src/index.tsx"],
 
-      /* react-hook-form/action */
-      "@shad-cn/button": ["./src/shared/ui/shad-cn/react-hook-form/action/button/src/index.tsx"],
+      /* helpers globales de shad cn */
+      "@shad-cn/helpers": ["./src/shared/ui/shad-cn/helpers/shad-cn.helper.ts"],
 
-      /* react-hook-form/date */
-      "@shad-cn/calendar": ["./src/shared/ui/shad-cn/react-hook-form/date/calendar/src/index.tsx"],
-      "@shad-cn/date-picker": [
-        "./src/shared/ui/shad-cn/react-hook-form/date/date-picker/src/index.tsx"
+      /* data-display/carousel */
+      "@shad-cn/Carousel": ["./src/shared/ui/shad-cn/data-display/carousel/Carousel.tsx"],
+      "@shad-cn/CarouselContent": [
+        "./src/shared/ui/shad-cn/data-display/carousel/CarouselContent.tsx"
+      ],
+      "@shad-cn/CarouselItem": ["./src/shared/ui/shad-cn/data-display/carousel/CarouselItem.tsx"],
+      "@shad-cn/CarouselNext": ["./src/shared/ui/shad-cn/data-display/carousel/CarouselNext.tsx"],
+      "@shad-cn/CarouselPrevious": [
+        "./src/shared/ui/shad-cn/data-display/carousel/CarouselPrevious.tsx"
+      ],
+      "@shad-cn/useCarousel": [
+        "./src/shared/ui/shad-cn/data-display/carousel/hooks/useCarousel.ts"
+      ],
+      "@shad-cn/carousel-type": [
+        "./src/shared/ui/shad-cn/data-display/carousel/data-types/types/carousel.type.ts"
       ],
 
-      /* react-hook-form/selection */
-      "@shad-cn/checkbox": [
-        "./src/shared/ui/shad-cn/react-hook-form/selection/checkbox/src/index.tsx"
+      /* data-display/data-table */
+      "@shad-cn/DataTable": ["./src/shared/ui/shad-cn/data-display/data-table/DataTable.tsx"],
+      "@shad-cn/Table": ["./src/shared/ui/shad-cn/data-display/data-table/Table.tsx"],
+      "@shad-cn/TableBody": ["./src/shared/ui/shad-cn/data-display/data-table/TableBody.tsx"],
+      "@shad-cn/TableCaption": ["./src/shared/ui/shad-cn/data-display/data-table/TableCaption.tsx"],
+      "@shad-cn/TableCell": ["./src/shared/ui/shad-cn/data-display/data-table/TableCell.tsx"],
+      "@shad-cn/TableFooter": ["./src/shared/ui/shad-cn/data-display/data-table/TableFooter.tsx"],
+      "@shad-cn/TableHead": ["./src/shared/ui/shad-cn/data-display/data-table/TableHead.tsx"],
+      "@shad-cn/TableHeader": ["./src/shared/ui/shad-cn/data-display/data-table/TableHeader.tsx"],
+      "@shad-cn/TableRow": ["./src/shared/ui/shad-cn/data-display/data-table/TableRow.tsx"],
+      "@shad-cn/data-table-interface": [
+        "./src/shared/ui/shad-cn/data-display/data-table/data-types/interfaces/data-table.interface.ts"
       ],
-      "@shad-cn/combobox": [
-        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/src/index.tsx"
+
+      /* navigation/accordion */
+      "@shad-cn/Accordion": ["./src/shared/ui/shad-cn/navigation/accordion/Accordion.tsx"],
+      "@shad-cn/AccordionContent": [
+        "./src/shared/ui/shad-cn/navigation/accordion/AccordionContent.tsx"
       ],
-      "@shad-cn/radio-group": [
-        "./src/shared/ui/shad-cn/react-hook-form/selection/radio-group/src/index.tsx"
+      "@shad-cn/AccordionItem": ["./src/shared/ui/shad-cn/navigation/accordion/AccordionItem.tsx"],
+      "@shad-cn/AccordionTrigger": [
+        "./src/shared/ui/shad-cn/navigation/accordion/AccordionTrigger.tsx"
       ],
-      "@shad-cn/select": ["./src/shared/ui/shad-cn/react-hook-form/selection/select/src/index.tsx"],
-      "@shad-cn/switch": ["./src/shared/ui/shad-cn/react-hook-form/selection/switch/src/index.tsx"],
 
-      /* react-hook-form/text */
-      "@shad-cn/input": ["./src/shared/ui/shad-cn/react-hook-form/text/input/src/index.tsx"],
-      "@shad-cn/input-group": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/src/index.tsx"
+      /* navigation/pagination */
+      "@shad-cn/Pagination": ["./src/shared/ui/shad-cn/navigation/pagination/Pagination.tsx"],
+      "@shad-cn/PaginationContent": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationContent.tsx"
       ],
-      "@shad-cn/label": ["./src/shared/ui/shad-cn/react-hook-form/text/label/src/index.tsx"],
-      "@shad-cn/textarea": ["./src/shared/ui/shad-cn/react-hook-form/text/textarea/src/index.tsx"],
+      "@shad-cn/PaginationEllipsis": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationEllipsis.tsx"
+      ],
+      "@shad-cn/PaginationItem": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationItem.tsx"
+      ],
+      "@shad-cn/PaginationLink": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationLink.tsx"
+      ],
+      "@shad-cn/PaginationNext": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationNext.tsx"
+      ],
+      "@shad-cn/PaginationPrevious": [
+        "./src/shared/ui/shad-cn/navigation/pagination/PaginationPrevious.tsx"
+      ],
 
-      /* navigation */
-      "@shad-cn/accordion": ["./src/shared/ui/shad-cn/navigation/accordion/src/index.tsx"],
-      "@shad-cn/pagination": ["./src/shared/ui/shad-cn/navigation/pagination/src/index.tsx"],
-      "@shad-cn/tabs": ["./src/shared/ui/shad-cn/navigation/tabs/src/index.tsx"],
+      /* navigation/tabs */
+      "@shad-cn/Tabs": ["./src/shared/ui/shad-cn/navigation/tabs/Tabs.tsx"],
+      "@shad-cn/TabsContent": ["./src/shared/ui/shad-cn/navigation/tabs/TabsContent.tsx"],
+      "@shad-cn/TabsList": ["./src/shared/ui/shad-cn/navigation/tabs/TabsList.tsx"],
+      "@shad-cn/TabsTrigger": ["./src/shared/ui/shad-cn/navigation/tabs/TabsTrigger.tsx"],
+      "@shad-cn/tabs-const": [
+        "./src/shared/ui/shad-cn/navigation/tabs/data-types/constants/tabs.const.ts"
+      ],
 
-      /* overlay */
-      "@shad-cn/alert-dialog": ["./src/shared/ui/shad-cn/overlay/alert-dialog/src/index.tsx"],
-      "@shad-cn/dialog": ["./src/shared/ui/shad-cn/overlay/dialog/src/index.tsx"],
-      "@shad-cn/drawer": ["./src/shared/ui/shad-cn/overlay/drawer/src/index.tsx"],
-      "@shad-cn/dropdown-menu": ["./src/shared/ui/shad-cn/overlay/dropdown-menu/src/index.tsx"],
-      "@shad-cn/popover": ["./src/shared/ui/shad-cn/overlay/popover/src/index.tsx"],
-      "@shad-cn/sheet": ["./src/shared/ui/shad-cn/overlay/sheet/src/index.tsx"],
-      "@shad-cn/toast": ["./src/shared/ui/shad-cn/overlay/toast/src/index.tsx"],
-      "@shad-cn/tooltip": ["./src/shared/ui/shad-cn/overlay/tooltip/src/index.tsx"],
+      /* overlay/alert-dialog */
+      "@shad-cn/AlertDialog": ["./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialog.tsx"],
+      "@shad-cn/AlertDialogAction": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogAction.tsx"
+      ],
+      "@shad-cn/AlertDialogCancel": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogCancel.tsx"
+      ],
+      "@shad-cn/AlertDialogContent": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogContent.tsx"
+      ],
+      "@shad-cn/AlertDialogDescription": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogDescription.tsx"
+      ],
+      "@shad-cn/AlertDialogFooter": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogFooter.tsx"
+      ],
+      "@shad-cn/AlertDialogHeader": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogHeader.tsx"
+      ],
+      "@shad-cn/AlertDialogMedia": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogMedia.tsx"
+      ],
+      "@shad-cn/AlertDialogOverlay": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogOverlay.tsx"
+      ],
+      "@shad-cn/AlertDialogPortal": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogPortal.tsx"
+      ],
+      "@shad-cn/AlertDialogTitle": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogTitle.tsx"
+      ],
+      "@shad-cn/AlertDialogTrigger": [
+        "./src/shared/ui/shad-cn/overlay/alert-dialog/AlertDialogTrigger.tsx"
+      ],
 
-      /* utils */
-      "@shad-cn/utils": ["./src/shared/ui/shad-cn/utils/src/index.ts"]
+      /* overlay/dialog */
+      "@shad-cn/Dialog": ["./src/shared/ui/shad-cn/overlay/dialog/Dialog.tsx"],
+      "@shad-cn/DialogClose": ["./src/shared/ui/shad-cn/overlay/dialog/DialogClose.tsx"],
+      "@shad-cn/DialogContent": ["./src/shared/ui/shad-cn/overlay/dialog/DialogContent.tsx"],
+      "@shad-cn/DialogDescription": [
+        "./src/shared/ui/shad-cn/overlay/dialog/DialogDescription.tsx"
+      ],
+      "@shad-cn/DialogFooter": ["./src/shared/ui/shad-cn/overlay/dialog/DialogFooter.tsx"],
+      "@shad-cn/DialogHeader": ["./src/shared/ui/shad-cn/overlay/dialog/DialogHeader.tsx"],
+      "@shad-cn/DialogOverlay": ["./src/shared/ui/shad-cn/overlay/dialog/DialogOverlay.tsx"],
+      "@shad-cn/DialogPortal": ["./src/shared/ui/shad-cn/overlay/dialog/DialogPortal.tsx"],
+      "@shad-cn/DialogTitle": ["./src/shared/ui/shad-cn/overlay/dialog/DialogTitle.tsx"],
+      "@shad-cn/DialogTrigger": ["./src/shared/ui/shad-cn/overlay/dialog/DialogTrigger.tsx"],
+
+      /* overlay/drawer */
+      "@shad-cn/Drawer": ["./src/shared/ui/shad-cn/overlay/drawer/Drawer.tsx"],
+      "@shad-cn/DrawerClose": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerClose.tsx"],
+      "@shad-cn/DrawerContent": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerContent.tsx"],
+      "@shad-cn/DrawerDescription": [
+        "./src/shared/ui/shad-cn/overlay/drawer/DrawerDescription.tsx"
+      ],
+      "@shad-cn/DrawerFooter": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerFooter.tsx"],
+      "@shad-cn/DrawerHeader": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerHeader.tsx"],
+      "@shad-cn/DrawerOverlay": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerOverlay.tsx"],
+      "@shad-cn/DrawerPortal": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerPortal.tsx"],
+      "@shad-cn/DrawerSwipeHandle": [
+        "./src/shared/ui/shad-cn/overlay/drawer/DrawerSwipeHandle.tsx"
+      ],
+      "@shad-cn/DrawerTitle": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerTitle.tsx"],
+      "@shad-cn/DrawerTrigger": ["./src/shared/ui/shad-cn/overlay/drawer/DrawerTrigger.tsx"],
+      "@shad-cn/useDrawer": ["./src/shared/ui/shad-cn/overlay/drawer/hooks/useDrawer.ts"],
+
+      /* overlay/dropdown-menu */
+      "@shad-cn/DropdownMenu": ["./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenu.tsx"],
+      "@shad-cn/DropdownMenuCheckboxItem": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuCheckboxItem.tsx"
+      ],
+      "@shad-cn/DropdownMenuContent": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuContent.tsx"
+      ],
+      "@shad-cn/DropdownMenuGroup": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuGroup.tsx"
+      ],
+      "@shad-cn/DropdownMenuItem": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuItem.tsx"
+      ],
+      "@shad-cn/DropdownMenuLabel": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuLabel.tsx"
+      ],
+      "@shad-cn/DropdownMenuPortal": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuPortal.tsx"
+      ],
+      "@shad-cn/DropdownMenuRadioGroup": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuRadioGroup.tsx"
+      ],
+      "@shad-cn/DropdownMenuRadioItem": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuRadioItem.tsx"
+      ],
+      "@shad-cn/DropdownMenuSeparator": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuSeparator.tsx"
+      ],
+      "@shad-cn/DropdownMenuShortcut": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuShortcut.tsx"
+      ],
+      "@shad-cn/DropdownMenuSub": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuSub.tsx"
+      ],
+      "@shad-cn/DropdownMenuSubContent": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuSubContent.tsx"
+      ],
+      "@shad-cn/DropdownMenuSubTrigger": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuSubTrigger.tsx"
+      ],
+      "@shad-cn/DropdownMenuTrigger": [
+        "./src/shared/ui/shad-cn/overlay/dropdown-menu/DropdownMenuTrigger.tsx"
+      ],
+
+      /* overlay/popover */
+      "@shad-cn/Popover": ["./src/shared/ui/shad-cn/overlay/popover/Popover.tsx"],
+      "@shad-cn/PopoverContent": ["./src/shared/ui/shad-cn/overlay/popover/PopoverContent.tsx"],
+      "@shad-cn/PopoverDescription": [
+        "./src/shared/ui/shad-cn/overlay/popover/PopoverDescription.tsx"
+      ],
+      "@shad-cn/PopoverHeader": ["./src/shared/ui/shad-cn/overlay/popover/PopoverHeader.tsx"],
+      "@shad-cn/PopoverTitle": ["./src/shared/ui/shad-cn/overlay/popover/PopoverTitle.tsx"],
+      "@shad-cn/PopoverTrigger": ["./src/shared/ui/shad-cn/overlay/popover/PopoverTrigger.tsx"],
+
+      /* overlay/sheet */
+      "@shad-cn/Sheet": ["./src/shared/ui/shad-cn/overlay/sheet/Sheet.tsx"],
+      "@shad-cn/SheetClose": ["./src/shared/ui/shad-cn/overlay/sheet/SheetClose.tsx"],
+      "@shad-cn/SheetContent": ["./src/shared/ui/shad-cn/overlay/sheet/SheetContent.tsx"],
+      "@shad-cn/SheetDescription": ["./src/shared/ui/shad-cn/overlay/sheet/SheetDescription.tsx"],
+      "@shad-cn/SheetFooter": ["./src/shared/ui/shad-cn/overlay/sheet/SheetFooter.tsx"],
+      "@shad-cn/SheetHeader": ["./src/shared/ui/shad-cn/overlay/sheet/SheetHeader.tsx"],
+      "@shad-cn/SheetOverlay": ["./src/shared/ui/shad-cn/overlay/sheet/SheetOverlay.tsx"],
+      "@shad-cn/SheetPortal": ["./src/shared/ui/shad-cn/overlay/sheet/SheetPortal.tsx"],
+      "@shad-cn/SheetTitle": ["./src/shared/ui/shad-cn/overlay/sheet/SheetTitle.tsx"],
+      "@shad-cn/SheetTrigger": ["./src/shared/ui/shad-cn/overlay/sheet/SheetTrigger.tsx"],
+
+      /* overlay/toast */
+      "@shad-cn/Toaster": ["./src/shared/ui/shad-cn/overlay/toast/Toaster.tsx"],
+
+      /* overlay/tooltip */
+      "@shad-cn/Tooltip": ["./src/shared/ui/shad-cn/overlay/tooltip/Tooltip.tsx"],
+      "@shad-cn/TooltipContent": ["./src/shared/ui/shad-cn/overlay/tooltip/TooltipContent.tsx"],
+      "@shad-cn/TooltipProvider": ["./src/shared/ui/shad-cn/overlay/tooltip/TooltipProvider.tsx"],
+      "@shad-cn/TooltipTrigger": ["./src/shared/ui/shad-cn/overlay/tooltip/TooltipTrigger.tsx"],
+
+      /* react-hook-form/action/button */
+      "@shad-cn/Button": ["./src/shared/ui/shad-cn/react-hook-form/action/button/Button.tsx"],
+      "@shad-cn/button-const": [
+        "./src/shared/ui/shad-cn/react-hook-form/action/button/data-types/constants/button.const.ts"
+      ],
+
+      /* react-hook-form/date/calendar */
+      "@shad-cn/Calendar": ["./src/shared/ui/shad-cn/react-hook-form/date/calendar/Calendar.tsx"],
+      "@shad-cn/CalendarDayButton": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/calendar/CalendarDayButton.tsx"
+      ],
+      "@shad-cn/calendar-helper": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/calendar/helpers/calendar.helper.tsx"
+      ],
+      "@shad-cn/calendar-type": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/calendar/data-types/types/calendar.type.ts"
+      ],
+
+      /* react-hook-form/date/date-picker */
+      "@shad-cn/DatePicker": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/date-picker/DatePicker.tsx"
+      ],
+      "@shad-cn/date-picker-type": [
+        "./src/shared/ui/shad-cn/react-hook-form/date/date-picker/data-types/types/date-picker.type.ts"
+      ],
+
+      /* react-hook-form/selection/checkbox */
+      "@shad-cn/Checkbox": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/checkbox/Checkbox.tsx"
+      ],
+
+      /* react-hook-form/selection/combobox */
+      "@shad-cn/Combobox": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/Combobox.tsx"
+      ],
+      "@shad-cn/ComboboxChip": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxChip.tsx"
+      ],
+      "@shad-cn/ComboboxChips": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxChips.tsx"
+      ],
+      "@shad-cn/ComboboxChipsInput": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxChipsInput.tsx"
+      ],
+      "@shad-cn/ComboboxClear": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxClear.tsx"
+      ],
+      "@shad-cn/ComboboxCollection": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxCollection.tsx"
+      ],
+      "@shad-cn/ComboboxContent": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxContent.tsx"
+      ],
+      "@shad-cn/ComboboxEmpty": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxEmpty.tsx"
+      ],
+      "@shad-cn/ComboboxGroup": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxGroup.tsx"
+      ],
+      "@shad-cn/ComboboxInput": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxInput.tsx"
+      ],
+      "@shad-cn/ComboboxItem": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxItem.tsx"
+      ],
+      "@shad-cn/ComboboxLabel": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxLabel.tsx"
+      ],
+      "@shad-cn/ComboboxList": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxList.tsx"
+      ],
+      "@shad-cn/ComboboxSeparator": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxSeparator.tsx"
+      ],
+      "@shad-cn/ComboboxTrigger": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxTrigger.tsx"
+      ],
+      "@shad-cn/ComboboxValue": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/ComboboxValue.tsx"
+      ],
+      "@shad-cn/useComboboxAnchor": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/combobox/hooks/useComboboxAnchor.ts"
+      ],
+
+      /* react-hook-form/selection/radio-group */
+      "@shad-cn/RadioGroup": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/radio-group/RadioGroup.tsx"
+      ],
+      "@shad-cn/RadioGroupItem": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/radio-group/RadioGroupItem.tsx"
+      ],
+
+      /* react-hook-form/selection/select */
+      "@shad-cn/Select": ["./src/shared/ui/shad-cn/react-hook-form/selection/select/Select.tsx"],
+      "@shad-cn/SelectContent": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectContent.tsx"
+      ],
+      "@shad-cn/SelectGroup": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectGroup.tsx"
+      ],
+      "@shad-cn/SelectItem": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectItem.tsx"
+      ],
+      "@shad-cn/SelectLabel": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectLabel.tsx"
+      ],
+      "@shad-cn/SelectScrollDownButton": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectScrollDownButton.tsx"
+      ],
+      "@shad-cn/SelectScrollUpButton": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectScrollUpButton.tsx"
+      ],
+      "@shad-cn/SelectSeparator": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectSeparator.tsx"
+      ],
+      "@shad-cn/SelectTrigger": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectTrigger.tsx"
+      ],
+      "@shad-cn/SelectValue": [
+        "./src/shared/ui/shad-cn/react-hook-form/selection/select/SelectValue.tsx"
+      ],
+
+      /* react-hook-form/selection/switch */
+      "@shad-cn/Switch": ["./src/shared/ui/shad-cn/react-hook-form/selection/switch/Switch.tsx"],
+
+      /* react-hook-form/text/input */
+      "@shad-cn/Input": ["./src/shared/ui/shad-cn/react-hook-form/text/input/Input.tsx"],
+
+      /* react-hook-form/text/input-group */
+      "@shad-cn/InputGroup": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroup.tsx"
+      ],
+      "@shad-cn/InputGroupAddon": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupAddon.tsx"
+      ],
+      "@shad-cn/InputGroupButton": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupButton.tsx"
+      ],
+      "@shad-cn/InputGroupInput": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupInput.tsx"
+      ],
+      "@shad-cn/InputGroupText": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupText.tsx"
+      ],
+      "@shad-cn/InputGroupTextarea": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupTextarea.tsx"
+      ],
+
+      /* react-hook-form/text/label */
+      "@shad-cn/Label": ["./src/shared/ui/shad-cn/react-hook-form/text/label/Label.tsx"],
+
+      /* react-hook-form/text/textarea */
+      "@shad-cn/Textarea": ["./src/shared/ui/shad-cn/react-hook-form/text/textarea/Textarea.tsx"]
     },
     "strict": false
   },
