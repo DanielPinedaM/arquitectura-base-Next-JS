@@ -544,16 +544,45 @@ src/
 ├── shared/
 │   └── ui/
 │       └── shad-cn/ → componentes de shad cn
-│           ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, toast/sonner, tooltip)
-│           ├── react-hook-form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción; todos usan react hook form Controller excepto button
-│           │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
-│           │   ├── date/ → selección de fechas (calendar, date-picker)
-│           │   ├── selection/ → elegir entre opciones predefinidas (checkbox, combobox, radio-group, select, switch)
-│           │   └── text/ → entrada de texto libre y su etiqueta (input, input-group, label, textarea)
-│           ├── navigation/ → componentes de navegación (accordion, pagination, tabs)
-│           ├── data-display/ → componentes de presentación de datos (carousel, data-table)
-│           ├── hooks/ → hooks personalizados de shad cn
-│           └── utils/ → NO es un componente: expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
+│           │
+│           ├── data-display/ → componentes que presentan datos al usuario
+│           │   ├── carousel/ → carrusel de slides
+│           │   └── data-table/ → tabla de datos con @tanstack/react-table paginación y sorting
+│           │
+│           ├── react-hook-form/ → controles de formulario y sus dependencias, subagrupados por el tipo de interacción; todos usan react hook form Controller excepto button
+│           │   ├── action/ → dispara una acción, no captura un valor del formulario
+│           │   │   └── button/ → botón
+│           │   ├── date/ → selección de fechas
+│           │   │   ├── calendar/ → calendario
+│           │   │   └── date-picker/ → selector de fecha sobre popover
+│           │   ├── selection/ → elegir entre opciones predefinidas
+│           │   │   ├── checkbox/ → casilla de verificación
+│           │   │   ├── combobox/ → input con autocompletado
+│           │   │   ├── radio-group/ → grupo de opciones excluyentes
+│           │   │   ├── select/ → desplegable de selección
+│           │   │   └── switch/ → interruptor on/off
+│           │   └── text/ → entrada de texto libre y su etiqueta
+│           │       ├── input/ → campo de texto de una línea
+│           │       ├── input-group/ → campo de texto con addons
+│           │       ├── label/ → etiqueta de un control
+│           │       └── textarea/ → campo de texto multilínea
+│           │
+│           ├── navigation/ → componentes de navegación
+│           │   ├── accordion/ → secciones plegables
+│           │   ├── pagination/ → paginación
+│           │   └── tabs/ → pestañas
+│           │
+│           ├── overlay/ → componentes que se superponen al contenido
+│           │   ├── alert-dialog/ → diálogo de confirmación
+│           │   ├── dialog/ → diálogo modal
+│           │   ├── drawer/ → panel deslizante
+│           │   ├── dropdown-menu/ → menú desplegable
+│           │   ├── popover/ → contenido flotante anclado
+│           │   ├── sheet/ → panel lateral
+│           │   ├── toast/ → notificación temporal (Sonner)
+│           │   └── tooltip/ → descripción emergente
+│           │
+│           └── helpers/ → expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
 │
 └── styles/
     └── global/
@@ -1632,34 +1661,36 @@ Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, i
 ### Componentes permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
 
-Cada fila indica el alias de import, definido en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<componente>`).
+Siempre para importar los componentes usar los import alias de shad cn que estan en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<Componente>`) y coincide exactamente con el nombre del archivo, en PascalCase.
 
-| Nombre                                                         | import alias             |
-| -------------------------------------------------------------- | ------------------------ |
-| Accordion                                                      | `@shad-cn/accordion`     |
-| Alert Dialog                                                   | `@shad-cn/alert-dialog`  |
-| Calendar                                                       | `@shad-cn/calendar`      |
-| Carousel                                                       | `@shad-cn/carousel`      |
-| Checkbox                                                       | `@shad-cn/checkbox`      |
-| Combobox                                                       | `@shad-cn/combobox`      |
-| Data Table (con `@tanstack/react-table`, paginación y sorting) | `@shad-cn/data-table`    |
-| Date Picker                                                    | `@shad-cn/date-picker`   |
-| Dialog                                                         | `@shad-cn/dialog`        |
-| Drawer                                                         | `@shad-cn/drawer`        |
-| Dropdown Menu                                                  | `@shad-cn/dropdown-menu` |
-| Input                                                          | `@shad-cn/input`         |
-| Input Group                                                    | `@shad-cn/input-group`   |
-| Label                                                          | `@shad-cn/label`         |
-| Pagination                                                     | `@shad-cn/pagination`    |
-| Popover                                                        | `@shad-cn/popover`       |
-| Radio Group                                                    | `@shad-cn/radio-group`   |
-| Select                                                         | `@shad-cn/select`        |
-| Sheet                                                          | `@shad-cn/sheet`         |
-| Toast (Sonner)                                                 | `@shad-cn/toast`         |
-| Switch                                                         | `@shad-cn/switch`        |
-| Tabs                                                           | `@shad-cn/tabs`          |
-| Textarea                                                       | `@shad-cn/textarea`      |
-| Tooltip                                                        | `@shad-cn/tooltip`       |
+| Nombre Componente                                              | Ruta                                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------------- |
+| Accordion                                                      | `src\shared\ui\shad-cn\navigation\accordion`                  |
+| Alert Dialog                                                   | `src\shared\ui\shad-cn\overlay\alert-dialog`                  |
+| Calendar                                                       | `src\shared\ui\shad-cn\react-hook-form\date\calendar`         |
+| Carousel                                                       | `src\shared\ui\shad-cn\data-display\carousel`                 |
+| Checkbox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\checkbox`    |
+| Combobox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\combobox`    |
+| Data Table (con `@tanstack/react-table`, paginación y sorting) | `src\shared\ui\shad-cn\data-display\data-table`               |
+| Date Picker                                                    | `src\shared\ui\shad-cn\react-hook-form\date\date-picker`      |
+| Dialog                                                         | `src\shared\ui\shad-cn\overlay\dialog`                        |
+| Drawer                                                         | `src\shared\ui\shad-cn\overlay\drawer`                        |
+| Dropdown Menu                                                  | `src\shared\ui\shad-cn\overlay\dropdown-menu`                 |
+| Input                                                          | `src\shared\ui\shad-cn\react-hook-form\text\input`            |
+| Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input-group`      |
+| Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`            |
+| Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                 |
+| Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                       |
+| Radio Group                                                    | `src\shared\ui\shad-cn\react-hook-form\selection\radio-group` |
+| Select                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\select`      |
+| Sheet                                                          | `src\shared\ui\shad-cn\overlay\sheet`                         |
+| Toast (Sonner)                                                 | `src\shared\ui\overlay\toast`                                 |
+| Switch                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\switch`      |
+| Tabs                                                           | `src\shared\ui\shad-cn\navigation\tabs`                       |
+| Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`         |
+| Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                       |
+
+Además, fuera de la tabla: `Button` (dependencia interna, ver "Dependencias internas de los componentes permitidos") y la función `cn()`.
 
 ## 🧱 Configuración de Tailwind 4
 
