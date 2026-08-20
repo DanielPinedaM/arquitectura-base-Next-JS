@@ -371,7 +371,7 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
 # [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
-# ⚛️ Configurar Nest.js para que Funcione con IA
+# ⚛️ Configurar Next.js para que Funcione con IA
 Estas configuraciones son oficiales del equipo de Vercel, que es quien desarrolla Next.js.
 
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
