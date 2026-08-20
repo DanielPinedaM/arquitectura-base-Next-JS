@@ -1661,14 +1661,10 @@ Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\
 
 Siempre para importar los componentes usar los import alias de shad cn que estan en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<Componente>`) y coincide exactamente con el nombre del archivo, en PascalCase.
 
-Los botones composables (`AnchorButton`, `Button`, `NextLink`) NO son de shadcn: viven en `src/shared/ui/buttons` y se importan con la ruta completa (`@/shared/ui/buttons/<Componente>`), no con el alias `@shad-cn/`. Cuál de los tres usar lo resuelve **"Orden de Decisión para Botones"**.
-
 | Nombre Componente                                              | Ruta                                                          |
 | -------------------------------------------------------------- | ------------------------------------------------------------- |
 | Accordion                                                      | `src\shared\ui\shad-cn\navigation\accordion`                  |
 | Alert Dialog                                                   | `src\shared\ui\shad-cn\overlay\alert-dialog`                  |
-| AnchorButton (botón composable)                                | `src\shared\ui\buttons\AnchorButton.tsx`                      |
-| Button (botón composable)                                      | `src\shared\ui\buttons\Button.tsx`                            |
 | Calendar                                                       | `src\shared\ui\shad-cn\react-hook-form\date\calendar`         |
 | Carousel                                                       | `src\shared\ui\shad-cn\data-display\carousel`                 |
 | Checkbox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\checkbox`    |
@@ -1681,7 +1677,6 @@ Los botones composables (`AnchorButton`, `Button`, `NextLink`) NO son de shadcn:
 | Input                                                          | `src\shared\ui\shad-cn\react-hook-form\text\input`            |
 | Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input-group`      |
 | Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`            |
-| NextLink (botón composable)                                    | `src\shared\ui\buttons\NextLink.tsx`                          |
 | Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                 |
 | Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                       |
 | Radio Group                                                    | `src\shared\ui\shad-cn\react-hook-form\selection\radio-group` |
@@ -1692,8 +1687,6 @@ Los botones composables (`AnchorButton`, `Button`, `NextLink`) NO son de shadcn:
 | Tabs                                                           | `src\shared\ui\shad-cn\navigation\tabs`                       |
 | Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`         |
 | Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                       |
-
-Además, fuera de la tabla: el `Button` de shadcn `@shad-cn/button` (dependencia interna, ver "Dependencias internas de los componentes permitidos", distinto del `Button` composable de `src/shared/ui/buttons`) y la función `cn()`.
 
 ## 🧱 Configuración de Tailwind 4
 
