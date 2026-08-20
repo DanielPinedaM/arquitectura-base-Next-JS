@@ -532,13 +532,9 @@ Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llama
 
 > [!WARNING]
 >
-> # **_ESTO HAY Q CORREGIRLO:_**
+> # **LA ESTRUCTURA DE ESTAS CARPETAS ESTA INCOMPLETA**
 
-La estructura de carpetas definida a continuación **no representa la totalidad completa del proyecto**, representa la **arquitectura base de referencia**.
-
-Esta arquitectura define el patrón estructural que toda la aplicación debe seguir, independientemente del crecimiento del proyecto o la incorporación de nuevas features.
-
-Es la guía principal que determina cómo se organiza el código, no una lista exhaustiva de todos los archivos existentes.
+La siguiente estructura NO es una lista exhaustiva de los archivos del proyecto, es la **arquitectura base de referencia**: el patrón que define cómo se organiza el código y que toda la aplicación debe seguir, sin importar cuánto crezca el proyecto o cuántas features se agreguen.
 
 ```txt
 src/
