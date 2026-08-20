@@ -453,6 +453,10 @@ Read 57 lines
 >
 > eliminar `skills-lock.json`
 
+# MCP
+
+# [🔗 Enlace - Repositorios de MCP](https://mcpservers.org/es/)
+
 # Reglas Obligatorias para Skill
 Aplican a toda respuesta o modificación de código de este proyecto.
 
