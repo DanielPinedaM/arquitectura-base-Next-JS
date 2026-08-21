@@ -453,7 +453,7 @@ Read 57 lines
 >
 > eliminar `skills-lock.json`
 
-## prop-drilling
+## `prop-drilling`
 Prohíbe el prop drilling y obliga el patrón **data down, events up**.
 
 ***¿Qué problema soluciona?*** El prop drilling es una prop, de datos o callback, que atraviesa componentes intermedios que no la consumen y que solo la reenvían. Eso acopla componentes que no tienen ninguna relación con el dato, obliga a tocar toda la cadena cada vez que cambia una firma e impide reutilizar o mover el componente intermedio.
