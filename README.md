@@ -410,7 +410,7 @@ Trabajar bajo el principio:
 
 El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
 
-***Ejemplos:***
+***Ejemplos de prompt:***
 
 ```console
 /git-commit
