@@ -453,6 +453,41 @@ Read 57 lines
 >
 > eliminar `skills-lock.json`
 
+## prop-drilling
+Prohíbe el prop drilling y obliga el patrón **data down, events up**.
+
+***¿Qué problema soluciona?*** El prop drilling es una prop, de datos o callback, que atraviesa componentes intermedios que no la consumen y que solo la reenvían. Eso acopla componentes que no tienen ninguna relación con el dato, obliga a tocar toda la cadena cada vez que cambia una firma e impide reutilizar o mover el componente intermedio.
+
+***❌ Ejemplo Incorrecto - anti patrón prop drilling:***
+
+```txt
+<App user={user} />        # aquí vive user
+  ↓
+<Layout user={user} />     # ❌ no la consume, solo la reenvía
+  ↓
+<Sidebar user={user} />    # ❌ no la consume, solo la reenvía
+  ↓
+<Profile user={user} />    # ✅ el único que consume user
+```
+
+`Layout` y `Sidebar` declaran la prop `user` únicamente para pasarla al siguiente componente. Esos dos componentes de paso son el prop drilling.
+
+La regla correcta es que el padre pase el dato al hijo directo por props y que el hijo le notifique con una callback (`onAlgo`). El padre es el único dueño del estado.
+
+El skill `.claude\skills\prop-drilling\SKILL.md` define las alternativas permitidas, en este orden: reestructurar el árbol de componentes, composición con `children` o slots y store de zustand.
+
+Se invoca al crear, dividir, extraer o refactorizar componentes.
+
+***Ejemplos de prompt:***
+
+```console
+/prop-drilling crea un componente de tabla que reciba el listado de usuarios
+```
+
+```console
+/prop-drilling refactorizar el componente que esta en la ruta X
+```
+
 # MCP
 
 # [🔗 Enlace - Repositorios de MCP](https://mcpservers.org/es/)
