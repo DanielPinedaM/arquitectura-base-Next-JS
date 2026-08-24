@@ -2,21 +2,15 @@ import FormLogin from '@/app/(features)/(auth)/iniciar-sesion/FormLogin';
 
 export default function Page() {
   return (
-    <section>
-      <section className='w-full h-screen bg-no-repeat bg-fixed bg-origin-border bg-bottom'>
-        <div className='flex justify-center'>
-          <div className='shadow-[0px_2px_5px_-1px_oklch(37.72%_0.03_281.56_/_0.25)] flex flex-col items-center h-fit mx-2 basis-[460px] rounded-xl mt-3 xsm:mt-6 p-4'>
-            <div className='xsm:w-[70%]'>
-              <h1 className='text-dark-blue text-center text-[25px] font-medium mb-5'>
-                <span className='block'>Bienvenido a </span>
-                <span>tu plataforma web</span>
-              </h1>
+    <section className='w-full h-screen flex items-center justify-center'>
+      <div className='basis-1/4 shadow-xl p-4 rounded-xl'>
+        <h1 className='text-center font-medium mb-5'>
+          <span className='block'>Bienvenido a</span>
+          <span className='block'>tu plataforma web</span>
+        </h1>
 
-              <FormLogin />
-            </div>
-          </div>
-        </div>
-      </section>
+        <FormLogin />
+      </div>
     </section>
   );
 }

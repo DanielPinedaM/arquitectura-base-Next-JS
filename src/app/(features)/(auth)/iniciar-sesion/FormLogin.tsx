@@ -45,15 +45,6 @@ export default function FormLogin() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    deleteStorageAndCookies();
-  }, []);
-
-  const deleteStorageAndCookies = (): void => {
-    deleteAllCookies();
-    sessionStorageDeleteAll();
-  };
-
   const deleteAllCookies = (): void => {
     const cookies = getCookies();
 
@@ -63,6 +54,15 @@ export default function FormLogin() {
       });
     }
   };
+
+  const deleteStorageAndCookies = (): void => {
+    deleteAllCookies();
+    sessionStorageDeleteAll();
+  };
+
+  useEffect(() => {
+    deleteStorageAndCookies();
+  }, []);
 
   const iterateUserData = (data: unknown): void => {
     if (!data) {
@@ -115,7 +115,7 @@ export default function FormLogin() {
         return;
       }
 
-     // setCookie(key, forceConvertToString(value), cookieOptions({ maxAge }));
+      // setCookie(key, forceConvertToString(value), cookieOptions({ maxAge }));
     });
   };
 
@@ -166,77 +166,75 @@ export default function FormLogin() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-        <div className='mb-2'>
-          <label>
-            <span className='cursor-pointer'>Correo electrónico</span>
-            <Controller
-              name='user'
-              control={control}
-              rules={{
-                required: 'Digite correo electrónico',
-                pattern: {
-                  value: CONST_REGEX.text.email,
-                  message: 'Correo electrónico invalido',
-                },
-                minLength: {
-                  value: 2,
-                  message: 'Mínimo 2 caracteres',
-                },
-                maxLength: {
-                  value: 30,
-                  message: 'Máximo 30 caracteres',
-                },
-              }}
-              render={({ field, field: { name, value = '', onChange, onBlur } }) => (
-                <InputText
-                  {...field}
-                  id={name}
-                  value={value}
-                  onChange={(e) => onChange(e.target.value)}
-                  onBlur={onBlur}
-                  placeholder='nombre@correo.com'
-                  className={`block w-full`}
-                />
-              )}
-            />
-          </label>
-          <FormErrorMessages errors={errors} name='user' />
-        </div>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+      <div className='mb-2'>
+        <label>
+          <span className='cursor-pointer'>Correo electrónico</span>
+          <Controller
+            name='user'
+            control={control}
+            rules={{
+              required: 'Digite correo electrónico',
+              pattern: {
+                value: CONST_REGEX.text.email,
+                message: 'Correo electrónico invalido',
+              },
+              minLength: {
+                value: 2,
+                message: 'Mínimo 2 caracteres',
+              },
+              maxLength: {
+                value: 30,
+                message: 'Máximo 30 caracteres',
+              },
+            }}
+            render={({ field, field: { name, value = '', onChange, onBlur } }) => (
+              <InputText
+                {...field}
+                id={name}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                onBlur={onBlur}
+                placeholder='nombre@correo.com'
+                className={`block w-full`}
+              />
+            )}
+          />
+        </label>
+        <FormErrorMessages errors={errors} name='user' />
+      </div>
 
-        <div className='mb-2'>
-          <label>
-            <span className='cursor-pointer'>Contraseña</span>
-            <Controller
-              name='password'
-              control={control}
-              rules={{
-                required: 'Digite contraseña',
-              }}
-              render={({ field, field: { name, value = '', onChange, onBlur } }) => (
-                <Password
-                  {...field}
-                  id={name}
-                  value={value}
-                  onChange={(e) => onChange(e.target.value)}
-                  onBlur={onBlur}
-                  variant='filled'
-                  feedback={false}
-                  placeholder='Contraseña'
-                />
-              )}
-            />
-          </label>
-          <FormErrorMessages errors={errors} name='password' />
-        </div>
+      <div className='mb-2'>
+        <label>
+          <span className='cursor-pointer'>Contraseña</span>
+          <Controller
+            name='password'
+            control={control}
+            rules={{
+              required: 'Digite contraseña',
+            }}
+            render={({ field, field: { name, value = '', onChange, onBlur } }) => (
+              <Password
+                {...field}
+                id={name}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                onBlur={onBlur}
+                variant='filled'
+                feedback={false}
+                placeholder='Contraseña'
+              />
+            )}
+          />
+        </label>
+        <FormErrorMessages errors={errors} name='password' />
+      </div>
 
-        <div className='flex justify-end'>
-          <Button theme='primary' variant='background' type='submit'>
-            Ingresar
-          </Button>
-        </div>
-      </form>
-    </>
+      <div className='flex justify-end'>
+        <Button theme='primary' variant='background' type='submit'>
+          Ingresar
+        </Button>
+      </div>
+    </form>
   );
 }

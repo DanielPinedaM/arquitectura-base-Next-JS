@@ -643,29 +643,12 @@ https://utopia.fyi/type/calculator
   --step--1: clamp(0.8333rem, calc(0.8111rem + 0.0741dvw), 0.9rem);
 }
 
-/* jerarquia de titulos - cada titulo baja un step hasta llegar al tamaño base en h5 y h6 */
-
-h1 {
-  font-size: var(--step-4);
-}
-
-h2 {
-  font-size: var(--step-3);
-}
-
-h3 {
-  font-size: var(--step-2);
-}
-
-h4 {
-  font-size: var(--step-1);
-}
-
 /* tamaño base equivalente a 16px responsive */
 
 /* titulos */
 h5,
 h6,
+hgroup,
 
 /* texto general */
 p,
@@ -683,7 +666,6 @@ blockquote,
 time,
 address,
 output,
-summary,
 del,
 ins,
 s,
@@ -693,6 +675,7 @@ bdo,
 data,
 ruby,
 rt,
+rp,
 
 /* enlaces */
 a,
@@ -714,15 +697,20 @@ samp,
 var,
 
 /* formularios */
+form,
+fieldset,
 label,
 legend,
 input,
 textarea,
 select,
 button,
+.btn,
 option,
 optgroup,
 ::file-selector-button,
+meter,
+progress,
 
 /* tabla */
 table,
@@ -730,11 +718,32 @@ thead,
 tbody,
 tfoot,
 caption,
+tr,
 th,
 td,
 
+/* contenedores de seccion */
+div,
+main,
+search,
+article,
+section,
+header,
+footer,
+nav,
+aside,
+
+/* elementos interactivos */
+details,
+summary,
+dialog,
+
 /* multimedia */
-figcaption {
+figure,
+figcaption,
+
+/* scripting */
+noscript {
   font-size: var(--step-0);
 }
 
@@ -744,4 +753,22 @@ small,
 sub,
 sup {
   font-size: var(--step--1);
+}
+
+/* jerarquia de titulos - cada titulo baja un step hasta llegar al tamaño base en h5 y h6 */
+
+h1 {
+  font-size: var(--step-4);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
 }
