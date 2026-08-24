@@ -52,7 +52,7 @@ html,
     'Segoe UI Emoji',
     'Segoe UI Symbol',
     'Noto Color Emoji'
-  ); /* 4 */
+  );
   font-feature-settings: --theme(--default-font-feature-settings, normal);
   font-variation-settings: --theme(--default-font-variation-settings, normal);
   -webkit-tap-highlight-color: transparent;
@@ -197,10 +197,10 @@ pre {
     'Liberation Mono',
     'Courier New',
     monospace
-  ); /* 1 */
-  font-feature-settings: --theme(--default-mono-font-feature-settings, normal); /* 2 */
-  font-variation-settings: --theme(--default-mono-font-variation-settings, normal); /* 3 */
-  font-size: 1em; /* 4 */
+  );
+  font-feature-settings: --theme(--default-mono-font-feature-settings, normal);
+  font-variation-settings: --theme(--default-mono-font-variation-settings, normal);
+  font-size: 1em;
 }
 
 /*
