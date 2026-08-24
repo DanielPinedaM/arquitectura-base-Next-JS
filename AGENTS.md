@@ -92,4 +92,8 @@ Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuper
 * Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto
 
 # Regla **OBLIGATORIA** para Next.js
-Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento. La guía en `node_modules/next/dist/docs/` y la skill en `claude/skills/vercel-react-best-practices/SKILL.md` (resuelta desde el directorio de este archivo) son la **fuente de la verdad**: consultarlas antes de escribir código o responder. Respeta los avisos de deprecación.
+Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento:
+
+1. Antes de escribir código o responder, consultar la guía en `node_modules/next/dist/docs/` y la skill en `claude/skills/vercel-react-best-practices/SKILL.md` (resuelta desde el directorio de este archivo). Respetar los avisos de deprecación.
+
+2. Las fuentes del punto 1 son la **única fuente de verdad** por lo que se tiene que **acatar**.
