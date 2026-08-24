@@ -130,7 +130,8 @@ export const downloadExcel = async (
 
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Datos');
-  const keys: string[] = Object.keys(nonNestedArrayOfObjects[0]);
+
+  const keys: string[] = Object.keys(nonNestedArrayOfObjects[0] ?? {});
 
   // Mayusculas iniciales a los nombres de las columnas del Excel
   const header: string[] = keys.map((key) => titleCase(key));
