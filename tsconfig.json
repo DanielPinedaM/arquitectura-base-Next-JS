@@ -2,20 +2,15 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+
+    /* ------------- strict type checking ------------- */
+    "strict": true,
+
+    /* ------------- modulos y compilacion ------------- */
+
     "allowJs": true,
-    "skipLibCheck": true,
-    "alwaysStrict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "strictBuiltinIteratorReturn": true,
-    "useUnknownInCatchVariables": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "noUncheckedSideEffectImports": false,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -404,8 +399,7 @@
 
       /* react-hook-form/text/textarea */
       "@shad-cn/Textarea": ["./src/shared/ui/shad-cn/react-hook-form/text/textarea/Textarea.tsx"]
-    },
-    "strict": false
+    }
   },
 
   "include": [
