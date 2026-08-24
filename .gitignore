@@ -31,9 +31,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files (can opt-in for committing if needed)
-#.env*
-
 # vercel
 .vercel
 
@@ -44,3 +41,6 @@ next-env.d.ts
 # Manejadores de paquetes diferente a pnpm
 package-lock.json
 yarn.lock
+
+# IA
+.playwright-cli
