@@ -84,5 +84,12 @@ Es decir:
 
 Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuperar-clave/page.tsx` — ambos en español. El resto del código dentro de esa carpeta (archivos `.tsx`, componentes, funciones, hooks, variables) sigue en inglés según la sección anterior.
 
+# Buenas Practicas de TypeScript
+* Usar strict type checking
+
+* Prefiere la inferencia de tipos cuando el tipo sea obvio
+
+* Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto
+
 # Regla **OBLIGATORIA** para Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento. La guía en `node_modules/next/dist/docs/` y la skill en `claude/skills/vercel-react-best-practices/SKILL.md` (resuelta desde el directorio de este archivo) son la **fuente de la verdad**: consultarlas antes de escribir código o responder. Respeta los avisos de deprecación.
