@@ -45,6 +45,15 @@ export default function FormLogin() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    deleteStorageAndCookies();
+  }, []);
+
+  const deleteStorageAndCookies = (): void => {
+    deleteAllCookies();
+    sessionStorageDeleteAll();
+  };
+
   const deleteAllCookies = (): void => {
     const cookies = getCookies();
 
@@ -54,15 +63,6 @@ export default function FormLogin() {
       });
     }
   };
-
-  const deleteStorageAndCookies = (): void => {
-    deleteAllCookies();
-    sessionStorageDeleteAll();
-  };
-
-  useEffect(() => {
-    deleteStorageAndCookies();
-  }, []);
 
   const iterateUserData = (data: unknown): void => {
     if (!data) {
