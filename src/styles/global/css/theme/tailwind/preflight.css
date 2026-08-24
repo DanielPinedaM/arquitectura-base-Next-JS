@@ -150,7 +150,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: inherit;
   font-weight: inherit;
 }
 
@@ -200,15 +199,6 @@ pre {
   );
   font-feature-settings: --theme(--default-mono-font-feature-settings, normal);
   font-variation-settings: --theme(--default-mono-font-variation-settings, normal);
-  font-size: 1em;
-}
-
-/*
-  Agregar el tamaño de fuente correcto en todos los navegadores.
-*/
-
-small {
-  font-size: 80%;
 }
 
 /*
@@ -217,7 +207,6 @@ small {
 
 sub,
 sup {
-  font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
@@ -346,7 +335,14 @@ select,
 optgroup,
 textarea,
 ::file-selector-button {
-  font: inherit;
+  font-family: inherit;
+  font-stretch: inherit;
+  font-width: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
   font-feature-settings: inherit;
   font-variation-settings: inherit;
   letter-spacing: inherit;
@@ -614,7 +610,138 @@ textarea:read-only {
 }
 
 /*
-Utopia Fluid - Texto Responsive
+Utopia Fluid Responsive Design
+
+Texto Responsive usando las media queries de Tailwind q estan en src\styles\global\css\theme\tailwind\theme.css
+
 https://www.youtube.com/watch?v=udGrXWeJp1Y&t=18750s
 https://utopia.fyi/type/calculator
+
+┌───────────────────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+│ step ⬇️ / media query ➡️ │ @360  │ @480  │ @640  │ @768  │ @1024 │ @1280 │ @1536 │ @1920 │ @2560 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step-4 h1               │ 33.18 │ 33.18 │ 34.37 │ 35.33 │ 37.25 │ 39.16 │ 41.08 │ 43.95 │ 43.95 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step-3 h2               │ 27.65 │ 27.65 │ 28.48 │ 29.15 │ 30.48 │ 31.82 │ 33.15 │ 35.16 │ 35.16 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step-2 h3               │ 23.04 │ 23.04 │ 23.61 │ 24.06 │ 24.96 │ 25.87 │ 26.77 │ 28.12 │ 28.12 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step-1 h4               │ 19.20 │ 19.20 │ 19.57 │ 19.86 │ 20.45 │ 21.03 │ 21.62 │ 22.50 │ 22.50 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step-0 base             │ 16.00 │ 16.00 │ 16.22 │ 16.40 │ 16.76 │ 17.11 │ 17.47 │ 18.00 │ 18.00 │
+├───────────────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ --step--1                 │ 13.33 │ 13.33 │ 13.45 │ 13.55 │ 13.74 │ 13.93 │ 14.12 │ 14.40 │ 14.40 │
+└───────────────────────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 */
+
+:root {
+  --step-4: clamp(2.0736rem, calc(1.8493rem + 0.7478dvw), 2.7466rem);
+  --step-3: clamp(1.728rem, calc(1.5716rem + 0.5214dvw), 2.1973rem);
+  --step-2: clamp(1.44rem, calc(1.3341rem + 0.3531dvw), 1.7578rem);
+  --step-1: clamp(1.2rem, calc(1.1312rem + 0.2292dvw), 1.4063rem);
+  --step-0: clamp(1rem, calc(0.9583rem + 0.1389dvw), 1.125rem);
+  --step--1: clamp(0.8333rem, calc(0.8111rem + 0.0741dvw), 0.9rem);
+}
+
+/* jerarquia de titulos - cada titulo baja un step hasta llegar al tamaño base en h5 y h6 */
+
+h1 {
+  font-size: var(--step-4);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+}
+
+/* tamaño base equivalente a 16px responsive */
+
+/* titulos */
+h5,
+h6,
+
+/* texto general */
+p,
+span,
+b,
+strong,
+i,
+em,
+mark,
+abbr,
+cite,
+dfn,
+q,
+blockquote,
+time,
+address,
+output,
+summary,
+del,
+ins,
+s,
+u,
+bdi,
+bdo,
+data,
+ruby,
+rt,
+
+/* enlaces */
+a,
+
+/* listas */
+ul,
+ol,
+menu,
+li,
+dl,
+dt,
+dd,
+
+/* contenido técnico */
+code,
+pre,
+kbd,
+samp,
+var,
+
+/* formularios */
+label,
+legend,
+input,
+textarea,
+select,
+button,
+option,
+optgroup,
+::file-selector-button,
+
+/* tabla */
+table,
+thead,
+tbody,
+tfoot,
+caption,
+th,
+td,
+
+/* multimedia */
+figcaption {
+  font-size: var(--step-0);
+}
+
+/* texto secundario - un step por debajo del tamaño base */
+
+small,
+sub,
+sup {
+  font-size: var(--step--1);
+}
