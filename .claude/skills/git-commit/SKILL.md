@@ -2,7 +2,7 @@
 name: git-commit
 description: Convención obligatoria de git commits (Conventional Commits + Gitmoji, 1 commit = 1 feature). Aplicar siempre antes de cualquier commit.
 when_to_use: Aplicar en TODOS los git commits sin excepción. Triggers — "haz un commit", "hacer commit", "commitear", "crea un commit", "nuevo commit", "git commit", "git push", "registra los cambios", "guarda en git", "commit los cambios", "sube los cambios a git".
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Write(.claude/skills/git-commit/COMMIT_MSG_TEMP.txt), Bash(rm -f .claude/skills/git-commit/COMMIT_MSG_TEMP.txt)
 ---
 
 # `git commit`
@@ -16,7 +16,7 @@ Antes de crear cualquier commit, copiar este checklist y marcarlo a medida que s
 - [ ] 3. Por cada feature: mover al staging area únicamente los archivos que le corresponden.
 - [ ] 4. Elegir `<emoji>` y `<type>` desde la tabla y determinar el `<scope>`.
 - [ ] 5. Redactar el encabezado y el `body` como lista de puntos.
-- [ ] 6. Ejecutar el commit; si quedan más features, volver al paso 3.
+- [ ] 6. Escribir el mensaje en un archivo, ejecutar el commit con `git commit -F` y eliminar el archivo temporal (ver "Cómo Ejecutar el Commit"); si quedan más features, volver al paso 3.
 - [ ] 7. Mostrar el resultado de cada commit creado (ver "Mostrar el Commit Después de Realizarlo").
 ```
 
@@ -137,6 +137,53 @@ El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, 
 ```
 
 En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto por punto lo que resume el `<mensaje en español>` "agregar validación de token JWT", sin repetirlo literalmente.
+
+## Cómo Ejecutar el Commit
+El mensaje de commit siempre es multilínea (encabezado + línea en blanco + `body`). Pasar ese texto directamente como argumento en la línea de comandos es la causa de que se filtren caracteres sobrantes dentro del mensaje, por eso existe **un único método permitido**:
+
+1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente.
+
+2. Ejecutar el commit leyendo el mensaje desde ese archivo:
+
+```bash
+git commit -F .claude/skills/git-commit/COMMIT_MSG_TEMP.txt
+```
+
+3. Eliminar el archivo temporal inmediatamente después de crear el commit:
+
+```bash
+rm -f .claude/skills/git-commit/COMMIT_MSG_TEMP.txt
+```
+
+4. Por cada feature adicional, repetir el proceso completo desde el paso 1: escribir de nuevo el archivo con el mensaje de esa feature, ejecutar el commit y volver a eliminar el archivo.
+
+Motivo de este método: la herramienta de escritura de archivos guarda el texto tal cual, sin pasar por el intérprete del shell, por lo que ningún carácter de la sintaxis del shell puede terminar dentro del mensaje.
+
+Motivo de la ubicación del archivo: `COMMIT_MSG_TEMP.txt` vive junto a esta skill, en la misma carpeta que la define, por lo que el mensaje del commit queda al lado de las reglas que lo generan y es fácil de encontrar. La ruta se escribe relativa a la raíz del repositorio, así que los comandos `git commit -F` y `rm` se ejecutan desde esa raíz.
+
+Advertencia sobre esta ubicación: a diferencia de la carpeta `.git`, esta ruta SÍ forma parte del working directory, por lo que el archivo aparece como untracked mientras existe y puede colarse en el commit. Por eso es obligatorio eliminarlo apenas se crea el commit y está prohibido agregarlo al staging area.
+
+Motivo de eliminar el archivo: es un archivo temporal cuya única función es transportar el mensaje hasta `git commit -F`. Si se deja, queda un archivo untracked con un mensaje obsoleto que puede colarse en un commit posterior o reutilizarse por error, aplicándole a una feature el mensaje de otra. Al borrarlo, cada commit obliga a escribir su propio mensaje desde cero.
+
+En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .claude/skills/git-commit/COMMIT_MSG_TEMP.txt`.
+
+### Prohibiciones al Ejecutar el Commit
+* PROHIBIDO pasar un mensaje multilínea con `-m`.
+
+* PROHIBIDO usar here-strings de PowerShell (`@'...'@`) o heredocs de shell POSIX (`<<'EOF' ... EOF`) para pasar el mensaje. Cada shell interpreta una sintaxis distinta y la del shell equivocado NO produce un error: se inserta como texto literal dentro del mensaje del commit.
+
+* PROHIBIDO construir el mensaje concatenando `\n`, `` `n `` o varios `-m` seguidos.
+
+* PROHIBIDO ejecutar `git commit` sin `-F`, salvo un `<mensaje en español>` de una sola línea sin `body`, caso que igualmente está prohibido porque el `body` es obligatorio en todo commit.
+
+* PROHIBIDO dejar el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt` sin eliminar después de crear el commit.
+
+* PROHIBIDO agregar `COMMIT_MSG_TEMP.txt` al staging area o incluirlo dentro de un commit. Por lo mismo, PROHIBIDO usar `git add .`, `git add -A` o `git add --all` mientras el archivo exista: mover al staging area únicamente los archivos de la feature, nombrándolos uno por uno.
+
+* PROHIBIDO reutilizar el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt` de un commit anterior: cada commit escribe su propio mensaje en un archivo nuevo.
+
+### Bug Real que Origina Estas Reglas
+Ejecutar `git commit -m @'...'@` (here-string de PowerShell) dentro de un shell POSIX/Bash creó un commit cuyo mensaje empezaba con `@`, porque Bash no interpreta `@'` como here-string: lo lee como el carácter literal `@` concatenado con la cadena entre comillas simples. El comando terminó con éxito y el `@` sobrante quedó dentro del historial. Usar `git commit -F` evita por completo esta clase de bug.
 
 ## Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
