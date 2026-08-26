@@ -378,7 +378,7 @@ Estas configuraciones son oficiales del equipo de Vercel, que es quien desarroll
 
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
-# `AGENTS.md`
+# 📜 `AGENTS.md`
 Prompt que se envía siempre a Claude para que respete la arquitectura del proyecto. `AGENTS.md` esta basado en [este link de la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents). Permite a la IA acceder a la documentación oficial que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
 
 Para probar que funcione envia este prompt a Claude:
