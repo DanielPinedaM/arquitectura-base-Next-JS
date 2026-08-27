@@ -44,5 +44,9 @@ yarn-error.log*
 
 # IA
 .playwright-cli
+# Pantazallos de playwright-cli
+/*.png
+/*.jpg
+/*.jpeg
 # Archivos temporales con el mensaje de los commits que genera la skill git-commit
 .claude/skills/git-commit/*.txt
