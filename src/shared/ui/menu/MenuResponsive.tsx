@@ -45,7 +45,7 @@ export default function MenuResponsive() {
   2) borrar la constante API_RESPONSE
   3) descomentar el codigo q esta comentado
   4) cambiar el parametro URL de la funcion listUrl q esta en src/services/auth.ts por la URL q tiene en endpoint para listar menu
-  5) la API tiene q responder asi 
+  5) la API tiene q responder asi
   interface ApiResponse {
     success: boolean;
     status: number;
@@ -56,13 +56,13 @@ export default function MenuResponsive() {
     setUrl(API_RESPONSE);
   }, []);
 
-  /* useEffect(() => {
+ /*  useEffect(() => {
     if (sessionStorageSearch('menu')) {
       setUrl(sessionStorageListValue('menu'));
     } else {
       _listUrl();
     }
-  }, []);
+  }, []); */
 
   const setMenuInStorage = (data: IUrl[]): void => {
     if (!data || data?.length === 0) {
@@ -78,16 +78,17 @@ export default function MenuResponsive() {
     setUrl(data);
   };
 
-  const _listUrl = async (): Promise<void> => {
+  /* const _listUrl = async (): Promise<void> => {
     const { success, data } = await GET(`${process.env.NEXT_PUBLIC_API}`);
 
-    if (success) {
-      setMenuInStorage(data ?? []);
-    } else {
+    if (!success) {
       setUrl([]);
       console.error('❌ error en la llamada al endpoint q lista las opciones del menu');
       ErrorToast('Al mostrar el menu');
+      return;
     }
+
+    setMenuInStorage(data ?? []);
   }; */
 
   const RenderMenu = () => (
