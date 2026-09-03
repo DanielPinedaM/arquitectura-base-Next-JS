@@ -8,7 +8,7 @@ import {
 
 /**
 parametros de funcion httpService para llamar a la API */
-export interface IRequestOptions<T = any> {
+export interface IRequestOptions<T = unknown> {
   body?: T;
   queryParams?: TQueryParams;
   headers?: THeaders;
@@ -35,7 +35,7 @@ export interface IObjectLogs {
 
 /**
 * Contrato que define el tipo de dato con el que responden todas las APIs */
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   status: number;
   message: string;
@@ -44,7 +44,7 @@ export interface ApiResponse<T = any> {
 
 /**
 validar respuesta del backend */
-export interface IValidateApiResponse<T = any> {
+export interface IValidateApiResponse<T = unknown> {
   result: ApiResponse | T;
   responseType: TResponseType;
   method: Method;

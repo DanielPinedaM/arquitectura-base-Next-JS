@@ -28,7 +28,7 @@ import { ILoaderState } from '@/shared/stores/loader/loader.store';
  ***************************
  * validar peticiones HTTP *
  *************************** */
-async function executeRequest<T = any>(
+async function executeRequest<T = unknown>(
   method: Method,
   url: string = '',
   options: IRequestOptions = {},
