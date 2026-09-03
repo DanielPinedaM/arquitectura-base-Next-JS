@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 import { Input as InputPrimitive } from '@base-ui/react/input';
 
 import { cn } from '@shad-cn/helpers';
@@ -10,7 +10,7 @@ import { cn } from '@shad-cn/helpers';
  * PROHIBIDO usarlo fuera de `src/shared`: solo existe para construir
  * InputText, InputNumber, InputPassword e InputEmail.
  */
-function InputBase({ className, type, ...props }: React.ComponentProps<'input'>) {
+function InputBase({ className, type, ...props }: ComponentProps<'input'>) {
   return (
     <InputPrimitive
       type={type}

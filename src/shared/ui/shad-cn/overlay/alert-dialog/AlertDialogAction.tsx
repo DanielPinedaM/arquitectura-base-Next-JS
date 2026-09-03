@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 import { Button } from "@shad-cn/Button"
@@ -8,7 +8,7 @@ import { Button } from "@shad-cn/Button"
 function AlertDialogAction({
   className,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: ComponentProps<typeof Button>) {
   return (
     <Button
       data-slot="alert-dialog-action"

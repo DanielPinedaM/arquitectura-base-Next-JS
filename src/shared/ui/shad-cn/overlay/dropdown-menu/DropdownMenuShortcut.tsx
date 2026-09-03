@@ -1,13 +1,13 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
 function DropdownMenuShortcut({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: ComponentProps<"span">) {
   return (
     <span
       data-slot="dropdown-menu-shortcut"

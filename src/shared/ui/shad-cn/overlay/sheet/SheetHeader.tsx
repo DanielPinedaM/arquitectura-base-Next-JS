@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
-function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
+function SheetHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-header"

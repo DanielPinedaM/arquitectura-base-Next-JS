@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useEffect, useRef, type ComponentProps } from 'react';
 import { getDefaultClassNames, type CustomComponents, type Locale } from 'react-day-picker';
 import { DateTime } from 'luxon';
 
@@ -19,11 +19,11 @@ function CalendarDayButton({
   modifiers,
   locale,
   ...props
-}: React.ComponentProps<CustomComponents['DayButton']> & { locale?: Partial<Locale> }) {
+}: ComponentProps<CustomComponents['DayButton']> & { locale?: Partial<Locale> }) {
   const defaultClassNames = getDefaultClassNames();
 
-  const ref = React.useRef<HTMLButtonElement>(null);
-  React.useEffect(() => {
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
     if (modifiers.focused) ref.current?.focus();
   }, [modifiers.focused]);
 

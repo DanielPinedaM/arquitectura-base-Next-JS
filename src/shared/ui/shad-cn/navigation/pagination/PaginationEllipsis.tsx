@@ -1,4 +1,4 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 import { LuEllipsis } from "react-icons/lu"
@@ -6,7 +6,7 @@ import { LuEllipsis } from "react-icons/lu"
 function PaginationEllipsis({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: ComponentProps<"span">) {
   return (
     <span
       aria-hidden

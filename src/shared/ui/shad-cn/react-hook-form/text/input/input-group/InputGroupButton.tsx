@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@shad-cn/helpers';
@@ -26,7 +26,7 @@ function InputGroupButton({
   variant = 'ghost',
   size = 'xs',
   ...props
-}: Omit<React.ComponentProps<typeof Button>, 'size' | 'type'> &
+}: Omit<ComponentProps<typeof Button>, 'size' | 'type'> &
   VariantProps<typeof inputGroupButtonVariants> & {
     type?: 'button' | 'submit' | 'reset';
   }) {

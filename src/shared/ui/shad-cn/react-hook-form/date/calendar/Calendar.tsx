@@ -42,7 +42,7 @@ ya que cambios minor o major pueden dañar el componente de calendario.
 - Calendar.tsx                      → componente principal Calendar
 - CalendarDayButton.tsx             → componente CalendarDayButton (DayButton por defecto) */
 
-import * as React from 'react';
+import { useMemo } from 'react';
 import { DayPicker, getDefaultClassNames, type Matcher } from 'react-day-picker';
 import { es } from 'react-day-picker/locale';
 import { DateTime } from 'luxon';
@@ -102,7 +102,7 @@ function Calendar({
 
   /** Los wrappers de components se memorizan para que su identidad sea estable entre renders;
   recrearlos en cada render haria que react-day-picker desmonte y vuelva a montar el subarbol. */
-  const dayPickerComponents = React.useMemo(
+  const dayPickerComponents = useMemo(
     () => (components ? wrapComponents(components) : undefined),
     [components],
   );

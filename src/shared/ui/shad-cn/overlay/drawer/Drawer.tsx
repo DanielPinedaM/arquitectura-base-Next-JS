@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useMemo } from "react"
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 
 import { DrawerContext } from "@shad-cn/useDrawer"
@@ -15,7 +15,7 @@ function Drawer({
   showSwipeHandle?: boolean
 }) {
   const hasSnapPoints = snapPoints != null && snapPoints.length > 0
-  const contextValue = React.useMemo(
+  const contextValue = useMemo(
     () => ({ hasSnapPoints, modal, showSwipeHandle, swipeDirection }),
     [hasSnapPoints, modal, showSwipeHandle, swipeDirection]
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { createContext, useContext } from "react"
 import type { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 
 type DrawerContextProps = {
@@ -10,10 +10,10 @@ type DrawerContextProps = {
   swipeDirection: NonNullable<DrawerPrimitive.Root.Props["swipeDirection"]>
 }
 
-const DrawerContext = React.createContext<DrawerContextProps | null>(null)
+const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 function useDrawer() {
-  const context = React.useContext(DrawerContext)
+  const context = useContext(DrawerContext)
 
   if (!context) {
     throw new Error("useDrawer must be used within a Drawer.")

@@ -6,7 +6,7 @@ tipo equivalente propio del proyecto que usa DateTime de Luxon en su lugar, repl
 forma/estructura (misma cantidad de campos o parametros, mismo proposito), pero con Date
 reemplazado por DateTime en cada posicion donde aparezca. */
 
-import type * as React from 'react';
+import type { ComponentProps, FocusEvent, JSX, KeyboardEvent, MouseEvent } from 'react';
 import type {
   CustomComponents,
   DateRange,
@@ -60,12 +60,12 @@ export type LuxonDayEventHandler<E> = (date: DateTime, modifiers: Modifiers, e: 
 export type LuxonMonthChangeHandler = (month: DateTime) => void;
 
 export type CalendarEventProps = {
-  onDayClick?: LuxonDayEventHandler<React.MouseEvent>;
-  onDayFocus?: LuxonDayEventHandler<React.FocusEvent>;
-  onDayBlur?: LuxonDayEventHandler<React.FocusEvent>;
-  onDayKeyDown?: LuxonDayEventHandler<React.KeyboardEvent>;
-  onDayMouseEnter?: LuxonDayEventHandler<React.MouseEvent>;
-  onDayMouseLeave?: LuxonDayEventHandler<React.MouseEvent>;
+  onDayClick?: LuxonDayEventHandler<MouseEvent>;
+  onDayFocus?: LuxonDayEventHandler<FocusEvent>;
+  onDayBlur?: LuxonDayEventHandler<FocusEvent>;
+  onDayKeyDown?: LuxonDayEventHandler<KeyboardEvent>;
+  onDayMouseEnter?: LuxonDayEventHandler<MouseEvent>;
+  onDayMouseLeave?: LuxonDayEventHandler<MouseEvent>;
   onMonthChange?: LuxonMonthChangeHandler;
   onNextClick?: LuxonMonthChangeHandler;
   onPrevClick?: LuxonMonthChangeHandler;
@@ -78,7 +78,7 @@ export type LuxonOnSelectHandler<T> = (
   selected: T,
   triggerDate: DateTime,
   modifiers: Modifiers,
-  e: React.MouseEvent | React.KeyboardEvent,
+  e: MouseEvent | KeyboardEvent,
 ) => void;
 
 /** Variantes de seleccion de la interfaz publica del Calendar, ya migradas a DateTime de Luxon. */
@@ -145,27 +145,27 @@ export type LuxonCalendarWeek = { weekNumber: number; days: LuxonCalendarDay[] }
 export type LuxonCalendarMonth = { date: DateTime; weeks: LuxonCalendarWeek[] };
 
 /** Props de los componentes personalizables que exponen fechas, re-expresadas con Luxon. */
-type LuxonDayProps = Omit<React.ComponentProps<CustomComponents['Day']>, 'day'> & {
+type LuxonDayProps = Omit<ComponentProps<CustomComponents['Day']>, 'day'> & {
   day: LuxonCalendarDay;
 };
-type LuxonDayButtonProps = Omit<React.ComponentProps<CustomComponents['DayButton']>, 'day'> & {
+type LuxonDayButtonProps = Omit<ComponentProps<CustomComponents['DayButton']>, 'day'> & {
   day: LuxonCalendarDay;
 };
-type LuxonMonthProps = Omit<React.ComponentProps<CustomComponents['Month']>, 'calendarMonth'> & {
+type LuxonMonthProps = Omit<ComponentProps<CustomComponents['Month']>, 'calendarMonth'> & {
   calendarMonth: LuxonCalendarMonth;
 };
 type LuxonMonthCaptionProps = Omit<
-  React.ComponentProps<CustomComponents['MonthCaption']>,
+  ComponentProps<CustomComponents['MonthCaption']>,
   'calendarMonth'
 > & { calendarMonth: LuxonCalendarMonth };
-type LuxonWeekProps = Omit<React.ComponentProps<CustomComponents['Week']>, 'week'> & {
+type LuxonWeekProps = Omit<ComponentProps<CustomComponents['Week']>, 'week'> & {
   week: LuxonCalendarWeek;
 };
-type LuxonWeekNumberProps = Omit<React.ComponentProps<CustomComponents['WeekNumber']>, 'week'> & {
+type LuxonWeekNumberProps = Omit<ComponentProps<CustomComponents['WeekNumber']>, 'week'> & {
   week: LuxonCalendarWeek;
 };
 type LuxonNavProps = Omit<
-  React.ComponentProps<CustomComponents['Nav']>,
+  ComponentProps<CustomComponents['Nav']>,
   'previousMonth' | 'nextMonth'
 > & { previousMonth?: DateTime; nextMonth?: DateTime };
 
@@ -176,13 +176,13 @@ export type LuxonCustomComponents = Omit<
   CustomComponents,
   'Day' | 'DayButton' | 'Month' | 'MonthCaption' | 'Week' | 'WeekNumber' | 'Nav'
 > & {
-  Day: (props: LuxonDayProps) => React.JSX.Element;
-  DayButton: (props: LuxonDayButtonProps) => React.JSX.Element;
-  Month: (props: LuxonMonthProps) => React.JSX.Element;
-  MonthCaption: (props: LuxonMonthCaptionProps) => React.JSX.Element;
-  Week: (props: LuxonWeekProps) => React.JSX.Element;
-  WeekNumber: (props: LuxonWeekNumberProps) => React.JSX.Element;
-  Nav: (props: LuxonNavProps) => React.JSX.Element;
+  Day: (props: LuxonDayProps) => JSX.Element;
+  DayButton: (props: LuxonDayButtonProps) => JSX.Element;
+  Month: (props: LuxonMonthProps) => JSX.Element;
+  MonthCaption: (props: LuxonMonthCaptionProps) => JSX.Element;
+  Week: (props: LuxonWeekProps) => JSX.Element;
+  WeekNumber: (props: LuxonWeekNumberProps) => JSX.Element;
+  Nav: (props: LuxonNavProps) => JSX.Element;
 };
 
 /** Props de personalizacion (formatters, labels, components) migradas a DateTime de Luxon. */
@@ -221,7 +221,7 @@ export type CalendarProps = Omit<
   | 'dateLib'
   | 'noonSafe'
 > & {
-  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+  buttonVariant?: ComponentProps<typeof Button>['variant'];
 } & CalendarDateProps &
   CalendarEventProps &
   CalendarSelectionProps &

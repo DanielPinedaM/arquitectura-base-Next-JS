@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import { cn } from '@shad-cn/helpers';
 
-function InputGroup({ className, ...props }: React.ComponentProps<'div'>) {
+function InputGroup({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot='input-group'

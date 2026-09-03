@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
-function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+function TableBody({ className, ...props }: ComponentProps<"tbody">) {
   return (
     <tbody
       data-slot="table-body"

@@ -1,4 +1,4 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 import { PaginationLink } from "@shad-cn/PaginationLink"
@@ -8,7 +8,7 @@ function PaginationNext({
   className,
   text = "Next",
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+}: ComponentProps<typeof PaginationLink> & { text?: string }) {
   return (
     <PaginationLink
       aria-label="Go to next page"

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
 
 import { InputGroup } from '@shad-cn/InputGroup';
@@ -18,8 +18,8 @@ function InputPassword({
   className,
   disabled,
   ...props
-}: Omit<React.ComponentProps<'input'>, 'type'>) {
-  const [isValueVisible, setIsValueVisible] = React.useState<boolean>(false);
+}: Omit<ComponentProps<'input'>, 'type'>) {
+  const [isValueVisible, setIsValueVisible] = useState<boolean>(false);
 
   const toggleValueVisibility = (): void => {
     setIsValueVisible((previousValue) => !previousValue);

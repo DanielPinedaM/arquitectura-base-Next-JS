@@ -1,11 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import type { ChangeEvent, ComponentProps } from 'react';
 
 import { InputBase } from '@shad-cn/InputBase';
 
 interface InputNumberProps extends Omit<
-  React.ComponentProps<'input'>,
+  ComponentProps<'input'>,
   'type' | 'value' | 'onChange'
 > {
   value?: number | null;
@@ -32,7 +32,7 @@ function parseValue(rawValue: string): number | null {
  * `value` se formatea a string al renderizar y `onValueChange` emite el number.
  */
 function InputNumber({ value, onValueChange, ...props }: InputNumberProps) {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onValueChange?.(parseValue(event.target.value));
   };
 

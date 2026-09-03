@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useCallback, useEffect, useState, type ComponentProps, type KeyboardEvent } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 
 import { cn } from "@shad-cn/helpers"
@@ -15,7 +15,7 @@ function Carousel({
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & CarouselProps) {
+}: ComponentProps<"div"> & CarouselProps) {
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -23,25 +23,25 @@ function Carousel({
     },
     plugins
   )
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
 
-  const onSelect = React.useCallback((api: CarouselApi) => {
+  const onSelect = useCallback((api: CarouselApi) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
   }, [])
 
-  const scrollPrev = React.useCallback(() => {
+  const scrollPrev = useCallback(() => {
     api?.scrollPrev()
   }, [api])
 
-  const scrollNext = React.useCallback(() => {
+  const scrollNext = useCallback(() => {
     api?.scrollNext()
   }, [api])
 
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
         event.preventDefault()
         scrollPrev()
@@ -53,12 +53,12 @@ function Carousel({
     [scrollPrev, scrollNext]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api || !setApi) return
     setApi(api)
   }, [api, setApi])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) return
     onSelect(api)
     api.on("reInit", onSelect)

@@ -1,11 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import { cn } from '@shad-cn/helpers';
 import { Textarea } from '@shad-cn/Textarea';
 
-function InputGroupTextarea({ className, ...props }: React.ComponentProps<'textarea'>) {
+function InputGroupTextarea({ className, ...props }: ComponentProps<'textarea'>) {
   return (
     <Textarea
       data-slot='input-group-control'

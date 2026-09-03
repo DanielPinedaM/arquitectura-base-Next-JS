@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
-function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
+function SheetFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-footer"

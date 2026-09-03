@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 import { Select as SelectPrimitive } from "@base-ui/react/select"
 
 import { cn } from "@shad-cn/helpers"
@@ -9,7 +9,7 @@ import { LuChevronUp } from "react-icons/lu"
 function SelectScrollUpButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
+}: ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"

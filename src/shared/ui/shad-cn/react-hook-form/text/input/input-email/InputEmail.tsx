@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import { InputBase } from '@shad-cn/InputBase';
 
@@ -8,7 +8,7 @@ import { InputBase } from '@shad-cn/InputBase';
  * La validación del formato se define en el schema de Zod del formulario padre,
  * nunca dentro de este componente.
  */
-function InputEmail({ ...props }: Omit<React.ComponentProps<'input'>, 'type'>) {
+function InputEmail({ ...props }: Omit<ComponentProps<'input'>, 'type'>) {
   return <InputBase type='email' inputMode='email' autoComplete='email' {...props} />;
 }
 

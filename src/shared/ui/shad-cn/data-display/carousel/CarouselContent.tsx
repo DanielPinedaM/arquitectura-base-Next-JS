@@ -1,11 +1,11 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 import { useCarousel } from "@shad-cn/useCarousel"
 
-function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
+function CarouselContent({ className, ...props }: ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel()
 
   return (

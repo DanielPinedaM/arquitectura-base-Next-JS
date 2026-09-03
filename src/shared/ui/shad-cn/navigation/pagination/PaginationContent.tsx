@@ -1,11 +1,11 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
 function PaginationContent({
   className,
   ...props
-}: React.ComponentProps<"ul">) {
+}: ComponentProps<"ul">) {
   return (
     <ul
       data-slot="pagination-content"

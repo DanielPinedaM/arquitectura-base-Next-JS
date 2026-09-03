@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog"
 
 import { cn } from "@shad-cn/helpers"
@@ -12,7 +12,7 @@ function AlertDialogCancel({
   size = "default",
   ...props
 }: AlertDialogPrimitive.Close.Props &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
+  Pick<ComponentProps<typeof Button>, "variant" | "size">) {
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-cancel"

@@ -1,13 +1,13 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
 function TableCaption({
   className,
   ...props
-}: React.ComponentProps<"caption">) {
+}: ComponentProps<"caption">) {
   return (
     <caption
       data-slot="table-caption"

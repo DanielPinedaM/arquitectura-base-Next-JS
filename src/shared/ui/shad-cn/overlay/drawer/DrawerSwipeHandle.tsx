@@ -1,13 +1,13 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
 function DrawerSwipeHandle({
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: ComponentProps<"div">) {
   return (
     <div
       data-slot="drawer-swipe-handle"

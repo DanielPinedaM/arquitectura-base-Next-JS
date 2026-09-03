@@ -1,11 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import { cn } from '@shad-cn/helpers';
 import { InputBase } from '@shad-cn/InputBase';
 
-function InputGroupInput({ className, ...props }: React.ComponentProps<'input'>) {
+function InputGroupInput({ className, ...props }: ComponentProps<'input'>) {
   return (
     <InputBase
       data-slot='input-group-control'

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@shad-cn/helpers';
@@ -28,7 +28,7 @@ function InputGroupAddon({
   className,
   align = 'inline-start',
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
+}: ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
     <div
       role='group'

@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 
-function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+function TableHeader({ className, ...props }: ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"

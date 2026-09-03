@@ -1,12 +1,12 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@shad-cn/helpers"
 import { Button } from "@shad-cn/Button"
 
 type PaginationLinkProps = {
   isActive?: boolean
-} & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<"a">
+} & Pick<ComponentProps<typeof Button>, "size"> &
+  ComponentProps<"a">
 
 function PaginationLink({
   className,
