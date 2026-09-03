@@ -27,7 +27,7 @@ export type ButtonEffect = 'shadow';
 // Shared visual base props (without native HTML element attributes)
 // ---------------------------------------------------------------------------
 
-export type SharedVisualProps = {
+export interface SharedVisualProps {
   /**
    * Tamaño del botón.
    * Por defecto es `'base'` cuando no se especifica (equivalente a `.btn-base`).
@@ -72,7 +72,7 @@ export type SharedVisualProps = {
    * <Button theme="info" variant="background" modifiers={['icon-only']}><MdInfo /></Button>
    */
   children: ReactNode;
-};
+}
 
 /**
  * Botón de acción estándar del sistema.
@@ -95,7 +95,7 @@ export type SharedVisualProps = {
  *   <span>Confirmar</span>
  * </Button>
  */
-export type SharedStandardButtonProps = SharedVisualProps & {
+export interface SharedStandardButtonProps extends SharedVisualProps {
   /**
    * Variante visual del botón.
    * - `'background'` → relleno con `--btn-color`
@@ -117,7 +117,7 @@ export type SharedStandardButtonProps = SharedVisualProps & {
    * prohibido en `variant="link"` (`SharedLinkButtonProps`).
    */
   theme: ButtonTheme;
-};
+}
 
 /**
  * Botón de navegación con estilo de enlace (`variant="link"`).
@@ -148,10 +148,10 @@ export type SharedStandardButtonProps = SharedVisualProps & {
  *   );
  * }
  */
-export type SharedLinkButtonProps = SharedVisualProps & {
+export interface SharedLinkButtonProps extends SharedVisualProps {
   variant: 'link';
   theme?: never;
-};
+}
 
 // --------------------------------------------------------------
 // Unión final — compartida entre Button, AnchorButton y NextLink

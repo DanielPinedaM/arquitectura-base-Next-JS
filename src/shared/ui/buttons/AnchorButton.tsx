@@ -8,29 +8,53 @@ import {
 } from '@/shared/ui/buttons/data-types/interfaces/buttons.interface';
 import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonClass.utils';
 
-type AnchorButtonProps = ButtonVisualProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'>;
+/**
+ * Atributos nativos del elemento `<a>` que acepta el componente.
+ *
+ * - `className` se excluye porque NO forma parte de la API pública: los estilos
+ *   se componen exclusivamente con las clases `.btn-*`.
+ * - `children` se excluye porque `SharedVisualProps` ya lo declara como obligatorio.
+ */
+type NativeAnchorAttributes = Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  'className' | 'children'
+>;
+
+/**
+ * `className` inyectada en tiempo de ejecución.
+ *
+ * NO forma parte de la API pública (`AnchorButtonComponent` la excluye), pero Base UI
+ * la inyecta cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+interface InjectedClassNameProps {
+  className?: string;
+}
 
 /**
  * Props internas de la implementación.
  *
- * `className` NO forma parte de la API pública (`AnchorButtonComponent` la excluye), pero
- * Base UI la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
- * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ * No incluye `ref` porque `forwardRef` lo entrega como segundo parámetro.
  */
-type InternalAnchorButtonProps = AnchorButtonProps & { className?: string };
+type InternalAnchorButtonProps = ButtonVisualProps &
+  NativeAnchorAttributes &
+  InjectedClassNameProps;
 
-type StandardAnchorButtonProps = SharedStandardButtonProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> & { ref?: Ref<HTMLAnchorElement> };
+/** Props públicas con `variant` background | outline | ghost → `theme` obligatorio. */
+interface StandardAnchorButtonProps extends SharedStandardButtonProps, NativeAnchorAttributes {
+  ref?: Ref<HTMLAnchorElement>;
+}
 
-type LinkAnchorButtonProps = SharedLinkButtonProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> & { ref?: Ref<HTMLAnchorElement> };
+/** Props públicas con `variant="link"` → `theme` prohibido. */
+interface LinkAnchorButtonProps extends SharedLinkButtonProps, NativeAnchorAttributes {
+  ref?: Ref<HTMLAnchorElement>;
+}
 
-type AnchorButtonComponent = {
+interface AnchorButtonComponent {
   (props: StandardAnchorButtonProps): ReactElement | null;
   (props: LinkAnchorButtonProps): ReactElement | null;
   displayName?: string;
-};
+}
 
 /**
  * `AnchorButton` — botón composable construido sobre el elemento nativo `<a>`.

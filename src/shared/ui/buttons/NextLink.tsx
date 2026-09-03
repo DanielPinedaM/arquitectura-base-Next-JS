@@ -9,33 +9,51 @@ import {
 } from '@/shared/ui/buttons/data-types/interfaces/buttons.interface';
 import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonClass.utils';
 
-type NextLinkButtonProps = ButtonVisualProps &
-  Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>;
+/**
+ * Props del componente `Link` de Next.js que acepta este componente.
+ *
+ * - `className` se excluye porque NO forma parte de la API pública: los estilos
+ *   se componen exclusivamente con las clases `.btn-*`.
+ * - `children` se excluye porque `SharedVisualProps` ya lo declara como obligatorio.
+ */
+type NextLinkAttributes = Omit<
+  React.ComponentPropsWithoutRef<typeof Link>,
+  'className' | 'children'
+>;
+
+/**
+ * `className` inyectada en tiempo de ejecución.
+ *
+ * NO forma parte de la API pública (`NextLinkComponent` la excluye), pero Base UI
+ * la inyecta cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+interface InjectedClassNameProps {
+  className?: string;
+}
 
 /**
  * Props internas de la implementación.
  *
- * `className` NO forma parte de la API pública (`NextLinkComponent` la excluye), pero Base UI
- * la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
- * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ * No incluye `ref` porque `forwardRef` lo entrega como segundo parámetro.
  */
-type InternalNextLinkProps = NextLinkButtonProps & { className?: string };
+type InternalNextLinkProps = ButtonVisualProps & NextLinkAttributes & InjectedClassNameProps;
 
-type StandardNextLinkProps = SharedStandardButtonProps &
-  Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'> & {
-    ref?: React.Ref<HTMLAnchorElement>;
-  };
+/** Props públicas con `variant` background | outline | ghost → `theme` obligatorio. */
+interface StandardNextLinkProps extends SharedStandardButtonProps, NextLinkAttributes {
+  ref?: React.Ref<HTMLAnchorElement>;
+}
 
-type LinkNextLinkProps = SharedLinkButtonProps &
-  Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'> & {
-    ref?: React.Ref<HTMLAnchorElement>;
-  };
+/** Props públicas con `variant="link"` → `theme` prohibido. */
+interface LinkNextLinkProps extends SharedLinkButtonProps, NextLinkAttributes {
+  ref?: React.Ref<HTMLAnchorElement>;
+}
 
-type NextLinkComponent = {
+interface NextLinkComponent {
   (props: StandardNextLinkProps): ReactElement | null;
   (props: LinkNextLinkProps): ReactElement | null;
   displayName?: string;
-};
+}
 
 /**
  * `NextLink` — botón composable construido sobre el componente `Link` de Next.js.

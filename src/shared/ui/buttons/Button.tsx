@@ -8,28 +8,51 @@ import {
 } from '@/shared/ui/buttons/data-types/interfaces/buttons.interface';
 import composableButtonClass from '@/shared/ui/buttons/utils/composableButtonClass.utils';
 
-type ButtonProps = ButtonVisualProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>;
+/**
+ * Atributos nativos del elemento `<button>` que acepta el componente.
+ *
+ * - `className` se excluye porque NO forma parte de la API pública: los estilos
+ *   se componen exclusivamente con las clases `.btn-*`.
+ * - `children` se excluye porque `SharedVisualProps` ya lo declara como obligatorio.
+ */
+type NativeButtonAttributes = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'className' | 'children'
+>;
+
+/**
+ * `className` inyectada en tiempo de ejecución.
+ *
+ * NO forma parte de la API pública (`ButtonComponent` la excluye), pero Base UI
+ * la inyecta cuando este botón se pasa por la prop `render`.
+ * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ */
+interface InjectedClassNameProps {
+  className?: string;
+}
 
 /**
  * Props internas de la implementación.
  *
- * `className` NO forma parte de la API pública (`ButtonComponent` la excluye), pero Base UI
- * la inyecta en tiempo de ejecución cuando este botón se pasa por la prop `render`.
- * Se recibe aquí para fusionarla con las clases composables en vez de dejar que las pise.
+ * No incluye `ref` porque `forwardRef` lo entrega como segundo parámetro.
  */
-type InternalButtonProps = ButtonProps & { className?: string };
+type InternalButtonProps = ButtonVisualProps & NativeButtonAttributes & InjectedClassNameProps;
 
-type StandardButtonProps = SharedStandardButtonProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { ref?: Ref<HTMLButtonElement> };
+/** Props públicas con `variant` background | outline | ghost → `theme` obligatorio. */
+interface StandardButtonProps extends SharedStandardButtonProps, NativeButtonAttributes {
+  ref?: Ref<HTMLButtonElement>;
+}
 
-type LinkButtonProps = SharedLinkButtonProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & { ref?: Ref<HTMLButtonElement> };
+/** Props públicas con `variant="link"` → `theme` prohibido. */
+interface LinkButtonProps extends SharedLinkButtonProps, NativeButtonAttributes {
+  ref?: Ref<HTMLButtonElement>;
+}
 
-type ButtonComponent = {
+interface ButtonComponent {
   (props: StandardButtonProps): ReactElement | null; // variant: background|outline|ghost → theme: ButtonTheme (obligatorio)
   (props: LinkButtonProps): ReactElement | null; // variant: "link" → theme?: never (prohibido)
   displayName?: string;
-};
+}
 
 /**
  * `Button` — componente base composable para botones.
