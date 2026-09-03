@@ -7,7 +7,6 @@
     "strict": true,
 
     /* ------------- modulos y compilacion ------------- */
-
     "allowJs": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -371,27 +370,49 @@
       /* react-hook-form/selection/switch */
       "@shad-cn/Switch": ["./src/shared/ui/shad-cn/react-hook-form/selection/switch/Switch.tsx"],
 
-      /* react-hook-form/text/input */
-      "@shad-cn/Input": ["./src/shared/ui/shad-cn/react-hook-form/text/input/Input.tsx"],
+      /* react-hook-form/text/input/input-base */
+      "@shad-cn/InputBase": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-base/InputBase.tsx"
+      ],
 
-      /* react-hook-form/text/input-group */
+      /* react-hook-form/text/input/input-text */
+      "@shad-cn/InputText": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-text/InputText.tsx"
+      ],
+
+      /* react-hook-form/text/input/input-number */
+      "@shad-cn/InputNumber": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-number/InputNumber.tsx"
+      ],
+
+      /* react-hook-form/text/input/input-password */
+      "@shad-cn/InputPassword": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-password/InputPassword.tsx"
+      ],
+
+      /* react-hook-form/text/input/input-email */
+      "@shad-cn/InputEmail": [
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-email/InputEmail.tsx"
+      ],
+
+      /* react-hook-form/text/input/input-group */
       "@shad-cn/InputGroup": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroup.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroup.tsx"
       ],
       "@shad-cn/InputGroupAddon": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupAddon.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroupAddon.tsx"
       ],
       "@shad-cn/InputGroupButton": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupButton.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroupButton.tsx"
       ],
       "@shad-cn/InputGroupInput": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupInput.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroupInput.tsx"
       ],
       "@shad-cn/InputGroupText": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupText.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroupText.tsx"
       ],
       "@shad-cn/InputGroupTextarea": [
-        "./src/shared/ui/shad-cn/react-hook-form/text/input-group/InputGroupTextarea.tsx"
+        "./src/shared/ui/shad-cn/react-hook-form/text/input/input-group/InputGroupTextarea.tsx"
       ],
 
       /* react-hook-form/text/label */
@@ -399,9 +420,9 @@
 
       /* react-hook-form/text/textarea */
       "@shad-cn/Textarea": ["./src/shared/ui/shad-cn/react-hook-form/text/textarea/Textarea.tsx"]
-    }
+    },
+    "skipLibCheck": true
   },
-
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -410,6 +431,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-
   "exclude": ["node_modules"]
 }
