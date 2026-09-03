@@ -1771,35 +1771,35 @@ Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\
 
 Siempre para importar los componentes usar los import alias de shad cn que estan en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<Componente>`) y coincide exactamente con el nombre del archivo, en PascalCase.
 
-| Nombre Componente                                              | Ruta                                                          |
-| -------------------------------------------------------------- | ------------------------------------------------------------- |
-| Accordion                                                      | `src\shared\ui\shad-cn\navigation\accordion`                  |
-| Alert Dialog                                                   | `src\shared\ui\shad-cn\overlay\alert-dialog`                  |
-| Calendar                                                       | `src\shared\ui\shad-cn\react-hook-form\date\calendar`         |
-| Carousel                                                       | `src\shared\ui\shad-cn\data-display\carousel`                 |
-| Checkbox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\checkbox`    |
-| Combobox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\combobox`    |
-| Data Table (con `@tanstack/react-table`, paginación y sorting) | `src\shared\ui\shad-cn\data-display\data-table`               |
-| Date Picker                                                    | `src\shared\ui\shad-cn\react-hook-form\date\date-picker`      |
-| Dialog                                                         | `src\shared\ui\shad-cn\overlay\dialog`                        |
-| Drawer                                                         | `src\shared\ui\shad-cn\overlay\drawer`                        |
-| Dropdown Menu                                                  | `src\shared\ui\shad-cn\overlay\dropdown-menu`                 |
+| Nombre Componente                                              | Ruta                                                              |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Accordion                                                      | `src\shared\ui\shad-cn\navigation\accordion`                      |
+| Alert Dialog                                                   | `src\shared\ui\shad-cn\overlay\alert-dialog`                      |
+| Calendar                                                       | `src\shared\ui\shad-cn\react-hook-form\date\calendar`             |
+| Carousel                                                       | `src\shared\ui\shad-cn\data-display\carousel`                     |
+| Checkbox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\checkbox`        |
+| Combobox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\combobox`        |
+| Data Table (con `@tanstack/react-table`, paginación y sorting) | `src\shared\ui\shad-cn\data-display\data-table`                   |
+| Date Picker                                                    | `src\shared\ui\shad-cn\react-hook-form\date\date-picker`          |
+| Dialog                                                         | `src\shared\ui\shad-cn\overlay\dialog`                            |
+| Drawer                                                         | `src\shared\ui\shad-cn\overlay\drawer`                            |
+| Dropdown Menu                                                  | `src\shared\ui\shad-cn\overlay\dropdown-menu`                     |
 | Input Email                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-email`    |
 | Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-group`    |
 | Input Number                                                   | `src\shared\ui\shad-cn\react-hook-form\text\input\input-number`   |
 | Input Password                                                 | `src\shared\ui\shad-cn\react-hook-form\text\input\input-password` |
 | Input Text                                                     | `src\shared\ui\shad-cn\react-hook-form\text\input\input-text`     |
-| Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`            |
-| Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                 |
-| Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                       |
-| Radio Group                                                    | `src\shared\ui\shad-cn\react-hook-form\selection\radio-group` |
-| Select                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\select`      |
-| Sheet                                                          | `src\shared\ui\shad-cn\overlay\sheet`                         |
-| Toast (Sonner)                                                 | `src\shared\ui\overlay\toast`                                 |
-| Switch                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\switch`      |
-| Tabs                                                           | `src\shared\ui\shad-cn\navigation\tabs`                       |
-| Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`         |
-| Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                       |
+| Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`                |
+| Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                     |
+| Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                           |
+| Radio Group                                                    | `src\shared\ui\shad-cn\react-hook-form\selection\radio-group`     |
+| Select                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\select`          |
+| Sheet                                                          | `src\shared\ui\shad-cn\overlay\sheet`                             |
+| Toast (Sonner)                                                 | `src\shared\ui\overlay\toast`                                     |
+| Switch                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\switch`          |
+| Tabs                                                           | `src\shared\ui\shad-cn\navigation\tabs`                           |
+| Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`             |
+| Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                           |
 
 ## 🧱 Configuración de Tailwind 4
 
