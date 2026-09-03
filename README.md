@@ -13,19 +13,86 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**TypeScript 7:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Agrega _tipado estático_ al lenguaje, permitiendo detectar errores durante el desarrollo y mejorar el _autocompletado_, la _refactorización_ y el _mantenimiento del código_. Además, permite tener el mismo lenguaje de programación en frontend y backend.
 
-* [**Shad cn:**](https://youtu.be/URpcaFga8rY?si=F9o2SuH-U5FKLkqw) Tiene una lista de _componentes UI_ muy completa, con integración nativa con _Tailwind_ y soporte para _React Hook Form_. Además, al no ser totalmente _headless_, tiene estilos por defecto que son fáciles de personalizar sin recurrir a hacks de CSS como _`::ng-deep`_ o _`!important`_.
+* [**Shad cn:**](https://youtu.be/URpcaFga8rY?si=F9o2SuH-U5FKLkqw)
+1. Tiene una lista de _componentes UI_ muy completa, con integración nativa con Tailwind y soporte para React Hook Form.
 
-* [**React Hook Form 7:**](https://youtu.be/1MxevPIZgVc?si=Sa1YjhpGw-mQ0dST) Evita el _boilerplate_ de los formularios mediante _register_ y _watch_ de _React Hook Form_, sin _gestionar manualmente el estado_ con _useState_ y _onChange_ de _React_.
+2. Usar una librería de UI permite abstraer lógica; la librería ya se encarga de crear los componentes y de manejar los estados. Solo tiene que usar los componentes de UI.
 
-* [**Zod 4:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la _misma sintaxis de código_ y reutilizar los mismos _esquemas de validación_ en frontend y backend. Además, se integra con _TypeScript_, ofrece validación de tipos en _tiempo de compilación_ y validación de datos en _tiempo de ejecución (runtime)_. En _frontend_ valida _formularios_ y _datos de entrada_, con excelente integración con _React Hook Form_ (_React_) y _Forms with Signals_ (_Angular_). En _backend_ valida _`body`_, _`query`_ y _`params`_ de las _solicitudes http_, garantizando la integridad de los datos antes de procesarlos.
+3. Para componentes de UI como formularios y ventanas modales no se usa etiquetas nativas de HTML porque implica tener que "programar a mano" una librería de UI y seria reinventar la rueda
 
-* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby) _`@layer`_ resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar _`!important`_. Además, CSS ha alcanzado un alto nivel de madurez e incorpora _CSS Nesting_, equivalente al _anidamiento de Sass_, y _Custom Properties_, equivalentes a las _variables de Sass_. En este proyecto se usa en _estilso globales_.
+4. Shad cn es lo mas balanceado que hay entre una libreria que es totalmente Headless y una libreria de UI muy opinionada, es decir, por ejemplo modificar los estilos de [Material UI](https://mui.com/) se puede, pero es complejo y si usas una libreria totalmente Headless como [Headless UI](https://headlessui.com/) vas a enfrentarte con el problema de tener que escribir muchos estilos manualmente. Shad cn es un punto medio: Tiene estilos por defecto pero permite editarlos facilmente usando CSS y Tailwind
 
-* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa _clases utilitarias_ para aplicar estilos, evitando la mayoría de los problemas de _especificidad_, _herencia_ y _cascada_ de CSS. En este proyecto se usa en _estilos de los componentes_.
+5. Para modificar los estilos de Shad cn no se requiere usar hacks de CSS como `::ng-deep` o `!important`
+
+* [**React Hook Form 7:**](https://youtu.be/1MxevPIZgVc?si=Sa1YjhpGw-mQ0dST)
+1. Mediante [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) se integra React Hook Form con los componentes de formularios de Shad cn
+
+2. Evita el _boilerplate_ de los formularios mediante [`register`](https://react-hook-form.com/docs/useform/register) y [`watch`](https://react-hook-form.com/docs/useform/watch) de React Hook Form porque abstrae la logica de gestionar manualmente el estado con formularios controlados ([`useState`](https://react.dev/reference/react/useState)), formularios no controlados ([`useRef`](https://react.dev/reference/react/useRef) ) y `onChange`
+
+* [**Zod 4:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP)
+
+1. Permite utilizar la _misma sintaxis de código_ y reutilizar los mismos _esquemas de validación_ en frontend y backend de Node.js.
+
+En frontend valida _formularios_ y _datos de entrada_, con integración con _React Hook Form_ (React) y [_Forms with Signals_ (Angular)](https://angular.dev/guide/forms/signals/validation). En backend valida _`body`_, _`query`_ y _`params`_ de las _solicitudes http_, garantizando la integridad de los datos antes de procesarlos.
+
+2. El mismo esquema de Zod se reutiliza para crear tipos de datos de TypeScript
+
+3. Se integra con TypeScript, ofrece validación de tipos en _tiempo de compilación_ y validación de datos en _tiempo de ejecución (runtime)_
+
+* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby)
+
+1. No es necesario usar Sass, porque CSS ya tiene de forma nativa:
+  * [CSS anidado (CSS nesting)](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Nesting). Ejemplo:
+
+```CSS
+.parent {
+  color: blue;
+
+  .child {
+    color: red;
+  }
+}
+```
+
+  * [Variables de CSS (CSS custom properties)](https://css-tricks.com/a-complete-guide-to-custom-properties/). Ejemplo:
+
+```CSS
+:root {
+  --spacing: 16px;
+}
+
+.button {
+  padding: var(--spacing);
+}
+```
+
+Estas son 2 de las principales razones por las que se decide usar Sass y no CSS, pero en versiones mas nuevas de CSS, se empezo a implementar funciones que antes solamente estaban en Sass
+
+2. [`@layer`](https://css-tricks.com/css-cascade-layers/) resuelve problemas de [_especificidad_](https://css-tricks.com/specifics-on-css-specificity/) y [_cascada_](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts) al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar [`!important`](https://css-tricks.com/when-using-important-is-the-right-choice/)
+
+3. [Tailwind 4 no se puede configurar con Sass](https://tailwindcss.com/docs/compatibility)
+
+* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa _clases utilitarias (utility classes)_, esto significa que si tienes conocimiento en CSS, cada clase de CSS tiene su equivalente en Tailwind. Ejemplo: En CSS se escribe
+
+```CSS
+div {
+  display: flex;
+}
+```
+
+y en Tailwind se escribe
+
+```TSX
+<div className="flex">
+  {/* ... */}
+</div>
+```
+
+En este proyecto se usa CSS para estilos globales y Tailwind para los estilos de cada componente
 
 * [**tailwind-merge 3 y clsx 2:**](https://youtu.be/cJsRaYmrSQM?si=_DdWe3mQwTBAA1jo) Ambos se integran con _Tailwind_. _`clsx`_ evita escribir el _boilerplate_ en los _estilos condicionales_ que genera el _operador condicional ternario_, _template strings_, _concatenacion de strigs_, _`if`_ y _`switch`_, mientras que _`tailwind-merge`_ resuelve conflictos entre _clases de Tailwind_ que se sobrescriben.
 
-* [**Zustand 5:**](https://youtu.be/pAHPHivDbuE?si=mUAwvgn-O1UhVva6) _Manejador global de estado_ con menos _boilerplate_ que _Redux_ y una API más simple. A diferencia de _useContext_, no requiere un _Context.Provider_ y evita re-renderizados innecesarios mediante suscripciones selectivas al estado.
+* [**Zustand 5:**](https://youtu.be/pAHPHivDbuE?si=mUAwvgn-O1UhVva6) Es un _manejador de estado global_. Evita el codigo complejo que genera crear un `provider` de [`useContext()`](https://react.dev/reference/react/useContext) o `reducer` de [Redux](https://youtu.be/2_w3DnIKHxM?si=QVObWafdLHGpRUPi). En Zustand creas una funcion, la exportas y usas el estado global donde lo necesites.
 
 * [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
 
@@ -55,7 +122,7 @@ Para que la configuración funcione, debes tener instalado:
 > [!TIP]
 > # ⚡ **Empieza de inmediato**
 >
-> 👍 Si quieres empezar a programar con IA sin perder tiempo configurando herramientas, utiliza **Claude Code**. Este proyecto ya incluye las configuraciones de **MCP**, **Skills**, **Rules** y `AGENTS.md` listas para usar.
+> 👍 Si quieres empezar a programar con IA sin perder tiempo configurando herramientas, utiliza **Claude Code**. Este proyecto ya incluye las configuraciones de **MCP**, **Skills**, **Rules** y [`AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks) listas para usar.
 >
 > 👎 Si prefieres otra IA, deberás configurar manualmente sus funcionalidades equivalentes según la forma en que esa herramienta las implemente.
 
@@ -323,10 +390,9 @@ debugger;
 >
 > Hazle preguntas a la IA sobre:
 >
-> 1. `AGENTS.md`
+> 1. [`AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks)
 > 2. `.claude/skills/***`
-> 3. `.claude/rules/***`
-> 4. Los **"🔗 Enlaces"**
+> 3. Los **"🔗 Enlaces"**
 >
 > Hasta comprender cómo funciona el proyecto.
 >
@@ -353,11 +419,12 @@ debugger;
 > # 🧠 Mira estos enlaces 🔗 para que aprendas de IA enfocada en desarrollo de Software:
 >
 > ## 1. [Benchmark de IA](https://artificialanalysis.ai/)
-> ## 2. [Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
-> ## 3. [Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
-> ## 4. [Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
-> ## 5. [Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
-> ## 6. [Prompts para desarrollo full stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main)
+> ## 2. [Prompts para desarrollo full stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main)
+> ## 3. [Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
+> ## 4. [Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
+> ## 5. [Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
+> ## 6. [Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
+> ## 7. [Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
 
 ## ✏️ Edición de Código
 Este proyecto esta configurado para usar _IAs de pago y desde la terminal_. **NO** sirve si usas IAs gratis o desde una pagina web, porque estan limitadas.
@@ -380,7 +447,7 @@ Estas configuraciones son oficiales del equipo de Vercel, que es quien desarroll
 
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
-# 📜 `AGENTS.md`
+# [📜 `AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks)
 Prompt que se envía siempre a Claude para que respete la arquitectura del proyecto. `AGENTS.md` esta basado en [este link de la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents). Permite a la IA acceder a la documentación oficial que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
 
 Para probar que funcione envia este prompt a Claude:
@@ -413,7 +480,7 @@ El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
 ***Ejemplos de prompt:***
 
 ```console
-hacer commit y push
+git commit y git push
 ```
 
 ## [`vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices)
@@ -448,6 +515,37 @@ Read 57 lines
 > mover `.agents\skills\vercel-react-best-practices` a `.claude\skills\vercel-react-best-practices`
 >
 > eliminar `skills-lock.json`
+
+## 🌐 `playwright-cli`
+Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿como usar y que es `playwright-cli`?
+
+Sirve para que la IA (Claude Code) desde la terminal pueda controlar el navegador, llenar formularios y navegar entre paginas (rutas). En vez de hacer clicks y escribir manualmente en la pagina web, puedes pedirle a Claude que lo haga automaticamente
+
+Casos de uso:
+1. Pedir a Claude que haga testing de una funcionalidad en el navegador y que si encuentra errores entonces los corrija
+
+2. Automatizar procesos repetitivos dentro de la pagina web. Ejemplo: Llenar un formulario muchas veces
+
+***Ejemplos de prompt:***
+Es recomendable de que **SIEMPRE** que uses `playwright-cli` lo hagas con este prompt para que puedas ver en el navegador que esta haciendo Claude:
+
+```txt
+# <<< Aqui escribes un TITULO CORTO del nombre de la funcionalidad a testear o proceso a ejecutar en el navegador >>>
+<<<
+Aqui describes de forma mas DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso
+>>>
+
+# Uso **OBLIGATORIO** de `playwright-cli`
+* **OBLIGATORIO** usar la skill `.claude\skills\playwright-cli\SKILL.md` para entender el funcionamiento de `playwright-cli`
+
+* **SIEMPRE**, después de realizar cualquier modificación/funcionalidad solicitada, usar `playwright-cli` para probar y verificar el resultado, especialmente cualquier cambio de maquetación o funcionalidad.
+
+* Usar `playwright-cli screenshot` para obtener capturas de pantalla y probar cambios de maquetación o funcionalidad.
+
+* **SIEMPRE** usar playwright-cli en modo `--headed` con `pnpm exec playwright-cli open --headed http://localhost:4100`
+
+* Si al probar encuentras bugs, corrígelos y vuelve a probar con `playwright-cli` hasta verificar que la modificación/funcionalidad funciona correctamente.
+```
 
 # MCP
 
@@ -560,8 +658,13 @@ src/
 │           │   │   ├── select/ → desplegable de selección
 │           │   │   └── switch/ → interruptor on/off
 │           │   └── text/ → entrada de texto libre y su etiqueta
-│           │       ├── input/ → campo de texto de una línea
-│           │       ├── input-group/ → campo de texto con addons
+│           │       ├── input/ → campos de texto de una línea
+│           │       │   ├── input-base/ → renderiza el `<input>` nativo y recibe `type` como prop; PROHIBIDO usarlo fuera de `src/shared`
+│           │       │   ├── input-text/ → input de texto libre
+│           │       │   ├── input-number/ → input numérico
+│           │       │   ├── input-password/ → input de contraseña con botón toggle mostrar/ocultar valor
+│           │       │   ├── input-email/ → input de correo
+│           │       │   └── input-group/ → agrupa un input con prefijos/sufijos (íconos, texto, botones)
 │           │       ├── label/ → etiqueta de un control
 │           │       └── textarea/ → campo de texto multilínea
 │           │
@@ -653,7 +756,7 @@ Código **completamente agnóstico al dominio**: utilidades técnicas reutilizab
 
 Ejemplos:
 
-- `src/shared/ui/shad-cn/react-hook-form/InputText.tsx`
+- `src/shared/ui/shad-cn/react-hook-form/text/input/input-text/InputText.tsx`
 - `src/shared/utils/func/luxon.utils.ts`
 - `src/shared/ui/buttons/Button.tsx`
 
@@ -1145,7 +1248,7 @@ src/shared/ui/shad-cn/react-hook-form
 ### 3. Restricciones estrictas
 
 - Prohibido usar inputs HTML nativos (`<input />`, `<select />`, etc.).
-- Obligatorio usar componentes de PrimeReact para todos los campos.
+- Obligatorio usar componentes de shad cn para todos los campos.
 - Prohibido usar formularios controlados con `useState`.
 - Prohibido usar formularios no controlados con `useRef`.
 - React Hook Form es la única fuente válida de estado del formulario.
@@ -1179,10 +1282,10 @@ src/shared/ui/shad-cn/react-hook-form
            │
            ▼
 ┌───────────────┐
-│ PrimeReact    │
+│ Shad cn       │
 │   InputText   │
-│   Dropdown    │
-│   Calendar    │
+│   Select      │
+│   DatePicker  │
 │   Checkbox    │
 │   ...         │
 └───────────────┘
@@ -1274,7 +1377,7 @@ Un input reutilizable debe:
 2. watch en el componente padre define reglas dinámicas.
 3. El padre calcula props finales (ejemplo: `disabled`).
 4. El input recibe solo valores finales.
-5. PrimeReact renderiza UI.
+5. Shad cn renderiza UI.
 
 ## Prohibido
 
@@ -1329,7 +1432,7 @@ Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PA
 `http-gateway.api.ts` estandariza todas las llamadas a API y devuelve siempre la misma estructura:
 
 ```ts
-{
+export interface ApiResponse<T = unknown> {
   success: boolean;
   status: number;
   message: string;
@@ -1414,11 +1517,12 @@ async getBots() {
     this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
   );
 
-  if (success) {
-    // codigo cuando peticion HTTP es exitosa
-  } else {
+  if (!success) {
     // codigo cuando peticion HTTP es erronea
+    return;
   }
+
+  // codigo cuando peticion HTTP es exitosa
 }
 ```
 
@@ -1495,13 +1599,13 @@ Todo se decide con una sola pregunta: **¿el archivo que estás editando _implem
 #### Paso 1 - Botón interno de la librería de UI → `Button` de shadcn
 **Condición:** el botón se escribe **dentro** de `src/shared/ui/shad-cn`, en el archivo que implementa o define un componente de shadcn.
 
-**Usar:** `Button` de `src/shared/ui/shad-cn/react-hook-form/action/button/src/index.tsx` — alias `@shad-cn/button`.
+**Usar:** `Button` de `src/shared/ui/shad-cn/react-hook-form/action/button/Button.tsx` — alias `@shad-cn/Button`.
 
 Así lo hace la propia librería:
 
 ```tsx
-/* src/shared/ui/shad-cn/overlay/dialog/src/index.tsx */
-import { Button } from '@shad-cn/button';
+/* src/shared/ui/shad-cn/overlay/dialog/DialogContent.tsx */
+import { Button } from '@shad-cn/Button';
 
 <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>;
 ```
@@ -1525,7 +1629,7 @@ Ejemplo: Iniciar sesión, Guardar, Cancelar, Crear, Editar, Eliminar, Buscar, Ac
 | `src/shared/ui/buttons/AnchorButton.tsx` | `<a>`               | Enlaces externos, descargas, `target="_blank"` |
 | `src/shared/ui/buttons/NextLink.tsx`     | `<Link>` de Next.js | Navegación interna con prefetch                |
 
-**PROHIBIDO** usar `Button` de shadcn (`@shad-cn/button`) fuera de `src/shared/ui/shad-cn`.
+**PROHIBIDO** usar `Button` de shadcn (`@shad-cn/Button`) fuera de `src/shared/ui/shad-cn`.
 
 #### PROHIBIDA la etiqueta `<button>` nativa de HTML
 Aplica a los pasos 1 y 2. Al escribir un componente de React **nunca** se construye un botón con la etiqueta `<button>`: siempre se usa `Button` de `src/shared/ui/buttons`.
@@ -1636,15 +1740,19 @@ Algunos sub-componentes **son** el `Button` de shadcn por definición. No todos 
 
 Si un componente de "Componentes permitidos" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Dependencias reales de este proyecto:
 
-| Componente    | Depende de                        |
-| ------------- | --------------------------------- |
-| `Combobox`    | `Input Group` + `Button`          |
-| `Date Picker` | `Calendar` + `Popover` + `Button` |
-| `Calendar`    | `Button`                          |
-| `Input Group` | `Input` + `Textarea` + `Button`   |
-| `Carousel`    | `Button`                          |
+| Componente       | Depende de                              |
+| ---------------- | --------------------------------------- |
+| `Combobox`       | `Input Group` + `Button`                |
+| `Date Picker`    | `Calendar` + `Popover` + `Button`       |
+| `Calendar`       | `Button`                                |
+| `Input Group`    | `Input Base` + `Textarea` + `Button`    |
+| `Input Text`     | `Input Base`                            |
+| `Input Number`   | `Input Base`                            |
+| `Input Email`    | `Input Base`                            |
+| `Input Password` | `Input Base` + `Input Group` + `Button` |
+| `Carousel`       | `Button`                                |
 
-`Button` (`@shad-cn/button`) es el único de esos requisitos que **no** aparece en la tabla "Componentes permitidos", y es justamente el caso que cubre esta regla: la librería lo usa internamente para construir los demás componentes.
+`Button` (`@shad-cn/Button`) e `Input Base` (`@shad-cn/InputBase`) son los dos requisitos que **no** aparecen en la tabla "Componentes permitidos", y son justamente el caso que cubre esta regla: solo se usan internamente para construir los demás componentes.
 
 Los botones se resuelven aparte, con **"Orden de Decisión para Botones"**: dentro de `src/shared/ui/shad-cn` se usa el `Button` de shadcn, y al consumir esos componentes desde la aplicación se usa el botón composable de `src/shared/ui/buttons`.
 
@@ -1655,6 +1763,8 @@ Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, i
 * Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pn dlx shadcn@latest add <componente>`) distintos a los de "Componentes permitidos".
 
 * Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
+
+* Prohibido usar `input-base` (`src\shared\ui\shad-cn\react-hook-form\text\input\input-base`) fuera de `src/shared`. Es una pieza interna que solo existe para construir `input-text`, `input-number`, `input-password` e `input-email`. Fuera de `src/shared` se usa uno de esos cuatro, nunca el base.
 
 ### Componentes permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
@@ -1674,8 +1784,11 @@ Siempre para importar los componentes usar los import alias de shad cn que estan
 | Dialog                                                         | `src\shared\ui\shad-cn\overlay\dialog`                        |
 | Drawer                                                         | `src\shared\ui\shad-cn\overlay\drawer`                        |
 | Dropdown Menu                                                  | `src\shared\ui\shad-cn\overlay\dropdown-menu`                 |
-| Input                                                          | `src\shared\ui\shad-cn\react-hook-form\text\input`            |
-| Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input-group`      |
+| Input Email                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-email`    |
+| Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-group`    |
+| Input Number                                                   | `src\shared\ui\shad-cn\react-hook-form\text\input\input-number`   |
+| Input Password                                                 | `src\shared\ui\shad-cn\react-hook-form\text\input\input-password` |
+| Input Text                                                     | `src\shared\ui\shad-cn\react-hook-form\text\input\input-text`     |
 | Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`            |
 | Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                 |
 | Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                       |
@@ -1694,7 +1807,7 @@ Siempre para importar los componentes usar los import alias de shad cn que estan
 
 En este proyecto se está utilizando **Tailwind CSS V4**, por lo tanto el archivo `tailwind.config.js` ya no se utiliza y se considera **obsoleto** en esta arquitectura.
 
-La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/tailwind`
+La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/css/theme/tailwind`
 
 Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
 
@@ -1717,7 +1830,7 @@ module.exports = {
 **_✅ Correcto - Configurar Tailwind 4 con `.css`_**
 
 ```CSS
-/* src/styles/global/tailwind/theme.css */
+/* src/styles/global/css/theme/tailwind/theme.css */
 
 @theme {
   --color-primary-color: oklch(62.8% 0.258 29.23) ;
@@ -1728,7 +1841,7 @@ module.exports = {
 
 [Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
 
-Las variables con nombres de los colores de **Sass** en `src/styles/global/scss/_variable.scss` y **Tailwind** en `src/styles/global/tailwind/theme.css` deben mantener exactamente el mismo nombre y el mismo valor.
+Las variables con nombres de los colores de **Sass** en `src/styles/global/scss/_variable.scss` y **Tailwind** en `src/styles/global/css/theme/tailwind/theme.css` deben mantener exactamente el mismo nombre y el mismo valor.
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
@@ -1746,7 +1859,7 @@ $primary-color: oklch(62.8% 0.258 29.23);
 
 ```CSS
 /*
-src/styles/global/tailwind/theme.css
+src/styles/global/css/theme/tailwind/theme.css
 
 colores de Tailwind */
 @theme {
@@ -1768,7 +1881,7 @@ $primary-color: oklch(62.8% 0.258 29.23); // color rojo
 
 ```css
 /*
-src/styles/global/tailwind/theme.css
+src/styles/global/css/theme/tailwind/theme.css
 
 colores de Tailwind */
 @theme {
@@ -1995,7 +2108,7 @@ export default function MyComponent() {
 ```
 
 ```scss
-// src/styles/global/global.scss
+// src/styles/global/scss/main.scss
 
 #btn-guardar {
   background-color: blue !important;
@@ -2032,7 +2145,7 @@ Esto incluye cualquier uso dentro de archivos:
 **_❌ EJEMPLO INCORRECTO USANDO `@apply`_**
 
 ```scss
-/* src/styles/global/global.scss
+/* src/styles/global/scss/main.scss
 
 ❌ MAL: usando Tailwind dentro de Sass/CSS con @apply */
 
@@ -2352,7 +2465,7 @@ Cada clase modifica únicamente una característica específica del botón. Esto
 | `_states.scss`       | Define los estados interactivos y de accesibilidad del botón. Centraliza comportamientos relacionados con `focus-visible`, `hover`, `active` y `disabled`.                   |                                                                  |
 | `_effects.scss`      | Contiene utilidades visuales reutilizables independientes de la lógica del botón. Permite agregar efectos opcionales como sombras, blur o elevación.                         | `.btn-shadow {} `                                                |
 | `_modifiers.scss`    | Clases composables que alteran o extienden características específicas del botón sin modificar su variante principal.                                                        | `.btn-full-width {} .btn-rounded-full {} .btn-icon-only {}`      |
-| `_mixins.scss`       | Codigo de Sass reutilizable que se repite en diferentes archivos de src\styles\global\buttons                                                                                | `@mixin btn-base-size {}`                                        |
+| `_mixins.scss`       | Codigo de Sass reutilizable que se repite en diferentes archivos de src\styles\global\scss\buttons                                                                                | `@mixin btn-base-size {}`                                        |
 | `_tokens.scss`       | Variables globales de Sass utilizadas por todo el sistema de botones. Centraliza colores, tamaños tipográficos y escalas de espaciado para mantener consistencia visual.     | `$primary: oklch(...);`                                          |
 
 ### 📖 Manual de Uso para Dar Estilos a Botones
@@ -2360,7 +2473,7 @@ Cada clase modifica únicamente una característica específica del botón. Esto
 Esta guía explica cómo utilizar correctamente los estilos globales de botones definidos en:
 
 ```txt
-src/styles/global/buttons
+src/styles/global/scss/buttons
 ```
 
 ### ✨ UI/UX

@@ -1,42 +1,9 @@
 # Ejecución de Proyecto
 
-* Runtime: Node.js
+* Runtime: Node.js 24
 * Administrador de versiones: fnm
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
-
-| Comando            | Ambiente    | Variable de Entorno            |
-| ------------------ | ----------- | ------------------------------ |
-| `pnpm start:local` | Local host  | `environments/.env.localhost`  |
-| `pnpm start:test`  | Pruebas     | `environments/.env.test`       |
-| `pnpm start:prod`  | Producción  | `environments/.env.production` |
-
-# Generar Carpeta `.next` (`build`) para Desplegar
-
-| Comando           | Ambiente    | Variable de Entorno            |
-| ----------------- | ----------- | ------------------------------ |
-| `pnpm build:test` | Pruebas     | `environments/.env.test`       |
-| `pnpm build:prod` | Producción  | `environments/.env.production` |
-
-# Ejecutar Carpeta `.next` con Archivos de Compilación
-`pnpm start` ejecuta en `http://localhost:2000` los archivos ya compilados dentro de la carpeta `.next`. NO recibe ni lee variables de entorno.
-
-## Regla
-El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el `build`, NO se define al ejecutar `pnpm start`.
-
-Motivo: Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pnpm build:test` o `pnpm build:prod`, y `pnpm start` únicamente los sirve.
-
-## Pasos
-1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección "Generar Carpeta `.next` (`build`) para Desplegar"
-
-2. Ejecutar la carpeta `.next`
-
-```bash
-pnpm start
-```
-
-## Cambiar de Ambiente
-Volver a ejecutar `pnpm start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pnpm build:test` o `pnpm build:prod` según el ambiente requerido, y después ejecutar `pnpm start`.
 
 # Reglas de Idioma
 
@@ -87,15 +54,33 @@ Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuper
 # Buenas Practicas de TypeScript
 * Usar strict type checking
 
-* Prefiere la inferencia de tipos cuando el tipo sea obvio
+* Preferir la inferencia de tipos cuando el tipo sea obvio
 
 * Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto
+
+* Preferir `interface` para definir tipos de objeto literal y arrays de objetos
+
+* Usar `Record` para objetos literales dinámicos
+
+* Usar `type` para tipos primitivos, literales o uniones
 
 # Reglas **OBLIGATORIAS** de Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento:
 
-1. Antes de escribir código o responder, consultar la guía en `node_modules/next/dist/docs/` y la skill en `.claude/skills/vercel-react-best-practices/SKILL.md` (resuelta desde el directorio de este archivo). Respetar los avisos de deprecación.
+Antes de escribir código o responder, consultar la guía en `node_modules/next/dist/docs/` y la skill en `.claude/skills/vercel-react-best-practices/SKILL.md` (resuelta desde el directorio de este archivo), respetar los avisos de deprecación. Estas fuentes son la **única fuente de verdad** y su cumplimiento es **obligatorio**.
 
-2. Las fuentes del punto 1 son la **única fuente de verdad** por lo que se tiene que **acatar**.
+## Formularios
+* Usar React Hook Form junto con `import { zodResolver } from '@hookform/resolvers/zod'` para validar formularios y los componentes UI de formularios de Shad cn ubicados en `src\shared\ui\shad-cn\react-hook-form`
 
-3. Mantén las transformaciones de estado puras y predecibles
+* Para botones y enlaces, usar los componentes que estan en `src/shared/ui/buttons`. **PROHIBIDO** usar directamente las etiquetas nativas de HTML `<a>` y `<button>`, o `next/link`, sin estos componentes.
+
+* **PROHIBIDO**  usar alternativas a React Hook Form: formularios controlados manualmente con `useState`/`useReducer`, Formik, o manejo de `onChange`/`onSubmit` sin pasar por `useForm`
+
+* **PROHIBIDO** usar alternativas a `zodResolver`/Zod para validar formularios: reglas de validación nativas del navegador (`required`, `pattern` en el JSX), lógica de validación manual/imperativa dentro de handlers, `yupResolver`, `joiResolver`, class-validator, o validator functions custom sin Zod
+
+* Las validaciones tienen que estar dentro de archivo `.schema.ts` dentro de la carpeta padre del componente al que pertenece cada validación de formulario
+
+## Gestión de Estado
+* Mantén las transformaciones de estado puras y predecibles
+
+* Para estados globales usar Zustand, **PROHIBIDO** usar alternativas como Redux, `useContext`, etc.
