@@ -10,13 +10,9 @@ const CONST_REGEX = {
     // admite mayuscula, minuscula, tilde, Ñ, ñ
     any: /^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]+$/,
 
-    // valida correo electronico
-    email:
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-
-    // contraseña segura debe contener un caracter especial, un número, una mayúscula y una minúscula
+    // contraseña segura, minimo un caracter y debe contener un caracter especial, un numero, una mayuscula y una minuscula
     strongPassword:
-      /^(?=.[!@#$%^&()_+\[\]{};':"\\|,.<>/?])(?=.[0-9])(?=.[A-ZÑÁÉÍÓÚ])(?=.*[a-zñáéíóú])/,
+      /^(?=.*[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])(?=.*[0-9])(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*[a-záéíóúüñ]).+$/,
   },
 };
 

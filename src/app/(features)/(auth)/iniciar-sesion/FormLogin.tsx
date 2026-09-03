@@ -1,13 +1,14 @@
 'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import ErrorToast from '@/shared/ui/overlay/toast/ErrorToast';
 import FormErrorMessages from '@/shared/ui/shad-cn/react-hook-form/FormErrorMessages';
 import { deleteCookie, getCookies, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
+import { InputText } from '@shad-cn/InputText';
+import { InputPassword } from '@shad-cn/InputPassword';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import CONST_REGEX from '@/shared/data-types/constants/regex.constants';
+import { IFormLogin, loginSchema } from '@/app/(features)/(auth)/iniciar-sesion/login.schema';
 import {
   forceConvertToString,
   isLiteralObject,
@@ -24,23 +25,35 @@ interface IBodyLogin {
   password: string;
 }
 
-interface IFormLogin {
-  user: string;
-  password: string;
-}
-
 interface IUserDataResponse {
   expiresIn: number;
   [key: string]: unknown;
 }
 
+const isLocalhost = (): boolean =>
+  typeof window !== 'undefined' && window?.location?.hostname === 'localhost';
+
+const defaultCredentials = async (): Promise<IFormLogin> =>
+  isLocalhost()
+    ? {
+        email: process.env.NEXT_PUBLIC_AUTH_USER ?? '',
+        password: process.env.NEXT_PUBLIC_AUTH_PASSWORD ?? '',
+      }
+    : {
+        email: '',
+        password: '',
+      };
+
 export default function FormLogin() {
   const {
-    formState: { errors },
+    formState: { errors, isLoading },
     handleSubmit,
     control,
   } = useForm<IFormLogin>({
     criteriaMode: 'all',
+    defaultValues: defaultCredentials,
+    resolver: (values, context, options) =>
+      zodResolver(loginSchema(isLocalhost()))(values, context, options),
   });
 
   const router = useRouter();
@@ -48,6 +61,13 @@ export default function FormLogin() {
   useEffect(() => {
     deleteStorageAndCookies();
   }, []);
+
+  useEffect(() => {
+    // cuando el dominio es local host, quemar las credenciales e iniciar sesion automaticamente
+    if (isLoading || !isLocalhost()) return;
+
+    handleSubmit(onSubmit)();
+  }, [isLoading]);
 
   const deleteStorageAndCookies = (): void => {
     deleteAllCookies();
@@ -132,13 +152,9 @@ export default function FormLogin() {
   };
 
   const onSubmit = async (formData: IFormLogin): Promise<void> => {
-    //des-comentar lo q esta comentado a continuacion para hacer peticion http de iniciar sesion
-    const { user, password } = formData;
+    const { email, password } = formData;
 
-    const { encryptedEmail, encryptedPassword } = await encryptCredentials(
-      user!.trim(),
-      password!.trim(),
-    );
+    const { encryptedEmail, encryptedPassword } = await encryptCredentials(email, password);
 
     const optionsApi: IRequestOptions<IBodyLogin> = {
       body: {
@@ -147,9 +163,16 @@ export default function FormLogin() {
       },
     };
 
+    //des-comentar lo q esta comentado a continuacion para hacer peticion http de iniciar sesion
+
     //const { success, message, data } = await POST(`${process.env.NEXT_PUBLIC_API}auth/login`, optionsApi);
 
-    //if (success) {
+    /* if (!success) {
+      deleteStorageAndCookies();
+      ErrorToast(message);
+      return;
+    } */
+
     // este codigo se tiene q borrar porq queme los datos
     iterateUserData({
       expiresIn: 7200,
@@ -159,10 +182,6 @@ export default function FormLogin() {
     iterateUserData(data); */
 
     router.push('/administrador');
-    //} else {
-    //deleteStorageAndCookies();
-    //ErrorToast(message);
-    //}
   };
 
   return (
@@ -171,37 +190,27 @@ export default function FormLogin() {
         <label>
           <span className='cursor-pointer'>Correo electrónico</span>
           <Controller
-            name='user'
+            name='email'
             control={control}
-            rules={{
-              required: 'Digite correo electrónico',
-              pattern: {
-                value: CONST_REGEX.text.email,
-                message: 'Correo electrónico invalido',
-              },
-              minLength: {
-                value: 2,
-                message: 'Mínimo 2 caracteres',
-              },
-              maxLength: {
-                value: 30,
-                message: 'Máximo 30 caracteres',
-              },
-            }}
-            render={({ field, field: { name, value = '', onChange, onBlur } }) => (
+            render={({
+              field,
+              field: { name, value = '', onChange, onBlur },
+              fieldState: { invalid },
+            }) => (
               <InputText
                 {...field}
                 id={name}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 onBlur={onBlur}
+                aria-invalid={invalid}
                 placeholder='nombre@correo.com'
                 className={`block w-full`}
               />
             )}
           />
         </label>
-        <FormErrorMessages errors={errors} name='user' />
+        <FormErrorMessages errors={errors} name='email' />
       </div>
 
       <div className='mb-2'>
@@ -210,19 +219,19 @@ export default function FormLogin() {
           <Controller
             name='password'
             control={control}
-            rules={{
-              required: 'Digite contraseña',
-            }}
-            render={({ field, field: { name, value = '', onChange, onBlur } }) => (
-              <Password
+            render={({
+              field,
+              field: { name, value = '', onChange, onBlur },
+              fieldState: { invalid },
+            }) => (
+              <InputPassword
                 {...field}
                 id={name}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 onBlur={onBlur}
-                variant='filled'
-                feedback={false}
-                placeholder='Contraseña'
+                aria-invalid={invalid}
+                placeholder='********'
               />
             )}
           />
