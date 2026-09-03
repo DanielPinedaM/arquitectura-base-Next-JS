@@ -6,7 +6,6 @@ import '../styles/global/scss/main.scss'; // SCSS
 import FixedLoaderProvider from '@/shared/ui/loader/FixedLoaderProvider';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { PrimeReactProvider } from 'primereact/api';
 import { Toaster } from 'react-hot-toast';
 
 const geistSans = localFont({
@@ -37,9 +36,7 @@ export default function RootLayout({
 
         <Toaster position='top-right' reverseOrder={true} />
 
-        <div className='mx-auto max-w-[1920px]'>
-          <PrimeReactProvider>{children}</PrimeReactProvider>
-        </div>
+        <div className='mx-auto max-w-[1920px]'>{children}</div>
       </body>
     </html>
   );
