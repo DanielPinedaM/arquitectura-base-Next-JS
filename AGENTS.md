@@ -56,13 +56,13 @@ Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuper
 
 * Preferir la inferencia de tipos cuando el tipo sea obvio
 
-* Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto
+* Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto.
 
-* Preferir `interface` para definir tipos de objeto literal y arrays de objetos
+* Preferir `interface` para tipos de objeto (`Producto`) y para el tipo de los elementos en arrays de objetos (`Producto[]`).
 
-* Usar `Record` para objetos literales dinámicos
+* Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
 
-* Usar `type` para tipos primitivos, literales o uniones
+* Usar `type` para tipos primitivos, literales y uniones.
 
 # Reglas **OBLIGATORIAS** de Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento:
