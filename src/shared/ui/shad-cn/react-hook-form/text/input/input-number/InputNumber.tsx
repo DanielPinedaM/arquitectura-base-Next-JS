@@ -4,22 +4,27 @@ import type { ChangeEvent, ComponentProps } from 'react';
 
 import { InputBase } from '@shad-cn/InputBase';
 
-interface InputNumberProps extends Omit<
-  ComponentProps<'input'>,
-  'type' | 'value' | 'onChange'
-> {
+interface InputNumberProps extends Omit<ComponentProps<'input'>, 'type' | 'value' | 'onChange'> {
   value?: number | null;
   onValueChange?: (value: number | null) => void;
 }
 
-function parseValue(rawValue: string): number | null {
-  if (String(rawValue) === '') return null;
+function parseValue(rawValue: string | number): number | null {
+  const stringValue = String(rawValue);
 
-  const parsedValue = Number(rawValue);
+  if (stringValue === '') return null;
 
-  if (Number.isNaN(parsedValue)) return null;
+  if (stringValue.trim() === '0') return 0;
 
-  return parsedValue;
+  if (rawValue === 0) return 0;
+
+  if (!rawValue) return null;
+
+  const numberValue = Number(rawValue);
+
+  if (Number.isNaN(numberValue)) return null;
+
+  return numberValue;
 }
 
 /**
