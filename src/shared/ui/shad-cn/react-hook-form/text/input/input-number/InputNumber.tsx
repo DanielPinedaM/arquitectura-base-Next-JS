@@ -10,11 +10,11 @@ interface InputNumberProps extends Omit<ComponentProps<'input'>, 'type' | 'value
 }
 
 function parseValue(rawValue: string | number): number | null {
-  const stringValue = String(rawValue);
+  const stringValue = String(rawValue).trim();
 
   if (stringValue === '') return null;
 
-  if (stringValue.trim() === '0') return 0;
+  if (stringValue === '0') return 0;
 
   if (rawValue === 0) return 0;
 
