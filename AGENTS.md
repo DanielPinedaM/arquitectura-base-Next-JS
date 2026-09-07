@@ -51,7 +51,20 @@ Es decir:
 
 Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuperar-clave/page.tsx` — ambos en español. El resto del código dentro de esa carpeta (archivos `.tsx`, componentes, funciones, hooks, variables) sigue en inglés según la sección anterior.
 
-# Buenas Practicas de TypeScript
+# Reglas **OBLIGATORIAS** de Next.js
+Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento.
+
+Antes de escribir código o responder, es **obligatorio** consultar estas fuentes, listadas de mayor a menor precedencia:
+
+1. Este `AGENTS.md`: La regla final ante cualquier conflicto.
+
+2. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules/`): El cómo, con ejemplos de código.
+
+3. Guía `node_modules/next/dist/docs/`: Documentación oficial de Next.js; respetar sus avisos de deprecación.
+
+4. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
+
+## Buenas Practicas de TypeScript
 * Usar strict type checking
 
 * Preferir la inferencia de tipos cuando el tipo sea obvio
@@ -63,24 +76,6 @@ Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuper
 * Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
 
 * Usar `type` para tipos primitivos, literales y uniones.
-
-# Reglas **OBLIGATORIAS** de Next.js
-Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento:
-
-Antes de escribir código o responder, es **obligatorio** consultar las siguientes fuentes, cada una según su propósito:
-
-1. Guía en `node_modules/next/dist/docs/`: Respetar los avisos de deprecación.
-
-2. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules`)
-
-Estas fuentes son la **única fuente de verdad** frente a tus datos de entrenamiento y su cumplimiento es **obligatorio**.
-
-Precedencia, de mayor a menor importancia:
-
-1. Este `AGENTS.md`
-2. Skill `vercel-react-best-practices`
-3. Guía en `node_modules/next/dist/docs/`
-4. Tus datos de entrenamiento
 
 ## Formularios
 * Usar React Hook Form junto con `import { zodResolver } from '@hookform/resolvers/zod'` para validar formularios y los componentes UI de formularios de Shad cn ubicados en `src\shared\ui\shad-cn\react-hook-form`
