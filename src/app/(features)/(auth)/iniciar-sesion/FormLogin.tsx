@@ -20,11 +20,6 @@ import { IRequestOptions } from '@/shared/api/http-client/data-types/interfaces/
 import { POST } from '@/shared/api/http-client/http-gateway.api';
 import Button from '@/shared/ui/buttons/Button';
 
-interface IBodyLogin {
-  email: string;
-  password: string;
-}
-
 interface IUserDataResponse {
   expiresIn: number;
   [key: string]: unknown;
@@ -156,7 +151,7 @@ export default function FormLogin() {
 
     const { encryptedEmail, encryptedPassword } = await encryptCredentials(email, password);
 
-    const optionsApi: IRequestOptions<IBodyLogin> = {
+    const optionsApi: IRequestOptions<IFormLogin> = {
       body: {
         email: encryptedEmail,
         password: encryptedPassword,
