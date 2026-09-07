@@ -478,7 +478,7 @@ Cita textual de node_modules/next/dist/docs
 >
 > Esto es una guia. **NO** debes hacer lo siguiente porque las skills ya estan configuradas
 >
-> Para explicar como configurar skills, se usa como ejemplo [`vercel-react-best-practices`](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
+> Para explicar como configurar skills, se usa como ejemplo [`vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices)
 
 Hay dos formas:
 
