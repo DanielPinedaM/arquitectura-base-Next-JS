@@ -468,9 +468,9 @@ Cita textual de node_modules/next/dist/docs
 
 ## 🔗 Enlaces con Respositorios de Skills
 
-## [Web de Vercel con múltiples repositorios de Skills sobre distintos temas](https://www.skills.sh/)
+* ## [Web de Vercel con múltiples repositorios de Skills sobre distintos temas](https://www.skills.sh/)
 
-## [Skills para UI / Maquetación](https://www.ui-skills.com/)
+* ## [Skills para UI / Maquetación](https://www.ui-skills.com/)
 
 ## ¿Como Configurar Skills?
 
