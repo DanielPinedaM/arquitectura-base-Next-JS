@@ -451,7 +451,7 @@ Estas configuraciones ya estan listas para funcionar. Solo debes seguir los paso
 Es un prompt que siempre se envia a Claude. Sirve para que Claude:
 * Respete la arquitectura de software del proyecto.
 
-* Consulte la documentación oficial que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
+* Consulte la [documentación oficial](http://nextjs.org/docs) que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
 
 * Use Next.js moderno y no legacy.
 
