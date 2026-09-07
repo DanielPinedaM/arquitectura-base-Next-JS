@@ -489,7 +489,7 @@ Hay dos formas:
 2. Ejecutar el comando de la skill a descargar:
 
 ```bash
-pn dlx skills add vercel-labs/agent-skills/skills/react-best-practices
+pn dlx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices
 ```
 
 3. La terminal hace las siguientes preguntas:
