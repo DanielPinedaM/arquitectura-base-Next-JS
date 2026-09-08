@@ -557,35 +557,36 @@ La salida debe contener algo similar a esto:
 Read 57 lines
 ```
 
-## 🌐 `playwright-cli`
+## 🌐 `playwright-cli` y `frontend-debug`
+
+> [!CAUTION]
+> ⚠️ Advertencia
+>
+> Esta skill es muy buena, pero gasta muchos tokens. Usala con cuidado
+
 Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿como usar y que es `playwright-cli`?
 
-Sirve para que la IA (Claude Code) desde la terminal pueda controlar el navegador, llenar formularios y navegar entre paginas (rutas). En vez de hacer clicks y escribir manualmente en la pagina web, puedes pedirle a Claude que lo haga automaticamente
+Sirve para que la IA (Claude Code) desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
 
-Casos de uso:
-1. Pedir a Claude que haga testing de una funcionalidad en el navegador y que si encuentra errores entonces los corrija
+**Casos de uso:**
+1. Pedir a Claude que haga testing de una funcionalidad en el navegador y que si encuentra errores entonces los corrija.
 
-2. Automatizar procesos repetitivos dentro de la pagina web. Ejemplo: Llenar un formulario muchas veces
+2. Automatizar procesos repetitivos dentro de la pagina web. Ejemplo: Llenar un formulario muchas veces.
 
-***Ejemplos de prompt:***
-Es recomendable de que **SIEMPRE** que uses `playwright-cli` lo hagas con este prompt para que puedas ver en el navegador que esta haciendo Claude:
+Las skills son **DIFERENTES**:
 
+* **`playwright-cli`**: Lista y explicación de los comandos que permiten a la IA controlar el navegador.
+
+* **`frontend-debug`** Esta skill llama a la skill `playwright-cli` y le explica a la IA como usar `playwright-cli` para automatizar un proceso o solucionar un bug.
+
+**SIEMPRE** que necesites controlar el navegador con la IA, llamar la skill `frontend-debug` y **NO** la skill `playwright-cli`. Usar este prompt:
+
+***Ejemplo de Prompt:***
 ```txt
-# <<< Aqui escribes un TITULO CORTO del nombre de la funcionalidad a testear o proceso a ejecutar en el navegador >>>
-<<<
-Aqui describes de forma mas DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso
->>>
+/frontend-debug
+<<< **Tipo de proceso:** Aqui escribes "Solucionar Bug" o "automatizar proceso" >>>
 
-# Uso **OBLIGATORIO** de `playwright-cli`
-* **OBLIGATORIO** usar la skill `.claude\skills\playwright-cli\SKILL.md` para entender el funcionamiento de `playwright-cli`
-
-* **SIEMPRE**, después de realizar cualquier modificación/funcionalidad solicitada, usar `playwright-cli` para probar y verificar el resultado, especialmente cualquier cambio de maquetación o funcionalidad.
-
-* Usar `playwright-cli screenshot` para obtener capturas de pantalla y probar cambios de maquetación o funcionalidad.
-
-* **SIEMPRE** usar playwright-cli en modo `--headed` con `pnpm exec playwright-cli open --headed http://localhost:4100`
-
-* Si al probar encuentras bugs, corrígelos y vuelve a probar con `playwright-cli` hasta verificar que la modificación/funcionalidad funciona correctamente.
+<<< Aqui describir de forma DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso >>>
 ```
 
 # MCP
