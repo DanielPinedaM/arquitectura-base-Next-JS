@@ -590,7 +590,12 @@ Las skills son **DIFERENTES**:
 | ¿Genera el build de la aplicacion?                                              | ❌ No                                     | ✅ Sí                                       |
 | ¿Abre el navegador y usa comandos de `playwright-cli`?                          | ✅ Sí                                     | ✅ Sí                                       |
 
-**SIEMPRE** que necesites controlar el navegador con la IA, llamar la skill `browser-agent` y **NO** la skill `playwright-cli`. Usar este prompt:
+**SIEMPRE** que necesites controlar el navegador con la IA:
+1. Detener la ejecucion del proyecto
+
+2. Llamar la skill `browser-agent` y **NO** la skill `playwright-cli`.
+
+3. Usar este prompt:
 
 ***Ejemplo de Prompt:***
 ```txt
