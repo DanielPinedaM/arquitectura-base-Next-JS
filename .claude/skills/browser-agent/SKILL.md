@@ -25,7 +25,7 @@ Hay exactamente dos modos y se comportan distinto:
 Los dos casos en que el modo DEPURAR escribe en el código fuente:
 
 1. **Instrumentación temporal** — `console.log` marcados con `// DBG-<id>`, y `throw` para forzar un `catch` cuando el fallo no se puede inducir desde la red. No cambia el comportamiento de la app, se aplica sin preguntar y **se borra en la misma respuesta** (sección "7.2 Borrar la instrumentación").
-2. **La corrección del bug** — solo la opción que el usuario autorizó al responder el `AskUserQuestion` de la sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta". Permanece en el repo.
+2. **La corrección del bug** — solo la opción que el usuario autorizó al responder el `AskUserQuestion` de la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta". Permanece en el repo.
 
 Cualquier otra edición está prohibida, incluidos los bugs que encuentres de paso mientras depuras: repórtalos y sigue con el autorizado.
 
@@ -36,7 +36,7 @@ La pregunta lleva dos opciones, y en cada descripción lo que ese modo implica d
 - **AUTOMATIZAR** — ejecuta el flujo de punta a punta y reporta el estado final. No toca el código ni diagnostica.
 - **DEPURAR** — reproduce el fallo, observa, instrumenta si hace falta, y **para** a preguntar antes de aplicar cualquier corrección.
 
-Única excepción: que el usuario ya lo haya dicho explícitamente en la conversación ("automatiza el alta de usuario", "depura por qué falla el guardado"). Entonces usa ese modo, dilo en una línea y sigue, sin volver a preguntar.
+Anque el usuario lo haya dicho explícitamente en la conversación ("automatiza el alta de usuario", "depura por qué falla el guardado"). Tienes que preguntar ¿cual es el modo a ejecutar?
 
 Esta pregunta es independiente de las del entorno —la del que se ejecuta y la del build, que son dos preguntas diferentes—, que llegan después, en el paso 2 de la sección "4. Detectar el entorno (nunca asumirlo)". Lo que no puedes es empezar a ejecutar sin tener la respuesta del modo.
 
@@ -49,7 +49,7 @@ Si en cualquier momento de la ejecución —leyendo, editando o creando código,
 Detente en ese punto exacto y usa `AskUserQuestion`:
 
 1. **Para.** No generes ni edites nada más relacionado con esa duda hasta tener la respuesta.
-2. **Explica la duda en dos o tres líneas:** en qué consiste, y por qué la información disponible no basta para resolverla.
+2. **Explica la duda:** en qué consiste, y por qué la información disponible no basta para resolverla.
 3. **Formúlala como pregunta explícita**, con:
    - Dos o más opciones concretas, cada una con su consecuencia real (qué cambia, qué más podría romper).
    - Una marcada como **recomendada**, con el motivo de la recomendación.
@@ -58,13 +58,13 @@ Detente en ese punto exacto y usa `AskUserQuestion`:
 
 Ninguna otra sección de este documento te autoriza a rellenar vacíos, inventar comportamiento, deducir requisitos ni tomar decisiones de diseño que no estén especificadas explícitamente. Ante la duda, se pregunta.
 
-Los cuatro momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno de ejecución y de build (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
+Los cuatro momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno de ejecución y de build (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
 
 ## 3. Mecánica de playwright-cli
 
 Antes de la primera invocación de esta sesión, en este orden:
 
-1. **Consulta la skill oficial de Microsoft**, instalada en `.claude/skills/playwright-cli/SKILL.md`. Ahí están los detalles de comandos, refs (`e15`), snapshots y sesiones.
+1. **Consulta la skill oficial de Microsoft**, instalada en `.claude/skills/playwright-cli/SKILL.md` y `.claude/skills/playwright-cli/references/`. Ahí están los detalles de comandos, refs (`e15`), snapshots y sesiones.
 
 2. **Ejecuta el `--help` del binario local**, siempre:
 
@@ -224,7 +224,18 @@ Si el fallo involucra una API, repite la petición desde la terminal con `curl`,
 
 Prueba los tres casos cuando apliquen: caso feliz, datos inválidos (400/422), y sin token de auth (401/403).
 
-### 6.4 Instrumentar con console.log temporal
+### 6.4 Inspeccionar `node_modules` (opcional)
+
+**Este paso es opcional: no hay ninguna obligación de ejecutarlo.** Solo aporta cuando el bug apunta a una librería o dependencia; si el fallo está en el código del proyecto, sáltalo y sigue con el paso siguiente.
+
+Las razones por las que se lee `node_modules` son:
+
+- **Buscar los tipos de datos de la librería o dependencia relacionada con el bug**: la firma real de la función, la forma del objeto que devuelve, qué campos son opcionales. Los tipos que hay ahí son los de la versión instalada, que es la que el proyecto está usando de verdad.
+- **Entender el funcionamiento de la librería o dependencia**: leer su implementación cuando lo que hace no coincide con lo que esperabas.
+
+**Puedes leer `node_modules`, pero NO lo modifiques.** Es código de terceros que instala el gestor de paquetes: un cambio ahí no queda en el repo, no lo ve el resto del equipo y lo pisa el gestor en cuanto vuelva a resolver las dependencias. Si el diagnóstico apunta a una librería, eso se lleva a la pregunta de la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta".
+
+### 6.5 Instrumentar con console.log temporal
 
 **Formato obligatorio**, con marcador de limpieza al final:
 
@@ -271,7 +282,7 @@ Instrumenta el **camino sospechoso**, no el archivo entero. Un log de más entie
 
 Después de cada tanda de instrumentación: recarga, repite el flujo, y lee `pnpm exec playwright-cli console`. Ajusta y repite. Es un ciclo, no un volcado único.
 
-### 6.5 Forzar la rama de error
+### 6.6 Forzar la rama de error
 
 Para probar el `catch` y no solo el `try`, **prefiere forzar el fallo desde la red**, sin tocar el código:
 
@@ -285,7 +296,7 @@ Y `route` no anula la petición: para simular una caída de red en lugar de una 
 
 Modifica el código para forzar un throw **solo** cuando el fallo no se pueda inducir desde fuera, y solo en el `catch` del flujo bajo investigación. No recorras el proyecto forzando todos los `catch`.
 
-### 6.6 PARAR y preguntar — nunca corregir por tu cuenta
+### 6.7 PARAR y preguntar — nunca corregir por tu cuenta
 
 Cuando tengas el diagnóstico, **detente**. No apliques la corrección.
 
@@ -297,7 +308,7 @@ Usa `AskUserQuestion` con:
 
 Un diagnóstico sin evidencia no es un diagnóstico. Si no puedes señalar el log o la respuesta HTTP que lo prueba, sigue depurando en lugar de preguntar.
 
-### 6.7 Corregir y verificar
+### 6.8 Corregir y verificar
 
 Aplica solo la opción elegida. Después, vuelve a ejecutar el flujo completo con playwright-cli: interacción, `console error` limpio, `requests` con el status esperado, y screenshot final. Repite hasta que pase. Un "ya debería funcionar" sin ejecución no cuenta como verificación.
 
@@ -399,7 +410,7 @@ pnpm run <script-de-build>
 
 Recorre su salida con la tabla del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el dev server es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
 
-Si el build falla, aplica la sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que este paso añade es qué llevar a esa pregunta, porque la salida del build mezcla dos tipos de error:
+Si el build falla, aplica la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que este paso añade es qué llevar a esa pregunta, porque la salida del build mezcla dos tipos de error:
 
 1. Los que **NO** están relacionados con el bug buscado por el usuario.
 2. Los que **SÍ** están relacionados con el bug buscado por el usuario.
