@@ -585,8 +585,7 @@ Las skills son **DIFERENTES**:
 ```txt
 /browser-agent <<< Aqui describir de forma DETALLADA
 la funcionalidad a testear o el proceso a automatizar,
-para mejorar el resultado
-es bueno decirle a Claude
+para mejorar el resultado es bueno decirle a Claude
 rutas especificas de donde estan los archivos, componentes, funciones, etc.
 que necesita para ejecutar el proceso >>>
 ```
