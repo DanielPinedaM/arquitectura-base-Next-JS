@@ -124,19 +124,30 @@ El proyecto puede ser de cualquier framework. Deduce, no adivines:
 
 Levantar el frontend es tarea tuya. **Prohibido** pedirle al usuario que lo arranque, y prohibido abrir el navegador dando por hecho que ya está arriba. Lo único que decide el usuario es **qué entorno** se levanta (paso 2); ejecutarlo y esperarlo lo haces tú.
 
-**1. Comprueba si ya está corriendo**, para no levantar una segunda instancia sobre un puerto ocupado. Si responde, ya está arriba: sáltate los pasos 2 a 5, dile al usuario contra qué puerto vas a trabajar y ve directo al paso 6.
+**1. Comprueba si ya hay algo corriendo en el puerto**, para no levantar una segunda instancia sobre un puerto ocupado.
 
 ```bash
 curl -sS -o /dev/null -w "%{http_code}" http://localhost:<puerto>
 ```
 
-**2. Pregunta al usuario qué entorno arrancar.** Lee los scripts de `package.json` — **no asumas que existe `dev` ni `start`** — y **no elijas el entorno por tu cuenta**, ni siquiera cuando uno parezca el obvio. La decisión es del usuario: pregúntasela con `AskUserQuestion` antes de ejecutar nada.
+- **La conexión falla** → el puerto está libre. Sigue con el paso 2.
+- **Responde algo** → hay un proceso escuchando ahí. **Deténlo** localizándolo por el puerto con `netstat` y matándolo con `taskkill`, igual que en la sección "7.1 Cerrar los procesos que abriste", vuelve a lanzar el `curl` hasta que la conexión falle, y sigue con el paso 2.
 
-- Una opción por cada script que levante la app (`start:local`, `start:test`, `start:prod`, `dev:mock`…), con el nombre exacto del script como etiqueta.
-- En la descripción de cada opción, lo que ese script implica de verdad: configuración (`--configuration=localhost`), puerto, y contra qué backend apunta si puedes deducirlo de los archivos de environment o de la config del framework. El usuario elige un entorno, no un string.
-- Una opción final "Otra — la indico yo", para un script o unos flags que no estén en la lista.
+**Que hubiera algo corriendo no te salta ningún paso.** Los pasos 2 a 5 se ejecutan completos igual: se pregunta el entorno, lo arrancas tú, esperas a que acepte conexiones y lees su salida. Ese proceso que estaba ahí lo levantó otra sesión o el propio usuario, así que no sabes con qué entorno arrancó ni si su build corresponde al código actual, y todo lo que observes contra él es un diagnóstico falso.
 
-Pregunta también cuando solo haya un script candidato: el usuario puede querer otro puerto u otra configuración. La única excepción es que ya te haya dicho en la conversación qué entorno quiere; entonces úsalo y dilo, sin volver a preguntar.
+**2. Pregunta al usuario qué entornos usar.** Son **dos preguntas DIFERENTES**, cada una con su propia lista de opciones y su propia respuesta, y las dos se hacen aquí, antes de empezar a ejecutar el modo AUTOMATIZAR o DEPURAR, nunca al llegar al build. Una respuesta no se deduce de la otra:
+
+1. **Qué entorno se ejecuta** — el dev server del paso 3.
+2. **A qué entorno se le hace el build** — la sección "7.4 Ejecutar el build".
+
+Lee los scripts de `package.json` — **no asumas que existe `dev` ni `start`, ni un `build` a secas** — y **no elijas los entornos por tu cuenta**, ni siquiera cuando uno parezca el obvio. La decisión es del usuario: pregúntasela con `AskUserQuestion` antes de ejecutar nada.
+
+- En la pregunta del entorno que se ejecuta, una opción por cada script del `package.json` que levante la app, con el nombre exacto del script como etiqueta. En la descripción, lo que ese script implica de verdad: qué configuración pasa —dedúcelo de lo que ejecuta y de la config del framework, nunca de su nombre—, puerto, y contra qué backend apunta si puedes deducirlo de los archivos de environment. El usuario elige un entorno, no un string.
+- En la pregunta del entorno del build, una opción por cada script del `package.json` que compile el proyecto, con el nombre exacto del script como etiqueta. En la descripción, a qué entorno apunta, deducido igual: de lo que el script ejecuta, nunca de su nombre.
+- En las dos, una opción final "Otra — la indico yo", para un script o unos flags que no estén en la lista.
+- Los nombres de todos esos scripts se leen del `package.json`, no se dan por sabidos.
+
+Pregunta también cuando en cualquiera de las dos solo haya un candidato: el usuario puede querer otro puerto u otra configuración. La única excepción es que ya te haya dicho en la conversación qué entorno quiere para esa pregunta concreta; entonces úsalo y dilo, sin volver a preguntar.
 
 **3. Arranca el script elegido en background** (`run_in_background: true`, nunca en foreground: el dev server no termina y bloquearía la sesión). **Anota el `task_id` que devuelve la llamada**: sin él no puedes cerrarlo en el paso 7.
 
