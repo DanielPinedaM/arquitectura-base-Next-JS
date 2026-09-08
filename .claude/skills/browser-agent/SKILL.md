@@ -302,7 +302,7 @@ Modifica el código para forzar un throw **solo** cuando el fallo no se pueda in
 Cuando tengas el diagnóstico, **detente**. No apliques la corrección.
 
 Usa `AskUserQuestion` con:
-- Una explicación breve del bug: archivo, línea, causa raíz, y la evidencia que lo demuestra (el log, el status HTTP, el error de consola).
+- Una explicación del bug: archivo, línea, causa raíz, y la evidencia que lo demuestra (el log, el status HTTP, el error de consola).
 - **Mínimo 2 opciones de solución**, cada una con su consecuencia real (alcance del cambio, qué más podría romper).
 - Una marcada explícitamente como **recomendada**, con el motivo.
 - Una opción final del tipo "Otra — la describo yo" para que el usuario proponga su propio enfoque.
