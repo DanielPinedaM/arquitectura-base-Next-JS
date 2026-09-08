@@ -557,7 +557,7 @@ La salida debe contener algo similar a esto:
 Read 57 lines
 ```
 
-## 🌐 `playwright-cli` y `frontend-debug`
+## 🌐 `playwright-cli` y `browser-agent`
 
 > [!CAUTION]
 > ⚠️ Advertencia
@@ -577,13 +577,13 @@ Las skills son **DIFERENTES**:
 
 * **`playwright-cli`**: Lista y explicación de los comandos que permiten a la IA controlar el navegador.
 
-* **`frontend-debug`** Esta skill llama a la skill `playwright-cli` y le explica a la IA como usar `playwright-cli` para automatizar un proceso o solucionar un bug.
+* **`browser-agent`** Esta skill llama a la skill `playwright-cli` y le explica a la IA como usar `playwright-cli` para automatizar un proceso o solucionar un bug.
 
-**SIEMPRE** que necesites controlar el navegador con la IA, llamar la skill `frontend-debug` y **NO** la skill `playwright-cli`. Usar este prompt:
+**SIEMPRE** que necesites controlar el navegador con la IA, llamar la skill `browser-agent` y **NO** la skill `playwright-cli`. Usar este prompt:
 
 ***Ejemplo de Prompt:***
 ```txt
-/frontend-debug <<< Aqui describir de forma DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso >>>
+/browser-agent <<< Aqui describir de forma DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso >>>
 ```
 
 # MCP
