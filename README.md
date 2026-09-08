@@ -583,10 +583,7 @@ Las skills son **DIFERENTES**:
 
 ***Ejemplo de Prompt:***
 ```txt
-/frontend-debug
-<<< **Tipo de proceso:** Aqui escribes "Solucionar Bug" o "automatizar proceso" >>>
-
-<<< Aqui describir de forma DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso >>>
+/frontend-debug <<< Aqui describir de forma DETALLADA la funcionalidad a testear o el proceso a automatizar, para mejorar el resultado es bueno decirle a Claude rutas especificas de donde estan los archivos, componentes, funciones, etc. que necesita para ejecutar el proceso >>>
 ```
 
 # MCP
