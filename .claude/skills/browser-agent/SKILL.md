@@ -355,6 +355,19 @@ Ni el script ni la configuración se asumen: el nombre del script sale de los sc
 
 Si el linter marca errores en las líneas que tocaste, arréglalos. Si los marca en código que no tocaste, déjalos y menciónalo.
 
+#### Cómo leer la salida — aplica al linter y al build
+
+**Lee la salida completa de la terminal, no solo el código de salida.** Esta tabla se escribe una sola vez y vale para los dos pasos, "7.3 Ejecutar el linter" y "7.4 Ejecutar el build": los dos se recorren igual, buscando:
+
+| En la salida | Qué significa |
+|---|---|
+| `Error:` / `ERROR in` | fallo real; trae archivo y línea, úsalos para diagnosticar |
+| `error TS####` | error de TypeScript, con el código concreto que puedes consultar |
+| `Warning:` / `WARNING in` | puede ser preexistente; contrástalo con los archivos que tocaste |
+| Resumen de bundles / `budget` | tu cambio infló el tamaño y superó un presupuesto |
+
+Diagnostica desde el archivo y la línea que da la propia salida, no adivinando. Si la salida es larga, no la resumas de memoria: vuelve a leerla y cita el mensaje exacto.
+
 ### 7.4 Ejecutar el build
 
 El último control: con la instrumentación borrada y el linter ya resuelto según el paso anterior, comprueba que el proyecto compila. **Lee los scripts del `package.json`** igual que en el paso anterior: no asumas que existe un `build` a secas — en este proyecto son `build:test` y `build:prod`.
@@ -365,16 +378,7 @@ pnpm run <script-de-build>
 
 Si hay varios, usa el de test o desarrollo, nunca el de producción: detecta los mismos errores de compilación y tarda bastante menos.
 
-**Lee la salida completa de la terminal, no solo el código de salida.** Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el `ng serve` en desarrollo es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí. Recorre la salida buscando:
-
-| En la salida | Qué significa |
-|---|---|
-| `Error:` / `ERROR in` | fallo real; trae archivo y línea, úsalos para diagnosticar |
-| `error TS####` | error de TypeScript, con el código concreto que puedes consultar |
-| `Warning:` / `WARNING in` | puede ser preexistente; contrástalo con los archivos que tocaste |
-| Resumen de bundles / `budget` | tu cambio infló el tamaño y superó un presupuesto |
-
-Diagnostica desde el archivo y la línea que da la propia salida, no adivinando. Si la salida es larga, no la resumas de memoria: vuelve a leerla y cita el mensaje exacto.
+Recorre su salida con la tabla del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el `ng serve` en desarrollo es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
 
 Si el build falla, aplica la sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que este paso añade es qué llevar a esa pregunta, porque la salida del build mezcla dos tipos de error:
 
