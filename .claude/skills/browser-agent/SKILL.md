@@ -343,13 +343,13 @@ Reporta al usuario que la limpieza está verificada. Instrumentación olvidada e
 
 Va **antes** del build a propósito: tarda segundos en vez de minutos, así que si algo está mal te enteras sin esperar a que compile el proyecto entero.
 
-Solo si el proyecto tiene ESLint configurado. **Lee los scripts del `package.json`**: busca uno tipo `lint`, `lint:fix` o `eslint`.
+Solo si el proyecto tiene ESLint configurado. **Lee los scripts del `package.json`**: busca uno tipo `lint`, `lint:fix` o `eslint`, y ejecuta el nombre exacto que encuentres ahí.
 
 ```bash
-pnpm run lint
+pnpm run <script-de-lint>
 ```
 
-En este proyecto el script es `lint` (`ng lint`) y la configuración vive en `eslint.config.js`.
+Ni el script ni la configuración se asumen: el nombre del script sale de los scripts del `package.json`, y la configuración es el fichero `eslint.config.*` o `.eslintrc*` que exista en el proyecto. Los dos se deducen leyendo, no de memoria.
 
 **Si no hay script de lint ni fichero de configuración** (`eslint.config.*`, `.eslintrc*`), **ignóralo y salta al paso siguiente**: no es un fallo. Menciónalo en el reporte en una línea, para que el usuario sepa que ese control no se ejecutó. Lo que **no** puedes hacer es instalar ESLint ni crear una configuración para poder correrlo: eso es cambiar dependencias del proyecto, prohibido por la sección "8. Límites".
 
