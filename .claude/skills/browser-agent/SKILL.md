@@ -38,7 +38,7 @@ La pregunta lleva dos opciones, y en cada descripción lo que ese modo implica d
 
 Única excepción: que el usuario ya lo haya dicho explícitamente en la conversación ("automatiza el alta de usuario", "depura por qué falla el guardado"). Entonces usa ese modo, dilo en una línea y sigue, sin volver a preguntar.
 
-Esta pregunta es independiente de la del entorno a levantar, que llega después, en el paso 2 de la sección "4. Detectar el entorno (nunca asumirlo)", y solo si el dev server no está ya corriendo. Si en ese momento vas a preguntar las dos cosas, puedes agruparlas en una sola llamada a `AskUserQuestion` con dos preguntas; lo que no puedes es empezar a ejecutar sin tener la respuesta del modo.
+Esta pregunta es independiente de las del entorno —la del que se ejecuta y la del build, que son dos preguntas diferentes—, que llegan después, en el paso 2 de la sección "4. Detectar el entorno (nunca asumirlo)". Lo que no puedes es empezar a ejecutar sin tener la respuesta del modo.
 
 Si en modo AUTOMATIZAR el flujo se rompe, no lo arregles por tu cuenta: reporta dónde se rompió y pregunta si quieres que pase a modo DEPURAR.
 
