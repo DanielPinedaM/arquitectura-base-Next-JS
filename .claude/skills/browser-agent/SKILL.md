@@ -201,7 +201,7 @@ La mayoría de los bugs se identifican aquí sin editar nada:
 ```bash
 pnpm exec playwright-cli console error     # errores de la consola del navegador
 pnpm exec playwright-cli console           # todo lo que loguea la app
-pnpm exec playwright-cli requests --filter="/api/.*"   # lista numerada de las peticiones reales
+pnpm exec playwright-cli requests           # lista numerada de las peticiones reales
 pnpm exec playwright-cli request 5         # detalle de la petición nº5
 pnpm exec playwright-cli eval "() => ..."  # inspeccionar DOM o estado global
 pnpm exec playwright-cli screenshot        # bugs visuales o de maquetación
@@ -209,7 +209,6 @@ pnpm exec playwright-cli screenshot        # bugs visuales o de maquetación
 
 Las peticiones reales son **dos comandos, no uno**: `requests` lista todo lo que pidió el navegador desde que cargó la página, numerado; `request <n>` abre una de esas por su número y te da URL, método, status, tiempo y los headers de ida y vuelta. Eso reemplaza a la mayoría de los `console.log` alrededor de llamadas HTTP. Úsalo primero.
 
-- El `--filter` de `requests` es un **regexp** sobre la URL, no texto suelto: `--filter="/api/.*user"`.
 - Por defecto omite recursos estáticos (imágenes, fuentes, scripts). Agrega `--static` solo si sospechas de uno.
 - `request <n>` **no trae los cuerpos**: pídelos aparte con `request-body <n>` y `response-body <n>`. Si el detalle es demasiado grande, pide solo la parte que necesitas: `request-headers <n>`, `response-headers <n>`.
 
