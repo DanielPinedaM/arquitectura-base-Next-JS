@@ -233,6 +233,8 @@ Las razones por las que se lee `node_modules` son:
 - **Buscar los tipos de datos de la librería o dependencia relacionada con el bug**: la firma real de la función, la forma del objeto que devuelve, qué campos son opcionales. Los tipos que hay ahí son los de la versión instalada, que es la que el proyecto está usando de verdad.
 - **Entender el funcionamiento de la librería o dependencia**: leer su implementación cuando lo que hace no coincide con lo que esperabas.
 
+**Está prohibido leer la carpeta `node_modules` por completo.** Solamente si es necesario, leer específicamente las dependencias o librerías relacionadas con el bug a solucionar.
+
 **Puedes leer `node_modules`, pero NO lo modifiques.** Es código de terceros que instala el gestor de paquetes: un cambio ahí no queda en el repo, no lo ve el resto del equipo y lo pisa el gestor en cuanto vuelva a resolver las dependencias. Si el diagnóstico apunta a una librería, eso se lleva a la pregunta de la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta".
 
 ### 6.5 Instrumentar con console.log temporal
