@@ -267,7 +267,7 @@ Instrumenta el **camino sospechoso**, no el archivo entero. Un log de más entie
 - El handler del evento DOM que inicia el flujo (`onClick`, `onSubmit`, `onChange`).
 
 **Nivel 2 — si el nivel 1 no localiza el fallo:**
-- Estado después de cada mutación (`useState`, signals, store, `BehaviorSubject`).
+- Estado después de cada mutación (`useState`, signals, store, `BehaviorSubject`, `ref`/`reactive`).
 - Resultado de cada validación, junto con el input que la produjo.
 - Rama tomada en los condicionales del camino.
 - Hooks de ciclo de vida (`ngOnInit`, `useEffect`) con sus dependencias.
