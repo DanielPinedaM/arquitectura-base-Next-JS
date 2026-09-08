@@ -583,8 +583,7 @@ Las skills son **DIFERENTES**:
 
 ***Ejemplo de Prompt:***
 ```txt
-/browser-agent <<<
-Aqui describir de forma DETALLADA
+/browser-agent <<< Aqui describir de forma DETALLADA
 la funcionalidad a testear o el proceso a automatizar,
 para mejorar el resultado
 es bueno decirle a Claude
