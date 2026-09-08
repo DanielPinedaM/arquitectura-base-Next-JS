@@ -58,7 +58,7 @@ Detente en ese punto exacto y usa `AskUserQuestion`:
 
 Ninguna otra sección de este documento te autoriza a rellenar vacíos, inventar comportamiento, deducir requisitos ni tomar decisiones de diseño que no estén especificadas explícitamente. Ante la duda, se pregunta.
 
-Los cuatro momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno de ejecución y de build (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
+Los cinco momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno de ejecución y de build (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta"), el fallo del linter (sección "7.3 Ejecutar el linter") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
 
 ## 3. Mecánica de playwright-cli
 
@@ -378,11 +378,13 @@ Ni el script ni la configuración se asumen: el nombre del script sale de los sc
 
 **Si no hay script de lint ni fichero de configuración** (`eslint.config.*`, `.eslintrc*`), **ignóralo y salta al paso siguiente**: no es un fallo. Menciónalo en el reporte en una línea, para que el usuario sepa que ese control no se ejecutó. Lo que **no** puedes hacer es instalar ESLint ni crear una configuración para poder correrlo: eso es cambiar dependencias del proyecto, prohibido por la sección "8. Límites".
 
-Si el linter marca errores en las líneas que tocaste, arréglalos. Si los marca en código que no tocaste, déjalos y menciónalo.
+Si el linter marca errores, aplica la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí, con los dos tipos de error del apartado siguiente.
 
-#### Cómo leer la salida — aplica al linter y al build
+#### Cómo leer y clasificar la salida — aplica al linter y al build
 
-**Lee la salida completa de la terminal, no solo el código de salida.** Esta tabla se escribe una sola vez y vale para los dos pasos, "7.3 Ejecutar el linter" y "7.4 Ejecutar el build": los dos se recorren igual, buscando:
+**Lee la salida completa de la terminal, no solo el código de salida.** Este apartado se escribe una sola vez y vale para los dos pasos, "7.3 Ejecutar el linter" y "7.4 Ejecutar el build": los dos se recorren igual y sus errores se separan igual.
+
+Recorre la salida buscando:
 
 | En la salida | Qué significa |
 |---|---|
@@ -392,6 +394,17 @@ Si el linter marca errores en las líneas que tocaste, arréglalos. Si los marca
 | Resumen de bundles / `budget` | tu cambio infló el tamaño y superó un presupuesto |
 
 Diagnostica desde el archivo y la línea que da la propia salida, no adivinando. Si la salida es larga, no la resumas de memoria: vuelve a leerla y cita el mensaje exacto.
+
+Cuando el linter o el build fallen, se aplica la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que estos dos pasos añaden es qué llevar a esa pregunta, porque su salida mezcla dos tipos de error:
+
+1. Los que **NO** están relacionados con el bug buscado por el usuario.
+2. Los que **SÍ** están relacionados con el bug buscado por el usuario.
+
+Sepáralos revisando el working directory, nunca suponiendo: `git stash` y vuelve a ejecutar el paso que falló — lo que sigue fallando sin tus cambios es del tipo 1 —, luego `git stash pop` y ejecútalo otra vez — lo que aparece solo con tus cambios aplicados es del tipo 2.
+
+Lleva los dos tipos a la pregunta, en listas separadas, cada error con el archivo, la línea y el mensaje exacto de la salida. **Si un tipo no tiene errores, dilo y no inventes ninguno**: "no hay errores ajenos al bug buscado" y "no hay errores relacionados con el bug buscado" son las respuestas que corresponden cuando esa lista está vacía.
+
+Los errores del tipo 1 son trabajo fuera de la corrección autorizada: no los toques salvo que el usuario elija arreglarlos en esa pregunta, ver la sección "8. Límites".
 
 ### 7.4 Ejecutar el build
 
@@ -409,18 +422,7 @@ Son tres pasos y van en este orden:
 pnpm run <script-de-build>
 ```
 
-Recorre su salida con la tabla del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el dev server es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
-
-Si el build falla, aplica la sección "6.7 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que este paso añade es qué llevar a esa pregunta, porque la salida del build mezcla dos tipos de error:
-
-1. Los que **NO** están relacionados con el bug buscado por el usuario.
-2. Los que **SÍ** están relacionados con el bug buscado por el usuario.
-
-Sepáralos revisando el working directory, nunca suponiendo: `git stash` y build — lo que sigue fallando sin tus cambios es del tipo 1 —, luego `git stash pop` y build — lo que aparece solo con tus cambios aplicados es del tipo 2.
-
-Lleva los dos tipos a la pregunta, en listas separadas, cada error con el archivo, la línea y el mensaje exacto de la salida. **Si un tipo no tiene errores, dilo y no inventes ninguno**: "no hay errores ajenos al bug buscado" y "no hay errores relacionados con el bug buscado" son las respuestas que corresponden cuando esa lista está vacía.
-
-Los errores del tipo 1 son trabajo fuera de la corrección autorizada: no los toques salvo que el usuario elija arreglarlos en esa pregunta, ver la sección "8. Límites".
+Recorre y clasifica su salida con el apartado "Cómo leer y clasificar la salida" del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el dev server es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
 
 ## 8. Límites
 
