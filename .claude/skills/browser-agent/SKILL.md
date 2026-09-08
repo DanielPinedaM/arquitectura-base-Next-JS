@@ -58,7 +58,7 @@ Detente en ese punto exacto y usa `AskUserQuestion`:
 
 Ninguna otra sección de este documento te autoriza a rellenar vacíos, inventar comportamiento, deducir requisitos ni tomar decisiones de diseño que no estén especificadas explícitamente. Ante la duda, se pregunta.
 
-Los cuatro momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno a levantar (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
+Los cuatro momentos en que preguntar ya está fijado por el procedimiento —el modo (sección "1. Elegir el modo — pregúntalo antes de ejecutar nada"), el entorno de ejecución y de build (sección "4. Detectar el entorno (nunca asumirlo)", paso 2), el diagnóstico antes de corregir (sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta") y el fallo del build (sección "7.4 Ejecutar el build")— son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
 
 ## 3. Mecánica de playwright-cli
 
