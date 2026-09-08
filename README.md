@@ -582,6 +582,7 @@ Las skills son **DIFERENTES**:
 | Pregunta ⬇️ / Modo ➡️                                                          | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
 |---------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
 | ¿Para qué sirve?                                                                | Ejecutar o automatizar un flujo de la app | Encontrar la causa de un bug                 |
+| ¿Escribe codigo de testing en Jest, Vitest, etc?                                | ❌ No                                     | ❌ No                                       |
 | Ejemplo de uso                                                                  | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
 | Modifica código fuente                                                          | ❌ No                                     | ✅ Sí                                       |
 | Diagnostica (logs del server, `curl -i`/`-v`, cuerpo y headers de la respuesta) | ❌ No                                     | ✅ Sí                                       |
