@@ -589,6 +589,7 @@ Las skills son **DIFERENTES**:
 | ¿Ejecuta ESLint?                                                                | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
 | ¿Genera el build de la aplicacion?                                              | ❌ No                                     | ✅ Sí                                       |
 | ¿Abre el navegador y usa comandos de `playwright-cli`?                          | ✅ Sí                                     | ✅ Sí                                       |
+| ¿Pide usuario y contraseña y hace login?                                        | ✅ Sí                                     | ✅ Sí                                       |
 
 **SIEMPRE** que necesites controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
