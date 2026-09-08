@@ -288,7 +288,7 @@ Después de cada tanda de instrumentación: recarga, repite el flujo, y lee `pnp
 Para probar el `catch` y no solo el `try`, **prefiere forzar el fallo desde la red**, sin tocar el código:
 
 ```bash
-pnpm exec playwright-cli route "**/api/<recurso>" --status=500 --body='{"error":"forzado"}' --content-type=application/json
+pnpm exec playwright-cli route "**<recurso>" --status=500 --body='{"error":"forzado"}' --content-type=application/json
 ```
 
 El `--status` de error es obligatorio: sin él `route` responde **200** y el flujo sigue por el camino feliz con un body raro, sin llegar nunca al `catch`. Consulta `pnpm exec playwright-cli route --help` para las opciones de headers y content-type de tu versión.
