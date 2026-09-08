@@ -563,18 +563,13 @@ Read 57 lines
 > ⚠️ Advertencia
 >
 > Usar esta skill con ciudado, es muy buena, pero:
-> 1. Gasta muchos tokens
+> 1. Gasta muchos tokens.
 >
 > 2. Si intentas solucionar un bug con esta skill sin entender el código, es probable que introduzcas nuevos bugs.
 
-Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿como usar y que es `playwright-cli`?
+Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿que es `playwright-cli`?
 
 Sirve para que la IA (Claude Code) desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
-
-**Casos de uso:**
-1. Pedir a Claude que haga testing de una funcionalidad en el navegador y que si encuentra errores entonces los corrija.
-
-2. Automatizar procesos repetitivos dentro de la pagina web. Ejemplo: Llenar un formulario muchas veces.
 
 Las skills son **DIFERENTES**:
 
@@ -582,11 +577,23 @@ Las skills son **DIFERENTES**:
 
 * **`browser-agent`** Esta skill llama a la skill `playwright-cli` y le explica a la IA como usar `playwright-cli` para automatizar un proceso o solucionar un bug.
 
+`browser-agent` se usa para lo siguiente:
+
+| Pregunta ⬇️ / Modo ➡️                                                          | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
+|---------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
+| ¿Para qué sirve?                                                                | Ejecutar o automatizar un flujo de la app | Encontrar la causa de un bug                 |
+| Ejemplo de uso                                                                  | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
+| Modifica código fuente                                                          | ❌ No                                     | ✅ Sí                                       |
+| Diagnostica (logs del server, `curl -i`/`-v`, cuerpo y headers de la respuesta) | ❌ No                                     | ✅ Sí                                       |
+| ¿Ejecuta ESLint?                                                                | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
+| ¿Genera el build de la aplicacion?                                              | ❌ No                                     | ✅ Sí                                       |
+| ¿Abre el navegador y usa comandos de `playwright-cli`?                          | ✅ Sí                                     | ✅ Sí                                       |
+
 **SIEMPRE** que necesites controlar el navegador con la IA, llamar la skill `browser-agent` y **NO** la skill `playwright-cli`. Usar este prompt:
 
 ***Ejemplo de Prompt:***
 ```txt
-/browser-agent <<< Aqui describir de forma DETALLADA
+/browser-agent <<< Aqui describir de forma MUY DETALLADA
 la funcionalidad a testear o el proceso a automatizar,
 para mejorar el resultado es bueno decirle a Claude
 rutas especificas de donde estan los archivos, componentes, funciones, etc.
