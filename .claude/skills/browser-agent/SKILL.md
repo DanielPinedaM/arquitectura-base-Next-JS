@@ -383,15 +383,21 @@ Diagnostica desde el archivo y la línea que da la propia salida, no adivinando.
 
 ### 7.4 Ejecutar el build
 
-El último control: con la instrumentación borrada y el linter ya resuelto según el paso anterior, comprueba que el proyecto compila. **Lee los scripts del `package.json`** igual que en el paso anterior: no asumas que existe un `build` a secas — en este proyecto son `build:test` y `build:prod`.
+El último control: con la instrumentación borrada y el linter ya resuelto según el paso anterior, comprueba que el proyecto compila. El script de build es el del entorno que el usuario ya eligió en el paso 2 de la sección "4. Detectar el entorno (nunca asumirlo)": aquí no se vuelve a preguntar ni se elige otro.
+
+Son tres pasos y van en este orden:
+
+**1. Busca la carpeta del build que le corresponde a este framework** — la que contiene los archivos compilados. Cada framework escribe en la suya y con su propio nombre, así que dedúcela: identifica qué framework usa el proyecto por las dependencias del `package.json`, y saca la ruta de su fichero de configuración o de la que el propio build imprime al terminar. Ni el framework ni la carpeta se dan por sabidos. **Nunca borres una carpeta que no hayas confirmado que es la del build de ese framework.**
+
+**2. Solo cuando esa carpeta exista, bórrala.** Si no existe, no hay nada que borrar: pasa directo al paso 3 sin crear ni tocar nada.
+
+**3. Ahora sí, ejecuta el build:**
 
 ```bash
 pnpm run <script-de-build>
 ```
 
-Si hay varios, usa el de test o desarrollo, nunca el de producción: detecta los mismos errores de compilación y tarda bastante menos.
-
-Recorre su salida con la tabla del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el `ng serve` en desarrollo es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
+Recorre su salida con la tabla del paso anterior. Un build puede terminar sin fallar y aun así estar avisando de algo que rompiste: el dev server es más permisivo que el build, así que hay errores de tipos, plantillas o imports que solo aparecen aquí.
 
 Si el build falla, aplica la sección "6.6 PARAR y preguntar — nunca corregir por tu cuenta" tal cual está escrita ahí. Lo único que este paso añade es qué llevar a esa pregunta, porque la salida del build mezcla dos tipos de error:
 
