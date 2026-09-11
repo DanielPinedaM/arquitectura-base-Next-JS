@@ -686,7 +686,9 @@ NO  → dejarlo como está
 
 Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llamada a `AskUserQuestion`, una pregunta por infracción.
 
-# 📁 Estructura Base del Proyecto
+# Estructura del Proyecto
+
+## Árbol de Directorios
 
 > [!WARNING]
 >
@@ -770,7 +772,7 @@ src/
             └── theme.css → variables de Tailwind
 ```
 
-# Feature Architecture
+## Feature Architecture
 
 Esta sección es la definición oficial de la arquitectura del proyecto. Toda decisión sobre dónde ubicar un archivo o carpeta debe respetarla de forma estricta.
 
@@ -782,13 +784,13 @@ La arquitectura define **únicamente tres capas**:
 - **Core**
 - **Shared**
 
-## Definición de las Capas
+### Definición de las Capas
 
 Esta sección define qué representa cada una de las tres capas de la arquitectura. La clasificación de un archivo concreto se realiza en la sección "Regla de decisión".
 
 La capa de un archivo se define por el **significado** del código, no por la **frecuencia** con que se reutiliza. El número de features que usan un código **no** determina su capa.
 
-### Feature
+#### Feature
 
 Código que pertenece a **una sola** funcionalidad o flujo del sistema. Contiene la UI, el estado y la lógica de esa funcionalidad: código que **solo tiene sentido dentro de ese flujo** y que dejaría de tener sentido fuera de él. Al vivir dentro de `src/app/(features)`, **genera una ruta URL**. Su lógica nunca debe salir de la feature a la que pertenece.
 
@@ -798,7 +800,7 @@ Ejemplos:
 - `src/app/(features)/tasks/hooks/useTasks.ts`
 - `src/app/(features)/tasks/store/tasks.store.ts`
 
-### Core
+#### Core
 
 Contiene la **lógica del dominio del sistema que existe de forma independiente de cualquier feature o pantalla específica**. Representa reglas del negocio del sistema (entidades, permisos, autorización, validaciones del dominio, cálculos globales del negocio). No depende de la UI ni del flujo de una feature concreta. Vive fuera de `src/app`, por lo que **no genera ruta URL**.
 
@@ -810,7 +812,7 @@ Ejemplos:
 - `src/core/users/data-types/interfaces/user.interface.ts`
 - `src/core/permissions/get-user-permissions.ts`
 
-### Shared
+#### Shared
 
 Código **completamente agnóstico al dominio**: utilidades técnicas reutilizables y componentes de UI sin conocimiento del negocio. No conoce ninguna feature ni concepto del negocio (usuarios, autenticación, productos, órdenes, dashboard, etc.) y no contiene reglas de negocio. Vive fuera de `src/app`, por lo que **no genera ruta URL**.
 
@@ -820,7 +822,7 @@ Ejemplos:
 - `src/shared/utils/func/luxon.utils.ts`
 - `src/shared/ui/buttons/Button.tsx`
 
-## Resumen de las Capas de Arquitectura
+### Resumen de las Capas de Arquitectura
 
 | Capa                       | Ubicación                      | ¿Qué contiene?                                           | ¿Conoce el dominio? | ¿Genera ruta URL? |
 | -------------------------- | ------------------------------ | -------------------------------------------------------- | ------------------- | ----------------- |
@@ -830,7 +832,7 @@ Ejemplos:
 
 > El número de features que usan un código **no** aparece como criterio en esta tabla porque **no define la capa**. La capa se decide por el significado del código (ver "Regla de Decisión").
 
-## Regla de Decisión
+### Regla de Decisión
 
 Esta es la **única** sección para decidir dónde ubicar cualquier archivo o carpeta y tiene prioridad absoluta sobre cualquier otra explicación del documento. La decisión se basa en el **significado** del código, **nunca** en cuántas features lo usan. Responder las preguntas en orden:
 
@@ -856,7 +858,7 @@ Es decir, código técnico que no conoce el negocio y funcionaría igual en cual
 
 > **Reutilizar un código en dos o más features NO lo convierte automáticamente en core.** Que dos features compartan un código solo indica que no pertenece en exclusiva a una de ellas; para saber su capa hay que volver a aplicar estas preguntas: si es una regla del negocio del sistema va a `core`, y si es técnico y agnóstico va a `shared`.
 
-## Organización Interna de las Capas
+### Organización Interna de las Capas
 
 Cada capa utiliza un criterio de organización diferente según su responsabilidad:
 
@@ -928,13 +930,13 @@ src/
     └── utils/                           → utilidades reutilizables en toda la app
 ```
 
-## Diferencia entre `(features)` y `<feature>`
+### Diferencia entre `(features)` y `<feature>`
 
 - **`(features)`** es un _route group_ de App Router de Next.js (los paréntesis lo definen). Por estar entre paréntesis, **no aporta ningún segmento a la URL**. No es una feature: es el contenedor de todas las features.
 
 - **`<feature>`** es el marcador de posición de **una feature concreta** (por ejemplo `orders`, `products`, `dashboard`). Cada `<feature>` **sí** representa una funcionalidad real y **genera una ruta URL** a través de su `page.tsx`.
 
-## Prohibido Modificar o Crear Nuevas Capas de Arquitectrua
+### Prohibido Modificar o Crear Nuevas Capas de Arquitectrua
 
 Está estrictamente prohibido modificar, reemplazar, eliminar o crear nuevas capas arquitectónicas fuera de las tres capas oficiales definidas en este documento:
 
@@ -972,7 +974,7 @@ src/app/(features)
 
 Estas subcarpetas son válidas porque únicamente organizan el contenido dentro de una capa existente.
 
-## ¿Por qué `src/core` y no dentro de `src/app/(features)/<feature>`?
+### ¿Por qué `src/core` y no dentro de `src/app/(features)/<feature>`?
 
 Todo lo que está dentro de `src/app/(features)/<feature>/page.tsx` forma parte de la estructura de rutas del App Router de Next.js.
 
@@ -984,7 +986,7 @@ Además, estarías acoplando un módulo compartido a una única feature, lo que 
 
 Por eso `src/core` vive **fuera** de `src/app`: aloja las reglas del negocio del sistema, que existen de forma independiente de cualquier feature específica y no participan directamente en la definición de rutas.
 
-## 🚫 Archivos y Carpetas Prohibidas de Crear
+### Archivos y Carpetas Prohibidas de Crear
 
 Esta arquitectura prohíbe crear carpetas cuyo nombre sea genérico o ambiguo, porque ocultan responsabilidades distintas dentro de un mismo contenedor en lugar de expresar **una única responsabilidad clara**. Cada carpeta debe nombrar de forma específica lo que contiene (`validators/`, `components/`, `utils/`, etc).
 
@@ -1008,7 +1010,7 @@ Esta arquitectura prohíbe crear carpetas cuyo nombre sea genérico o ambiguo, p
   - `src/app/shared/components`
   - `src/app/(features)/*/shared/components`
 
-## Regla de Dirección de Dependencias
+### Regla de Dirección de Dependencias
 
 Esta sección complementa la "Regla de Decisión". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Es tan obligatoria como la ubicación misma: una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
 
@@ -1034,7 +1036,7 @@ feature  →  core  →  shared
 
 Cuando una **Feature** necesita lógica que vive dentro de otra **Feature**, esa lógica **no** se importa de forma cruzada: se **promueve a una capa compartida** (`core` si es una regla del negocio del sistema, `shared` si es código técnico agnóstico) y ambas la consumen desde ahí. La capa destino se decide con la "Regla de Decisión", nunca por el hecho de que dos features la necesiten (ver "Mover de Feature a Core").
 
-### ¿Por qué una sola dirección?
+#### ¿Por qué una sola dirección?
 
 Esta regla es la que mantiene la arquitectura escalable cuando el número de features crece. Sin ella, `core` puede terminar importando de una feature (invirtiendo la dependencia y atando el dominio compartido a una pantalla concreta), o dos features pueden acoplarse directamente entre sí (creando dependencias ocultas imposibles de rastrear). La dirección única garantiza que lo más reutilizable (`shared`) sea también lo más estable, y que lo más volátil (`feature`) dependa de lo estable y nunca al revés.
 
@@ -1082,7 +1084,7 @@ import { useTasks } from '@/app/(features)/tasks/hooks/useTasks';
 import { User } from '@/core/users/data-types/interfaces/user.interface';
 ```
 
-## Procesos del Dominio en Core
+### Procesos del Dominio en Core
 
 `core` se organiza por **conceptos del dominio**. Una **entidad** (`users`, `orders`, `permissions`) es un tipo de concepto, pero **no el único**.
 
@@ -1115,7 +1117,7 @@ import { getOrdersByUser } from '@/core/orders/actions/get-orders-by-user'; // u
 import { isActiveUser } from '@/core/users/utils/user.utils'; // orders depende de users
 ```
 
-## Mover de Feature a Core
+### Mover de Feature a Core
 
 El movimiento de código a `core` **NO depende de la reutilización** ni del número de features que lo usen. Depende exclusivamente del **significado del dominio**.
 
@@ -1137,9 +1139,9 @@ Que una **segunda** feature necesite el mismo código **no** es, por sí solo, m
 
 Está prohibido **duplicar** el código en la segunda feature para evitar el movimiento: duplicar lógica de dominio rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
 
-### Casos críticos
+#### Casos críticos
 
-#### Caso 1: un código es usado por dos features
+##### Caso 1: un código es usado por dos features
 
 **No** se mueve automáticamente a `core`. Debe evaluarse su significado:
 
@@ -1151,7 +1153,7 @@ Está prohibido **duplicar** el código en la segunda feature para evitar el mov
 
   Ejemplos: permisos de usuario, reglas de validación del dominio, lógica de autorización.
 
-#### Caso 2: un código está repetido en dos features
+##### Caso 2: un código está repetido en dos features
 
 Se permite la duplicación **solo si** se cumplen todas estas condiciones:
 
@@ -1161,7 +1163,7 @@ Se permite la duplicación **solo si** se cumplen todas estas condiciones:
 
 En este caso **no** se mueve a `core` ni a `shared`.
 
-### Qué SÍ puede repetirse en features
+#### Qué SÍ puede repetirse en features
 
 - Lógica específica de la UI de esa feature.
 - Lógica de presentación.
@@ -1175,7 +1177,7 @@ Ejemplos válidos de repetición:
 - Lógica de estados locales.
 - Hooks específicos de la feature.
 
-### Qué NO debe repetirse en features
+#### Qué NO debe repetirse en features
 
 - Reglas de negocio del sistema → `core`.
 - Lógica de permisos o autenticación → `core`.
@@ -1184,7 +1186,7 @@ Ejemplos válidos de repetición:
 
 Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
 
-### Procedimiento al promover código fuera de una feature
+#### Procedimiento al promover código fuera de una feature
 
 1. Aplicar la "Regla de Decisión" para determinar la capa destino: `core` (regla del negocio del sistema) o `shared` (código técnico agnóstico).
 2. Mover el archivo (o carpeta) desde `src/app/(features)/<feature>/...` hacia la entidad o proceso correspondiente en `src/core/...`, o hacia la capacidad técnica correspondiente en `src/shared/...`.
@@ -1192,7 +1194,7 @@ Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es
 4. Verificar que el módulo movido **no conserve imports hacia ninguna feature** (violaría la Regla de Dirección de Dependencias).
 5. Confirmar que las features que lo necesitan lo consumen desde su nueva capa.
 
-## Resumen de Regla de Dirección de Dependencias
+### Resumen de Regla de Dirección de Dependencias
 
 | Desde ↓ \ Hacia → | Feature | Core | Shared |
 | ----------------- | ------- | ---- | ------ |
@@ -1202,9 +1204,9 @@ Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es
 
 \* core → core es válido solo en una dirección; queda prohibido si forma un ciclo (ver "Procesos del Dominio en Core").
 
-## Diferencia entre `components` y `ui`
+### Diferencia entre `components` y `ui`
 
-### ui
+#### ui
 
 `ui` contiene exclusivamente componentes de presentación y maquetación.
 
@@ -1214,7 +1216,7 @@ Un componente de `ui` no puede conocer logica de negocio, entidades del sistema 
 
 Su única responsabilidad es renderizar interfaz reutilizable.
 
-### components
+#### components
 
 `components` contiene componentes con lógica de negocio específica de la feature donde están definidos.
 
