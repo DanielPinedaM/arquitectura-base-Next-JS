@@ -487,6 +487,12 @@ La salida debe contener algo similar a esto:
 Cita textual de node_modules/next/dist/docs
 ```
 
+# Diferencia Entre Skills y MCP
+
+**Skill:** Es un archivo Markdown llamado `SKILL.md` que contiene instrucciones para enseñarle a la IA cómo ejecutar un proceso, o para darle conocimiento sobre un tema. La IA carga ese contenido directamente en su contexto antes de responder.
+
+**Model Context Protocol (MCP):** Es un protocolo (no es exactamente una API REST, aunque es similar) que permite que una IA se comunique con sistemas externos —herramientas, servicios o fuentes de datos— de forma estandarizada. Un servidor MCP puede exponer *tools* (funciones que la IA puede invocar), *resources* (datos) y *prompts* (plantillas)
+
 # Skills
 
 ## 🔗 Enlaces con Respositorios de Skills
