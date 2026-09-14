@@ -398,6 +398,8 @@ debugger;
 >
 > Aunque es un texto largo, aprenderás la arquitectura, buenas prácticas y a detectar revisando el código, cuando la IA alucina
 
+# [🔗 Enlace - HTTP Cats - Explicación de los status HTTP](https://http.cat/)
+
 # 🤖 Uso de IA
 
 > [!CAUTION]
