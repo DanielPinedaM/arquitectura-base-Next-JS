@@ -495,6 +495,8 @@ Cita textual de node_modules/next/dist/docs
 
 ## 🔗 Enlaces con Respositorios de Skills
 
+* ## [Skills escritas por el equipo oficial de Next.js (Vercel)](https://github.com/vercel-labs/agent-skills)
+
 * ## [Web de Vercel con múltiples repositorios de Skills sobre distintos temas](https://www.skills.sh/)
 
 * ## [Skills para UI / Maquetación](https://www.ui-skills.com/)
