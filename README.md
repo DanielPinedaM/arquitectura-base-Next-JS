@@ -168,7 +168,7 @@ source ~/.bashrc
 5. Para verificar que funcione ejecutar los siguientes comandos en el siguiente orden:
 
 ```console
-cd /ruta/a/tu/proyecto
+cd /ruta/a/carpeta/raiz/del/proyecto
 ```
 
 ```console
