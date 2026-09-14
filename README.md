@@ -443,8 +443,6 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 * Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
 
 # ⚛️ Configurar Next.js para que Funcione con IA
-Estas configuraciones son oficiales del equipo de Vercel, que es quien desarrolla Next.js.
-
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
 # Antes de Probar que Funcione Next.js con IA
@@ -563,12 +561,14 @@ git commit y git push
 ```
 
 ## [`vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices)
+Esta skill la escribió el equipo oficial de Next.js (Vercel)
+
 Permite escribir código limpio de React.
 
 Para probar que funcione:
 
 ```txt
-/vercel-react-best-practices explicame como consumir API REST con React
+/vercel-react-best-practices explicame `async-parallel` - Use Promise.all() for independent operations
 ```
 
 La salida debe contener algo similar a esto:
