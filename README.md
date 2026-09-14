@@ -447,6 +447,22 @@ Estas configuraciones son oficiales del equipo de Vercel, que es quien desarroll
 
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
+# Antes de Probar que Funcione Next.js con IA
+Hacer esto:
+
+1. Abrir Git Bash
+
+2. Abrir la carpeta del proyecto
+```console
+cd /ruta/a/carpeta/raiz/del/proyecto
+```
+
+3. Ejecutar claude con todos permisos:
+
+```console
+claude --dangerously-skip-permissions
+```
+
 # [📜 `AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks)
 Es un prompt que siempre se envia a Claude. Sirve para que Claude:
 * Respete la arquitectura de software del proyecto.
