@@ -457,7 +457,7 @@ Hacer esto:
 cd /ruta/a/carpeta/raiz/del/proyecto
 ```
 
-3. Ejecutar claude con todos permisos:
+3. Ejecutar claude con todos los permisos:
 
 ```console
 claude --dangerously-skip-permissions
