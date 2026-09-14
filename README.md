@@ -563,7 +563,7 @@ git commit y git push
 ## [`vercel-react-best-practices`](https://vercel.com/blog/introducing-react-best-practices)
 Esta skill la escribió el equipo oficial de Next.js (Vercel)
 
-Permite escribir código limpio de React.
+Permite a la IA escribir código limpio de React.
 
 Para probar que funcione:
 
