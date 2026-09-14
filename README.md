@@ -1616,7 +1616,11 @@ Prohibido crear use state loading false/true para manejar el loading en componen
 # 💅 Maquetación
 
 ## Componentes de interfaz (UI): uso y maquetación
-Este proyecto usa Base UI y los componentes de shad cn que están instalados en `src\shared\ui\shad-cn`.
+Este proyecto usa los componentes de shad cn que están instalados en `src/shared/ui/shad-cn`.
+
+shad cn usa Base UI, no Radix UI.
+
+A diferencia de Radix UI, Base UI ya no utiliza la prop `asChild`; en su lugar usa la prop `render`.
 
 Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
 
