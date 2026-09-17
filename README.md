@@ -704,6 +704,15 @@ NO  → dejarlo como está
 
 Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llamada a `AskUserQuestion`, una pregunta por infracción.
 
+## 6. ¿Como Leer la Skill?
+Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-architecture/rules/`: usa la tabla de contenido como referencia para inferir cuales archivos son necesarios para la tarea que estas resolviendo, y accede unicamente a esos archivos.
+
+**Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
+
+### Tabla de Contenido
+
+# INCOMPLETO - aqui me falta escribir la tabla de contenido con la estructura de archivos, carpetas y titulos de /rules
+
 # Estructura del Proyecto
 
 ## Árbol de Directorios
