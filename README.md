@@ -1038,7 +1038,7 @@ Las dependencias fluyen en **una sola dirección**:
 feature  →  core  →  shared
 ```
 
-**_Reglas:_**
+**Reglas:**
 
 - **Feature** puede importar de **Core** y de **Shared**.
 
@@ -1082,22 +1082,22 @@ import { isActiveUser } from '@/core/users/utils/user.utils';
 import { Button } from '@/shared/ui/buttons/Button';
 ```
 
-**_🚫 Ejemplos prohibidos:_**
+**Ejemplos prohibidos:**
 
 ```ts
-// ❌ feature → feature   (una feature nunca importa de otra feature)
+// feature → feature   (una feature nunca importa de otra feature)
 // src/app/(features)/orders/components/OrderList.tsx
 import { useTasks } from '@/app/(features)/tasks/hooks/useTasks';
 
-// ❌ core → feature       (core nunca importa de una feature)
+// core → feature       (core nunca importa de una feature)
 // src/core/users/actions/update-user.ts
 import { OrderForm } from '@/app/(features)/orders/components/OrderForm';
 
-// ❌ shared → feature     (shared nunca importa de una feature)
+// shared → feature     (shared nunca importa de una feature)
 // src/shared/ui/buttons/Button.tsx
 import { useTasks } from '@/app/(features)/tasks/hooks/useTasks';
 
-// ❌ shared → core        (shared nunca importa de core)
+// shared → core        (shared nunca importa de core)
 // src/shared/ui/buttons/Button.tsx
 import { User } from '@/core/users/data-types/interfaces/user.interface';
 ```
@@ -1123,7 +1123,7 @@ Regla práctica: si no puedes responder "¿de qué entidad es esto?" con **una s
 
 Esto **no introduce una nueva capa**: un proceso vive dentro de `core` y respeta todas sus reglas (conoce el dominio, es compartido por varias features, no genera ruta URL).
 
-**Caso especial - core → core cíclico:_**
+**Caso especial - core → core cíclico:**
 
 Importar de una entidad a otra dentro de core sí está permitido, pero solo en una dirección. Queda prohibido cuando se forma un ciclo (A importa de B y B importa de A):
 
@@ -1145,7 +1145,7 @@ Un código se mueve a `core` cuando representa una **regla del negocio del siste
 
 Que una **segunda** feature necesite el mismo código **no** es, por sí solo, motivo para moverlo a `core`: solo indica que ese código no pertenece en exclusiva a una feature. Para decidir su destino se vuelve a aplicar la "Regla de Decisión".
 
-**_Procedimiento para mover código de una feature a core:_**
+**Procedimiento para mover código de una feature a core:**
 
 1. Mover el archivo (o carpeta) desde `src/app/(features)/<feature>/...` hacia la entidad o proceso correspondiente en `src/core/...`.
 
@@ -1243,7 +1243,7 @@ Un componente pertenece a `components` cuando conoce el dominio, participa en un
 La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
 
-# 📅 Fechas
+# Fechas
 1. **OBLIGATORIO** usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería diferente de Luxon.
 
 2. En todos los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, toda su interfaz pública de fechas (props, como `selected` y `onSelect`) es de tipo Luxon `DateTime`.
@@ -1410,7 +1410,7 @@ Un input reutilizable debe:
 - `InputPhone`
 - `InputSelect`
 
-**_❌ Incorrecto_**
+**Incorrecto**
 
 - `GenericInput`
 - `BaseInput`
@@ -1492,7 +1492,7 @@ En `src/shared/ui/shad-cn/react-hook-form` nunca agregar:
 - Roles
 - Lógica de cualquier feature. Ejemplo: tareas, productos, usuarios, etc.
 
-**_Ejemplo prohibido:_**
+**Ejemplo prohibido:**
 
 ```tsx
 if (user.role === "admin") {
@@ -1502,9 +1502,9 @@ if (user.role === "admin") {
 
 > [!WARNING]
 >
-> # **_INCOMPLETO - AQUI ME FALTA AGREGAR EJEMPLO DE INPUTS Q ESTAN EN SRC/SHARED/COMPONENTS/REACT-HOOK-FORM_**
+> # **INCOMPLETO - AQUI ME FALTA AGREGAR EJEMPLO DE INPUTS Q ESTAN EN SRC/SHARED/COMPONENTS/REACT-HOOK-FORM**
 
-# 🔌 Consumo de API
+# Consumo de API
 En este proyecto es **OBLIGATORIO**, sin ninguna excepción, usar `src\shared\api\http-client\http-gateway.api.ts` para realizar cualquier petición HTTP.
 
 Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
@@ -1524,7 +1524,7 @@ El frontend **NUNCA** consume un endpoint de forma directa
 
 Toda petición tiene que pasa primero por `http-gateway.api.ts`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
-## 🔀 Flujo para Consumir API:
+## Flujo para Consumir API:
 El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `http-gateway.api.ts`:
 
 ```txt
@@ -1545,7 +1545,7 @@ La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `http-gateway.
 
 `http-gateway.api.ts` es un wrapper de `fetch`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
 
-✅ Esto **SI** es responsabilidad de `http-gateway.api.ts` (_lógica de infraestructura/transporte_):
+Esto **SI** es responsabilidad de `http-gateway.api.ts` (_lógica de infraestructura/transporte_):
   * Hacer peticiones HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
   * Mostrar/ocultar icono de cargando (loader).
   * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a **CUALQUIER** endpoint, **NO** a un caso de negocio específico.
@@ -1554,7 +1554,7 @@ La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `http-gateway.
   * Logger de peticiones HTTP exitosas y erróneas.
   * Construcción de opciones de la peticion HTTP: body, params, headers, responseType
 
-❌ Esto **JAMÁS** debe estar en `http-gateway.api.ts` (_lógica de negocio/dominio_):
+Esto **JAMÁS** debe estar en `http-gateway.api.ts` (_lógica de negocio/dominio_):
   * Métodos con nombre de dominio específico. Ejemplo: `getUserPermissionsById()`, `findTasksByFilters()`, `createInvoice()`, `cancelOrderById()`, `updateUserProfile()`, `sendPasswordResetEmail()`.
   * Validaciones de reglas de negocio. Ejemplo: "si el usuario no tiene el rol X, no puede ver Y".
   * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `users.filter(user => user.active && user.role === 'admin')`.
@@ -1624,7 +1624,7 @@ getUser(id: string) {
 
 * La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
-## ⏳ Icono de Loader Global
+## Icono de Loader Global
 Prohibido crear use state loading false/true para manejar el loading en componentes de React. `http-gateway.api.ts` ya se encarga de mostrar y ocultar fixed loader centrado en pantalla
 
 ## ¿Como Desactivar el sticky loader icon de `http-gateway.api.ts`?
@@ -1683,7 +1683,7 @@ Este proyecto usa Tailwind 4. Está **PROHIBIDO** el uso de patrones legacy de T
 
 ### Archivo de Configuración de Tailwind
 
-**Ejemplo Incorrecto - Configurar Tailwind 3 con archivo `.js`**
+**Incorrecto - Configurar Tailwind 3 con archivo `.js`**
 
 ```js
 /* tailwind.config.js */
@@ -1764,7 +1764,7 @@ Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwi
 
 No escribas estilos del tema oscuro en archivos CSS.
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 
 ```css
 .container {
@@ -1842,7 +1842,7 @@ Incluso las utilidades de espaciado, como `px-*`, `mt-*`, `w-*` y `h-*`, ahora s
 ### `@apply`
 Prohibido usar `@apply` de Tailwind
 
-***Ejemplo incorrecto:***
+***Incorrecto:***
 
 ```HTML
 <!-- my-component.component.html -->
@@ -1888,7 +1888,7 @@ div.parent {
 }
 ```
 
-**Ejemplo incorrecto**
+**Incorrecto**
 
 ```CSS
 div.parent {
@@ -1924,7 +1924,7 @@ Para medidas relativas al viewport, usa `dvh` y `dvw`. No uses `vh` ni `vw`, tam
 }
 ```
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 
 ```html
 <div class="h-screen w-screen">
@@ -1966,7 +1966,7 @@ Las clases de la paleta predeterminada de Tailwind, como `bg-red-500`, están pe
 <div class="bg-[oklch(62.8%_0.258_29.23)]"></div>
 ```
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 
 ```css
 @theme {
@@ -2169,7 +2169,7 @@ La única etiqueta `<button>` nativa del proyecto vive dentro de `src/shared/ui/
 
 La misma regla aplica a los elementos **con apariencia de botón**: un `<a>` estilizado como botón usa `AnchorButton`, y un `<Link>` de Next.js estilizado como botón usa `NextLink`.
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 ```tsx
 <button className="btn btn-primary btn-background" onClick={onSave}>Guardar</button>
 ```
@@ -2186,7 +2186,7 @@ Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un co
 
 **Motivo:** los tres botones composables declaran `children` como prop **obligatoria**, así que `<Button theme="primary" variant="background" />` no compila. Además Base UI fusiona con `mergeProps(props, render.props)`, donde el objeto de la derecha gana: los `children` del elemento de `render` sobrescriben a los del componente de Base UI.
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 
 ```tsx
 <DialogTrigger render={<Button theme="primary" variant="background" />}>Abrir</DialogTrigger>
@@ -2199,7 +2199,7 @@ Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un co
 
 **Base UI NO usa `asChild`.** `asChild` es de Radix UI y en `@base-ui/react` no existe. Su equivalente es `render`.
 
-**Ejemplo Incorrecto:**
+**Incorrecto:**
 ```tsx
 <DialogTrigger asChild><Button theme="primary" variant="background">Abrir</Button></DialogTrigger>
 ```
@@ -2488,7 +2488,7 @@ Esto genera:
 - Inconsistencias visuales.
 - Dificultad para reutilizar un estándar de diseño.
 
-**✅ Correcto:**
+**Correcto:**
 
 Las clases de botones deben representar una sola responsabilidad y ser **composables**.
 
@@ -2509,7 +2509,7 @@ Cada clase modifica únicamente una característica específica del botón. Esto
 | `_mixins.scss`       | Codigo de Sass reutilizable que se repite en diferentes archivos de src\styles\global\scss\buttons                                                                                | `@mixin btn-base-size {}`                                        |
 | `_tokens.scss`       | Variables globales de Sass utilizadas por todo el sistema de botones. Centraliza colores, tamaños tipográficos y escalas de espaciado para mantener consistencia visual.     | `$primary: oklch(...);`                                          |
 
-### 📖 Manual de Uso para Dar Estilos a Botones
+### Manual de Uso para Dar Estilos a Botones
 
 Esta guía explica cómo utilizar correctamente los estilos globales de botones definidos en:
 
@@ -2517,26 +2517,26 @@ Esta guía explica cómo utilizar correctamente los estilos globales de botones 
 src/styles/global/scss/buttons
 ```
 
-### ✨ UI/UX
+### UI/UX
 
 En el diseño de interfaces (UI/UX), el color de un botón no es solo decorativo:
 cada variante representa una intención de acción dentro del sistema.
 
 Esto ayuda al usuario a entender rápidamente qué va a ocurrir antes de hacer clic.
 
-**🔴 Los colores fuertes:**
+**Los colores fuertes:**
 
 - Capturan atención.
 - Indican importancia.
 - El usuario lo identifica como el botón más importante para hacer clic.
 
-**⚪ Los colores suaves o transparentes:**
+**Los colores suaves o transparentes:**
 
 - Reducen distracción.
 - Bajan la jerarquía visual.
 - Mantienen el foco en el contenido principal.
 
-**📏 Reglas de UI/UX**
+**Reglas de UI/UX**
 
 - Solo debe existir 1 acción primaria por pantalla (colores fuertes).
 - Las acciones secundarias deben tener menor jerarquía visual (colores suaves).
@@ -2553,9 +2553,9 @@ Incluye estilos fundamentales como `padding`, `font-size`, alineación del conte
 
 Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no representa un botón visual completo por sí sola**. Su función es servir como base para que las variantes (`.btn-primary`, `.btn-outline-*`, etc.) apliquen el estilo visual final.
 
-- Botones **activados** usan `cursor: pointer` 👆🏻 para indicar que el botón es interactivo y puede ser clickeado.
+- Botones **activados** usan `cursor: pointer` para indicar que el botón es interactivo y puede ser clickeado.
 
-- Botones **desactivados** usan `cursor: not-allowed` 🚫 para indicar que el botón no está disponible y no puede ser clickeado.
+- Botones **desactivados** usan `cursor: not-allowed` para indicar que el botón no está disponible y no puede ser clickeado.
 
 ```tsx
 <button className='btn'>Base class</button>
@@ -2613,17 +2613,17 @@ export default function MyComponent() {
 
 En sistemas de diseño modernos, los botones se clasifican según su nivel de importancia y riesgo de la acción:
 
-| Tipo de boton    | Significado                                                    |
-| ---------------- | -------------------------------------------------------------- |
-| 🔵 **Primary**   | acción principal (continuar / confirmar / guardar)             |
-| ⚪ **Secondary** | acción secundaria (cancelar / salir)                           |
-| 👻 **Ghost**     | acción discreta sin estructura visual fuerte - no tiene border |
-| 🔴 **Danger**    | eliminar o destruir                                            |
-| 🟡 **Warning**   | advertencia                                                    |
-| 🟢 **Success**   | confirmación positiva                                          |
-| 🔷 **Info**      | información                                                    |
-| 🔗 **Link**      | navegación / enlaces                                           |
-| ⚫ **Dark**      | variante de alto contraste para acciones neutras o de soporte  |
+| Tipo de boton | Significado                                                    |
+| ------------- | -------------------------------------------------------------- |
+| Primary       | acción principal (continuar / confirmar / guardar)             |
+| Secondary     | acción secundaria (cancelar / salir)                           |
+| Ghost         | acción discreta sin estructura visual fuerte - no tiene border |
+| Danger        | eliminar o destruir                                            |
+| Warning       | advertencia                                                    |
+| Success       | confirmación positiva                                          |
+| Info          | información                                                    |
+| Link          | navegación / enlaces                                           |
+| Dark          | variante de alto contraste para acciones neutras o de soporte  |
 
 ![variantes-con-color-de-fondo](./docs/readme-md/img/button/variantes-con-color-de-fondo.png)
 
@@ -2986,11 +2986,11 @@ export default function MyComponent() {
 - **Hover:** Cambia color de fondo al situar mouse en boton.
 - **Uso:** acciones secundarias o discretas.
 
-**_NO hover_**
+**NO hover**
 
 ![botones-sin-fondo-ni-borde](./docs/readme-md/img/button/botones-sin-fondo-ni-borde.png)
 
-**_hover_**
+**hover**
 
 ![botones-sin-fondo-ni-borde-hover](./docs/readme-md/img/button/botones-sin-fondo-ni-borde-hover.png)
 
@@ -3015,7 +3015,7 @@ export default function MyComponent() {
 }
 ```
 
-### 🚫 Boton desactivado `cursor: not-allowed`
+### Boton desactivado `cursor: not-allowed`
 
 Agregar el atributo booleano de HTML `disabled` a la etiqueta `<button>` hace que los botones tomen estilos de desactivados.
 
@@ -3071,7 +3071,7 @@ export default function MyComponent() {
 }
 ```
 
-### 📐 Tamaños
+### Tamaños
 
 Puedes modificar el tamaño de cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
 
@@ -3213,7 +3213,7 @@ export default function MyComponent() {
 }
 ```
 
-**✅ Correcto:**
+**Correcto:**
 
 Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 
