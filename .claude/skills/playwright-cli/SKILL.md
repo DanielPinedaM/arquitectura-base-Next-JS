@@ -1,7 +1,7 @@
 ---
 name: playwright-cli
 description: Automate browser interactions, test web pages and work with Playwright tests.
-allowed-tools: Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)
+allowed-tools: Bash(playwright-cli:*) Bash(pnpm exec:*) Bash(pnpm dlx:*) Bash(pnpm:*)
 ---
 
 # Browser Automation with playwright-cli
@@ -342,16 +342,16 @@ playwright-cli kill-all
 
 ## Installation
 
-If global `playwright-cli` command is not available, try a local version via `npx playwright cli`:
+If global `playwright-cli` command is not available, try a local version via `pnpm exec playwright cli`:
 
 ```bash
-npx --no-install playwright --version
+pnpm exec playwright --version
 ```
 
-When local version is available, use `npx playwright cli` in all commands. Otherwise, install `playwright-cli` as a global command:
+When local version is available, use `pnpm exec playwright cli` in all commands. Otherwise, install `playwright-cli` as a local dev dependency:
 
 ```bash
-npm install -g @playwright/cli@latest
+pnpm install -D @playwright/cli@latest
 ```
 
 ## Example: Form submission
