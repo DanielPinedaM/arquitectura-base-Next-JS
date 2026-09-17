@@ -45,10 +45,10 @@ En frontend valida _formularios_ y _datos de entrada_, con integración con _Rea
   * [CSS anidado (CSS nesting)](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Nesting). Ejemplo:
 
 ```CSS
-.parent {
+div.parent {
   color: blue;
 
-  .child {
+  p.child {
     color: red;
   }
 }
@@ -209,6 +209,8 @@ Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf
 * [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
 
 * [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+
+* [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
 
 No es necesario buscar cada extensión manualmente en el marketplace: el archivo `.vscode/extensions.json` ya está configurado con esas extensiones como recomendadas. Al abrir el proyecto, el editor mostrará una notificación sugiriendo instalarlas; también puede instalarlas desde la pestaña **Extensions** filtrando por `@recommended`.
 
@@ -641,9 +643,14 @@ que necesita para ejecutar el proceso >>>
 Aplican a toda respuesta o modificación de código de este proyecto.
 
 ## 1. Autoridad de la skill
-Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el "3. Caso no definido en la skill".
+Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el "3. Caso no definido en la skill".
 
-## 2. Instrucción que contradice una regla definida
+## 2. # Ante cualquier error
+Esta regla aplica en cualquier momento. Si encuentras algún error, inconsistencia, duda o ambigüedad, debes detenerte y consultarme antes de realizar cualquier modificación. No puedes asumir ni deducir implementaciones. Es preferible preguntar para aclarar una duda que asumir una solución.
+
+La única excepción a esta regla es lo establecido en la regla anterior: 1. Autoridad de la skill.
+
+## 3. Instrucción que contradice una regla definida
 Se aplica cuando la instrucción recibida contradice una regla explícitamente definida en esta skill.
 
 Acción: implementa estrictamente lo definido en la skill. No preguntes, no propongas alternativas, no pidas confirmación.
@@ -664,27 +671,12 @@ Motivo:         <por qué lo solicitado rompe la arquitectura, en una línea>
 
 La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica "3. Caso no definido en la skill"
 
-## 3. Caso no definido en la skill
+## 4. Caso no definido en la skill
 Se aplica cuando el caso, problema o pregunta no está definido de forma explícita en esta skill.
 
 Acción: resuélvelo con tu comportamiento por defecto. La skill no restringe este caso y no altera tu forma normal de trabajar.
 
-Antes de implementar, emite:
-
-```txt
-La implementación no está definida en la skill por lo que se ha decidido usar otra solución.
-
-Caso:              <descripción en una línea>
-Solución aplicada: <solución elegida>
-```
-
-Pregunta con `AskUserQuestion` solo cuando sea necesario:
-* Existen varias soluciones válidas y la elección cambia el resultado.
-* La solución exige introducir un patrón, dependencia o estructura que la skill no contempla y que se aparta de sus convenciones. En este caso la pregunta debe incluir explícitamente si se autoriza la desviación.
-
-Si ninguna de las dos condiciones aplica, implementa sin preguntar.
-
-## 4. Código existente que ya viola la arquitectura
+## 5. Código existente que ya viola la arquitectura
 Se aplica cuando detectas código ya escrito que incumple una regla de esta skill.
 
 No lo corrijas por iniciativa propia. Emite:
@@ -974,7 +966,7 @@ Toda carpeta, módulo, archivo (componente) o estructura nueva debe pertenecer o
 
 Sí está permitido crear **subcarpetas dentro de una capa existente**, siempre que no introduzcan una nueva capa y respeten las responsabilidades de esa capa.
 
-**_✅ Ejemplos válidos:_**
+**Correcto:**
 
 ```text
 src/shared
@@ -1066,7 +1058,7 @@ Cuando una **Feature** necesita lógica que vive dentro de otra **Feature**, esa
 
 Esta regla es la que mantiene la arquitectura escalable cuando el número de features crece. Sin ella, `core` puede terminar importando de una feature (invirtiendo la dependencia y atando el dominio compartido a una pantalla concreta), o dos features pueden acoplarse directamente entre sí (creando dependencias ocultas imposibles de rastrear). La dirección única garantiza que lo más reutilizable (`shared`) sea también lo más estable, y que lo más volátil (`feature`) dependa de lo estable y nunca al revés.
 
-**_✅ Ejemplos válidos:_**
+**Correcto:**
 
 ```ts
 // feature → core      (una feature usa una regla del negocio del sistema)
@@ -1131,7 +1123,7 @@ Regla práctica: si no puedes responder "¿de qué entidad es esto?" con **una s
 
 Esto **no introduce una nueva capa**: un proceso vive dentro de `core` y respeta todas sus reglas (conoce el dominio, es compartido por varias features, no genera ruta URL).
 
-**_✅ Caso especial - core → core cíclico:_**
+**Caso especial - core → core cíclico:_**
 
 Importar de una entidad a otra dentro de core sí está permitido, pero solo en una dirección. Queda prohibido cuando se forma un ciclo (A importa de B y B importa de A):
 
@@ -1276,7 +1268,7 @@ La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 * `DatePicker` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
 * `DatePicker` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
 
-# 📝 Formularios - Integración Shad cn y React Hook Form
+# Formularios - Integración Shad cn y React Hook Form
 
 Todos los formularios del proyecto deben utilizar obligatoriamente:
 
@@ -1409,7 +1401,7 @@ Un input reutilizable debe:
 - Representar un único tipo de campo/input.
 - No mezclar múltiples tipos de input en un mismo componente reutilizable.
 
-**_✅ Correcto_**
+**Correcto:**
 
 - `InputText`
 - `InputPassword`
@@ -1635,13 +1627,460 @@ getUser(id: string) {
 ## ⏳ Icono de Loader Global
 Prohibido crear use state loading false/true para manejar el loading en componentes de React. `http-gateway.api.ts` ya se encarga de mostrar y ocultar fixed loader centrado en pantalla
 
-
 ## ¿Como Desactivar el sticky loader icon de `http-gateway.api.ts`?
 
+# Maquetación
 
-# 💅 Maquetación
+## Iconos
+**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [React Icons](https://react-icons.github.io/react-icons/)
 
-## Componentes de interfaz (UI): uso y maquetación
+Dar prioridad a usar los iconos de React Icons. Ejemplo:
+
+```TSX
+// MyComponent.tsx
+
+import { FiHome } from "react-icons/fi";
+
+export default function MyComponent() {
+  return <FiHome />
+}
+```
+
+No agregar imágenes/SVGs manualmente si el icono ya existe en React Icons
+
+Cuando el icono no este en React Icons, entonces agregarlo dentro de la carpeta assets assets de Next.js
+
+## Uso de Tailwind con Next.js
+El texto a continuación es una guia de los breaking changes mas importantes de Tailwind 4 que esta basado en la documentación oficial.
+
+**Enlaces de Referencia**
+**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia:
+* [Breaking changes de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4)
+
+* [Tema oscuro en Tailwind](https://tailwindcss.com/docs/dark-mode)
+
+* [Media Queries (Breakpoints) de Tailwind](https://tailwindcss.com/docs/responsive-design)
+
+* [@layer y Preflight en Tailwind](https://tailwindcss.com/docs/preflight)
+
+* Uso de `@apply` de Tailwind:
+  * [Tutorial](https://x.com/adamwathan/status/1226511611592085504)
+  * [X (Twitter)](https://x.com/adamwathan/status/1559250403547652097)
+
+**Regla:**
+Este proyecto usa Tailwind 4. Está **PROHIBIDO** el uso de patrones legacy de Tailwind 3 y versiones anteriores, debido a que esto causa errores en la compilación de la aplicación.
+
+### Tabla Comparativa de Tailwind 4 VS Tailwind 3
+
+| Configuración               | Patrones Legacy de Tailwind 3                                          | Patrones de Tailwind 4                                                          |
+| --------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Archivo de configuración    | `tailwind.config.ts`                                                   | `@theme` en archivo .css                                                        |
+| Importar el CSS de Tailwind | `@tailwind base;`<br>`@tailwind components;`<br>`@tailwind utilities;` | `@import "tailwindcss"`                                                         |
+| Modo oscuro                 | `darkMode: "class"`                                                    | `@custom-variant dark (&:where(.dark, .dark *))`                                |
+| Colores personalizados      | `theme.extend.colors`                                                  | `@theme { --color-*: value }`                                                   |
+| Animaciones                 | `require("tailwindcss-animate")`                                       | `@keyframes` de CSS en `@theme` + `@starting-style` para animaciones de entrada |
+| Modificador `!important`    | `!flex` (al inicio, después de variantes)                              | `flex!` (al final del nombre de clase)                                          |
+
+### Archivo de Configuración de Tailwind
+
+**Ejemplo Incorrecto - Configurar Tailwind 3 con archivo `.js`**
+
+```js
+/* tailwind.config.js */
+
+module.exports = {
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "primary-color": "oklch(62.8% 0.258 29.23)" // #FF0000
+      },
+    },
+  },
+};
+```
+
+**Ejemplo Correcto - Configurar Tailwind 4 con archivo `.css`**
+
+```CSS
+@theme {
+  --color-primary-color: oklch(62.8% 0.258 29.23); // #FF0000
+}
+```
+
+### Configurar PostCSS
+Para configurar Tailwind 4, en la carpeta raiz del proyecto debe existir un archivo `.postcssrc.json` que contenga lo siguiente:
+
+```JSON
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+
+### Importar el CSS de Tailwind
+Para importar Tailwind 4 desde el archivo CSS de estilos globales (por ejemplo, `src/css/global.css`) existen dos formas:
+
+#### Forma 1 - `@import`
+Para Tailwind 4 usar:
+
+```CSS
+@import 'tailwindcss';
+```
+
+Prohibido usar la configuración de import de Tailwind 3:
+
+```CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+#### Forma 2 - `@layer` - CSS Cascade Layers
+En Tailwind 4 `@layer` permite personalizar:
+* Los estilos que se importan de Tailwind.
+
+* El orden de las capas de estilos.
+
+Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejemplo solo incluye las capas de Tailwind 4 y no de ningun otro estilo CSS ni libreria de UI:
+
+```CSS
+@layer theme, base, components, utilities;
+```
+
+### Tema oscuro
+Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el HTML.
+
+**Ejemplo Correcto:**
+
+```html
+<div class="bg-white dark:bg-gray-900">
+  <!-- ... -->
+</div>
+```
+
+No escribas estilos del tema oscuro en archivos CSS.
+
+**Ejemplo Incorrecto:**
+
+```css
+.container {
+  background: white;
+
+  .dark & {
+    background: #111827;
+  }
+}
+```
+
+La única excepción son las variables de color del tema de Shad cn. Estas se definen en CSS, una vez para el tema claro y otra para el oscuro, y se exponen a Tailwind con `@theme inline`
+
+**Ejemplo Correcto:**
+
+```css
+@theme inline {
+  --color-card: var(--card);
+}
+
+:root {
+  --card: oklch(1 0 0);
+}
+
+:root.dark {
+  --card: oklch(0.205 0 0);
+}
+```
+
+Las clases generadas a partir de estas variables, como `bg-card`, cambian de tema automáticamente, así que no necesitan `dark:`.
+
+### Valores de Utilidad Dinámicos y Variantes (Variable `--spacing`)
+Las utilidades y variantes de Tailwind 4 permiten aceptar determinados tipos de valores arbitrarios sin necesidad de ninguna configuración ni de recurrir a la sintaxis de valores arbitrarios.
+
+Por ejemplo, en Tailwind 4 puedes crear cuadrículas de cualquier tamaño directamente:
+
+```HTML
+<div class="grid grid-cols-15">
+  <!-- ... -->
+</div>
+```
+
+También puedes usar atributos `data-*` booleanos personalizados sin necesidad de definirlos previamente:
+
+```HTML
+<div data-current class="opacity-75 data-current:opacity-100">
+  <!-- ... -->
+</div>
+```
+
+Incluso las utilidades de espaciado, como `px-*`, `mt-*`, `w-*` y `h-*`, ahora se derivan dinámicamente de una única variable de escala de espaciado y aceptan cualquier valor directamente. Cada clase de espaciado es el número de la clase multiplicado por la variable `--spacing`:
+
+```CSS
+/* CSS generado */
+
+@layer theme {
+  :root {
+    --spacing: 0.25rem;
+  }
+}
+
+@layer utilities {
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .w-17 {
+    width: calc(var(--spacing) * 17);
+  }
+  .pr-29 {
+    padding-right: calc(var(--spacing) * 29);
+  }
+}
+```
+
+### `@apply`
+Prohibido usar `@apply` de Tailwind
+
+***Ejemplo incorrecto:***
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="button">
+  Boton
+</button>
+```
+
+```CSS
+.button {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg;
+}
+```
+
+## ¿Cómo Usar Tailwind y CSS Juntos?
+Los componentes se estilizan solo con clases de Tailwind en su plantilla. CSS se usa solo para estilos globales y para configurar librerías de UI, como las variables de tema de Shad cn.
+
+**Reglas:**
+* No escribas CSS que sobrescriba clases de Tailwind ni que compita con ellas por especificidad.
+
+* No escribas estilos de componentes en archivos CSS.
+
+* En los componentes de Next.js está prohibido usar:
+  * Estilos en linea con la prop `style`
+  * Elementos `<style>`, incluidos `<style jsx>` y `<style jsx global>`.
+  * Importaciones de hojas de estilo, como `import './Button.css'`.
+  * CSS Modules (`.module.css`).
+  * Librerías de CSS-in-JS, como styled-components
+
+### Anidamiento de Selectores CSS (CSS Nesting)
+Para aplicar estilos a elementos dentro de otro elemento, anida sus selectores con CSS Nesting. No repitas el selector del padre en una regla aparte.
+
+**Ejemplo correcto**
+
+```CSS
+div.parent {
+  border: 1px solid green;
+
+  p.child {
+    color: red;
+  }
+}
+```
+
+**Ejemplo incorrecto**
+
+```CSS
+div.parent {
+  border: 1px solid green;
+}
+
+div.parent p.child {
+  color: red;
+}
+```
+
+### Unidades Relativas al Viewport
+Esta regla aplica a Tailwind y a CSS en las siguientes propiedades de tamaño:
+
+* **Tailwind:** `h-*`, `min-h-*`, `max-h-*`, `w-*`, `min-w-*` y `max-w-*`.
+
+* **CSS:** `height`, `min-height`, `max-height`, `width`, `min-width` y `max-width`.
+
+Para medidas relativas al viewport, usa `dvh` y `dvw`. No uses `vh` ni `vw`, tampoco en valores arbitrarios como `h-[100vh]`.
+
+**Ejemplo Correcto:**
+
+```html
+<div class="h-dvh w-dvw">
+  <!-- ... -->
+</div>
+```
+
+```css
+.layout {
+  height: 100dvh;
+  width: 100dvw;
+}
+```
+
+**Ejemplo Incorrecto:**
+
+```html
+<div class="h-screen w-screen">
+  <!-- ... -->
+</div>
+```
+
+```css
+.layout {
+  height: 100vh;
+  width: 100vw;
+}
+```
+
+### Colores
+Esta regla aplica a Tailwind y a CSS. Todo color debe escribirse en `oklch` en:
+
+* **Tailwind:** variables de `@theme` y valores arbitrarios.
+
+* **CSS:** variables CSS y cualquier propiedad que reciba un color, como `color`, `background-color`, `border-color`, etc.
+
+No uses hexadecimal, `rgb()`, `rgba()`, `hsl()`, `hsla()` ni nombres de color como `red`.
+
+Las clases de la paleta predeterminada de Tailwind, como `bg-red-500`, están permitidas.
+
+**Ejemplo Correcto:**
+
+```css
+@theme {
+  --color-blue-azure: oklch(64.1% 0.172 247.8); /* #0191ee */
+}
+
+.header {
+  border-color: oklch(62.8% 0.258 29.23);
+}
+```
+
+```html
+<div class="bg-[oklch(62.8%_0.258_29.23)]"></div>
+```
+
+**Ejemplo Incorrecto:**
+
+```css
+@theme {
+  --color-blue-azure: #0191ee;
+}
+
+:root {
+  --card: #fff;
+}
+
+.header {
+  border-color: rgb(255 0 0);
+}
+```
+
+```html
+<div class="bg-[rgb(255_0_0)]"></div>
+```
+
+## Media Queries (Breakpoints)
+Tailwind y CSS usan los mismos breakpoints: los definidos en `@theme`. Está prohibido usar otros valores.
+
+```css
+@theme {
+  /* celular */
+  --breakpoint-xsm: 30rem; /* @media (min-width: 480px) { ... } */
+
+  /* tablet */
+  --breakpoint-sm: 40rem; /* @media (min-width: 640px) { ... } */
+  --breakpoint-md: 48rem; /* @media (min-width: 768px) { ... } */
+  --breakpoint-lg: 64rem; /* @media (min-width: 1024px) { ... } */
+
+  /* pantalla computador portátil */
+  --breakpoint-xl: 80rem; /* @media (min-width: 1280px) { ... } */
+
+  /* monitor */
+  --breakpoint-2xl: 96rem; /* @media (min-width: 1536px) { ... } */
+  --breakpoint-3xl: 120rem; /* @media (min-width: 1920px) { ... } */
+}
+```
+
+`xsm` y `3xl` son propios del proyecto. El resto son los predeterminados de Tailwind 4.
+
+### Mobile first
+Tailwind y CSS se escriben mobile first
+
+**Correcto:**
+
+```tsx
+// MyComponent.tsx
+
+export default function MyComponent() {
+  return (
+    /* base: móvil; md: desde 768px; lg: desde 1024px */
+    <div className="p-4 text-sm md:p-6 md:text-base lg:p-8"></div>
+  );
+}
+```
+
+### Media Queries en CSS
+Las media queries en CSS solo se usan en estilos globales. Los componentes usan los prefijos de Tailwind.
+
+**Correcto:**
+
+```css
+/* archibo global de CSS  */
+
+h1 {
+  color: red;
+
+  @media (min-width: 768px) {
+    color: blue;
+  }
+}
+```
+
+**Incorrecto**
+
+```css
+/* es incorrecto porque usa max-width (desktop first) */
+h1 {
+  color: red;
+
+  @media (max-width: 767px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* es incorrecto porque mezcla min-width y max-width en la misma media query */
+h1 {
+  color: red;
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* MyComponent.module.css */
+
+/* es incorrecto porque son estilos de componente en un archivo CSS */
+.card {
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+```
+
+## Componentes de UI
 Este proyecto usa los componentes de shad cn que están instalados en `src/shared/ui/shad-cn`.
 
 shad cn usa Base UI, no Radix UI.
@@ -1893,511 +2332,21 @@ Siempre para importar los componentes usar los import alias de shad cn que estan
 | Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`             |
 | Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                           |
 
-## 🧱 Configuración de Tailwind 4
 
-[Igual que como se muestra en la documentacion](https://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration)
+## Estilos Globales para Botones
 
-En este proyecto se está utilizando **Tailwind CSS V4**, por lo tanto el archivo `tailwind.config.js` ya no se utiliza y se considera **obsoleto** en esta arquitectura.
+**Enlaces de Referencia**
+**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia. Está guía de estilos para botones está basada en:
 
-La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/css/theme/tailwind`
+* [Botones de Bootstrap 5](https://getbootstrap.com/docs/5.3/components/buttons/)
 
-Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
+* [Tailwind 4 font-size](https://tailwindcss.com/docs/font-size)
 
-**_❌ Incorrecto - Configurar Tailwind 3 con `.js`_**
+* [Tailwind 4 line-height](https://tailwindcss.com/docs/line-height)
 
-```js
-/* tailwind.config.js */
+* [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
 
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        'primary-color': 'oklch(62.8% 0.258 29.23)',
-      },
-    },
-  },
-};
-```
-
-**_✅ Correcto - Configurar Tailwind 4 con `.css`_**
-
-```CSS
-/* src/styles/global/css/theme/tailwind/theme.css */
-
-@theme {
-  --color-primary-color: oklch(62.8% 0.258 29.23) ;
-}
-```
-
-## 🎨 Variables de Colores Tailwind y Sass
-
-[Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
-
-Las variables con nombres de los colores de **Sass** en `src/styles/global/scss/_variable.scss` y **Tailwind** en `src/styles/global/css/theme/tailwind/theme.css` deben mantener exactamente el mismo nombre y el mismo valor.
-
-Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
-
-**_✅ Ejemplo Correcto:_**
-
-En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo valor con color rojo `oklch(62.8% 0.258 29.23)`
-
-```scss
-/*
-src/styles/global/scss/_variable.scss
-
-colores de Sass */
-$primary-color: oklch(62.8% 0.258 29.23);
-```
-
-```CSS
-/*
-src/styles/global/css/theme/tailwind/theme.css
-
-colores de Tailwind */
-@theme {
-  --color-primary-color: oklch(62.8% 0.258 29.23) ;
-}
-```
-
-**_❌ Ejemplo Incorrecto:_**
-
-Los nombres o valores no coinciden entre Sass y Tailwind.
-
-```scss
-/*
-src/styles/global/scss/_variable.scss
-
-colores de Sass */
-$primary-color: oklch(62.8% 0.258 29.23); // color rojo
-```
-
-```css
-/*
-src/styles/global/css/theme/tailwind/theme.css
-
-colores de Tailwind */
-@theme {
-  --color-brand-primary: oklch(54.6% 0.245 262.881); /* color azul */
-}
-```
-
-### 🎨 Formato de Colores
-
-Todos los colores del proyecto se definen utilizando el formato `oklch`.
-
-**_✅ Ejemplo Correcto_**
-
-```scss
-oklch(62.8% 0.258 29.23)
-```
-
-**_❌ Ejemplo Incorrecto_**
-
-```scss
-/* Hexadecimal */
-#FF0000
-
-/* RGB */
-rgb(255 0 0)
-
-/* RGBA */
-rgba(255 0 0 / 50%)
-
-/* HSL  */
-hsl(0 100% 50%)
-
-/* HSLA */
-hsla(0, 100%, 50%, 0.5)
-```
-
-### 🎨 Tailwind Custom Values
-
-Cuando se utilicen colores mediante valores arbitrarios de Tailwind, el color también debe estar definido en formato `oklch`.
-
-**_✅ Ejemplo Correcto_**
-
-```tsx
-<div className='bg-[oklch(62.8%_0.258_29.23)]'></div>
-```
-
-**_❌ Ejemplo Incorrecto_**
-
-```tsx
-{
-  /* Hexadecimal */
-}
-<div className='bg-[#FF0000]'></div>;
-
-{
-  /* RGB */
-}
-<div className='bg-[rgb(255_0_0)]'></div>;
-
-{
-  /* RGBA */
-}
-<div className='bg-[rgba(255_0_0_/_50%)]'></div>;
-
-{
-  /* HSL */
-}
-<div className='bg-[hsl(0_100%_50%)]'></div>;
-
-{
-  /* HSLA */
-}
-<div className='bg-[hsla(0,_100%,_50%,_0.5)]'></div>;
-```
-
-## 🤔 ¿Cómo Usar Tailwind y Sass Juntos?
-
-### ✅ PATRÓN CORRECTO (OBLIGATORIO)
-
-👉 Separación estricta de responsabilidades:
-
-- **_Sass_** para estilos globales en `src/styles/global/...`
-
-```scss
-// estilo global para tablas en src/styles/global/scss/prime-react/data/_data-table.scss
-@use './variable.scss' as variable;
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  thead,
-  tfoot,
-  th {
-    background-color: variable.$blue-ocean;
-    color: oklch(100% 0 0); /* #ffffff */
-  }
-
-  // ...
-}
-```
-
-```tsx
-// MyComponent.tsx
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-
-const PRODUCTS = [
-  { id: 1, name: 'Laptop', price: 2500 },
-  { id: 2, name: 'Mouse', price: 50 },
-];
-
-export default function MyComponent() {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>ID</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Precio</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {PRODUCTS.map((product) => (
-          <TableRow key={product.id}>
-            <TableCell>{product.id}</TableCell>
-            <TableCell>{product.name}</TableCell>
-            <TableCell>{product.price}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
-```
-
-- **_Tailwind_** para estilos especificos de cada componente en:
-
-- `src/app/...`
-
-- `src/shared/components/...`
-
-- `src/shared/ui/...`
-
-```tsx
-// MyComponent.tsx
-
-export default function MyComponent() {
-  return <h1 className='text-center text-blue-600'>Guardar</h1>;
-}
-```
-
-### 🚨 PRINCIPIO BASE (INNEGOCIABLE)
-
-- ❌ Tailwind y Sass **NO** se mezclan en la capa de UI
-- ❌ **NO** existen overrides entre Sass y Tailwind
-- ❌ **NO** se resuelve con especificidad
-- ❌ **NO** está permitido usar `!important` ni en Sass ni en Tailwind
-- ❌ **NO** se duplican responsabilidades de estilos
-- ❌ **NO** se crean estilos visuales en Sass para componentes
-
-👉 Si esto ocurre, la arquitectura está mal diseñada.
-
-### ❌ LOS COMPONENTES DE REACT NO PUEDEN USAR:
-
-- `.scss`
-- `.css`
-- CSS Modules (`.module.scss`, `.module.css`)
-- Styled Components
-- `<style jsx>`
-- `<style jsx global>`
-- `<style>`
-- `style={{}}` estilos en línea
-- `import './styles.scss'` Importar archivos .scss
-- `import './styles.css'` Importar archivos .css
-
-### 🚫 En Sass global
-
-Está prohibido:
-
-- Estilos de UI de componentes
-- Cards, layouts
-- Selectores por ID para componentes
-- Overrides de Tailwind
-- Diseño de interfaces completas
-
-### 🚨 ANTIPATRÓN - ERROR CRÍTICO
-
-```tsx
-// MyComponent.tsx
-
-import styles from './MyComponent.module.scss';
-
-export default function MyComponent() {
-  return (
-    <>
-      <button id='btn-guardar' className='bg-red-600!'>
-        Guardar
-      </button>
-
-      <div className='card'>Contenido de la card</div>
-
-      <section className={styles.panel}>Contenido del panel</section>
-
-      <style jsx global>{`
-        .card {
-          background-color: white;
-          padding: 16px;
-          border-radius: 8px;
-          border: 1px solid oklch(92.2% 0.005 264);
-        }
-      `}</style>
-    </>
-  );
-}
-```
-
-```scss
-// src/styles/global/scss/main.scss
-
-#btn-guardar {
-  background-color: blue !important;
-}
-```
-
-```scss
-// MyComponent.module.scss
-
-.panel {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid oklch(92.2% 0.005 264);
-}
-```
-
-### ❌ PROHIBIDO USAR `@apply` DE TAILWIND
-
-En estos enlaces el creador de Tailwind explica porque **NO** usar `@apply`:
-
-- [Tutorial](https://x.com/adamwathan/status/1226511611592085504)
-
-- [X (Twitter)](https://x.com/adamwathan/status/1559250403547652097)
-
-Está estrictamente prohibido utilizar la directiva `@apply` de Tailwind.
-
-Esto incluye cualquier uso dentro de archivos:
-
-- `.css`
-- `.scss`
-- cualquier archivo de estilos globales o de componentes
-
-**_❌ EJEMPLO INCORRECTO USANDO `@apply`_**
-
-```scss
-/* src/styles/global/scss/main.scss
-
-❌ MAL: usando Tailwind dentro de Sass/CSS con @apply */
-
-.button {
-  @apply bg-red-600 text-white px-4 py-2 rounded-lg;
-}
-```
-
-```tsx
-// MyComponent.tsx
-
-export default function MyComponent() {
-  return <button className='button'>Boton</button>;
-}
-```
-
-## 🖼️ Ruta de Iconos e Imagenes
-
-Debes crear las siguientes carpetas:
-
-```txt
-public/
-└── assets/
-    ├── icon/
-    └── img/
-```
-
-**_✅ Correcto:_**
-
-Al usar las etiquetas `<img>` nativa de HTML y `<Image>` de Next JS, siempre utilizar rutas **absolutas** desde `/assets`.
-
-```tsx
-// MyComponent.tsx
-
-import Image from 'next/image';
-
-export default function MyComponent() {
-  return (
-    <Image
-      src='/assets/img/logo.png' /* usar slash al principio de /assets */
-      alt='Logo'
-      width={200}
-      height={200}
-    />
-  );
-}
-```
-
-**_❌ Incorrecto_**
-
-**NO** usar rutas relativas para acceder a imágenes e iconos.
-
-```tsx
-// MyComponent.tsx
-
-import Image from 'next/image';
-
-export default function MyComponent() {
-  return (
-    <Image
-      src='../../../assets/img/logo.png' /* es incorrecto porque se escribe ../ */
-      alt='Logo'
-      width={200}
-      height={200}
-    />
-  );
-}
-```
-
-```tsx
-// MyComponent.tsx
-
-import Image from 'next/image';
-
-export default function MyComponent() {
-  return (
-    <Image
-      src='assets/img/logo.png' /* es incorrecto porque NO se escribio el slash al principio de assets */
-      alt='Logo'
-      width={200}
-      height={200}
-    />
-  );
-}
-```
-
-### Imagenes
-
-Las **imagenes** se tienen que guardar en `.`.
-
-```txt
-public/assets/img/...
-```
-
-Ejemplo:
-
-```TSX
-// MyComponent.tsx
-
-import Image from 'next/image';
-import { FiHome } from "react-icons/fi";
-
-export default function MyComponent() {
-  return <Image src='/assets/img/my-image.jpg' alt='image' width={50} height={50} />
-}
-```
-
-### Iconos
-
-**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [React Icons](https://react-icons.github.io/react-icons/)
-
-Dar prioridad a usar los iconos de [React Icons](https://react-icons.github.io/react-icons/). Ejemplo:
-
-```TSX
-// MyComponent.tsx
-
-import { FiHome } from "react-icons/fi";
-
-export default function MyComponent() {
-  return <FiHome />
-}
-```
-
-No agregar imágenes/SVGs manualmente si el icono ya existe en [React Icons](https://react-icons.github.io/react-icons/)
-
-Cuando el icono no este en [React Icons](https://react-icons.github.io/react-icons/), entonces agregarlo dentro de la carpeta `public/assets/icon/...`.
-
-Los **iconos** del proyecto se deben guardar dentro de la carpeta
-
-```txt
-public/assets/icon/...
-```
-
-Ejemplo:
-
-```TSX
-// MyComponent.tsx
-
-import Image from 'next/image';
-import { FiHome } from "react-icons/fi";
-
-export default function MyComponent() {
-  return <Image src='/assets/icon/icon.jpg' alt='icono' width={50} height={50} />
-}
-```
-
-## 🔘 Estilos Globales para Botones
-
-Está guía de estilos para botones está basada en:
-
-- [Arquitectura de Bootstrap 5.3 para botones](https://getbootstrap.com/docs/5.3/components/buttons/)
-
-- [Tailwind 4 font-size](https://tailwindcss.com/docs/font-size)
-
-- [Tailwind 4 line-height](https://tailwindcss.com/docs/line-height)
-
-- [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
-
-
-**❌ Incorrecto:**
+**Incorrecto:**
 
 Usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
 
@@ -2462,11 +2411,11 @@ Esto genera:
 - Rompen fácilmente en dark mode.
 - Vuelven el CSS más complejo y frágil.
 
-**✅ Correcto:**
+**Correcto:**
 
-Los iconos de los botones deben utilizar [React Icons](https://react-icons.github.io/react-icons/)
+Los iconos de los botones deben utilizar React Icons
 
-[React Icons](https://react-icons.github.io/react-icons/) funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
+React Icons funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
 
 ```tsx
 import { MdArrowForward } from 'react-icons/md';
@@ -2480,7 +2429,7 @@ export default function MyComponent() {
 }
 ```
 
-**❌ Incorrecto:**
+**Incorrecto:**
 
 Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto genera estilos inconsistentes y no escalables:
 
@@ -3247,7 +3196,7 @@ export default function MyComponent() {
 
 ### Ubicación de Iconos y Texto en Botones
 
-**❌ Incorrecto:**
+**Incorrecto:**
 
 Usar [flex-direction](https://tailwindcss.com/docs/flex-direction) para cambiar ubicacion de iconos:
 
@@ -3303,16 +3252,13 @@ export default function MyComponent() {
 ```
 
 # Evitar Prop Drilling y Usar Data Down, Events Up
-name: prop-drilling
 
-description: Prohíbe el prop drilling en componentes React/Next.js. Obliga el patrón data down (props) / events up (callback props) y define las alternativas permitidas cuando un dato debe cruzar componentes intermedios.
-
-when_to_use: Aplicar SIEMPRE que se diseñe, cree, divida, modifique o refactorice un componente, o que se defina cómo se comunican dos componentes. Triggers — "crea un componente", "nuevo componente", "refactoriza este componente", "divide este componente", "extrae un componente", "agrega una prop", "pasa este dato al hijo", "el hijo debe avisar al padre", "comunicar componentes", "mover el estado", "levantar el estado", "crea un wrapper", "crea un layout", "revisa este componente".
-
-## Regla
+**Regla:**
 PROHIBIDO el prop drilling. Toda comunicación entre componentes usa **data down, events up**.
 
-## Definiciones
+Aplicar SIEMPRE que se diseñe, cree, divida, modifique o refactorice un componente, o que se defina cómo se comunican dos componentes.
+
+**Definiciones:**
 * **Data down:** el padre pasa el dato al hijo **directo** por props. El hijo lo consume; nunca lo muta.
 
 * **Events up:** el hijo notifica al padre **directo** con una callback prop (`onAlgo`). El padre es dueño del estado y el único que lo actualiza.
@@ -3347,3 +3293,86 @@ React Context queda reservado a los compound components de UI. PROHIBIDO usarlo 
 
 ## Al Refactorizar
 Antes de modificar un componente, recorrer la cadena de props de arriba abajo y listar las que atraviesan componentes intermedios. Cada una es una violación y debe eliminarse aplicando las alternativas.
+
+# Rutas Absolutas en `import` e Imágenes
+La regla es la misma para `import` e imágenes: siempre usar ruta absoluta. Está prohibido usar rutas relativas.
+
+* Para los `import`, usar los alias definidos en `paths` de `tsconfig.json`.
+
+* Para las imágenes (`<img>` nativo de HTML e `<Image>` de Next.js), usar rutas que empiecen con `/`. Estas rutas se resuelven desde la carpeta `public/`, así que `/assets/img/logo.png` apunta a `public/assets/img/logo.png`.
+
+**Correcto:**
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="/assets/img/logo.png" /* usar slash al principio de /assets */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// usar el alias @/ definido en tsconfig.json
+import MyComponent from '@/components/MyComponent';
+```
+
+**Incorrecto:**
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="../../../assets/img/logo.png" /* es incorrecto porque se escribe ../ */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="assets/img/logo.png" /* es incorrecto porque NO se escribió el slash al principio de assets */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// MyComponent.tsx
+
+export default function MyComponent() {
+  return (
+    /* es incorrecto porque se incluye /public en la ruta */
+    <img src="/public/assets/img/logo.png" alt="Logo" />
+  );
+}
+```
+
+```tsx
+// es incorrecto porque se escribe ../ en lugar de usar el alias @/
+import MyComponent from '../../components/MyComponent';
+```
