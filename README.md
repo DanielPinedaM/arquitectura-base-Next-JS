@@ -709,9 +709,26 @@ Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-architecture/
 
 **Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
 
-### Tabla de Contenido
+# Tabla de Contenido
 
 # INCOMPLETO - aqui me falta escribir la tabla de contenido con la estructura de archivos, carpetas y titulos de /rules - para tabla de contenido usar  enlace en línea con ruta relativa ejemplo [angular-animations.md](references/angular-animations.md)
+
+**esto es un ejemplo de como crear la tabla de contenido de la skill - NO representa la tabla de contenido real**
+
+## Arquitectura
+
+| Archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Las tres capas](rules/arquitectura/capas.md) | Antes de crear cualquier archivo o carpeta nueva, o al dudar qué significa Feature, Core o Shared |
+| [Regla de decisión](rules/arquitectura/regla-de-decision.md) | Al decidir en qué capa ubicar un archivo, o cuando dos features necesitan el mismo código |
+| [Dirección de dependencias](rules/arquitectura/direccion-de-dependencias.md) | Antes de escribir un import entre capas distintas |
+
+## Formularios
+
+| Archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [React Hook Form](rules/formularios/react-hook-form.md) | Al crear o modificar cualquier formulario, o al agregar lógica condicional entre campos |
+| [Inputs reutilizables](rules/formularios/inputs-reutilizables.md) | Al crear o modificar un componente dentro de src/shared/ui/shad-cn/react-hook-form |
 
 # Estructura del Proyecto
 
