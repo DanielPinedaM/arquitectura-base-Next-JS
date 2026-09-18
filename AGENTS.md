@@ -58,11 +58,13 @@ Antes de escribir código o responder, es **OBLIGATORIO** consultar estas fuente
 
 1. Este `AGENTS.md`: La regla final ante cualquier conflicto.
 
-2. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules/`): El cómo, con ejemplos de código.
+2. Skill `next-conventions` (`.claude/skills/next-conventions/SKILL.md` y `.claude/skills/next-conventions/rules/`): Estándares de arquitectura, codigo, UI, estilos, formularios, fechas y consumo de API.
 
-3. Guía `node_modules/next/dist/docs/`: Documentación oficial de Next.js; respetar sus avisos de deprecación.
+3. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules/`): El cómo, con ejemplos de código.
 
-4. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
+4. Guía `node_modules/next/dist/docs/`: Documentación oficial de Next.js; respetar sus avisos de deprecación.
+
+5. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
 
 ## Buenas Practicas de TypeScript
 * Usar strict type checking
