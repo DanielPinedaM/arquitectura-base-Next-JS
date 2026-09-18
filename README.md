@@ -717,7 +717,7 @@ Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-architecture/
 
 ## Arquitectura
 
-| Archivo | ¿Cuándo leerlo? |
+| Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
 | [Las tres capas](rules/arquitectura/capas.md) | Antes de crear cualquier archivo o carpeta nueva, o al dudar qué significa Feature, Core o Shared |
 | [Regla de decisión](rules/arquitectura/regla-de-decision.md) | Al decidir en qué capa ubicar un archivo, o cuando dos features necesitan el mismo código |
