@@ -672,7 +672,7 @@ Motivo:         <por qué lo solicitado rompe la arquitectura, en una línea>
 La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [4. Caso no definido en la skill](#4-caso-no-definido-en-la-skill)
 
 ## 4. Caso no definido en la skill
-Se aplica cuando el caso, problema o pregunta no está definido de forma explícita en esta skill.
+Se aplica cuando el caso, problema o pregunta no está definido en la [tabla de contenido](#tabla-de-contenido)
 
 Acción: resuélvelo con tu comportamiento por defecto. La skill no restringe este caso y no altera tu forma normal de trabajar.
 
