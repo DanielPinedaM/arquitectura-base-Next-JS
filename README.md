@@ -445,6 +445,22 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
 * Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
 
+# [Cambiar Idioma de Claude Code a Español](https://code.claude.com/docs/es/settings-reference#language)
+
+1. Abrir el archivo que esta en la ruta
+
+```console
+C:\Users\NOMBRE_USUARIO\.claude\settings.json
+```
+
+2. Modificar el archivo para que contenga lo siguiente:
+
+```json
+{
+  "language": "spanish",
+}
+```
+
 # ⚛️ Configurar Next.js para que Funcione con IA
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
