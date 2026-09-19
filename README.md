@@ -278,7 +278,7 @@ El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el build.
 ***Motivo:*** Next.js reemplaza cada `process.env.NEXT_PUBLIC_*` por su valor literal mientras compila. Por eso el ambiente ya viene incrustado en los archivos que generaron `pn build:test` o `pn build:prod`, y `pn start` únicamente los sirve.
 
 ## Pasos
-1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección "Generar Carpeta `.next` (`build`) para Desplegar"
+1. Generar la carpeta `.next` con el ambiente deseado, usando uno de los comandos de la sección [Generar Carpeta `.next` (`build`) para Desplegar](#-generar-carpeta-next-build-para-desplegar)
 
 2. Ejecutar la carpeta `.next`
 
@@ -340,7 +340,7 @@ En ambas formas, el debugger se vuelve a adjuntar automáticamente cada vez que 
 
 **Desde navegador:** Es mas rápido de usar, solamente abra el navegador y empiece a depurar. Usar cuando necesite una depuración rápida sin editar código.
 
-## 1️⃣ Launch: el editor ejecuta el script
+## 1️⃣ Launch: El Editor Ejecuta el Script
 1. Si el frontend ya esta ejecutandose con `pn start:local`, `pn start:test` o `pn start:prod`, deténgalo antes de iniciar el debugging. De lo contrario, se producirán errores.
 
 2. Colocar los breakpoints, escribiendo en el código
@@ -367,7 +367,7 @@ debugger;
 
 6. En el editor de codigo abrir el archivo que se quiere depurar y que contiene `debugger;`
 
-## 2️⃣ Desde navegador
+## 2️⃣ Desde Navegador
 1. Colocar los breakpoints, escribiendo en el código:
 
 ```ts
@@ -402,7 +402,7 @@ debugger;
 >
 > Aunque es un texto largo, aprenderás la arquitectura, buenas prácticas y a detectar revisando el código, cuando la IA alucina
 
-# [🔗 Enlace - HTTP Cats - Explicación de los status HTTP](https://http.cat/)
+# [🔗 Enlace - HTTP Cats - Explicación de los Status HTTP](https://http.cat/)
 
 # 🤖 Uso de IA
 
@@ -543,7 +543,7 @@ La salida debe contener algo similar a esto:
 Cita textual de node_modules/next/dist/docs
 ```
 
-# Diferencia Entre Skills y MCP
+# Diferencia entre Skills y MCP
 
 **Skill:** Es un archivo Markdown llamado `SKILL.md` que contiene instrucciones para enseñarle a la IA cómo ejecutar un proceso, o para darle conocimiento sobre un tema. La IA carga ese contenido directamente en su contexto antes de responder.
 
@@ -598,7 +598,7 @@ Hay dos alcances:
 
 5. Eliminar `skills-lock.json`
 
-### Forma 2 - Descargar skill sin comando
+### Forma 2 - Descargar Skill sin Comando
 1. Buscar un repositorio con una skill
 
 2. Descargar el repositorio
@@ -699,15 +699,15 @@ que necesita para ejecutar el proceso >>>
 # Reglas Obligatorias para Skill
 Aplican a toda respuesta o modificación de código de este proyecto.
 
-## 1. Autoridad de la skill
-Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [4. Caso no definido en la skill](#4-caso-no-definido-en-la-skill).
+## 1. Autoridad de la Skill
+Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill).
 
-## 2. Ante cualquier error
+## 2. Ante Cualquier Error
 Esta regla aplica en cualquier momento. Si encuentras algún error, inconsistencia, duda o ambigüedad, debes detenerte y consultarme antes de realizar cualquier modificación. No puedes asumir ni deducir implementaciones. Es preferible preguntar para aclarar una duda que asumir una solución.
 
-La única excepción a esta regla es lo establecido en la regla anterior: [1. Autoridad de la skill](#1-autoridad-de-la-skill).
+La única excepción a esta regla es lo establecido en la regla anterior: [1. Autoridad de la Skill](#1-autoridad-de-la-skill).
 
-## 3. Instrucción que contradice una regla definida
+## 3. Instrucción que Contradice una Regla Definida
 Se aplica cuando la instrucción recibida contradice una regla explícitamente definida en esta skill.
 
 Acción: implementa estrictamente lo definido en la skill. No preguntes, no propongas alternativas, no pidas confirmación.
@@ -726,14 +726,14 @@ Implementado:   <lo que define la skill>
 Motivo:         <por qué lo solicitado rompe la arquitectura, en una línea>
 ```
 
-La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [4. Caso no definido en la skill](#4-caso-no-definido-en-la-skill)
+La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill)
 
-## 4. Caso no definido en la skill
-Se aplica cuando el caso, problema o pregunta no está definido en la [tabla de contenido](#tabla-de-contenido)
+## 4. Caso no Definido en la Skill
+Se aplica cuando el caso, problema o pregunta no está definido en la [Tabla de Contenido](#tabla-de-contenido)
 
 Acción: resuélvelo con tu comportamiento por defecto. La skill no restringe este caso y no altera tu forma normal de trabajar.
 
-## 5. Código existente que ya viola la arquitectura
+## 5. Código Existente que Ya Viola la Arquitectura
 Se aplica cuando detectas código ya escrito que incumple una regla de esta skill.
 
 No lo corrijas por iniciativa propia. Emite:
@@ -762,7 +762,7 @@ NO  → dejarlo como está
 Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llamada a `AskUserQuestion`, una pregunta por infracción.
 
 ## 6. ¿Como Leer la Skill?
-Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-conventions/rules/`: usa la [tabla de contenido](#tabla-de-contenido) como referencia para inferir cuales archivos son necesarios para la tarea que estas resolviendo, y accede unicamente a esos archivos.
+Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-conventions/rules/`: usa la [Tabla de Contenido](#tabla-de-contenido) como referencia para inferir cuales archivos son necesarios para la tarea que estas resolviendo, y accede unicamente a esos archivos.
 
 **Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
 
@@ -887,7 +887,7 @@ La arquitectura define **únicamente tres capas**:
 
 ### Definición de las Capas
 
-Esta sección define qué representa cada una de las tres capas de la arquitectura. La clasificación de un archivo concreto se realiza en la sección "Regla de decisión".
+Esta sección define qué representa cada una de las tres capas de la arquitectura. La clasificación de un archivo concreto se realiza en la sección [Regla de Decisión](#regla-de-decisión).
 
 La capa de un archivo se define por el **significado** del código, no por la **frecuencia** con que se reutiliza. El número de features que usan un código **no** determina su capa.
 
@@ -931,7 +931,7 @@ Ejemplos:
 | Core (dominio del sistema) | `src/core`                     | Reglas del negocio del sistema, independientes de la UI  | Sí                  | No                |
 | Shared (agnóstico)         | `src/shared`                   | Código técnico reutilizable sin conocimiento del negocio | No                  | No                |
 
-> El número de features que usan un código **no** aparece como criterio en esta tabla porque **no define la capa**. La capa se decide por el significado del código (ver "Regla de Decisión").
+> El número de features que usan un código **no** aparece como criterio en esta tabla porque **no define la capa**. La capa se decide por el significado del código (ver "[Regla de Decisión](#regla-de-decisión)").
 
 ### Regla de Decisión
 
@@ -1075,7 +1075,7 @@ src/app/(features)
 
 Estas subcarpetas son válidas porque únicamente organizan el contenido dentro de una capa existente.
 
-### ¿Por qué `src/core` y no dentro de `src/app/(features)/<feature>`?
+### ¿Por qué `src/core` y no Dentro de `src/app/(features)/<feature>`?
 
 Todo lo que está dentro de `src/app/(features)/<feature>/page.tsx` forma parte de la estructura de rutas del App Router de Next.js.
 
@@ -1113,7 +1113,7 @@ Esta arquitectura prohíbe crear carpetas cuyo nombre sea genérico o ambiguo, p
 
 ### Regla de Dirección de Dependencias
 
-Esta sección complementa la "Regla de Decisión". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
+Esta sección complementa la "[Regla de Decisión](#regla-de-decisión)". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
 
 Las dependencias fluyen en **una sola dirección**:
 
@@ -1135,9 +1135,9 @@ feature  →  core  →  shared
 
 - Las dependencias entre módulos de **Core** deben ser **acíclicas**: si `A` importa de `B`, entonces `B` no puede importar de `A`.
 
-Cuando una **Feature** necesita lógica que vive dentro de otra **Feature**, esa lógica **no** se importa de forma cruzada: se **promueve a una capa compartida** (`core` si es una regla del negocio del sistema, `shared` si es código técnico agnóstico) y ambas la consumen desde ahí. La capa destino se decide con la "Regla de Decisión", nunca por el hecho de que dos features la necesiten (ver "Mover de Feature a Core").
+Cuando una **Feature** necesita lógica que vive dentro de otra **Feature**, esa lógica **no** se importa de forma cruzada: se **promueve a una capa compartida** (`core` si es una regla del negocio del sistema, `shared` si es código técnico agnóstico) y ambas la consumen desde ahí. La capa destino se decide con la "[Regla de Decisión](#regla-de-decisión)", nunca por el hecho de que dos features la necesiten (ver "[Mover de Feature a Core](#mover-de-feature-a-core)").
 
-#### ¿Por qué una sola dirección?
+#### ¿Por qué una Sola Dirección?
 
 Esta regla es la que mantiene la arquitectura escalable cuando el número de features crece. Sin ella, `core` puede terminar importando de una feature (invirtiendo la dependencia y atando el dominio compartido a una pantalla concreta), o dos features pueden acoplarse directamente entre sí (creando dependencias ocultas imposibles de rastrear). La dirección única garantiza que lo más reutilizable (`shared`) sea también lo más estable, y que lo más volátil (`feature`) dependa de lo estable y nunca al revés.
 
@@ -1226,7 +1226,7 @@ El movimiento de código a `core` **NO depende de la reutilización** ni del nú
 
 Un código se mueve a `core` cuando representa una **regla del negocio del sistema** que existe de forma independiente de cualquier feature o pantalla. Si nació dentro de una feature pero en realidad es una regla del dominio del sistema, su lugar correcto es `core`. Que un archivo nazca dentro de una feature y luego se mueva a `core` es un movimiento esperado y normal del ciclo de vida del proyecto, no un error de diseño previo.
 
-Que una **segunda** feature necesite el mismo código **no** es, por sí solo, motivo para moverlo a `core`: solo indica que ese código no pertenece en exclusiva a una feature. Para decidir su destino se vuelve a aplicar la "Regla de Decisión".
+Que una **segunda** feature necesite el mismo código **no** es, por sí solo, motivo para moverlo a `core`: solo indica que ese código no pertenece en exclusiva a una feature. Para decidir su destino se vuelve a aplicar la [Regla de Decisión](#regla-de-decisión).
 
 **Procedimiento para mover código de una feature a core:**
 
@@ -1240,9 +1240,9 @@ Que una **segunda** feature necesite el mismo código **no** es, por sí solo, m
 
 Está prohibido **duplicar** el código en la segunda feature para evitar el movimiento: duplicar lógica de dominio rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
 
-#### Casos críticos
+#### Casos Críticos
 
-##### Caso 1: un código es usado por dos features
+##### Caso 1: Un Código Es Usado por Dos Features
 
 **No** se mueve automáticamente a `core`. Debe evaluarse su significado:
 
@@ -1254,7 +1254,7 @@ Está prohibido **duplicar** el código en la segunda feature para evitar el mov
 
   Ejemplos: permisos de usuario, reglas de validación del dominio, lógica de autorización.
 
-##### Caso 2: un código está repetido en dos features
+##### Caso 2: Un Código Está Repetido en Dos Features
 
 Se permite la duplicación **solo si** se cumplen todas estas condiciones:
 
@@ -1264,7 +1264,7 @@ Se permite la duplicación **solo si** se cumplen todas estas condiciones:
 
 En este caso **no** se mueve a `core` ni a `shared`.
 
-#### Qué SÍ puede repetirse en features
+#### Qué SÍ Puede Repetirse en Features
 
 - Lógica específica de la UI de esa feature.
 - Lógica de presentación.
@@ -1278,7 +1278,7 @@ Ejemplos válidos de repetición:
 - Lógica de estados locales.
 - Hooks específicos de la feature.
 
-#### Qué NO debe repetirse en features
+#### Qué NO Debe Repetirse en Features
 
 - Reglas de negocio del sistema → `core`.
 - Lógica de permisos o autenticación → `core`.
@@ -1287,9 +1287,9 @@ Ejemplos válidos de repetición:
 
 Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
 
-#### Procedimiento al promover código fuera de una feature
+#### Procedimiento al Promover Código Fuera de una Feature
 
-1. Aplicar la "Regla de Decisión" para determinar la capa destino: `core` (regla del negocio del sistema) o `shared` (código técnico agnóstico).
+1. Aplicar la [Regla de Decisión](#regla-de-decisión) para determinar la capa destino: `core` (regla del negocio del sistema) o `shared` (código técnico agnóstico).
 2. Mover el archivo (o carpeta) desde `src/app/(features)/<feature>/...` hacia la entidad o proceso correspondiente en `src/core/...`, o hacia la capacidad técnica correspondiente en `src/shared/...`.
 3. Reescribir todos los imports que apuntaban a la ubicación anterior.
 4. Verificar que el módulo movido **no conserve imports hacia ninguna feature** (violaría la Regla de Dirección de Dependencias).
@@ -1303,7 +1303,7 @@ Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es
 | **Core**          | ❌      | ✅\* | ✅     |
 | **Shared**        | ❌      | ❌   | ✅     |
 
-\* core → core es válido solo en una dirección; queda prohibido si forma un ciclo (ver "Procesos del Dominio en Core").
+\* core → core es válido solo en una dirección; queda prohibido si forma un ciclo (ver [Procesos del Dominio en Core](#procesos-del-dominio-en-core)).
 
 ### Diferencia entre `components` y `ui`
 
@@ -1333,7 +1333,7 @@ La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
 2. En todos los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), toda su interfaz pública de fechas (props, como `selected` y `onSelect`) es de tipo Luxon `DateTime`.
 
-3. Usar los calendarios para la selección de fechas definidos en "Componentes de Calendarios". **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
+3. Usar los calendarios para la selección de fechas definidos en [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios). **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
 
 4. Usar exclusivamente los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios) para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
 
@@ -1395,9 +1395,9 @@ Estos componentes solamente manejan integración técnica:
 
 No representan formularios del negocio.
 
-## Reglas del sistema de formularios
+## Reglas del Sistema de Formularios
 
-### 1. Framework y renderizado
+### 1. Framework y Renderizado
 
 - Se trabaja en Next.js (App Router).
 - Todos los componentes de formularios deben ser `"use client"`.
@@ -1410,7 +1410,7 @@ Usar los componentes reutilizables de inputs ubicados en:
 src/shared/ui/shad-cn/react-hook-form
 ```
 
-### 3. Restricciones estrictas
+### 3. Restricciones Estrictas
 
 - Prohibido usar inputs HTML nativos (`<input />`, `<select />`, etc.).
 - Usar componentes de shad cn para todos los campos.
@@ -1473,7 +1473,7 @@ src/shared/ui/shad-cn/react-hook-form
 
 - Ejemplos: `disabled`, visibilidad, dependencias entre campos.
 
-### 7. Componentes reutilizables
+### 7. Componentes Reutilizables
 
 Un input reutilizable debe:
 
@@ -1519,24 +1519,24 @@ Un input reutilizable debe:
 - Se soportan múltiples validaciones (`required`, `minLength`, `pattern`, etc.).
 - El input solo ejecuta las validaciones, no las define.
 
-### 10. Formularios dinámicos
+### 10. Formularios Dinámicos
 
 - La estructura del formulario debe definirse en el padre (config-driven).
 - No se permite lógica condicional dentro de los componentes de input.
 
-### 11. Mensajes de error de formulario
+### 11. Mensajes de Error de Formulario
 
 - Todo componente de campo ubicado en `src/shared/ui/shad-cn/react-hook-form` debe usar `FormErrorMessages` para mostrar los mensajes de error de React Hook Form.
 
 * Prohibido mostrar errores de validación con elementos HTML propios, lógica manual o cualquier otro componente alternativo.
 
-## Regla clave de arquitectura
+## Regla Clave de Arquitectura
 
 - Input (componente hijo) = UI + conexión React Hook Form
 
 - Padre = lógica + `watch` + validaciones + estado derivado
 
-## Flujo de datos
+## Flujo de Datos
 
 1. React Hook Form gestiona estado interno.
 2. watch en el componente padre define reglas dinámicas.
@@ -1556,7 +1556,7 @@ Un input reutilizable debe:
 - Usar `map` para renderizar los campos de los formularios.
 - Mostrar errores de validación sin usar `FormErrorMessages` en componentes de `src/shared/ui/shad-cn/react-hook-form`.
 
-## Resultado esperado
+## Resultado Esperado
 
 - Formularios escalables y consistentes.
 - Componentes reutilizables reales (design system).
@@ -1564,7 +1564,7 @@ Un input reutilizable debe:
 - Separación estricta entre lógica y UI.
 - Mantenimiento simple en proyectos grandes.
 
-## Prohibido agregar lógica de negocio dentro de src/shared/ui/shad-cn/react-hook-form
+## Prohibido Agregar Lógica de Negocio Dentro de src/shared/ui/shad-cn/react-hook-form
 
 En `src/shared/ui/shad-cn/react-hook-form` nunca agregar:
 
@@ -1712,7 +1712,7 @@ getUser(id: string) {
 ## Icono de Loader Global
 Prohibido crear use state loading false/true para manejar el loading en componentes de React. `http-gateway.api.ts` ya se encarga de mostrar y ocultar fixed loader centrado en pantalla
 
-## ¿Como Desactivar el sticky loader icon de `http-gateway.api.ts`?
+## ¿Como Desactivar el Sticky Loader Icon de `http-gateway.api.ts`?
 
 # Maquetación
 
@@ -1836,7 +1836,7 @@ Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejempl
 @layer theme, base, components, utilities;
 ```
 
-### Tema oscuro
+### Tema Oscuro
 Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el HTML.
 
 **Correcto:**
@@ -2168,7 +2168,7 @@ h1 {
 ### Sintaxis de Rango
 Escribir las media queries con la sintaxis de rango (operadores de comparación) de CSS Media Queries Level 4. Está **PROHIBIDO** usar los prefijos `min-width` y `max-width`.
 
-La sintaxis de rango también se escribe como se especifica en el titulo [Mobile First](#Mobile-First): se parte del estilo base de móvil y se amplía hacia arriba con `width >=`. Por lo tanto, dentro de la sintaxis de rango también está **PROHIBIDO** `width <=` (desktop first) y acotar entre dos anchos (`768px <= width <= 1023px`).
+La sintaxis de rango también se escribe como se especifica en el titulo [Mobile First](#mobile-first): se parte del estilo base de móvil y se amplía hacia arriba con `width >=`. Por lo tanto, dentro de la sintaxis de rango también está **PROHIBIDO** `width <=` (desktop first) y acotar entre dos anchos (`768px <= width <= 1023px`).
 
 | Sintaxis Legacy (prohibida)                         | Sintaxis de rango (obligatoria)     | ¿Mobile first? |
 | --------------------------------------------------- | ----------------------------------- | -------------- |
@@ -2295,29 +2295,29 @@ A diferencia de Radix UI, Base UI ya no utiliza la prop `asChild`; en su lugar u
 
 Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
 
-### Orden de decisión
+### Orden de Decisión
 Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el primer caso que aplique:
 
-1. **¿El componente está en "Componentes permitidos"?**
+1. **¿El componente está en "[Componentes Permitidos](#componentes-permitidos)"?**
    Usar el componente de shadcn de la lista. Está prohibido usar su equivalente nativo de HTML.
    Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar `<Dialog>` de shadcn.
 
 2. **¿El componente es un botón?**
-   Ir a **"Orden de Decisión para Botones"** y aplicar sus 3 pasos. Esa sección resuelve el caso completo: **no** continuar con los pasos 3 ni 4 de esta lista.
+   Ir a [Orden de Decisión para Botones](#orden-de-decisión-para-botones) y aplicar sus 3 pasos. Esa sección resuelve el caso completo: **no** continuar con los pasos 3 ni 4 de esta lista.
 
 3. **¿El componente NO está en la lista y NO es un botón?**
    Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado. Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
 
 4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
    El HTML nativo solo está prohibido en dos situaciones:
-   * (a) Cuando existe un equivalente en "Componentes permitidos": usar shadcn, no el nativo.
+   * (a) Cuando existe un equivalente en [Componentes Permitidos](#componentes-permitidos): usar shadcn, no el nativo.
 
-   * (b) La etiqueta `<button>` nativa: ver **"Orden de Decisión para Botones"**.
+   * (b) La etiqueta `<button>` nativa: ver [Orden de Decisión para Botones](#orden-de-decisión-para-botones).
 
    En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
-### Refuerzo para formularios
-Además de lo anterior, en formularios usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+### Refuerzo para Formularios
+Además de lo anterior, en formularios usar los componentes de shad cn de "[Componentes Permitidos](#componentes-permitidos)" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
 
 Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
 
@@ -2333,7 +2333,7 @@ Todo se decide con una sola pregunta: **¿el archivo que estás editando _implem
 | Está dentro de `src/shared/ui/shad-cn`     | Implementa    | `Button` de shadcn → **paso 1**   |
 | Está en cualquier otra ruta de `src`       | Consume       | Botón composable → **paso 2**     |
 
-#### Paso 1 - Botón interno de la librería de UI → `Button` de shadcn
+#### Paso 1 - Botón Interno de la Librería de UI → `Button` de shadcn
 **Condición:** el botón se escribe **dentro** de `src/shared/ui/shad-cn`, en el archivo que implementa o define un componente de shadcn.
 
 **Usar:** `Button` de `src/shared/ui/shad-cn/react-hook-form/action/button/Button.tsx` — alias `@shad-cn/Button`.
@@ -2349,7 +2349,7 @@ import { Button } from '@shad-cn/Button';
 
 **Alcance:** esta regla aplica **únicamente** al código que implementa o define los componentes de la librería de UI. **NO** aplica al código de la aplicación donde esos componentes son consumidos — ese caso lo resuelve el paso 2.
 
-#### Paso 2 - Botón fuera de la librería de UI → botón composable
+#### Paso 2 - Botón Fuera de la Librería de UI → Botón Composable
 **Condición:** el botón **NO** se escribe dentro de `src/shared/ui/shad-cn`. Ocurre en cualquiera de estos dos casos:
 
 **2.1. El botón se usa al consumir un componente de la librería de UI.**
@@ -2368,7 +2368,7 @@ Ejemplo: Iniciar sesión, Guardar, Cancelar, Crear, Editar, Eliminar, Buscar, Ac
 
 **PROHIBIDO** usar `Button` de shadcn (`@shad-cn/Button`) fuera de `src/shared/ui/shad-cn`.
 
-#### PROHIBIDA la etiqueta `<button>` nativa de HTML
+#### PROHIBIDA la Etiqueta `<button>` Nativa de HTML
 Aplica a los pasos 1 y 2. Al escribir un componente de React **nunca** se construye un botón con la etiqueta `<button>`: siempre se usa `Button` de `src/shared/ui/buttons`.
 
 La única etiqueta `<button>` nativa del proyecto vive dentro de `src/shared/ui/buttons/Button.tsx`, que es donde se aplican los estilos composables. Ningún otro archivo la escribe.
@@ -2385,7 +2385,7 @@ La misma regla aplica a los elementos **con apariencia de botón**: un `<a>` est
 <Button theme="primary" variant="background" onClick={onSave}>Guardar</Button>
 ```
 
-#### Cómo pasar el botón composable a un componente de la librería
+#### Cómo Pasar el Botón Composable a un Componente de la Librería
 Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un componente. Los props internos del componente (`onClick`, `aria-*`, `data-*`, `ref`, `className`) se fusionan sobre el elemento recibido.
 
 Escribir el contenido del botón **dentro** del elemento que se pasa a `render`, y dejar el componente de Base UI autocerrado:
@@ -2440,7 +2440,7 @@ Escribir el contenido del botón **dentro** del elemento que se pasa a `render`,
 </Dialog>
 ```
 
-#### Piezas que traen el `Button` de shadcn incrustado
+#### Piezas que Traen el `Button` de shadcn Incrustado
 Algunos sub-componentes **son** el `Button` de shadcn por definición. No todos se pueden reemplazar, así que se resuelven caso por caso:
 
 | Pieza                               | ¿Botón incrustado?     | Qué hacer                                                    |
@@ -2473,9 +2473,9 @@ Algunos sub-componentes **son** el `Button` de shadcn por definición. No todos 
 </AlertDialogFooter>
 ```
 
-### Dependencias internas de los componentes permitidos
+### Dependencias Internas de los Componentes Permitidos
 
-Si un componente de "Componentes permitidos" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Dependencias reales de este proyecto:
+Si un componente de "[Componentes Permitidos](#componentes-permitidos)" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Dependencias reales de este proyecto:
 
 | Componente       | Depende de                              |
 | ---------------- | --------------------------------------- |
@@ -2489,21 +2489,21 @@ Si un componente de "Componentes permitidos" depende de otros componentes de sha
 | `Input Password` | `Input Base` + `Input Group` + `Button` |
 | `Carousel`       | `Button`                                |
 
-`Button` (`@shad-cn/Button`) e `Input Base` (`@shad-cn/InputBase`) son los dos requisitos que **no** aparecen en la tabla "Componentes permitidos", y son justamente el caso que cubre esta regla: solo se usan internamente para construir los demás componentes.
+`Button` (`@shad-cn/Button`) e `Input Base` (`@shad-cn/InputBase`) son los dos requisitos que **no** aparecen en la tabla "[Componentes Permitidos](#componentes-permitidos)", y son justamente el caso que cubre esta regla: solo se usan internamente para construir los demás componentes.
 
-Los botones se resuelven aparte, con **"Orden de Decisión para Botones"**: dentro de `src/shared/ui/shad-cn` se usa el `Button` de shadcn, y al consumir esos componentes desde la aplicación se usa el botón composable de `src/shared/ui/buttons`.
+Los botones se resuelven aparte, con [Orden de Decisión para Botones](#orden-de-decisión-para-botones): dentro de `src/shared/ui/shad-cn` se usa el `Button` de shadcn, y al consumir esos componentes desde la aplicación se usa el botón composable de `src/shared/ui/buttons`.
 
 ### Data Table
 Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, incluyendo paginación y sorting. **No** está permitido usar el primitivo `Table` de shadcn por sí solo ni la etiqueta `<table>` nativa de HTML
 
 ### Prohibiciones
-* Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pn dlx shadcn@latest add <componente>`) distintos a los de "Componentes permitidos".
+* Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pn dlx shadcn@latest add <componente>`) distintos a los de "[Componentes Permitidos](#componentes-permitidos)".
 
 * Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
 
 * Prohibido usar `input-base` (`src\shared\ui\shad-cn\react-hook-form\text\input\input-base`) fuera de `src/shared`. Es una pieza interna que solo existe para construir `input-text`, `input-number`, `input-password` e `input-email`. Fuera de `src/shared` se usa uno de esos cuatro, nunca el base.
 
-### Componentes permitidos
+### Componentes Permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
 
 Siempre para importar los componentes usar los import alias de shad cn que estan en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<Componente>`) y coincide exactamente con el nombre del archivo, en PascalCase.
@@ -2869,7 +2869,7 @@ Algunos botones usan colores claros en el texto o borde, por lo que deben coloca
 <button className="btn btn-dark btn-outline">Dark</button>
 ```
 
-### Botones con sombra
+### Botones con Sombra
 
 `btn-shadow` agrega una sombra a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
 
@@ -3221,7 +3221,7 @@ export default function MyComponent() {
 }
 ```
 
-### Boton desactivado `cursor: not-allowed`
+### Boton Desactivado `cursor: not-allowed`
 
 Agregar el atributo booleano de HTML `disabled` a la etiqueta `<button>` hace que los botones tomen estilos de desactivados.
 
@@ -3473,7 +3473,7 @@ Aplicar SIEMPRE que se diseñe, cree, divida, modifique o refactorice un compone
 
 Una prop que el hijo directo sí consume NO es prop drilling. Lo prohibido es el componente de paso.
 
-## Alternativas, en este Orden
+## Alternativas, en Este Orden
 1. **Composición, reestructurar el árbol de componentes:** eliminar o reubicar el componente intermedio para que el que produce el dato y el que lo consume queden padre/hijo directos. No usa ninguna API extra, cambia la forma del árbol. Es la opción por defecto.
 
 2. **Composición con `children` o slots:** cuando el componente intermedio debe existir, que reciba el contenido ya construido en lugar de reenviar props. Así el padre queda conectado directamente con el componente que consume el dato.
