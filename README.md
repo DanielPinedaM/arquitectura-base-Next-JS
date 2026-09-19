@@ -445,7 +445,9 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
 * Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
 
-# [Cambiar Idioma de Claude Code a Español](https://code.claude.com/docs/es/settings-reference#language)
+# Configurar Claude Code
+
+## Cambiar Idioma de Claude Code a Español
 
 1. Abrir el archivo que esta en la ruta
 
@@ -453,11 +455,46 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 C:\Users\NOMBRE_USUARIO\.claude\settings.json
 ```
 
-2. Modificar el archivo para que contenga lo siguiente:
+2. Agregar la propiedad [`language`](https://code.claude.com/docs/es/settings-reference#language) con el valor `spanish`:
 
 ```json
 {
-  "language": "spanish",
+  "language": "spanish"
+}
+```
+
+## Eliminar Skills Innecesarias (Bloatware) que Estan Preinstaladas en Claude Code
+Esto ayuda a mejorar el consumo de tokens y contexto de Claude
+
+1. En el explorador de archivos abrir la siguiente ruta:
+
+```console
+C:\Users\NOMBRE_USUARIO\.claude\skills\synced\ID_CARPETA
+```
+
+2. Las carpetas que estan aqui dentro son skills globales preinstaladas, puedes eliminar las siguientes carpetas:
+
+| Carpeta | ¿Para qué sirve? |
+| --- | --- |
+| `\docs` | Crear y editar documentos colaborativos en claude.ai (memo, spec, PRD, runbook) a través del connector Claude Docs. |
+| `\docx` | Crear, leer y editar archivos de Word (`.docx`, `.dotx`) |
+| `\import-memory` | Importar a la memoria de Claude las memorias exportadas desde otro asistente de IA (ChatGPT, Gemini, etc.). |
+| `\morning` | Generar un resumen matutino del día en HTML, o programarlo como tarea recurrente entre semana. |
+| `\pdf` | Crear, leer y editar archivos de PDF |
+| `\pptx` | Crear, leer y editar diapositivas de PowerPoint (`.pptx`, `.potx`) |
+| `\xlsx` | Crear, leer y editar archivos de Excel (`.xlsx`, `.xlsm`, `.csv`, `.tsv`) |
+
+3. Borrar esas carpetas solo las elimina del computador: Claude Code las vuelve a descargar en la siguiente sincronizacion con la cuenta de claude.ai. Para evitarlo, abrir de nuevo el archivo:
+
+```console
+C:\Users\NOMBRE_USUARIO\.claude\settings.json
+```
+
+4. Agregar la propiedad [`syncClaudeAiSkills`](https://code.claude.com/docs/es/settings-reference#syncclaudeaiskills) con el valor `false`:
+
+```json
+{
+  "syncClaudeAiSkills": false
 }
 ```
 
