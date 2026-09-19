@@ -1900,7 +1900,13 @@ Los componentes se estilizan solo con clases de Tailwind en su plantilla. CSS se
   * Librerías de CSS-in-JS, como styled-components
 
 ### Anidamiento de Selectores CSS (CSS Nesting)
-Para aplicar estilos a elementos dentro de otro elemento, anida sus selectores con CSS Nesting. No repitas el selector del padre en una regla aparte.
+Con CSS Nesting se anidan dentro del selector al que pertenecen:
+
+1. **Los selectores hijos:** para aplicar estilos a elementos dentro de otro elemento, anida su selector dentro del selector del padre.
+
+2. **Las media queries:** el bloque `@media` se anida dentro del selector al que le cambia los estilos.
+
+En ambos casos está prohibido repetir el selector en una regla aparte o en un bloque `@media` aparte.
 
 **Ejemplo correcto**
 
@@ -1923,6 +1929,19 @@ div.parent {
 
 div.parent p.child {
   color: red;
+}
+```
+
+```CSS
+/* es incorrecto porque la media query está en un bloque @media aparte y repite el selector h1 */
+h1 {
+  color: red;
+}
+
+@media (width >= 768px) {
+  h1 {
+    color: blue;
+  }
 }
 ```
 
@@ -2018,25 +2037,25 @@ Tailwind y CSS usan los mismos breakpoints: los definidos en `@theme`. Está pro
 ```css
 @theme {
   /* celular */
-  --breakpoint-xsm: 30rem; /* @media (min-width: 480px) { ... } */
+  --breakpoint-xsm: 30rem; /* @media (width >= 480px) { ... } */
 
   /* tablet */
-  --breakpoint-sm: 40rem; /* @media (min-width: 640px) { ... } */
-  --breakpoint-md: 48rem; /* @media (min-width: 768px) { ... } */
-  --breakpoint-lg: 64rem; /* @media (min-width: 1024px) { ... } */
+  --breakpoint-sm: 40rem; /* @media (width >= 640px) { ... } */
+  --breakpoint-md: 48rem; /* @media (width >= 768px) { ... } */
+  --breakpoint-lg: 64rem; /* @media (width >= 1024px) { ... } */
 
   /* pantalla computador portátil */
-  --breakpoint-xl: 80rem; /* @media (min-width: 1280px) { ... } */
+  --breakpoint-xl: 80rem; /* @media (width >= 1280px) { ... } */
 
   /* monitor */
-  --breakpoint-2xl: 96rem; /* @media (min-width: 1536px) { ... } */
-  --breakpoint-3xl: 120rem; /* @media (min-width: 1920px) { ... } */
+  --breakpoint-2xl: 96rem; /* @media (width >= 1536px) { ... } */
+  --breakpoint-3xl: 120rem; /* @media (width >= 1920px) { ... } */
 }
 ```
 
 `xsm` y `3xl` son propios del proyecto. El resto son los predeterminados de Tailwind 4.
 
-### Mobile first
+### Mobile First
 Tailwind y CSS se escriben mobile first
 
 **Correcto:**
@@ -2052,14 +2071,38 @@ export default function MyComponent() {
 }
 ```
 
-### Media Queries en CSS
-Las media queries en CSS solo se usan en estilos globales. Los componentes usan los prefijos de Tailwind.
+### Sintaxis de Rango
+Escribir las media queries con la sintaxis de rango (operadores de comparación) de CSS Media Queries Level 4. Está **PROHIBIDO** usar los prefijos `min-width` y `max-width`.
+
+La sintaxis de rango también se escribe como se especifica en el titulo [Mobile First](#Mobile-First): se parte del estilo base de móvil y se amplía hacia arriba con `width >=`. Por lo tanto, dentro de la sintaxis de rango también está **PROHIBIDO** `width <=` (desktop first) y acotar entre dos anchos (`768px <= width <= 1023px`).
+
+| Sintaxis antigua (prohibida)                        | Sintaxis de rango (obligatoria)     | ¿Mobile first? |
+| --------------------------------------------------- | ----------------------------------- | -------------- |
+| `@media (min-width: 768px)`                         | `@media (width >= 768px)`           | Sí             |
+| `@media (max-width: 767px)`                         | `@media (width <= 767px)`           | No, prohibido  |
+| `@media (min-width: 768px) and (max-width: 1023px)` | `@media (768px <= width <= 1023px)` | No, prohibido  |
 
 **Correcto:**
 
 ```css
-/* archibo global de CSS  */
+/* archivo global de CSS */
 
+/* usa la sintaxis de rango y es mobile first: desde 768px en adelante */
+h1 {
+  color: red;
+
+  @media (width >= 768px) {
+    color: blue;
+  }
+}
+```
+
+**Incorrecto**
+
+```css
+/* archivo global de CSS */
+
+/* es incorrecto porque usa min-width en vez de la sintaxis de rango */
 h1 {
   color: red;
 
@@ -2069,10 +2112,10 @@ h1 {
 }
 ```
 
-**Incorrecto**
-
 ```css
-/* es incorrecto porque usa max-width (desktop first) */
+/* archivo global de CSS */
+
+/* es incorrecto porque usa max-width: no es sintaxis de rango y además es desktop first */
 h1 {
   color: red;
 
@@ -2083,11 +2126,54 @@ h1 {
 ```
 
 ```css
-/* es incorrecto porque mezcla min-width y max-width en la misma media query */
+/* archivo global de CSS */
+
+/* es incorrecto porque usa min-width y max-width en vez de la sintaxis de rango */
 h1 {
   color: red;
 
   @media (min-width: 768px) and (max-width: 1023px) {
+    color: blue;
+  }
+}
+```
+
+### Media Queries en CSS
+Las media queries en CSS solo se usan en estilos globales. Los componentes usan los prefijos de Tailwind.
+
+**Correcto:**
+
+```css
+/* archivo global de CSS */
+
+h1 {
+  color: red;
+
+  @media (width >= 768px) {
+    color: blue;
+  }
+}
+```
+
+**Incorrecto**
+
+```css
+/* es incorrecto porque usa width <= (desktop first) */
+h1 {
+  color: red;
+
+  @media (width <= 767px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* es incorrecto porque acota entre dos anchos en vez de ser mobile first */
+h1 {
+  color: red;
+
+  @media (768px <= width <= 1023px) {
     color: blue;
   }
 }
@@ -2100,7 +2186,7 @@ h1 {
 .card {
   padding: 1rem;
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     padding: 1.5rem;
   }
 }

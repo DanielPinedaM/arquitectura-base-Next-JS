@@ -16,17 +16,17 @@ custom propierties de Tailwind */
   * https://tailwindcss.com/docs/responsive-design#removing-default-breakpoints *
   ******************************************************************************* */
   /* celular */
-  --breakpoint-xsm: 30rem; /* @media (min-width: 480px) { ... } */
+  --breakpoint-xsm: 30rem; /* @media (width >= 480px) { ... } */
 
   /* tablet */
-  --breakpoint-sm: 40rem; /* @media (min-width: 640px) { ... } */
-  --breakpoint-md: 48rem; /* @media (min-width: 768px) { ... } */
-  --breakpoint-lg: 64rem; /* @media (min-width: 1024px) { ... } */
+  --breakpoint-sm: 40rem; /* @media (width >= 640px) { ... } */
+  --breakpoint-md: 48rem; /* @media (width >= 768px) { ... } */
+  --breakpoint-lg: 64rem; /* @media (width >= 1024px) { ... } */
 
-  /* pantalla computador portatil */
-  --breakpoint-xl: 80rem; /* @media (min-width: 1280px) { ... } */
+  /* pantalla computador portátil */
+  --breakpoint-xl: 80rem; /* @media (width >= 1280px) { ... } */
 
   /* monitor */
-  --breakpoint-2xl: 96rem; /* @media (min-width: 1536px) { ... } */
-  --breakpoint-3xl: 120rem; /* @media (min-width: 1920px) { ... } */
+  --breakpoint-2xl: 96rem; /* @media (width >= 1536px) { ... } */
+  --breakpoint-3xl: 120rem; /* @media (width >= 1920px) { ... } */
 }
