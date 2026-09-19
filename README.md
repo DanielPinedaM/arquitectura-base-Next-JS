@@ -222,13 +222,13 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `eslint.config.mjs`
 
 # ⚙️ Entorno de Ejecución
-Obligatorio el uso de Node.js, prohibido usar alternativas como:
+Usar Node.js, prohibido usar alternativas como:
 
 * [Bun](https://bun.com/)
 * [Deno](https://deno.com/)
 
 # 📦 Manejador de Paquetes
-Obligatorio el uso de `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
+Usar `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
 
 | Concepto ⬇️ / Nombre manejador de paquetes ➡️            | `npm`                                   | `yarn`                              |
 | --------------------------------------------------------- | --------------------------------------- | ----------------------------------- |
@@ -236,7 +236,7 @@ Obligatorio el uso de `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>
 | Ejecutar un paquete temporal (sin instalarlo globalmente) | `npx <paquete>`<br>`npm exec <paquete>` | `yarn dlx <paquete>` *(Yarn Berry)* |
 
 # 🟢 Administrador de Versiones para Node.js
-Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
+Usar `fnm`. Está prohibido usar alternativas como:
 
 * nvm
 * volta
@@ -247,6 +247,8 @@ Este proyecto usa Node.js 24.18.0
 Para todos los comandos de `pnpm` usar el alias `pn`
 
 # 📦 Instalar Paquetes
+
+Este comando instala Next.js, React, TypeScript, Tailwind, etc:
 
 ```console
 pn i
@@ -1111,7 +1113,7 @@ Esta arquitectura prohíbe crear carpetas cuyo nombre sea genérico o ambiguo, p
 
 ### Regla de Dirección de Dependencias
 
-Esta sección complementa la "Regla de Decisión". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Es tan obligatoria como la ubicación misma: una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
+Esta sección complementa la "Regla de Decisión". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
 
 Las dependencias fluyen en **una sola dirección**:
 
@@ -1323,19 +1325,21 @@ Un componente pertenece a `components` cuando conoce el dominio, participa en un
 
 La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
-
 # Fechas
-1. **OBLIGATORIO** usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería diferente de Luxon.
+
+**Reglas:**
+
+1. Usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería de fechas diferente de Luxon.
 
 2. En todos los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, toda su interfaz pública de fechas (props, como `selected` y `onSelect`) es de tipo Luxon `DateTime`.
 
-3. **OBLIGATORIO** usar los calendarios  para la selección de fechas definidos en "Componentes de Calendarios". **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
+3. Usar los calendarios para la selección de fechas definidos en "Componentes de Calendarios". **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
 
-4. **OBLIGATORIO** utilizar exclusivamente los componentes definidos en la sección **"Componentes Permitidos de Calendarios"** para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
+4. Usar exclusivamente los componentes definidos en la sección **"Componentes Permitidos de Calendarios"** para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
 
-5. **OBLIGATORIO** mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, a través de sus props (`selected`, `onSelect`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. **OBLIGATORIO** que ese valor viaje en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
+5. Mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección **"Componentes Permitidos de Calendarios"**, a través de sus props (`selected`, `onSelect`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. Este valor viaja en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
 
-6. En `src/shared/utils/func/luxon.utils.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. **OBLIGATORIO** reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
+6. En `src/shared/utils/func/luxon.utils.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. Reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
 
 ## Componentes Permitidos de Calendarios
 
@@ -1351,7 +1355,7 @@ La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
 # Formularios - Integración Shad cn y React Hook Form
 
-Todos los formularios del proyecto deben utilizar obligatoriamente:
+Todos los formularios del proyecto deben usar:
 
 - React Hook Form
 - Componentes ubicados en `src\shared\ui\shad-cn\react-hook-form`
@@ -1391,16 +1395,16 @@ Estos componentes solamente manejan integración técnica:
 
 No representan formularios del negocio.
 
-## Reglas obligatorias del sistema de formularios
+## Reglas del sistema de formularios
 
 ### 1. Framework y renderizado
 
 - Se trabaja en Next.js (App Router).
 - Todos los componentes de formularios deben ser `"use client"`.
 
-### 2. Ubicación obligatoria de componentes
+### 2. Ubicación de Componentes
 
-Es obligatorio usar los componentes reutilizables de inputs ubicados en:
+Usar los componentes reutilizables de inputs ubicados en:
 
 ```txt
 src/shared/ui/shad-cn/react-hook-form
@@ -1409,7 +1413,7 @@ src/shared/ui/shad-cn/react-hook-form
 ### 3. Restricciones estrictas
 
 - Prohibido usar inputs HTML nativos (`<input />`, `<select />`, etc.).
-- Obligatorio usar componentes de shad cn para todos los campos.
+- Usar componentes de shad cn para todos los campos.
 - Prohibido usar formularios controlados con `useState`.
 - Prohibido usar formularios no controlados con `useRef`.
 - React Hook Form es la única fuente válida de estado del formulario.
@@ -1456,10 +1460,10 @@ src/shared/ui/shad-cn/react-hook-form
 
 - Es el único responsable del estado del formulario.
 - `defaultValues` se define exclusivamente en `useForm` en el componente padre.
-- `watch` es obligatorio para lógica derivada en el componente padre.
+- Usar `watch` para lógica derivada en el componente padre.
 - `onChange` manual está prohibido fuera de los inputs controlados por `Controller`.
 
-### 6. Uso obligatorio de `watch`
+### 6. Uso de `watch`
 
 - Toda lógica condicional del formulario debe resolverse con `watch`.
 
@@ -1532,7 +1536,7 @@ Un input reutilizable debe:
 
 - Padre = lógica + `watch` + validaciones + estado derivado
 
-## Flujo obligatorio de datos
+## Flujo de datos
 
 1. React Hook Form gestiona estado interno.
 2. watch en el componente padre define reglas dinámicas.
@@ -1586,9 +1590,9 @@ if (user.role === "admin") {
 > # **INCOMPLETO - AQUI ME FALTA AGREGAR EJEMPLO DE INPUTS Q ESTAN EN SRC/SHARED/COMPONENTS/REACT-HOOK-FORM**
 
 # Consumo de API
-En este proyecto es **OBLIGATORIO**, sin ninguna excepción, usar `src\shared\api\http-client\http-gateway.api.ts` para realizar cualquier petición HTTP.
+Usar `src\shared\api\http-client\http-gateway.api.ts` para realizar cualquier petición HTTP.
 
-Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
+Esto aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
 
 `http-gateway.api.ts` estandariza todas las llamadas a API y devuelve siempre la misma estructura:
 
@@ -2313,7 +2317,7 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
    En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
 ### Refuerzo para formularios
-Además de lo anterior, en formularios es obligatorio usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+Además de lo anterior, en formularios usar los componentes de shad cn de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
 
 Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
 
@@ -2384,9 +2388,9 @@ La misma regla aplica a los elementos **con apariencia de botón**: un `<a>` est
 #### Cómo pasar el botón composable a un componente de la librería
 Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un componente. Los props internos del componente (`onClick`, `aria-*`, `data-*`, `ref`, `className`) se fusionan sobre el elemento recibido.
 
-**OBLIGATORIO** escribir el contenido del botón **dentro** del elemento que se pasa a `render`, y dejar el componente de Base UI autocerrado:
+Escribir el contenido del botón **dentro** del elemento que se pasa a `render`, y dejar el componente de Base UI autocerrado:
 
-**Motivo:** los tres botones composables declaran `children` como prop **obligatoria**, así que `<Button theme="primary" variant="background" />` no compila. Además Base UI fusiona con `mergeProps(props, render.props)`, donde el objeto de la derecha gana: los `children` del elemento de `render` sobrescriben a los del componente de Base UI.
+**Motivo:** los tres botones composables declaran `children` como prop, así que `<Button theme="primary" variant="background" />` no compila. Además Base UI fusiona con `mergeProps(props, render.props)`, donde el objeto de la derecha gana: los `children` del elemento de `render` sobrescriben a los del componente de Base UI.
 
 **Incorrecto:**
 
@@ -2747,7 +2751,7 @@ Esto ayuda al usuario a entender rápidamente qué va a ocurrir antes de hacer c
 
 ### Clase `.btn` con Estilos Base
 
-La clase `.btn` define los estilos base y actúa como un **reset CSS obligatorio para todos los botones**, sin importar su variante o tipo (`primary`, `outline`, `ghost`, etc.).
+La clase `.btn` define los estilos base y actúa como un reset CSS para todos los botones, sin importar su variante o tipo (`primary`, `outline`, `ghost`, etc.).
 
 Esta clase **siempre debe utilizarse**, ya que establece la estructura común del componente y garantiza consistencia en toda la UI.
 
@@ -2924,7 +2928,7 @@ export default function MyComponent() {
 
 ### Botones con Icono
 
-Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), se utilicen las clases `btn` y `btn-icon-only`
+Cuando el botón contenga únicamente un icono (sin texto), se utilicen las clases `btn` y `btn-icon-only`
 
 ![solo-icono](./docs/readme-md/img/button/solo-icono.png)
 
