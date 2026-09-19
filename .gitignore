@@ -45,8 +45,6 @@ yarn-error.log
 /*.jpeg
 # Archivos temporales con el mensaje de los commits que genera la skill git-commit
 .claude/skills/git-commit/*.txt
-# Patch temporal que genera la skill git-commit para repartir un archivo por hunks
-.claude/skills/git-commit/*.patch
 # Excepcion: la documentacion oficial de Next.js si se sube al repositorio remoto
 !/node_modules/next/
 /node_modules/next/*
