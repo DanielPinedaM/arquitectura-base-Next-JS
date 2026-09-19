@@ -603,6 +603,9 @@ Hay dos alcances:
 
 3. Mover la skill a `.claude\skills\NOMBRE-DE-LA-SKILL\SKILL.md`
 
+### Ver Skills Instaladas
+Para ver la lista de skills ejecutar el comando `/skills` dentro de Claude Code
+
 ## 🌿 `git-commit`
 Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
 
