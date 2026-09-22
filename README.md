@@ -523,7 +523,7 @@ claude --dangerously-skip-permissions
 Es un prompt que siempre se envia a Claude. Sirve para que Claude:
 * Respete la arquitectura de software del proyecto.
 
-* Consulte la [documentación oficial](http://nextjs.org/docs) que está en `node_modules\next\dist\docs` de la versión de Next.js instalada.
+* Consulte la [documentación oficial](http://nextjs.org/docs) que está en la skill `next-docs`
 
 * Use Next.js moderno y no legacy.
 
@@ -644,6 +644,30 @@ La salida debe contener algo similar a esto:
 ● Read(\.claude\skills\vercel-react-best-practices\rules\[nombre_archivo].md)
 
 Read 57 lines
+```
+
+## `next-docs`
+Esta skill sirve para que la IA pueda leer la documentacion de Next.js
+
+[Segun la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents), al instalar Next.js, se agregan archivos markdown en la ruta `node_modules/next/dist/docs/` que contienen la [documentacion oficial de Next.js](https://nextjs.org/docs)
+
+Esta skill se hizo de la siguiente forma:
+1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.claude\skills\next-docs\`
+
+2. Se agrego un archivo `.claude\skills\next-docs\SKILL.md`
+
+3. En `.claude\skills\next-docs\SKILL.md` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
+
+Para probar que funcione:
+
+```txt
+/next-docs ¿como funciona next js app router?, explicar, citar textual y traducir cita textual a español
+```
+
+La salida debe contener algo similar a esto:
+
+```bash
+
 ```
 
 ## 🌐 `playwright-cli` y `browser-agent`
