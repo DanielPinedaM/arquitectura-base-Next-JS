@@ -5,70 +5,29 @@
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
 
-# Reglas de Idioma
-
-## Excepciones, Responder en Ingles
-* Términos técnicos de uso común en desarrollo de software: hook, stores, api, ui, utils, component, props, middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload, patrones de diseño, etc.
-
-* Nombres de frameworks, librerías, paquetes, APIs
-
-* Código fuente (todo, **excepto los comentarios de codigo**): Identificadores, nombres de archivos y carpetas, route group de Next.js, clases, interface, enum, métodos, funciones, parámetros, variables, nombres de archivos reservados de Next.js (`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, `proxy.ts`), route groups `(nombre)`, carpetas privadas `_nombre`, segmentos dinámicos `[param]`
-
-## Excepciones dentro de las Excepciones, esto debe estar en Español
-Aunque la sección anterior indica que los "nombres de archivos y carpetas" van en inglés, existe un caso puntual que queda **excluido de esa excepción** y por lo tanto debe estar en español:
-
-1. Los nombres de las carpetas dentro de `src/app/(features)` que representen un **segmento de ruta (route segment) visible en la URL**
-2. Las carpetas dentro de `src/features/<feature>` que representen una página/ruta y que estén asociadas a ese segmento de ruta en `src/app/`
-
-### Explicación
-En Next.js App Router no existe un archivo central de rutas: el nombre de la carpeta dentro de `app/` **es** el segmento de la URL. Por eso, toda carpeta dentro de `src/app/` que aparezca en la URL final debe estar en español. Quedan excluidos de esta regla (se mantienen en inglés): route groups `(nombre)`, carpetas privadas `_nombre`, segmentos dinámicos `[param]` y archivos reservados como `page.tsx`.
-
-```console
-src/app/
-├── (features)/                     # route group, no aparece en la URL  -> ingles
-│   ├── (auth)/                     # route group, no aparece en la URL  -> ingles
-│   │   └── iniciar-sesion/         # segmento de ruta                   -> español
-│   │       ├── components/         # carpeta de codigo, no es ruta      -> ingles
-│   │       │   └── example.tsx     # nombre de archivo                  -> ingles
-│   │       └── page.tsx            # archivo reservado de Next.js       -> ingles
-│   └── asignar-nueva-clave/        # segmento de ruta                   -> español
-│       └── [id]/                   # segmento dinamico                  -> ingles
-│           └── page.tsx            # archivo reservado de Next.js       -> ingles
-└── page.tsx                        # archivo reservado de Next.js       -> ingles
-```
-
-Resultado: URLs `/iniciar-sesion`, `/asignar-nueva-clave/123`
-
-Es decir:
-1. Dentro de `src/features/<feature>` existen carpetas que representan páginas/rutas y están en español.
-2. Esas carpetas están asociadas a su respectivo segmento de ruta dentro de `src/app/`.
-3. El nombre de la carpeta dentro de `src/app/` (el segmento de ruta) va en español.
-
-Ejemplo: `src/features/auth/recuperar-clave/` asociada a `src/app/(auth)/recuperar-clave/page.tsx` — ambos en español. El resto del código dentro de esa carpeta (archivos `.tsx`, componentes, funciones, hooks, variables) sigue en inglés según la sección anterior.
-
 # Reglas **OBLIGATORIAS** de Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento.
 
-Antes de escribir código o responder, es **OBLIGATORIO** consultar estas fuentes, listadas de mayor a menor precedencia:
+Antes de escribir código o responder, consultar estas fuentes, listadas de mayor a menor precedencia:
 
-1. Este `AGENTS.md`: La regla final ante cualquier conflicto.
+1. Skill `next-conventions` (`.claude/skills/next-conventions/SKILL.md` y `.claude/skills/next-conventions/rules/`): Reglas propias del proyecto que definen su arquitectura.
 
-2. Skill `next-conventions` (`.claude/skills/next-conventions/SKILL.md` y `.claude/skills/next-conventions/rules/`): Estándares de arquitectura, codigo, UI, estilos, formularios, fechas y consumo de API.
+2. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules/`): El cómo, con ejemplos de código.
 
-3. Skill `vercel-react-best-practices` (`.claude/skills/vercel-react-best-practices/SKILL.md` y `.claude/skills/vercel-react-best-practices/rules/`): El cómo, con ejemplos de código.
+3. Guía `node_modules/next/dist/docs/`: Documentación oficial de Next.js; respetar sus avisos de deprecación.
 
-4. Guía `node_modules/next/dist/docs/`: Documentación oficial de Next.js; respetar sus avisos de deprecación.
+4. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
 
-5. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
+# Resumen de la Skill `next-conventions`
 
-## Buenas Practicas de TypeScript
+## Tipado en TypeScript
 * Usar strict type checking
 
 * Preferir la inferencia de tipos cuando el tipo sea obvio
 
 * Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto.
 
-* Preferir `interface` para tipos de objeto (`Producto`) y para el tipo de los elementos en arrays de objetos (`Producto[]`).
+* Preferir `interface` para tipos de objeto (`Task`) y para el tipo de los elementos en arrays de objetos (`Task[]`).
 
 * Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
 
