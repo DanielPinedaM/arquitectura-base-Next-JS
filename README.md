@@ -661,7 +661,7 @@ Esta skill se hizo de la siguiente forma:
 Para probar que funcione:
 
 ```txt
-/next-docs ¿como funciona next js app router?, explicar, citar textual y traducir cita textual a español
+/next-docs ¿como funciona Next.js App Router?, explicar, citar textual y traducir cita textual a español
 ```
 
 La salida debe contener algo similar a esto:
@@ -672,7 +672,9 @@ La salida debe contener algo similar a esto:
 Read 80 lines
 ```
 
-Es decir, la IA debe consultar las rutas de los archivos de la skill donde esta guardado la informacion relacionada con la respuesta de la pregunta. En este ejemplo se pregunto sobre next js app router y la IA leyo el archivo \03-layouts-and-pages.md que esta relacionado con la respuesta
+Es decir, la IA debe consultar los archivos de la skill que contienen la información relacionada con la pregunta. En este ejemplo, al preguntar sobre Next.js App Router, la IA leyó el archivo `03-layouts-and-pages.md`, que contiene la información necesaria para responder.
+
+El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la documentacion oficial de Next.js](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
 
 ## 🌐 `playwright-cli` y `browser-agent`
 
