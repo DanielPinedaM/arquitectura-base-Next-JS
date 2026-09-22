@@ -37,9 +37,22 @@ Finding a page takes two hops, for that same reason:
 
 Reading a second reference file is usually a sign the area was misidentified, not a sign that more context is needed. Before reaching for one, use the shortcut the pages themselves provide: **a concept page's `related:` frontmatter lists the exact API pages that belong to it**, as full paths. Going from `09-revalidating.md` to `revalidateTag.md` costs one `related:` link, not a second reference file. Open a second reference deliberately only when the task genuinely straddles two areas.
 
-## Two traps in the corpus
+## Three traps in the corpus
 
-**113 of the 164 Pages Router pages are empty pointers.** They carry a `source:` key in the frontmatter and 8–13 lines of nothing; the body lives in the App Router equivalent. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page — follow that link instead of opening the stub. A page whose frontmatter has `source:` is always one of these.
+**112 of the 164 Pages Router pages are empty husks.** They carry a `source:` key in the frontmatter, this notice, and nothing else:
+
+> `{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. */}`
+
+That notice speaks to whoever maintains the Next.js repository, not to you. It means *this file is an auto-generated copy; edit the page named in `source:` instead*. What it tells a reader is that the body lives elsewhere — and in these 112 files nothing was copied at all, so opening one yields 8–13 lines of frontmatter and this comment. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page; follow that link. Only 51 pages under `docs/02-pages/` have a body of their own.
+
+**60 App Router pages carry content for both routers at once.** These are the source pages those copies are generated from, so router-specific sections inside them are wrapped in JSX tags:
+
+```
+<AppOnly>   … applies to app/ only   … </AppOnly>
+<PagesOnly> … applies to pages/ only … </PagesOnly>
+```
+
+Anything not wrapped applies to both. When reading one of these pages for App Router work, skip every `<PagesOnly>` block — it describes `pages/`, and following it produces code that does not belong in `app/`. The same page may open with a note saying its content is shared between both routers; that is the marker.
 
 **Caching pages assume Cache Components.** `08-caching.md` and `09-revalidating.md` document the `use cache` model. If `cacheComponents` is not enabled in `next.config.js`, the page that applies is *Caching and Revalidating (Previous Model)* in `references/app-router-guides.md`. Check the flag before writing caching code, or the snippet will not apply to the project.
 
