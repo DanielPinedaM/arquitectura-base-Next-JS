@@ -656,7 +656,7 @@ Esta skill se hizo de la siguiente forma:
 
 2. Se agrego un archivo `.claude\skills\next-docs\SKILL.md`
 
-3. En `.claude\skills\next-docs\SKILL.md` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
+3. En `.claude\skills\next-docs\SKILL.md` y `.claude\skills\next-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
 
 Para probar que funcione:
 
@@ -667,8 +667,12 @@ Para probar que funcione:
 La salida debe contener algo similar a esto:
 
 ```bash
+● Read(\skills\next-docs\docs\01-app\01-getting-started\03-layouts-and-pages.md · lines 1-80)
 
+Read 80 lines
 ```
+
+Es decir, la IA debe consultar las rutas de los archivos de la skill donde esta guardado la informacion relacionada con la respuesta de la pregunta. En este ejemplo se pregunto sobre next js app router y la IA leyo el archivo \03-layouts-and-pages.md que esta relacionado con la respuesta
 
 ## 🌐 `playwright-cli` y `browser-agent`
 
