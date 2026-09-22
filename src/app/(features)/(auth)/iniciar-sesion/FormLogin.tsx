@@ -176,7 +176,7 @@ export default function FormLogin() {
     /* este es el codigo correcto q se tiene q des-comentar
     iterateUserData(data); */
 
-    router.push('/administrador');
+    router.push('/tareas');
   };
 
   return (

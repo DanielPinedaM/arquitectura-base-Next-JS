@@ -22,8 +22,8 @@ interface IUrl {
 const API_RESPONSE: IUrl[] = [
   {
     id: 1,
-    url: '/administrador',
-    text: 'Administrador',
+    url: '/tareas',
+    text: 'Tareas',
   },
   {
     id: 2,
