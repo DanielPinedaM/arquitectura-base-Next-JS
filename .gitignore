@@ -45,3 +45,6 @@ yarn-error.log
 /*.jpeg
 # Archivos temporales con el mensaje de los commits que genera la skill git-commit
 .claude/skills/git-commit/*.txt
+
+# evaluacion de skills (andamiaje local, no forma parte de las skills)
+.claude/skills/*-workspace/
