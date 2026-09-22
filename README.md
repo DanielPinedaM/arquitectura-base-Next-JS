@@ -874,7 +874,6 @@ src/
 ```
 
 ## Feature Architecture
-
 Esta sección es la definición oficial de la arquitectura del proyecto. Toda decisión sobre dónde ubicar un archivo o carpeta debe respetarla de forma estricta.
 
 La arquitectura es **agnóstica al framework**: describe un modelo reutilizable en cualquier tecnología. Las rutas indicadas (`src/app/(features)`, `src/core`, `src/shared`) son la convención de carpetas del proyecto, no una característica de un framework específico.
@@ -1324,6 +1323,47 @@ Su única responsabilidad es renderizar interfaz reutilizable.
 Un componente pertenece a `components` cuando conoce el dominio, participa en un caso de uso o implementa comportamiento propio de la funcionalidad.
 
 La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
+
+## Idioma de Código, Archivos y Carpetas
+Todo el código fuente se escribe en inglés: componentes, hooks, funciones, nombres de archivos y carpetas, etc., excepto [Qué va en español](#qué-va-en-español).
+
+### Qué va en español
+1. Los comentarios.
+
+2. Las carpetas dentro de `src/app/` que representen un segmento de ruta visible en la URL.
+
+**Explicación**
+En el App Router de Next.js las rutas se definen con carpetas y archivos: el nombre de la carpeta es el segmento de la URL, y `page.tsx` lo hace accesible como página. Las carpetas de `src/app/` que son un segmento de la URL van en español porque el usuario las ve en la barra de direcciones.
+
+El resto se mantiene en inglés, porque no aparece en la URL o es sintaxis del framework:
+
+| Elemento                                | Ejemplo                                                                                       |
+| --------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Archivos reservados de Next.js          | `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, `proxy.ts` |
+| Route groups `(nombre)`                 | `(features)`, `(auth)`                                                                        |
+| Carpetas privadas `_nombre`             | `_helpers`                                                                                    |
+| Segmentos dinámicos `[param]`           | `[id]`                                                                                        |
+| Carpetas de código dentro de la feature | `components/`, `ui/`, `hooks/`, `stores/`, `utils/`, `data-types/`                            |
+
+**Ejemplo**
+
+```txt
+src/app/
+├── (features)/                     → route group, no aparece en la URL → inglés
+│   ├── (auth)/                     → route group, no aparece en la URL → inglés
+│   │   └── iniciar-sesion/         → segmento de ruta                  → español
+│   │       ├── components/         → carpeta de código, no es ruta     → inglés
+│   │       │   └── FormLogin.tsx   → nombre de componente               → inglés
+│   │       └── page.tsx            → archivo reservado de Next.js      → inglés
+│   │
+│   └── asignar-nueva-clave/        → segmento de ruta                  → español
+│       └── [id]/                   → segmento dinámico                 → inglés
+│           └── page.tsx
+│
+└── not-found.tsx
+```
+
+URLs resultantes: `/iniciar-sesion` y `/asignar-nueva-clave/123`
 
 # Fechas
 
@@ -3457,7 +3497,127 @@ export default function MyComponent() {
 }
 ```
 
-# Evitar Prop Drilling y Usar Data Down, Events Up
+# Buenas Practicas
+
+## Tipado en TypeScript
+
+### Strict Type Checking
+Usar strict type checking
+
+### Inferencia de Tipos
+Preferir la inferencia de tipos cuando el tipo sea obvio
+
+**Incorrecto:**
+
+```ts
+// el tipo es obvio, anotarlo es ruido
+const total: number = 10;
+const isActive: boolean = true;
+const tags: string[] = ['angular', 'signals'];
+```
+
+**Correcto:**
+
+```ts
+const total = 10;
+const isActive = true;
+const tags = ['angular', 'signals'];
+```
+
+### `unknown` en Lugar de `any`
+Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto.
+
+**Incorrecto:**
+
+```ts
+function parseTitle(value: any): string {
+  // any desactiva el chequeo de tipos: esto compila y falla en runtime
+  return value.toUpperCase();
+}
+```
+
+**Correcto:**
+
+```ts
+function parseTitle(value: unknown): string {
+  // unknown obliga a comprobar el tipo antes de usarlo
+  if (typeof value === 'string') return value;
+
+  return '';
+}
+```
+
+### `interface` para Tipos de Objeto
+Preferir `interface` para tipos de objeto (`Task`) y para el tipo de los elementos en arrays de objetos (`Task[]`).
+
+**Incorrecto:**
+
+```ts
+// un objeto no se modela con type
+type Task = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+// ni con el objeto escrito en línea
+const tasks: { id: number; title: string; completed: boolean }[] = [];
+```
+
+**Correcto:**
+
+```ts
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+const tasks: Task[] = [];
+```
+
+### `Record<Clave, Valor>` para Claves Dinámicas
+Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
+
+**Incorrecto:**
+
+```ts
+interface TasksById {
+  [key: number]: Task;
+}
+```
+
+**Correcto:**
+
+```ts
+const tasksById: Record<number, Task> = {};
+const labels: Record<string, string> = { pending: 'Pendiente', done: 'Hecha' };
+```
+
+### `type` para Primitivos, Literales y Uniones
+Usar `type` para tipos primitivos, literales y uniones.
+
+**Incorrecto:**
+
+```ts
+// una union no se modela con interface
+interface TaskStatus {
+  value: 'pending' | 'in-progress' | 'done';
+}
+```
+
+**Correcto:**
+
+```ts
+type TaskStatus = 'pending' | 'in-progress' | 'done';
+type TaskFilter = TaskStatus | 'all';
+
+interface TaskStatus {
+  value: TaskStatus;
+}
+```
+
+## Evitar Prop Drilling y Usar Data Down, Events Up
 
 **Regla:**
 PROHIBIDO el prop drilling. Toda comunicación entre componentes usa **data down, events up**.
@@ -3473,7 +3633,7 @@ Aplicar SIEMPRE que se diseñe, cree, divida, modifique o refactorice un compone
 
 Una prop que el hijo directo sí consume NO es prop drilling. Lo prohibido es el componente de paso.
 
-## Alternativas, en Este Orden
+### Alternativas, en Este Orden
 1. **Composición, reestructurar el árbol de componentes:** eliminar o reubicar el componente intermedio para que el que produce el dato y el que lo consume queden padre/hijo directos. No usa ninguna API extra, cambia la forma del árbol. Es la opción por defecto.
 
 2. **Composición con `children` o slots:** cuando el componente intermedio debe existir, que reciba el contenido ya construido en lugar de reenviar props. Así el padre queda conectado directamente con el componente que consume el dato.
@@ -3482,7 +3642,7 @@ Una prop que el hijo directo sí consume NO es prop drilling. Lo prohibido es el
 
 React Context queda reservado a los compound components de UI. PROHIBIDO usarlo como store de estado de feature para evitar el drilling.
 
-## Checklist Antes de Escribir el Componente
+### Checklist Antes de Escribir el Componente
 ```
 - [ ] 1. Por cada prop nueva: verificar que el componente que la declara consume el valor.
 - [ ] 2. Si solo la reenvía o la re-emite, es prop drilling: no escribirla.
@@ -3490,17 +3650,17 @@ React Context queda reservado a los compound components de UI. PROHIBIDO usarlo 
 - [ ] 4. Confirmar que el hijo no muta la prop: notifica con la callback y el padre decide.
 ```
 
-## Prohibiciones
+### Prohibiciones
 * Declarar una prop cuyo único uso sea pasarla a otro componente en el JSX.
 
 * Declarar una callback prop cuyo único uso sea re-emitir la callback de un hijo.
 
 * Mutar dentro del hijo el valor recibido por props.
 
-## Al Refactorizar
+### Al Refactorizar
 Antes de modificar un componente, recorrer la cadena de props de arriba abajo y listar las que atraviesan componentes intermedios. Cada una es una violación y debe eliminarse aplicando las alternativas.
 
-# Rutas Absolutas en `import` e Imágenes
+## Rutas Absolutas en `import` e Imágenes
 La regla es la misma para `import` e imágenes: siempre usar ruta absoluta. Está prohibido usar rutas relativas.
 
 * Para los `import`, usar los alias definidos en `paths` de `tsconfig.json`.
