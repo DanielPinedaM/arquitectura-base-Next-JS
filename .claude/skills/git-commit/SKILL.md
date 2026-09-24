@@ -2,12 +2,10 @@
 name: git-commit
 description: Convención obligatoria de git commits (Conventional Commits + Gitmoji, 1 commit = 1 feature). Aplicar siempre antes de cualquier commit.
 when_to_use: Aplicar en TODOS los git commits sin excepción. Triggers — "haz un commit", "hacer commit", "commitear", "crea un commit", "nuevo commit", "git commit", "git push", "registra los cambios", "guarda en git", "commit los cambios", "sube los cambios a git".
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Write(.claude/skills/git-commit/COMMIT_MSG_TEMP.txt), Bash(rm -f .claude/skills/git-commit/COMMIT_MSG_TEMP.txt)
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git config:*), Bash(git add:*), Bash(git commit:*), Write(.claude/skills/git-commit/COMMIT_MSG_TEMP.txt), Bash(rm -f .claude/skills/git-commit/COMMIT_MSG_TEMP.txt)
 ---
 
-# `git commit`
-
-## Flujo de Trabajo
+# Flujo de Trabajo
 Antes de crear cualquier commit, copiar este checklist y marcarlo a medida que se avanza:
 
 - [ ] 1. Verificar que el usuario pidió explícitamente el commit; si no lo pidió, NO commitear.
@@ -15,15 +13,16 @@ Antes de crear cualquier commit, copiar este checklist y marcarlo a medida que s
 - [ ] 3. Por cada feature: mover al staging area únicamente los archivos que le corresponden.
 - [ ] 4. Elegir `<emoji>` y `<type>` desde la tabla y determinar el `<scope>`.
 - [ ] 5. Redactar el encabezado y el `body` como lista de puntos.
-- [ ] 6. Escribir el mensaje en un archivo, ejecutar el commit con `git commit -F` y eliminar el archivo temporal (ver [Cómo Ejecutar el Commit](#cómo-ejecutar-el-commit)); si quedan más features, volver al paso 3.
-- [ ] 7. Mostrar el resultado de cada commit creado (ver [Mostrar el Commit Después de Realizarlo](#mostrar-el-commit-después-de-realizarlo)).
+- [ ] 6. Obtener el autor del commit desde `git config` (ver [Autoría del Commit](#autoría-del-commit)).
+- [ ] 7. Escribir el mensaje en un archivo, ejecutar el commit con `git commit --author ... -F` y eliminar el archivo temporal (ver [Cómo Ejecutar el Commit](#cómo-ejecutar-el-commit)); si quedan más features, volver al paso 3.
+- [ ] 8. Mostrar el resultado de cada commit creado (ver [Mostrar el Commit Después de Realizarlo](#mostrar-el-commit-después-de-realizarlo)).
 
-## Cuándo Hacer un Commit
+# Cuándo Hacer un Commit
 Está PROHIBIDO hacer un commit de forma autónoma al terminar una tarea, fase, proceso, paso o modificación de código. El único motivo válido para ejecutar un commit es que el usuario lo solicite explícitamente en su mensaje. Si el usuario no pidió un commit, no hacerlo bajo ninguna circunstancia, aunque el trabajo haya concluido.
 
 Si el prompt del usuario es "git push" o cualquier otra frase equivalente que implique subir cambios (ver los triggers de `when_to_use`), primero ejecutar este skill para crear el/los commit(s) correspondientes y, una vez creados, proceder con el `git push`.
 
-## Formato del Mensaje de Commit
+# Formato del Mensaje de Commit
 `<emoji>` `<type>`(`<scope>`): `<mensaje en español>`
 
 El `<emoji>` siempre va al inicio, antes del `<type>`. A continuación del encabezado, escribir siempre el `body` como una lista de puntos con los cambios realizados.
@@ -41,20 +40,7 @@ Elementos obligatorios en todo commit:
 
 * El `body` nunca debe ser idéntico al `<mensaje en español>`. El `<mensaje en español>` resume el cambio, mientras que el `body` lo detalla punto por punto. Aunque el cambio sea muy pequeño y ambos puedan parecer similares, desarrollar el `body` con los puntos concretos del cambio en lugar de repetir el `<mensaje en español>`.
 
-## Fuente Única de Verdad para los Commits
-* La tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit) es la única fuente de verdad para construir cualquier commit. El tipo y el emoji deben seleccionarse exclusivamente desde sus filas.
-
-* Antes de crear un commit, dar prioridad absoluta a la tabla: tomar siempre el tipo y el emoji desde ella.
-
-* El uso de Conventional Commits y Gitmoji está estrictamente limitado a la tabla. Está prohibido usar tipos, emojis o definiciones que no aparezcan en ella.
-
-* Está prohibido inventar nuevos tipos de commit, nuevos emojis o nuevas definiciones de commit.
-
-* Si los cambios no encajan exactamente con ninguna fila de la tabla, está prohibido crear un tipo o un emoji nuevo. En ese caso, utilizar el tipo y el emoji existentes que más se aproximen a la intención real del cambio.
-
-* Está prohibido eliminar, agregar, editar o alterar la tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit).
-
-## Emojis por Tipo de Commit
+# Emojis por Tipo de Commit
 
 | Tipo de commit | Emoji | Definición                                                                                                                                                                                                                                                                                           |
 | ------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -81,7 +67,7 @@ Elementos obligatorios en todo commit:
 | i18n          | 🌐 | Internacionalización o traducciones                                                                                                                                                                                                                                                                      |
 | accessibility | ♿ | Mejoras de accesibilidad                                                                                                                                                                                                                                                                                 |
 
-## Reglas para el Scope
+# Reglas para el Scope
 * El `<scope>` es opcional.
 
 * Cuando se use, escribir el `<scope>` en inglés.
@@ -107,7 +93,7 @@ Flujo para determinar el `<scope>`:
 
 5. Si el `<scope>` genera duda, omitirlo.
 
-## Granularidad de Commits: 1 Commit = 1 Feature
+# Granularidad de Commits: 1 Commit = 1 Feature
 Cada commit debe representar exactamente una feature, corrección o cambio atómico. Está PROHIBIDO agrupar varias features en un solo commit.
 
 Antes de crear cualquier commit, revisar el working directory para identificar cuántas features distintas contiene:
@@ -118,12 +104,12 @@ Antes de crear cualquier commit, revisar el working directory para identificar c
 
 Una "feature" es cualquier unidad de cambio con una intención semántica propia: una nueva funcionalidad, una corrección de bug, un cambio de estilo, una actualización de documentación, etc. La intención semántica es el único criterio válido para agrupar cambios en una misma feature. Que dos cambios compartan el mismo `<type>` y el mismo `<scope>` NO es suficiente para considerarlos la misma feature: por ejemplo, dos correcciones de bugs no relacionados entre sí dentro del mismo módulo comparten `fix` y el mismo `<scope>`, pero son dos features distintas y deben ir en dos commits separados.
 
-## Regla Cuando el Cambio no Coincide Exactamente con la Tabla
+# Regla Cuando el Cambio no Coincide Exactamente con la Tabla
 * Nunca omitir el emoji.
 
 * Priorizar la coherencia semántica sobre la coincidencia exacta: elegir el tipo y el emoji de la tabla que mejor representen la intención del cambio.
 
-## Ejemplo
+**Ejemplo**
 El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, el `body` desarrolla los cambios como lista de puntos.
 
 ```
@@ -136,16 +122,38 @@ El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, 
 
 En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto por punto lo que resume el `<mensaje en español>` "agregar validación de token JWT", sin repetirlo literalmente.
 
-## Cómo Ejecutar el Commit
-El mensaje de commit siempre es multilínea (encabezado + línea en blanco + `body`). Pasar ese texto directamente como argumento en la línea de comandos es la causa de que se filtren caracteres sobrantes dentro del mensaje, por eso existe **un único método permitido**:
+# Autoría del Commit
+El autor de todo commit creado por este skill es siempre el usuario configurado en git en esta máquina, nunca ningun modelo de IA (sin importar el proveedor: Anthropic, OpenAI, Google, etc.).
 
-1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente.
-
-2. Ejecutar el commit leyendo el mensaje desde ese archivo:
+Antes de ejecutar el commit, obtener los valores exactos de:
 
 ```bash
-git commit -F .claude/skills/git-commit/COMMIT_MSG_TEMP.txt
+git config user.name
+git config user.email
 ```
+
+Usar esos dos valores, tal como los devuelve git, para construir la bandera `--author "<nombre> <correo>"` del comando de commit (ver [Cómo Ejecutar el Commit](#cómo-ejecutar-el-commit)). Reemplazar `<nombre>` y `<correo>` con el texto literal obtenido de cada comando, sin interpolación ni sustitución de comandos del shell (`$()`, `` `n ``, backticks, etc.): el mismo motivo detallado en el [Bugs Reales que Originan Estas Reglas](#bugs-reales-que-originan-estas-reglas) aplica aquí, ya que cada shell interpreta esa sintaxis de forma distinta y una interpolación fallida puede colar texto sobrante dentro del autor del commit.
+
+El formato que exige `git` para `--author` es literalmente `Nombre <correo>`: los signos `<` y `>` no son parte de la notación de placeholder que usa el resto de este documento (donde `<nombre>` y `<correo>` solo marcan "reemplazar por el valor real"), sino caracteres literales que deben rodear el correo en el comando final. Con `git config user.name` devolviendo `JuanPerez` y `git config user.email` devolviendo `juan.perez@example.com`, la bandera correcta se ve así:
+
+```bash
+--author "JuanPerez <juan.perez@example.com>"
+```
+
+PROHIBIDO omitir los signos `< >` alrededor del correo. Git espera que un autor nuevo tenga el formato `Nombre <correo>`. Si se omiten (por ejemplo `--author "JuanPerez juan.perez@example.com"`), Git no reconoce el argumento como una identidad de autor con formato válido y puede interpretarlo como un patrón para buscar un autor existente en el historial. Si no encuentra coincidencia, el commit falla con `fatal: --author '...' is not 'Name <email>' and matches no existing author`.
+
+# Cómo Ejecutar el Commit
+El mensaje de commit siempre es multilínea (encabezado + línea en blanco + `body`). Pasar ese texto directamente como argumento en la línea de comandos es la causa de que se filtren caracteres sobrantes dentro del mensaje, por eso existe **un único método permitido**:
+
+1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente. El `body` de este mensaje NUNCA incluye líneas de autoría o coautoría de ningún modelo de IA (ver [Autoría del Commit](#autoría-del-commit)).
+
+2. Ejecutar el commit leyendo el mensaje desde ese archivo e indicando explícitamente el autor obtenido en [Autoría del Commit](#autoría-del-commit):
+
+```bash
+git commit --author "<nombre> <correo>" -F .claude/skills/git-commit/COMMIT_MSG_TEMP.txt
+```
+
+Donde `<nombre>` y `<correo>` son, respectivamente, la salida literal de `git config user.name` y `git config user.email`.
 
 3. Eliminar el archivo temporal inmediatamente después de crear el commit:
 
@@ -165,7 +173,24 @@ Motivo de eliminar el archivo: es un archivo temporal cuya única función es tr
 
 En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .claude/skills/git-commit/COMMIT_MSG_TEMP.txt`.
 
-### Prohibiciones al Ejecutar el Commit
+## Bugs Reales que Originan Estas Reglas
+Ejecutar `git commit -m @'...'@` (here-string de PowerShell) dentro de un shell POSIX/Bash creó un commit cuyo mensaje empezaba con `@`, porque Bash no interpreta `@'` como here-string: lo lee como el carácter literal `@` concatenado con la cadena entre comillas simples. El comando terminó con éxito y el `@` sobrante quedó dentro del historial. Usar `git commit -F` evita por completo esta clase de bug.
+
+Ejecutar `git commit --author "JuanPerez juan.perez@example.com" -F ...` (sin los signos `< >` alrededor del correo) hizo fallar el commit con `fatal: --author 'JuanPerez juan.perez@example.com' is not 'Name <email>' and matches no existing author`, porque git exige el formato literal `Nombre <correo>` y, sin los corchetes angulares, trató todo el texto como un patrón de búsqueda entre autores existentes en vez de como un autor nuevo a asignar. Seguir el ejemplo literal de la sección [Autoría del Commit](#autoría-del-commit) evita esta clase de bug.
+
+# Mostrar el Commit Después de Realizarlo
+Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
+
+# Reglas
+* Está **TOTALMENTE PROHIBIDO** realizar cualquier modificación cuando te solicite hacer un **commit**.
+
+Si detectas algún problema, **infórmamelo y espera mi autorización explícita para poder modificar**. **Nunca** realices cambios por iniciativa propia ni asumas autorización sin antes preguntarme.
+
+* PROHIBIDO usar cualquier autor que no sea el obtenido de `git config user.name` / `git config user.email`.
+
+* PROHIBIDO agregar autoría o coautoría de un modelo de IA en cualquier parte del commit: ni como `--author`, ni como una línea `Co-Authored-By` (por ejemplo `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`) u otra atribución equivalente dentro del mensaje, sin importar el modelo o proveedor de IA.
+
+## Prohibiciones al Ejecutar el Commit
 * PROHIBIDO pasar un mensaje multilínea con `-m`.
 
 * PROHIBIDO usar here-strings de PowerShell (`@'...'@`) o heredocs de shell POSIX (`<<'EOF' ... EOF`) para pasar el mensaje. Cada shell interpreta una sintaxis distinta y la del shell equivocado NO produce un error: se inserta como texto literal dentro del mensaje del commit.
@@ -174,19 +199,25 @@ En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .cl
 
 * PROHIBIDO ejecutar `git commit` sin `-F`, salvo un `<mensaje en español>` de una sola línea sin `body`, caso que igualmente está prohibido porque el `body` es obligatorio en todo commit.
 
+* PROHIBIDO ejecutar `git commit` sin la bandera `--author` construida con los valores de `git config user.name` / `git config user.email` (ver [Autoría del Commit](#autoría-del-commit)).
+
+* PROHIBIDO que el `<nombre>` o el `<correo>` del `--author`, o cualquier línea del mensaje, contengan autoría o coautoría de un modelo de IA (Claude, GPT, Gemini u otro).
+
 * PROHIBIDO dejar el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt` sin eliminar después de crear el commit.
 
 * PROHIBIDO agregar `COMMIT_MSG_TEMP.txt` al staging area o incluirlo dentro de un commit. Por lo mismo, PROHIBIDO usar `git add .`, `git add -A` o `git add --all` mientras el archivo exista: mover al staging area únicamente los archivos de la feature, nombrándolos uno por uno.
 
 * PROHIBIDO reutilizar el archivo `.claude/skills/git-commit/COMMIT_MSG_TEMP.txt` de un commit anterior: cada commit escribe su propio mensaje en un archivo nuevo.
 
-### Bug Real que Origina Estas Reglas
-Ejecutar `git commit -m @'...'@` (here-string de PowerShell) dentro de un shell POSIX/Bash creó un commit cuyo mensaje empezaba con `@`, porque Bash no interpreta `@'` como here-string: lo lee como el carácter literal `@` concatenado con la cadena entre comillas simples. El comando terminó con éxito y el `@` sobrante quedó dentro del historial. Usar `git commit -F` evita por completo esta clase de bug.
+## Fuente Única de Verdad para los Commits
+* Prohibido eliminar, agregar, editar o alterar la tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit).
 
-## Mostrar el Commit Después de Realizarlo
-Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
+* La tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit) es la única fuente de verdad para construir cualquier commit. El tipo y el emoji deben seleccionarse exclusivamente desde sus filas.
 
-## REGLA OBLIGATORIA
-Está **TOTALMENTE PROHIBIDO** realizar cualquier modificación cuando te solicite hacer un **commit**.
+* Antes de crear un commit, dar prioridad absoluta a la tabla: tomar siempre el tipo y el emoji desde ella.
 
-Si detectas algún problema, **infórmamelo y espera mi autorización explícita para poder modificar**. **Nunca** realices cambios por iniciativa propia ni asumas autorización sin antes preguntarme.
+* El uso de Conventional Commits y Gitmoji está estrictamente limitado a la tabla. Está prohibido usar tipos, emojis o definiciones que no aparezcan en ella.
+
+* Está prohibido inventar nuevos tipos de commit, nuevos emojis o nuevas definiciones de commit.
+
+* Si los cambios no encajan exactamente con ninguna fila de la tabla, está prohibido crear un tipo o un emoji nuevo. En ese caso, utilizar el tipo y el emoji existentes que más se aproximen a la intención real del cambio.
