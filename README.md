@@ -676,21 +676,31 @@ Es decir, la IA debe consultar los archivos de la skill que contienen la informa
 
 El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la documentacion oficial de Next.js](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
 
+# MCP
+
+# [🔗 Enlace - Repositorios de MCP](https://mcpservers.org/es/)
+
+# CLI
+Puedes instalar CLIs para que la IA ejecute comandos y automatizar procesos
+
+Tambien puedes crear skills que le expliquen a la IA como ejecutar los comandos del CLI
+
 ## 🌐 `playwright-cli` y `browser-agent`
 
 > [!CAUTION]
 > # ⚠️ Advertencia
 >
-> Usar esta skill con ciudado, es muy buena, pero:
-> 1. Gasta muchos tokens.
+> Usar esta skill con ciudado, es muy buena, pero
 >
-> 2. Si intentas solucionar un bug con esta skill sin entender el código, es probable que introduzcas nuevos bugs.
+> Si intentas solucionar un bug con esta skill sin entender el código, es probable que introduzcas nuevos bugs.
 
 Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿que es `playwright-cli`?
 
-Sirve para que la IA (Claude Code) desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
+Sirve para que la IA desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
 
-Las skills son **DIFERENTES**:
+`playwright` es un CLI, lo que significa que sirve para ejecutar comandos. Existe un [playwright MCP](https://github.com/microsoft/playwright-mcp) pero la razon de porque no se usa es porque gasta mas tokens, por lo tanto la forma correcta de usarlo es usando la skill `browser-agent`.
+
+Para que la IA controle el navegador hay dos skills que son **DIFERENTES**:
 
 * **`playwright-cli`**: Lista y explicación de los comandos que permiten a la IA controlar el navegador.
 
@@ -725,10 +735,6 @@ para mejorar el resultado es bueno decirle a Claude
 rutas especificas de donde estan los archivos, componentes, funciones, etc.
 que necesita para ejecutar el proceso >>>
 ```
-
-# MCP
-
-# [🔗 Enlace - Repositorios de MCP](https://mcpservers.org/es/)
 
 # Reglas Obligatorias para Skill
 Aplican a toda respuesta o modificación de código de este proyecto.
