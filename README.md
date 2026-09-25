@@ -248,7 +248,7 @@ Para todos los comandos de `pnpm` usar el alias `pn`
 
 # 📦 Instalar Paquetes
 
-Este comando instala Next.js, React, TypeScript, Tailwind, etc:
+Este comando instala los paquetes que estan en `package.json` que son Next.js, React, TypeScript, Tailwind, etc:
 
 ```console
 pn i
