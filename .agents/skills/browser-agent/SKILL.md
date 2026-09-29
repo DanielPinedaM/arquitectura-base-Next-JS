@@ -76,7 +76,7 @@ Son casos particulares de esta regla, no la lista completa de cuándo aplicarla.
 
 Antes de la primera invocación de esta sesión, en este orden:
 
-1. **Consulta la skill oficial de Microsoft**, instalada en `.claude/skills/playwright-cli/SKILL.md` y `.claude/skills/playwright-cli/references/`. Ahí están los detalles de comandos, refs (`e15`), snapshots y sesiones.
+1. **Consulta la skill oficial de Microsoft**, instalada en `.agents/skills/playwright-cli/SKILL.md` y `.agents/skills/playwright-cli/references/`. Ahí están los detalles de comandos, refs (`e15`), snapshots y sesiones.
 
 2. **Ejecuta el `--help` del binario local**, siempre:
 
@@ -111,7 +111,7 @@ Por eso **todos** los comandos de este documento van con `pnpm exec` y nunca inv
 
 Esta skill **NO limita** qué comandos de `playwright-cli` puedes ejecutar. Los que aparecen aquí — `open`, `snapshot`, `click`, `console`, `requests`, `request`, `eval`, `screenshot`, `route`, `close` — son los que resuelven la mayoría de los casos, nada más.
 
-Si necesitas otro, **búscalo en `.claude/skills/playwright-cli/SKILL.md` o en `pnpm exec playwright-cli --help` y ejecútalo.** Hay muchos que este documento no menciona y que resuelven una situación concreta mejor que cualquier rodeo
+Si necesitas otro, **búscalo en `.agents/skills/playwright-cli/SKILL.md` o en `pnpm exec playwright-cli --help` y ejecútalo.** Hay muchos que este documento no menciona y que resuelven una situación concreta mejor que cualquier rodeo
 
 Usar el comando adecuado siempre es mejor que forzar uno de los ejemplos de este documento.
 

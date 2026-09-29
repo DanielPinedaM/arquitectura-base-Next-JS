@@ -5,7 +5,7 @@ description: Official Next.js 16 documentation (App Router and Pages Router) mir
 
 # What is this?
 
-Every `.md` file under `.claude/skills/next-docs/docs/` is a local, offline copy of the **official Next.js documentation** published at <https://nextjs.org/docs>. The folder tree mirrors the sections of the website, and each file keeps its original frontmatter (`title`, `description`, `related`) followed by the full page body.
+Every `.md` file under `.agents/skills/next-docs/docs/` is a local, offline copy of the **official Next.js documentation** published at <https://nextjs.org/docs>. The folder tree mirrors the sections of the website, and each file keeps its original frontmatter (`title`, `description`, `related`) followed by the full page body.
 
 This project runs **Next.js 16**, whose breaking changes may contradict your training data. Treat these files as the source of truth: when a file and your memory disagree, the file wins, and every deprecation notice inside them applies.
 
@@ -26,7 +26,7 @@ Every folder inside `docs/` has an `index.md`. It is the landing page of that se
 **Read an `index.md` when** you must *choose* among the files of a folder, or when you need the shared mental model a section takes for granted. **Skip it when** you already know which page you need: open that page directly.
 
 # How to read the documentation
-Read the `.md` files located in `/skills/next-docs/docs/` **on demand**: use the [Table of Contents](#table-of-contents) as a reference to infer which files the task you are solving needs, and open only those files.
+Read the `.md` files located in `.agents/skills/next-docs/docs/` **on demand**: use the [Table of Contents](#table-of-contents) as a reference to infer which files the task you are solving needs, and open only those files.
 
 **Reason**: reading every file consumes context and tokens unnecessarily.
 

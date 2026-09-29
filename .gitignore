@@ -45,3 +45,4 @@ yarn-error.log
 /*.jpeg
 # Archivos temporales con el mensaje de los commits que genera la skill git-commit
 .claude/skills/git-commit/*.txt
+.agents/skills/git-commit/*.txt
