@@ -598,7 +598,7 @@ Hay dos alcances:
 | Global  | Disponible para la persona que la instala en **todos sus proyectos** | ❌ **No**                                      |
 | Project | Disponible **solo en el proyecto actual** donde se instala           | ✅ **Sí**                                      |
 
-4. Mover `.agents\skills\vercel-react-best-practices` a `.claude\skills\vercel-react-best-practices`
+4. Verificar que la skill se guarde en `.agents\skills\vercel-react-best-practices`
 
 5. Eliminar `skills-lock.json`
 
@@ -607,7 +607,7 @@ Hay dos alcances:
 
 2. Descargar el repositorio
 
-3. Mover la skill a `.claude\skills\NOMBRE-DE-LA-SKILL\SKILL.md`
+3. Mover la skill a `.agents\skills\NOMBRE-DE-LA-SKILL\SKILL.md`
 
 ### Ver Skills Instaladas
 Para ver la lista de skills ejecutar el comando `/skills` dentro de Claude Code
@@ -619,7 +619,7 @@ Trabajar bajo el principio:
 
 > 1 commit = 1 feature
 
-El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
+El skill `.agents\skills\git-commit\SKILL.md` te permite realizar commits.
 
 ***Ejemplos de prompt:***
 
@@ -641,7 +641,7 @@ Para probar que funcione:
 La salida debe contener algo similar a esto:
 
 ```bash
-● Read(\.claude\skills\vercel-react-best-practices\rules\[nombre_archivo].md)
+● Read(\.agents\skills\vercel-react-best-practices\rules\[nombre_archivo].md)
 
 Read 57 lines
 ```
@@ -652,11 +652,11 @@ Esta skill sirve para que la IA pueda leer la documentacion de Next.js
 [Segun la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents), al instalar Next.js, se agregan archivos markdown en la ruta `node_modules/next/dist/docs/` que contienen la [documentacion oficial de Next.js](https://nextjs.org/docs)
 
 Esta skill se hizo de la siguiente forma:
-1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.claude\skills\next-docs\`
+1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.agents\skills\next-docs\`
 
-2. Se agrego un archivo `.claude\skills\next-docs\SKILL.md`
+2. Se agrego un archivo `.agents\skills\next-docs\SKILL.md`
 
-3. En `.claude\skills\next-docs\SKILL.md` y `.claude\skills\next-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
+3. En `.agents\skills\next-docs\SKILL.md` y `.agents\skills\next-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
 
 Para probar que funcione:
 
