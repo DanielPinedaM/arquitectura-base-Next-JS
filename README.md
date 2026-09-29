@@ -681,9 +681,28 @@ El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la d
 # [🔗 Enlace - Repositorios de MCP](https://mcpservers.org/es/)
 
 # CLI
-Puedes instalar CLIs para que la IA ejecute comandos y automatizar procesos
+Puedes instalar CLIs para que la IA ejecute comandos y automatice procesos.
 
-Tambien puedes crear skills que le expliquen a la IA como ejecutar los comandos del CLI
+También puedes crear skills que le expliquen a la IA cómo ejecutar los comandos del CLI.
+
+## ¿Por qué Usar un CLI y no un MCP?
+
+**Respuesta resumida:**
+Cuando el MCP y el CLI sirven para lo mismo, es mejor usar el CLI porque consume menos contexto que el MCP.
+
+**Ejemplos:**
+
+| MCP                                                                              | CLI                                                                                                    |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [Playwright MCP](https://github.com/microsoft/playwright-mcp)                    | [Playwright CLI](https://github.com/microsoft/playwright-cli/blob/main/skills/playwright-cli/SKILL.md) |
+| [Atlassian / Jira MCP](https://www.atlassian.com/platform/rovo-mcp)              | [Atlassian / Jira CLI](https://developer.atlassian.com/cloud/acli/guides/introduction/)                |
+| [GitHub MCP](https://github.com/github/github-mcp-server)                        | [GitHub CLI](https://youtu.be/oZRFOkLUZdk)                                                             |
+| [Azure MCP](https://learn.microsoft.com/es-es/azure/developer/azure-mcp-server/) | [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)                                              |
+
+**Explicación:**
+Por defecto, Claude Code difiere las definiciones de las tools de un MCP usando ([MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search)): al iniciar la sesión solo carga en el contexto los nombres de las tools y las instrucciones del servidor, y la descripcion de lo que hace cada tool se carga cuando el modelo la necesita.
+
+Un CLI es más eficiente en contexto porque no agrega ningún listado de tools: el modelo ejecuta los comandos directamente en la terminal ([documentación oficial](https://code.claude.com/docs/en/costs#reduce-mcp-server-overhead)).
 
 ## 🌐 `playwright-cli` y `browser-agent`
 
@@ -697,8 +716,6 @@ Tambien puedes crear skills que le expliquen a la IA como ejecutar los comandos 
 Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿que es `playwright-cli`?
 
 Sirve para que la IA desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
-
-`playwright` es un CLI, lo que significa que sirve para ejecutar comandos. Existe un [playwright MCP](https://github.com/microsoft/playwright-mcp) pero la razon de porque no se usa es porque gasta mas tokens, por lo tanto la forma correcta de usarlo es usando la skill `browser-agent`.
 
 Para que la IA controle el navegador hay dos skills que son **DIFERENTES**:
 
@@ -723,7 +740,7 @@ Para que la IA controle el navegador hay dos skills que son **DIFERENTES**:
 **SIEMPRE** que necesites controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
 
-2. Llamar la skill `browser-agent` y **NO** la skill `playwright-cli`.
+2. Llamar la skill `browser-agent` y **NO** la skill `playwright-cli` **NI** [playwright MCP](https://github.com/microsoft/playwright-mcp)
 
 3. Usar este prompt:
 
