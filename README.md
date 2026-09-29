@@ -692,12 +692,13 @@ Cuando el MCP y el CLI sirven para lo mismo, es mejor usar el CLI porque consume
 
 **Ejemplos:**
 
-| MCP                                                                              | CLI                                                                                                    |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [Playwright MCP](https://github.com/microsoft/playwright-mcp)                    | [Playwright CLI](https://github.com/microsoft/playwright-cli/blob/main/skills/playwright-cli/SKILL.md) |
-| [Atlassian / Jira MCP](https://www.atlassian.com/platform/rovo-mcp)              | [Atlassian / Jira CLI](https://developer.atlassian.com/cloud/acli/guides/introduction/)                |
-| [GitHub MCP](https://github.com/github/github-mcp-server)                        | [GitHub CLI](https://youtu.be/oZRFOkLUZdk)                                                             |
-| [Azure MCP](https://learn.microsoft.com/es-es/azure/developer/azure-mcp-server/) | [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)                                              |
+| MCP                                                                                         | CLI                                                                                                    |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [Playwright MCP](https://github.com/microsoft/playwright-mcp)                               | [Playwright CLI](https://github.com/microsoft/playwright-cli/blob/main/skills/playwright-cli/SKILL.md) |
+| [Atlassian / Jira MCP](https://www.atlassian.com/platform/rovo-mcp)                         | [Atlassian / Jira CLI](https://developer.atlassian.com/cloud/acli/guides/introduction/)                |
+| [GitHub MCP](https://github.com/github/github-mcp-server)                                   | [GitHub CLI](https://youtu.be/oZRFOkLUZdk)                                                             |
+| [Azure MCP](https://learn.microsoft.com/es-es/azure/developer/azure-mcp-server/)            | [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)                                              |
+| [AWS MCP](https://docs.aws.amazon.com/es_es/agent-toolkit/latest/userguide/mcp-server.html) | [AWS CLI](https://aws.amazon.com/es/cli/)                                                              |
 
 **Explicación:**
 Por defecto, Claude Code difiere las definiciones de las tools de un MCP usando ([MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search)): al iniciar la sesión solo carga en el contexto los nombres de las tools y las instrucciones del servidor, y la descripción de lo que hace cada tool se carga cuando el modelo la necesita.
