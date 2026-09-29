@@ -8,15 +8,15 @@
 # Reglas **OBLIGATORIAS** de Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento.
 
-Antes de escribir código o responder, consultar estas fuentes, listadas de mayor a menor precedencia:
+Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes se contradicen, gana la de número menor:
 
-1. [Skill `next-conventions`](.claude/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura.
+1. [Skill `next-conventions`](.claude/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarlo genera codigo inescalable.
 
-2. [Skill `vercel-react-best-practices`](.claude/skills/vercel-react-best-practices/): El cómo, con ejemplos de código.
+2. [Skill `vercel-react-best-practices`](.claude/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
 
-3. [Skill `next-docs`](.claude/skills/next-docs/): Documentación oficial de Next.js; respetar sus avisos de deprecación.
+3. [Skill `next-docs`](.claude/skills/next-docs/): Busca en la documentación oficial de Next.js (`https://nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
 
-4. Tus datos de entrenamiento: Permitidos, no están prohibidos, pero ceden ante cualquier fuente anterior.
+4. Datos de entrenamiento: válidos, pero ceden ante todo lo anterior.
 
 # Resumen de la Skill `next-conventions`
 
