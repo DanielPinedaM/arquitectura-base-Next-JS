@@ -20,19 +20,6 @@ Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes
 
 # Resumen de la Skill `next-conventions`
 
-## Tipado en TypeScript
-* Usar strict type checking
-
-* Preferir la inferencia de tipos cuando el tipo sea obvio
-
-* Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto.
-
-* Preferir `interface` para tipos de objeto (`Task`) y para el tipo de los elementos en arrays de objetos (`Task[]`).
-
-* Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
-
-* Usar `type` para tipos primitivos, literales y uniones.
-
 ## Formularios
 * Usar React Hook Form junto con `import { zodResolver } from '@hookform/resolvers/zod'` para validar formularios y los componentes UI de formularios de Shad cn ubicados en `src\shared\ui\shad-cn\react-hook-form`
 
