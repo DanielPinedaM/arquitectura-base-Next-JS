@@ -1,0 +1,3051 @@
+# Reglas Obligatorias para Skill
+Aplican a toda respuesta o modificación de código de este proyecto.
+
+## 1. Autoridad de la Skill
+Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill).
+
+## 2. Ante Cualquier Error
+Esta regla aplica en cualquier momento. Si encuentras algún error, inconsistencia, duda o ambigüedad, debes detenerte y consultarme antes de realizar cualquier modificación. No puedes asumir ni deducir implementaciones. Es preferible preguntar para aclarar una duda que asumir una solución.
+
+La única excepción a esta regla es lo establecido en la regla anterior: [1. Autoridad de la Skill](#1-autoridad-de-la-skill).
+
+## 3. Instrucción que Contradice una Regla Definida
+Se aplica cuando la instrucción recibida contradice una regla explícitamente definida en esta skill.
+
+Acción: implementa estrictamente lo definido en la skill. No preguntes, no propongas alternativas, no pidas confirmación.
+
+Antes de modificar el código, emite:
+
+```txt
+ERROR: estás violando la arquitectura del proyecto, esto genera malas
+prácticas. Se va a modificar el código conforme a la arquitectura definida
+en la skill.
+
+Regla violada:  <archivo#sección de la skill>
+Cita textual:   "<texto literal de la regla, copiado de la skill>"
+Solicitado:     <lo que pidió el usuario>
+Implementado:   <lo que define la skill>
+Motivo:         <por qué lo solicitado rompe la arquitectura, en una línea>
+```
+
+La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill)
+
+## 4. Caso no Definido en la Skill
+Se aplica cuando el caso, problema o pregunta no está definido en la [Tabla de Contenido](#tabla-de-contenido)
+
+Acción: resuélvelo con tu comportamiento por defecto. La skill no restringe este caso y no altera tu forma normal de trabajar.
+
+## 5. Código Existente que Ya Viola la Arquitectura
+Se aplica cuando detectas código ya escrito que incumple una regla de esta skill.
+
+No lo corrijas por iniciativa propia. Emite:
+
+```txt
+El siguiente código viola la arquitectura del proyecto.
+
+Archivo:       <ruta:línea>
+Código:        "<fragmento literal del código>"
+Regla violada: <archivo#sección de la skill>
+Cita textual:  "<texto literal de la regla>"
+```
+
+y pregunta con `AskUserQuestion`:
+
+```txt
+¿Desea corregirlo para que siga la arquitectura del proyecto?
+SÍ  → corregir el código
+NO  → dejarlo como está
+```
+
+* SÍ: corrige el código y continúa.
+* NO: no modifiques ese código, ignora esa parte específica y continúa con la
+  implementación solicitada.
+
+Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llamada a `AskUserQuestion`, una pregunta por infracción.
+
+## 6. ¿Como Leer la Skill?
+Leer **bajo demanda** los archivos `.md` ubicados en `/skills/next-conventions/rules/`: usa la [Tabla de Contenido](#tabla-de-contenido) como referencia para inferir cuales archivos son necesarios para la tarea que estas resolviendo, y accede unicamente a esos archivos.
+
+**Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
+
+# Tabla de Contenido
+
+# INCOMPLETO - aqui me falta escribir la tabla de contenido con la estructura de archivos, carpetas y titulos de /rules - para tabla de contenido usar  enlace en línea con ruta relativa ejemplo [angular-animations.md](references/angular-animations.md)
+
+**esto es un ejemplo de como crear la tabla de contenido de la skill - NO representa la tabla de contenido real**
+
+## Arquitectura
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Las tres capas](rules/arquitectura/capas.md) | Antes de crear cualquier archivo o carpeta nueva, o al dudar qué significa Feature, Core o Shared |
+| [Regla de decisión](rules/arquitectura/regla-de-decision.md) | Al decidir en qué capa ubicar un archivo, o cuando dos features necesitan el mismo código |
+| [Dirección de dependencias](rules/arquitectura/direccion-de-dependencias.md) | Antes de escribir un import entre capas distintas |
+
+## Formularios
+
+| Archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [React Hook Form](rules/formularios/react-hook-form.md) | Al crear o modificar cualquier formulario, o al agregar lógica condicional entre campos |
+| [Inputs reutilizables](rules/formularios/inputs-reutilizables.md) | Al crear o modificar un componente dentro de src/shared/ui/shad-cn/react-hook-form |
+
+# Estructura del Proyecto
+
+## Árbol de Directorios
+
+> [!WARNING]
+>
+> # **LA ESTRUCTURA DE ESTAS CARPETAS ESTA INCOMPLETA**
+
+La siguiente estructura NO es una lista exhaustiva de los archivos del proyecto, es la **arquitectura base de referencia**: el patrón que define cómo se organiza el código y que toda la aplicación debe seguir, sin importar cuánto crezca el proyecto o cuántas features se agreguen.
+
+```txt
+src/
+│
+├── shared/
+│   └── ui/
+│       └── shad-cn/ → componentes de shad cn
+│           │
+│           ├── data-display/ → componentes que presentan datos al usuario
+│           │   ├── carousel/ → carrusel de slides
+│           │   └── data-table/ → tabla de datos con @tanstack/react-table paginación y sorting
+│           │
+│           ├── react-hook-form/ → controles de formulario y sus dependencias, subagrupados por el tipo de interacción; todos usan react hook form Controller excepto button
+│           │   ├── action/ → dispara una acción, no captura un valor del formulario
+│           │   │   └── button/ → botón
+│           │   ├── date/ → selección de fechas
+│           │   │   ├── calendar/ → calendario
+│           │   │   └── date-picker/ → selector de fecha sobre popover
+│           │   ├── selection/ → elegir entre opciones predefinidas
+│           │   │   ├── checkbox/ → casilla de verificación
+│           │   │   ├── combobox/ → input con autocompletado
+│           │   │   ├── radio-group/ → grupo de opciones excluyentes
+│           │   │   ├── select/ → desplegable de selección
+│           │   │   └── switch/ → interruptor on/off
+│           │   └── text/ → entrada de texto libre y su etiqueta
+│           │       ├── input/ → campos de texto de una línea
+│           │       │   ├── input-base/ → renderiza el `<input>` nativo y recibe `type` como prop; PROHIBIDO usarlo fuera de `src/shared`
+│           │       │   ├── input-text/ → input de texto libre
+│           │       │   ├── input-number/ → input numérico
+│           │       │   ├── input-password/ → input de contraseña con botón toggle mostrar/ocultar valor
+│           │       │   ├── input-email/ → input de correo
+│           │       │   └── input-group/ → agrupa un input con prefijos/sufijos (íconos, texto, botones)
+│           │       ├── label/ → etiqueta de un control
+│           │       └── textarea/ → campo de texto multilínea
+│           │
+│           ├── navigation/ → componentes de navegación
+│           │   ├── accordion/ → secciones plegables
+│           │   ├── pagination/ → paginación
+│           │   └── tabs/ → pestañas
+│           │
+│           ├── overlay/ → componentes que se superponen al contenido
+│           │   ├── alert-dialog/ → diálogo de confirmación
+│           │   ├── dialog/ → diálogo modal
+│           │   ├── drawer/ → panel deslizante
+│           │   ├── dropdown-menu/ → menú desplegable
+│           │   ├── popover/ → contenido flotante anclado
+│           │   ├── sheet/ → panel lateral
+│           │   ├── toast/ → notificación temporal (Sonner)
+│           │   └── tooltip/ → descripción emergente
+│           │
+│           └── helpers/ → expone la función cn() de shadcn/ui para combinar clases de Tailwind (clsx + tailwind-merge), usada por todas las categorías
+│
+└── styles/
+    └── global/
+        ├── scss/
+        │   ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
+        │   ├── _scroll-bar.scss → estilos globales de barra de scroll
+        │   ├── _variables.scss → variables globales de Sass
+        │   │
+        │   └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
+        │       ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
+        │       ├── _base.scss → Reset CSS para botones
+        │       ├── _effects.scss → utilidades visuales reutilizables para los botones: box-shadow, blur, elevation (sin lógica UI)
+        │       ├── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales
+        │       ├── _sizes.scss → Define el tamaño del botón mediante tokens basados en la escala de Tailwind CSS 4 para padding, font-size y line-height
+        │       ├── _states.scss → estados de boton: hover, active, focus, disabled
+        │       ├── _themes.scss → Define los temas de color del botón mediante CSS Custom Properties generadas a partir de _tokens.scss.
+        │       ├── _tokens.scss → Define los tokens de diseño del sistema de botones mediante variables Sass (colores, tipografía, espaciado y escalas).
+        │       ├── _mixins.scss → codigo de Sass que se repite en diferentes archivos de src\styles\global\scss\buttons
+        │       └── _variants.scss → Variantes visuales (background, outline, ghost, link) que define la apariencia y comportamiento visual según el tipo de botón.
+        │
+        └── tailwind/ → Carpeta para configurar Tailwind 4
+            ├── import.css → importar Tailwind
+            ├── preflight.css → Reset CSS basado en Tailwind
+            └── theme.css → variables de Tailwind
+```
+
+## Feature Architecture
+Esta sección es la definición oficial de la arquitectura del proyecto. Toda decisión sobre dónde ubicar un archivo o carpeta debe respetarla de forma estricta.
+
+La arquitectura es **agnóstica al framework**: describe un modelo reutilizable en cualquier tecnología. Las rutas indicadas (`src/app/(features)`, `src/core`, `src/shared`) son la convención de carpetas del proyecto, no una característica de un framework específico.
+
+La arquitectura define **únicamente tres capas**:
+
+- **Feature**
+- **Core**
+- **Shared**
+
+### Definición de las Capas
+
+Esta sección define qué representa cada una de las tres capas de la arquitectura. La clasificación de un archivo concreto se realiza en la sección [Regla de Decisión](#regla-de-decisión).
+
+La capa de un archivo se define por el **significado** del código, no por la **frecuencia** con que se reutiliza. El número de features que usan un código **no** determina su capa.
+
+#### Feature
+
+Código que pertenece a **una sola** funcionalidad o flujo del sistema. Contiene la UI, el estado y la lógica de esa funcionalidad: código que **solo tiene sentido dentro de ese flujo** y que dejaría de tener sentido fuera de él. Al vivir dentro de `src/app/(features)`, **genera una ruta URL**. Su lógica nunca debe salir de la feature a la que pertenece.
+
+Ejemplos:
+
+- `src/app/(features)/tasks/components/ListTasks.tsx`
+- `src/app/(features)/tasks/hooks/useTasks.ts`
+- `src/app/(features)/tasks/store/tasks.store.ts`
+
+#### Core
+
+Contiene la **lógica del dominio del sistema que existe de forma independiente de cualquier feature o pantalla específica**. Representa reglas del negocio del sistema (entidades, permisos, autorización, validaciones del dominio, cálculos globales del negocio). No depende de la UI ni del flujo de una feature concreta. Vive fuera de `src/app`, por lo que **no genera ruta URL**.
+
+Core **no** se define por reutilización, se define por **significado del negocio**. Un código pertenece a core porque representa una regla del dominio del sistema, no porque varias features lo usen.
+
+Ejemplos:
+
+- `src/core/users/actions/update-user.ts`
+- `src/core/users/data-types/interfaces/user.interface.ts`
+- `src/core/permissions/get-user-permissions.ts`
+
+#### Shared
+
+Código **completamente agnóstico al dominio**: utilidades técnicas reutilizables y componentes de UI sin conocimiento del negocio. No conoce ninguna feature ni concepto del negocio (usuarios, autenticación, productos, órdenes, dashboard, etc.) y no contiene reglas de negocio. Vive fuera de `src/app`, por lo que **no genera ruta URL**.
+
+Ejemplos:
+
+- `src/shared/ui/shad-cn/react-hook-form/text/input/input-text/InputText.tsx`
+- `src/shared/utils/func/luxon.utils.ts`
+- `src/shared/ui/buttons/Button.tsx`
+
+### Resumen de las Capas de Arquitectura
+
+| Capa                       | Ubicación                      | ¿Qué contiene?                                           | ¿Conoce el dominio? | ¿Genera ruta URL? |
+| -------------------------- | ------------------------------ | -------------------------------------------------------- | ------------------- | ----------------- |
+| Feature                    | `src/app/(features)/<feature>` | Lógica de una sola funcionalidad o flujo                 | Sí                  | Sí                |
+| Core (dominio del sistema) | `src/core`                     | Reglas del negocio del sistema, independientes de la UI  | Sí                  | No                |
+| Shared (agnóstico)         | `src/shared`                   | Código técnico reutilizable sin conocimiento del negocio | No                  | No                |
+
+> El número de features que usan un código **no** aparece como criterio en esta tabla porque **no define la capa**. La capa se decide por el significado del código (ver "[Regla de Decisión](#regla-de-decisión)").
+
+### Regla de Decisión
+
+Esta es la **única** sección para decidir dónde ubicar cualquier archivo o carpeta y tiene prioridad absoluta sobre cualquier otra explicación del documento. La decisión se basa en el **significado** del código, **nunca** en cuántas features lo usan. Responder las preguntas en orden:
+
+**1. ¿El código representa una regla del negocio del sistema?**
+
+Es decir, una regla del dominio que existe por sí misma, independientemente de cualquier feature o pantalla (permisos, autorización, validaciones del dominio, cálculos globales del negocio, entidades del sistema).
+
+- **Sí** → `src/core`.
+- **No** → continuar con la pregunta 2.
+
+**2. ¿El código pertenece a una sola funcionalidad o flujo?**
+
+Es decir, código que solo tiene sentido dentro de esa feature y dejaría de tenerlo fuera de ella.
+
+- **Sí** → dentro de esa feature, en `src/app/(features)/<feature>`.
+- **No** → continuar con la pregunta 3.
+
+**3. ¿El código es completamente agnóstico al dominio?**
+
+Es decir, código técnico que no conoce el negocio y funcionaría igual en cualquier proyecto.
+
+- **Sí** → `src/shared`.
+
+> **Reutilizar un código en dos o más features NO lo convierte automáticamente en core.** Que dos features compartan un código solo indica que no pertenece en exclusiva a una de ellas; para saber su capa hay que volver a aplicar estas preguntas: si es una regla del negocio del sistema va a `core`, y si es técnico y agnóstico va a `shared`.
+
+### Organización Interna de las Capas
+
+Cada capa utiliza un criterio de organización diferente según su responsabilidad:
+
+- **Feature** se organiza por **funcionalidades del producto**.
+- **Core** se organiza por **conceptos o entidades del dominio**.
+- **Shared** se organiza por **capacidades técnicas reutilizables**.
+
+Las carpetas internas representan responsabilidades específicas dentro de cada contexto, pero no todas las capas siguen la misma estructura:
+
+```txt
+src/
+├── app/(features)/                      → route group: agrupa todas las features y NO genera segmento de URL
+│   └── <feature>/                       → una feature concreta. Ejemplos: tasks, products; cada una = una ruta URL
+│       ├── page.tsx                     → punto de entrada de la feature (define la ruta URL en el App Router de Next.js)
+│       ├── components/                  → componentes con lógica de negocio de la feature
+│       │   └── TaskList.tsx
+│       ├── ui/                          → componentes para la interfaz grafica reutilizable solo dentro de la feature
+│       │   └── TaskListSkeleton.tsx
+│       ├── hooks/                       → hooks de la feature
+│       │   └── useTasks.ts
+│       ├── stores/                      → estados globales de Zustand, accesibles solo dentro de la feature (NO en toda la aplicación)
+│       │   └── tasks.store.ts
+│       ├── utils/                       → utilidades de la feature
+│       │   └── task.utils.ts
+│       └── data-types/                  → tipos de datos de la feature
+│           ├── constants/               → constantes de la feature
+│           │   └── task.const.ts
+│           ├── interfaces/              → interfaces de la feature
+│           │   └── task.interface.ts
+│           └── enums/                   → enums de la feature
+│               └── task-status.enum.ts
+│
+├── core/                                → reglas del negocio del sistema, independientes de cada feature (NO es ruta, NO es agnóstico)
+│   ├── users/
+│   │   ├── actions/                     → casos de uso / operaciones del dominio (crear, actualizar, etc.)
+│   │   ├── policies/                    → reglas de autorización y decisiones de permiso
+│   │   ├── validators/                  → validación de reglas del dominio
+│   │   ├── utils/                       → utilidades específicas de la entidad
+│   │   └── data-types/
+│   │       ├── constants/
+│   │       ├── interfaces/
+│   │       └── enums/
+│   │
+│   ├── permissions/
+│   │   ├── policies/
+│   │   ├── validators/
+│   │   └── data-types/
+│   │       ├── constants/
+│   │       ├── interfaces/
+│   │       └── enums/
+│   │
+│   └── auth/
+│       ├── actions/
+│       ├── repositories/
+│       ├── validators/
+│       └── data-types/
+│           ├── constants/
+│           ├── interfaces/
+│           └── enums/
+│
+└── shared/                              → código 100% agnóstico al dominio (global)
+    ├── ui/                              → componentes para la interfaz grafica reutilizable en toda la app
+    │   └── buttons/
+    │       ├── Button.tsx
+    │       ├── AnchorButton.tsx
+    │       └── NextLink.tsx
+    ├── hooks/                           → hooks reutilizables en toda la app
+    ├── stores/                          → estado global de Zustand, compartido por toda la app
+    └── utils/                           → utilidades reutilizables en toda la app
+```
+
+### Diferencia entre `(features)` y `<feature>`
+
+- **`(features)`** es un _route group_ de App Router de Next.js (los paréntesis lo definen). Por estar entre paréntesis, **no aporta ningún segmento a la URL**. No es una feature: es el contenedor de todas las features.
+
+- **`<feature>`** es el marcador de posición de **una feature concreta** (por ejemplo `orders`, `products`, `dashboard`). Cada `<feature>` **sí** representa una funcionalidad real y **genera una ruta URL** a través de su `page.tsx`.
+
+### Prohibido Modificar o Crear Nuevas Capas de Arquitectrua
+
+Está estrictamente prohibido modificar, reemplazar, eliminar o crear nuevas capas arquitectónicas fuera de las tres capas oficiales definidas en este documento:
+
+- Feature
+- Core
+- Shared
+
+Toda carpeta, módulo, archivo (componente) o estructura nueva debe pertenecer obligatoriamente a una de estas tres capas; no se permite introducir una clasificación alternativa ni una reorganización paralela de las responsabilidades ya definidas.
+
+Sí está permitido crear **subcarpetas dentro de una capa existente**, siempre que no introduzcan una nueva capa y respeten las responsabilidades de esa capa.
+
+**Correcto:**
+
+```text
+src/shared
+    ├── ui
+    ├── layouts
+    ├── utils
+    ├── hooks
+    └── data-types
+
+src/core
+    ├── auth
+    ├── users
+    └── permissions
+
+src/app/(features)
+         ├── products
+         │   └── page.tsx
+         ├── orders
+         │   └── page.tsx
+         └── dashboard
+             └── page.tsx
+```
+
+Estas subcarpetas son válidas porque únicamente organizan el contenido dentro de una capa existente.
+
+### ¿Por qué `src/core` y no Dentro de `src/app/(features)/<feature>`?
+
+Todo lo que está dentro de `src/app/(features)/<feature>/page.tsx` forma parte de la estructura de rutas del App Router de Next.js.
+
+En Next.js App Router, las rutas se definen mediante archivos especiales como `page.tsx` dentro de `src/app/(features)/`. Las carpetas representan segmentos de la URL, mientras que archivos como `page.tsx` determinan qué segmentos se convierten en rutas accesibles.
+
+Si colocaras código de dominio compartido dentro de `(features)`, ese código quedaría asociado a una feature específica dentro de la estructura de rutas de Next.js App Router, aunque no represente una pantalla propia.
+
+Además, estarías acoplando un módulo compartido a una única feature, lo que impediría reutilizarlo correctamente entre diferentes funcionalidades.
+
+Por eso `src/core` vive **fuera** de `src/app`: aloja las reglas del negocio del sistema, que existen de forma independiente de cualquier feature específica y no participan directamente en la definición de rutas.
+
+### Archivos y Carpetas Prohibidas de Crear
+
+Esta arquitectura prohíbe crear carpetas cuyo nombre sea genérico o ambiguo, porque ocultan responsabilidades distintas dentro de un mismo contenedor en lugar de expresar **una única responsabilidad clara**. Cada carpeta debe nombrar de forma específica lo que contiene (`validators/`, `components/`, `utils/`, etc).
+
+- `services/`: No es una convención propia de React ni de Next.js, su nombre no expresa qué responsabilidad contiene y mezcla lógica de negocio, acceso a datos, validaciones y acciones en un mismo lugar. No debe reemplazarse por otra carpeta genérica equivalente (`helpers/`, `logic/`, etc.): el objetivo no es renombrarla, sino **separar responsabilidades**.
+
+- `common/`: Es un nombre comodín que no describe ninguna responsabilidad concreta y termina convirtiéndose en un depósito de código sin dueño, acoplando elementos no relacionados. Cada arhivo debe pertenecer a la carpeta que describe su responsabilidad real.
+
+- `**/utils/func/general.utils.ts` / `**/utils/func/global.utils.ts`: Un archivo cuyo nombre no describe ninguna responsabilidad concreta termina acumulando funciones sin relación entre sí. Un nombre genérico (`general`, `global`, `misc`, `helpers`, etc.) invita a meter cualquier cosa, lo que convierte el archivo en un depósito sin dueño que rompe la separación de responsabilidades. Cada utilidad debe residir en un archivo que nombre explícitamente **su responsabilidad concreta** (la capacidad técnica en `shared`, la entidad o concepto en `core`). Ejemplo: `luxon.utils.ts`, `string.utils.ts`, `user.utils.ts`. No basta con renombrar a otro nombre comodín equivalente: el objetivo es **separar responsabilidades**, no reetiquetarlas. Por eso **NO** debe existir en ninguna de estas rutas:
+
+  - `src/shared/utils/func/general.utils.ts`
+  - `src/shared/utils/func/global.utils.ts`
+
+  - `src/core/<entity>/utils/func/general.utils.ts`
+  - `src/core/<entity>/utils/func/global.utils.ts`
+
+  - `src/app/(features)/<feature>/utils/func/general.utils.ts`
+  - `src/app/(features)/<feature>/utils/func/global.utils.ts`
+
+- `shared/components`: Combina conceptos incompatibles: `shared` es código agnóstico al dominio, mientras que `components` contiene lógica de negocio asociada a una feature. Un componente agnóstico pertenece a `src/shared/ui` y un componente con lógica de negocio a `src/app/(features)/<feature>/components`. Por eso **NO** debe existir en ninguna de estas rutas:
+  - `src/shared/components`
+  - `src/app/shared/components`
+  - `src/app/(features)/*/shared/components`
+
+### Regla de Dirección de Dependencias
+
+Esta sección complementa la "[Regla de Decisión](#regla-de-decisión)". Una vez que un archivo está ubicado en su capa, esta regla define **en qué dirección puede importar**. Una capa bien ubicada pero con imports en la dirección incorrecta vuelve a acoplar exactamente lo que la arquitectura intenta separar.
+
+Las dependencias fluyen en **una sola dirección**:
+
+```txt
+feature  →  core  →  shared
+```
+
+**Reglas:**
+
+- **Feature** puede importar de **Core** y de **Shared**.
+
+- **Core** puede importar de **Shared** y de otras entidades o procesos dentro de **Core**.
+
+- **Shared** no importa de **Core** ni de ninguna **Feature**. Solo depende de librerías externas y de otros módulos dentro de **Shared**.
+
+- Una **Feature** **nunca** importa de otra **Feature**.
+
+- **Core** **nunca** importa de una **Feature**.
+
+- Las dependencias entre módulos de **Core** deben ser **acíclicas**: si `A` importa de `B`, entonces `B` no puede importar de `A`.
+
+Cuando una **Feature** necesita lógica que vive dentro de otra **Feature**, esa lógica **no** se importa de forma cruzada: se **promueve a una capa compartida** (`core` si es una regla del negocio del sistema, `shared` si es código técnico agnóstico) y ambas la consumen desde ahí. La capa destino se decide con la "[Regla de Decisión](#regla-de-decisión)", nunca por el hecho de que dos features la necesiten (ver "[Mover de Feature a Core](#mover-de-feature-a-core)").
+
+#### ¿Por qué una Sola Dirección?
+
+Esta regla es la que mantiene la arquitectura escalable cuando el número de features crece. Sin ella, `core` puede terminar importando de una feature (invirtiendo la dependencia y atando el dominio compartido a una pantalla concreta), o dos features pueden acoplarse directamente entre sí (creando dependencias ocultas imposibles de rastrear). La dirección única garantiza que lo más reutilizable (`shared`) sea también lo más estable, y que lo más volátil (`feature`) dependa de lo estable y nunca al revés.
+
+**Correcto:**
+
+```ts
+// feature → core      (una feature usa una regla del negocio del sistema)
+// src/app/(features)/orders/components/OrderList.tsx
+import { getUserPermissions } from '@/core/permissions/get-user-permissions';
+
+// feature → shared    (una feature usa código agnóstico)
+// src/app/(features)/orders/components/OrderList.tsx
+import { Button } from '@/shared/ui/buttons/Button';
+
+// core → shared       (el dominio usa código agnóstico)
+// src/core/users/actions/update-user.ts
+import { formatDate } from '@/shared/utils/func/luxon.utils';
+
+// core → core         (una entidad usa otra, en UNA sola dirección y sin ciclo)
+// src/core/orders/validators/order.validator.ts
+import { isActiveUser } from '@/core/users/utils/user.utils';
+
+// shared → shared     (un módulo agnóstico usa otro módulo agnóstico)
+// src/shared/ui/overlay/dialog/ConfirmDialog.tsx
+import { Button } from '@/shared/ui/buttons/Button';
+```
+
+**Ejemplos prohibidos:**
+
+```ts
+// feature → feature   (una feature nunca importa de otra feature)
+// src/app/(features)/orders/components/OrderList.tsx
+import { useTasks } from '@/app/(features)/tasks/hooks/useTasks';
+
+// core → feature       (core nunca importa de una feature)
+// src/core/users/actions/update-user.ts
+import { OrderForm } from '@/app/(features)/orders/components/OrderForm';
+
+// shared → feature     (shared nunca importa de una feature)
+// src/shared/ui/buttons/Button.tsx
+import { useTasks } from '@/app/(features)/tasks/hooks/useTasks';
+
+// shared → core        (shared nunca importa de core)
+// src/shared/ui/buttons/Button.tsx
+import { User } from '@/core/users/data-types/interfaces/user.interface';
+```
+
+### Procesos del Dominio en Core
+
+`core` se organiza por **conceptos del dominio**. Una **entidad** (`users`, `orders`, `permissions`) es un tipo de concepto, pero **no el único**.
+
+Cuando una operación del dominio involucra **dos o más entidades a la vez** (por ejemplo un proceso de checkout que coordina `orders`, `payments` e `inventory`), ese proceso **es en sí mismo un concepto del dominio** y recibe su **propia carpeta** dentro de `core`. No debe forzarse dentro de una de las entidades que coordina, porque no pertenece a ninguna en exclusiva.
+
+```txt
+src/core/
+├── orders/            → entidad
+├── payments/          → entidad
+├── inventory/         → entidad
+└── checkout/          → proceso del dominio que coordina las tres
+    ├── actions/
+    ├── validators/
+    └── data-types/
+```
+
+Regla práctica: si no puedes responder "¿de qué entidad es esto?" con **una sola** entidad, probablemente es un **proceso** y merece su propia carpeta en `core`, no un lugar prestado dentro de otra entidad.
+
+Esto **no introduce una nueva capa**: un proceso vive dentro de `core` y respeta todas sus reglas (conoce el dominio, es compartido por varias features, no genera ruta URL).
+
+**Caso especial - core → core cíclico:**
+
+Importar de una entidad a otra dentro de core sí está permitido, pero solo en una dirección. Queda prohibido cuando se forma un ciclo (A importa de B y B importa de A):
+
+```ts
+// src/core/users/utils/user.utils.ts
+import { getOrdersByUser } from '@/core/orders/actions/get-orders-by-user'; // users depende de orders
+
+// src/core/orders/validators/order.validator.ts
+import { isActiveUser } from '@/core/users/utils/user.utils'; // orders depende de users
+```
+
+### Mover de Feature a Core
+
+El movimiento de código a `core` **NO depende de la reutilización** ni del número de features que lo usen. Depende exclusivamente del **significado del dominio**.
+
+> El hecho de que un código sea reutilizado en dos o más features NO define que deba ser movido a core.
+
+Un código se mueve a `core` cuando representa una **regla del negocio del sistema** que existe de forma independiente de cualquier feature o pantalla. Si nació dentro de una feature pero en realidad es una regla del dominio del sistema, su lugar correcto es `core`. Que un archivo nazca dentro de una feature y luego se mueva a `core` es un movimiento esperado y normal del ciclo de vida del proyecto, no un error de diseño previo.
+
+Que una **segunda** feature necesite el mismo código **no** es, por sí solo, motivo para moverlo a `core`: solo indica que ese código no pertenece en exclusiva a una feature. Para decidir su destino se vuelve a aplicar la [Regla de Decisión](#regla-de-decisión).
+
+**Procedimiento para mover código de una feature a core:**
+
+1. Mover el archivo (o carpeta) desde `src/app/(features)/<feature>/...` hacia la entidad o proceso correspondiente en `src/core/...`.
+
+2. Reescribir todos los imports que apuntaban a la ubicación anterior.
+
+3. Verificar que el módulo movido **no conserve imports hacia ninguna feature** porque violaría la Regla de Dirección de Dependencias
+
+4. Confirmar que ahora **todas** las features que lo necesitan lo consumen desde `core`, sin importar cuántas sean.
+
+Está prohibido **duplicar** el código en la segunda feature para evitar el movimiento: duplicar lógica de dominio rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
+
+#### Casos Críticos
+
+##### Caso 1: Un Código Es Usado por Dos Features
+
+**No** se mueve automáticamente a `core`. Debe evaluarse su significado:
+
+- **Si es técnico o reutilizable genérico** → se mueve a `shared`.
+
+  Ejemplos: `formatDate`, `debounce`, utilidades de strings, componentes de UI reutilizables.
+
+- **Si representa una regla del negocio del sistema** → se mueve a `core`.
+
+  Ejemplos: permisos de usuario, reglas de validación del dominio, lógica de autorización.
+
+##### Caso 2: Un Código Está Repetido en Dos Features
+
+Se permite la duplicación **solo si** se cumplen todas estas condiciones:
+
+- Es lógica específica de cada feature.
+- No representa una regla del negocio del sistema.
+- No es reutilizable sin acoplar el contexto de la feature.
+
+En este caso **no** se mueve a `core` ni a `shared`.
+
+#### Qué SÍ Puede Repetirse en Features
+
+- Lógica específica de la UI de esa feature.
+- Lógica de presentación.
+- Lógica que depende del contexto de esa feature.
+- Código pequeño que no representa una regla del sistema.
+
+Ejemplos válidos de repetición:
+
+- Validaciones de formularios específicas de la feature.
+- Mapeo de datos de UI.
+- Lógica de estados locales.
+- Hooks específicos de la feature.
+
+#### Qué NO Debe Repetirse en Features
+
+- Reglas de negocio del sistema → `core`.
+- Lógica de permisos o autenticación → `core`.
+- Cálculos globales del dominio → `core`.
+- Utilidades técnicas genéricas → `shared`.
+
+Duplicar una regla del negocio del sistema rompe la fuente única de verdad y es precisamente lo que `core` existe para impedir.
+
+#### Procedimiento al Promover Código Fuera de una Feature
+
+1. Aplicar la [Regla de Decisión](#regla-de-decisión) para determinar la capa destino: `core` (regla del negocio del sistema) o `shared` (código técnico agnóstico).
+2. Mover el archivo (o carpeta) desde `src/app/(features)/<feature>/...` hacia la entidad o proceso correspondiente en `src/core/...`, o hacia la capacidad técnica correspondiente en `src/shared/...`.
+3. Reescribir todos los imports que apuntaban a la ubicación anterior.
+4. Verificar que el módulo movido **no conserve imports hacia ninguna feature** (violaría la Regla de Dirección de Dependencias).
+5. Confirmar que las features que lo necesitan lo consumen desde su nueva capa.
+
+### Resumen de Regla de Dirección de Dependencias
+
+| Desde ↓ \ Hacia → | Feature | Core | Shared |
+| ----------------- | ------- | ---- | ------ |
+| **Feature**       | ❌      | ✅   | ✅     |
+| **Core**          | ❌      | ✅\* | ✅     |
+| **Shared**        | ❌      | ❌   | ✅     |
+
+\* core → core es válido solo en una dirección; queda prohibido si forma un ciclo (ver [Procesos del Dominio en Core](#procesos-del-dominio-en-core)).
+
+### Diferencia entre `components` y `ui`
+
+#### ui
+
+`ui` contiene exclusivamente componentes de presentación y maquetación.
+
+Los componentes de `ui` deben ser completamente agnósticos al dominio.
+
+Un componente de `ui` no puede conocer logica de negocio, entidades del sistema ni casos de uso.
+
+Su única responsabilidad es renderizar interfaz reutilizable.
+
+#### components
+
+`components` contiene componentes con lógica de negocio específica de la feature donde están definidos.
+
+Un componente pertenece a `components` cuando conoce el dominio, participa en un caso de uso o implementa comportamiento propio de la funcionalidad.
+
+La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
+
+## Idioma de Código, Archivos y Carpetas
+Todo el código fuente se escribe en inglés: componentes, hooks, funciones, nombres de archivos y carpetas, etc., excepto [Qué va en español](#qué-va-en-español).
+
+### Qué va en español
+1. Los comentarios.
+
+2. Las carpetas dentro de `src/app/` que representen un segmento de ruta visible en la URL.
+
+**Explicación**
+En el App Router de Next.js las rutas se definen con carpetas y archivos: el nombre de la carpeta es el segmento de la URL, y `page.tsx` lo hace accesible como página. Las carpetas de `src/app/` que son un segmento de la URL van en español porque el usuario las ve en la barra de direcciones.
+
+El resto se mantiene en inglés, porque no aparece en la URL o es sintaxis del framework:
+
+| Elemento                                | Ejemplo                                                                                       |
+| --------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Archivos reservados de Next.js          | `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, `proxy.ts` |
+| Route groups `(nombre)`                 | `(features)`, `(auth)`                                                                        |
+| Carpetas privadas `_nombre`             | `_helpers`                                                                                    |
+| Segmentos dinámicos `[param]`           | `[id]`                                                                                        |
+| Carpetas de código dentro de la feature | `components/`, `ui/`, `hooks/`, `stores/`, `utils/`, `data-types/`                            |
+
+**Ejemplo**
+
+```txt
+src/app/
+├── (features)/                     → route group, no aparece en la URL → inglés
+│   ├── (auth)/                     → route group, no aparece en la URL → inglés
+│   │   └── iniciar-sesion/         → segmento de ruta                  → español
+│   │       ├── components/         → carpeta de código, no es ruta     → inglés
+│   │       │   └── FormLogin.tsx   → nombre de componente               → inglés
+│   │       └── page.tsx            → archivo reservado de Next.js      → inglés
+│   │
+│   └── asignar-nueva-clave/        → segmento de ruta                  → español
+│       └── [id]/                   → segmento dinámico                 → inglés
+│           └── page.tsx
+│
+└── not-found.tsx
+```
+
+URLs resultantes: `/iniciar-sesion` y `/asignar-nueva-clave/123`
+
+# Fechas
+
+**Reglas:**
+
+1. Usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería de fechas diferente de Luxon.
+
+2. En todos los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), toda su interfaz pública de fechas (props, como `selected` y `onSelect`) es de tipo Luxon `DateTime`.
+
+3. Usar los calendarios para la selección de fechas definidos en [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios). **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
+
+4. Usar exclusivamente los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios) para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
+
+5. Mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), a través de sus props (`selected`, `onSelect`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. Este valor viaja en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
+
+6. En `src/shared/utils/func/luxon.utils.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. Reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
+
+## Componentes Permitidos de Calendarios
+
+### `src\shared\ui\shad-cn\react-hook-form\date\calendar`
+* `Calendar` con prop `mode="single"`: selección de una única fecha `selected?: DateTime`, `onSelect?: LuxonOnSelectHandler<DateTime | undefined>`
+* `Calendar` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
+* `Calendar` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
+
+### `src\shared\ui\shad-cn\react-hook-form\date\date-picker`
+* `DatePicker` con prop `mode="single"`: selección de una única fecha `selected?: DateTime`, `onSelect?: LuxonOnSelectHandler<DateTime | undefined>`
+* `DatePicker` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
+* `DatePicker` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
+
+# Formularios - Integración Shad cn y React Hook Form
+
+Todos los formularios del proyecto deben usar:
+
+- React Hook Form
+- Componentes ubicados en `src\shared\ui\shad-cn\react-hook-form`
+
+No crear formularios con manejo manual de estado cuando exista un componente React Hook Form equivalente.
+
+## `src/shared/ui/shad-cn`
+
+Contiene componentes visuales basados en Shad cn.
+
+Su responsabilidad es únicamente encapsular y estandarizar la UI.
+
+Estos componentes:
+
+- No conocen features
+- No contienen lógica de negocio
+- No contienen reglas del dominio
+
+## `src/shared/ui/shad-cn/react-hook-form`
+
+Contiene adaptadores entre:
+
+- Shad cn
+- React Hook Form
+- Componentes visuales
+
+Su única responsabilidad es conectar el formulario con la UI.
+
+Estos componentes solamente manejan integración técnica:
+
+- `useController`
+- `Controller`
+- `value`
+- `onChange`
+- `onBlur`
+- errores visuales del formulario
+
+No representan formularios del negocio.
+
+## Reglas del Sistema de Formularios
+
+### 1. Framework y Renderizado
+
+- Se trabaja en Next.js (App Router).
+- Todos los componentes de formularios deben ser `"use client"`.
+
+### 2. Ubicación de Componentes
+
+Usar los componentes reutilizables de inputs ubicados en:
+
+```txt
+src/shared/ui/shad-cn/react-hook-form
+```
+
+### 3. Restricciones Estrictas
+
+- Prohibido usar inputs HTML nativos (`<input />`, `<select />`, etc.).
+- Usar componentes de shad cn para todos los campos.
+- Prohibido usar formularios controlados con `useState`.
+- Prohibido usar formularios no controlados con `useRef`.
+- React Hook Form es la única fuente válida de estado del formulario.
+
+### 4. Flujo de React Hook Form y Shad cn
+
+```text
+┌──────────────────────┐
+│ Feature (Padre)      │
+│   useForm()          │
+│   defaultValues      │
+│   handleSubmit()     │
+│   control            │
+│   rules              │
+│   watch()            │
+│   lógica condicional │
+│   estado derivado    │
+└──────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────────────────┐
+│ src/shared/ui/shad-cn/react-hook-form       │
+│   useController()                           │
+│   Controller                                │
+│   field.value                               │
+│   field.onChange                            │
+│   field.onBlur                              │
+│   field.ref                                 │
+│   fieldState.error                          │
+└─────────────────────────────────────────────┘
+           │
+           ▼
+┌───────────────┐
+│ Shad cn       │
+│   InputText   │
+│   Select      │
+│   DatePicker  │
+│   Checkbox    │
+│   ...         │
+└───────────────┘
+```
+
+### 5. React Hook Form (RHF)
+
+- Es el único responsable del estado del formulario.
+- `defaultValues` se define exclusivamente en `useForm` en el componente padre.
+- Usar `watch` para lógica derivada en el componente padre.
+- `onChange` manual está prohibido fuera de los inputs controlados por `Controller`.
+
+### 6. Uso de `watch`
+
+- Toda lógica condicional del formulario debe resolverse con `watch`.
+
+- `watch` **NO** debe usarse dentro de componentes reutilizables de input que estan en `src/shared/components/react-hook-form`
+
+- Prohibido usar `useState` + `onChange` para manejar formularios. Lo correcto es usar `watch` en el componente padre.
+
+- Ejemplos: `disabled`, visibilidad, dependencias entre campos.
+
+### 7. Componentes Reutilizables
+
+Un input reutilizable debe:
+
+- Encapsular `Controller` de React Hook Form.
+- Ser genérico (`T extends FieldValues`).
+- Usar `control`, `name`, `rules`, `errors` como contrato base.
+- No contener lógica de negocio.
+- No definir reglas internas.
+- No usar `watch`.
+- Representar un único tipo de campo/input.
+- No mezclar múltiples tipos de input en un mismo componente reutilizable.
+
+**Correcto:**
+
+- `InputText`
+- `InputPassword`
+- `InputNumber`
+- `InputEmail`
+- `InputPhone`
+- `InputSelect`
+
+**Incorrecto**
+
+- `GenericInput`
+- `BaseInput`
+- `DynamicInput`
+- Un único componente que maneje:
+  - `input type="text"`
+  - `input type="password"`
+  - `input type="number"`
+  - `input type="email"`
+
+### 8. UI (Shad cn)
+
+- Shad cn solo maneja la capa visual.
+- `disabled`, `placeholder`, `className` son props de UI.
+- Shad cn no puede modificar el estado del formulario.
+- Solo refleja el estado final derivado de React Hook Form.
+
+### 9. Validaciones
+
+- Todas las validaciones se definen en el padre mediante `rules`.
+- Se soportan múltiples validaciones (`required`, `minLength`, `pattern`, etc.).
+- El input solo ejecuta las validaciones, no las define.
+
+### 10. Formularios Dinámicos
+
+- La estructura del formulario debe definirse en el padre (config-driven).
+- No se permite lógica condicional dentro de los componentes de input.
+
+### 11. Mensajes de Error de Formulario
+
+- Todo componente de campo ubicado en `src/shared/ui/shad-cn/react-hook-form` debe usar `FormErrorMessages` para mostrar los mensajes de error de React Hook Form.
+
+* Prohibido mostrar errores de validación con elementos HTML propios, lógica manual o cualquier otro componente alternativo.
+
+## Regla Clave de Arquitectura
+
+- Input (componente hijo) = UI + conexión React Hook Form
+
+- Padre = lógica + `watch` + validaciones + estado derivado
+
+## Flujo de Datos
+
+1. React Hook Form gestiona estado interno.
+2. watch en el componente padre define reglas dinámicas.
+3. El padre calcula props finales (ejemplo: `disabled`).
+4. El input recibe solo valores finales.
+5. Shad cn renderiza UI.
+
+## Prohibido
+
+- Usar `watch` dentro de inputs reutilizables.
+- Usar `useState` para formularios controlados
+- Usar `useRef` para formularios no controlados
+- Usar inputs nativos de HTML.
+- Mezclar lógica de negocio dentro de inputs.
+- Definir `defaultValues` fuera de `useForm`.
+- Duplicar control de estado entre RHF y UI.
+- Usar `map` para renderizar los campos de los formularios.
+- Mostrar errores de validación sin usar `FormErrorMessages` en componentes de `src/shared/ui/shad-cn/react-hook-form`.
+
+## Resultado Esperado
+
+- Formularios escalables y consistentes.
+- Componentes reutilizables reales (design system).
+- Cero duplicación de lógica de `Controller`.
+- Separación estricta entre lógica y UI.
+- Mantenimiento simple en proyectos grandes.
+
+## Prohibido Agregar Lógica de Negocio Dentro de src/shared/ui/shad-cn/react-hook-form
+
+En `src/shared/ui/shad-cn/react-hook-form` nunca agregar:
+
+- Reglas de negocio
+- Reglas específicas de una feature
+- Validaciones de dominio
+- Condiciones de negocio
+- if relacionados con entidades del sistema
+- Permisos
+- Roles
+- Lógica de cualquier feature. Ejemplo: tareas, productos, usuarios, etc.
+
+**Ejemplo prohibido:**
+
+```tsx
+if (user.role === "admin") {
+  ...
+}
+```
+
+> [!WARNING]
+>
+> # **INCOMPLETO - AQUI ME FALTA AGREGAR EJEMPLO DE INPUTS Q ESTAN EN SRC/SHARED/COMPONENTS/REACT-HOOK-FORM**
+
+# Consumo de API
+Usar `src\shared\api\http-client\http-gateway.api.ts` para realizar cualquier petición HTTP.
+
+Esto aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
+
+`http-gateway.api.ts` estandariza todas las llamadas a API y devuelve siempre la misma estructura:
+
+```ts
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  status: number;
+  message: string;
+  data: T;
+}
+```
+
+El frontend **NUNCA** consume un endpoint de forma directa
+
+Toda petición tiene que pasa primero por `http-gateway.api.ts`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
+
+## Flujo para Consumir API:
+El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `http-gateway.api.ts`:
+
+```txt
+Frontend
+    ↓
+http-gateway.api.ts
+    ↓
+┌────────┴────────┐
+↓                 ↓
+Internal APIs     External APIs
+(Servicio interno)（Servicio externo / Third-Party)
+```
+
+## Reglas de `http-gateway.api.ts`
+1. **PROHIBIDO** meter lógica de negocio **DENTRO** de  `http-gateway.api.ts`
+
+La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `http-gateway.api.ts` (component).
+
+`http-gateway.api.ts` es un wrapper de `fetch`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
+
+Esto **SI** es responsabilidad de `http-gateway.api.ts` (_lógica de infraestructura/transporte_):
+  * Hacer peticiones HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
+  * Mostrar/ocultar icono de cargando (loader).
+  * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a **CUALQUIER** endpoint, **NO** a un caso de negocio específico.
+  * Timeout de peticiones.
+  * Estandarización del formato de respuesta de la API.
+  * Logger de peticiones HTTP exitosas y erróneas.
+  * Construcción de opciones de la peticion HTTP: body, params, headers, responseType
+
+Esto **JAMÁS** debe estar en `http-gateway.api.ts` (_lógica de negocio/dominio_):
+  * Métodos con nombre de dominio específico. Ejemplo: `getUserPermissionsById()`, `findTasksByFilters()`, `createInvoice()`, `cancelOrderById()`, `updateUserProfile()`, `sendPasswordResetEmail()`.
+  * Validaciones de reglas de negocio. Ejemplo: "si el usuario no tiene el rol X, no puede ver Y".
+  * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `users.filter(user => user.active && user.role === 'admin')`.
+  * Decisiones específicas de un flujo de negocio (qué hacer con la respuesta según el contexto de la feature).
+
+Diferencia:
+  * **Lógica de infraestructura/transporte**: "¿cómo viaja la petición?" (timeout, headers, formato, errores HTTP genéricos).
+
+  * **Lógica de negocio/dominio**: "¿qué significa esta petición/respuesta para la aplicación?" (permisos, tareas, facturas, reglas de la feature).
+
+`http-gateway.api.ts` solo responde la primera pregunta. La segunda siempre se resuelve en el componente ó .ts que lo consume.
+
+## Reglas para Consumir API
+* **SIEMPRE** desestructurar la respuesta de la API para acceder directamente a sus propiedades (`success`, `status`, `message`, `data`):
+
+```ts
+const { success, status, message, data } = await firstValueFrom(
+  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+);
+```
+
+**NUNCA** guardar la respuesta completa en una variable y acceder a sus propiedades con notación de punto (`response.success`, `response.status`, `response.message`, `response.data`):
+
+```ts
+const response = await firstValueFrom(
+  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+);
+```
+
+* Al llamar `GatewayApiService` **NUNCA** usar:
+  * `try/catch`
+  * Operador de RxJS `catchError`
+  * Callback `error` del objeto pasado a `subscribe()`
+
+* El manejo de errores se tiene que hacer con `if else` asi:
+
+```ts
+async getBots() {
+  const { success } = await firstValueFrom(
+    this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+  );
+
+  if (!success) {
+    // codigo cuando peticion HTTP es erronea
+    return;
+  }
+
+  // codigo cuando peticion HTTP es exitosa
+}
+```
+
+* **NO** propagar los errores de `GatewayApiService` con `throw new Error()` porque `GatewayApiService` ya centraliza el manejo de errores con `catchError`
+
+* Ejemplo correcto SIN propagar error y sin try catch
+
+```ts
+getUser(id: string) {
+  return this.http.get<User>(`/api/users/${id}`); // me olvidé de poner ApiResponse<T>
+}
+```
+
+```html
+@if (userRes.isLoading()) { <spinner /> }
+@else if (!userRes.value()?.success) { <p>No se pudo cargar</p> }  <!-- chequeás el flag -->
+@else { <p>{{ userRes.value()?.data?.name }}</p> }                 <!-- value() es ApiResponse<User> → ?.data?.name -->
+```
+
+* La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
+
+## Icono de Loader Global
+Prohibido crear use state loading false/true para manejar el loading en componentes de React. `http-gateway.api.ts` ya se encarga de mostrar y ocultar fixed loader centrado en pantalla
+
+## ¿Como Desactivar el Sticky Loader Icon de `http-gateway.api.ts`?
+
+# Maquetación
+
+## Iconos
+**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [React Icons](https://react-icons.github.io/react-icons/)
+
+Dar prioridad a usar los iconos de React Icons. Ejemplo:
+
+```TSX
+// MyComponent.tsx
+
+import { FiHome } from "react-icons/fi";
+
+export default function MyComponent() {
+  return <FiHome />
+}
+```
+
+No agregar imágenes/SVGs manualmente si el icono ya existe en React Icons
+
+Cuando el icono no este en React Icons, entonces agregarlo dentro de la carpeta assets assets de Next.js
+
+## Uso de Tailwind con Next.js
+El texto a continuación es una guia de los breaking changes mas importantes de Tailwind 4 que esta basado en la documentación oficial.
+
+**Enlaces de Referencia**
+**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia:
+* [Breaking changes de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4)
+
+* [Tema oscuro en Tailwind](https://tailwindcss.com/docs/dark-mode)
+
+* [Media Queries (Breakpoints) de Tailwind](https://tailwindcss.com/docs/responsive-design)
+
+* [@layer y Preflight en Tailwind](https://tailwindcss.com/docs/preflight)
+
+* Uso de `@apply` de Tailwind:
+  * [Tutorial](https://x.com/adamwathan/status/1226511611592085504)
+  * [X (Twitter)](https://x.com/adamwathan/status/1559250403547652097)
+
+**Regla:**
+Este proyecto usa Tailwind 4. Está **PROHIBIDO** el uso de patrones legacy de Tailwind 3 y versiones anteriores, debido a que esto causa errores en la compilación de la aplicación.
+
+### Tabla Comparativa de Tailwind 4 VS Tailwind 3
+
+| Configuración               | Patrones Legacy de Tailwind 3                                          | Patrones de Tailwind 4                                                          |
+| --------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Archivo de configuración    | `tailwind.config.ts`                                                   | `@theme` en archivo .css                                                        |
+| Importar el CSS de Tailwind | `@tailwind base;`<br>`@tailwind components;`<br>`@tailwind utilities;` | `@import "tailwindcss"`                                                         |
+| Modo oscuro                 | `darkMode: "class"`                                                    | `@custom-variant dark (&:where(.dark, .dark *))`                                |
+| Colores personalizados      | `theme.extend.colors`                                                  | `@theme { --color-*: value }`                                                   |
+| Animaciones                 | `require("tailwindcss-animate")`                                       | `@keyframes` de CSS en `@theme` + `@starting-style` para animaciones de entrada |
+| Modificador `!important`    | `!flex` (al inicio, después de variantes)                              | `flex!` (al final del nombre de clase)                                          |
+
+### Archivo de Configuración de Tailwind
+
+**Incorrecto - Configurar Tailwind 3 con archivo `.js`**
+
+```js
+/* tailwind.config.js */
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "primary-color": "oklch(62.8% 0.258 29.23)" // #FF0000
+      },
+    },
+  },
+};
+```
+
+**Correcto - Configurar Tailwind 4 con archivo `.css`**
+
+```CSS
+@theme {
+  --color-primary-color: oklch(62.8% 0.258 29.23); // #FF0000
+}
+```
+
+### Configurar PostCSS
+Para configurar Tailwind 4, en la carpeta raiz del proyecto debe existir un archivo `.postcssrc.json` que contenga lo siguiente:
+
+```JSON
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+
+### Importar el CSS de Tailwind
+Para importar Tailwind 4 desde el archivo CSS de estilos globales (por ejemplo, `src/css/global.css`) existen dos formas:
+
+#### Forma 1 - `@import`
+Para Tailwind 4 usar:
+
+```CSS
+@import 'tailwindcss';
+```
+
+Prohibido usar la configuración de import de Tailwind 3:
+
+```CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+#### Forma 2 - `@layer` - CSS Cascade Layers
+En Tailwind 4 `@layer` permite personalizar:
+* Los estilos que se importan de Tailwind.
+
+* El orden de las capas de estilos.
+
+Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejemplo solo incluye las capas de Tailwind 4 y no de ningun otro estilo CSS ni libreria de UI:
+
+```CSS
+@layer theme, base, components, utilities;
+```
+
+### Tema Oscuro
+Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el HTML.
+
+**Correcto:**
+
+```html
+<div class="bg-white dark:bg-gray-900">
+  <!-- ... -->
+</div>
+```
+
+No escribas estilos del tema oscuro en archivos CSS.
+
+**Incorrecto:**
+
+```css
+.container {
+  background: white;
+
+  .dark & {
+    background: #111827;
+  }
+}
+```
+
+La única excepción son las variables de color del tema de Shad cn. Estas se definen en CSS, una vez para el tema claro y otra para el oscuro, y se exponen a Tailwind con `@theme inline`
+
+**Correcto:**
+
+```css
+@theme inline {
+  --color-card: var(--card);
+}
+
+:root {
+  --card: oklch(1 0 0);
+}
+
+:root.dark {
+  --card: oklch(0.205 0 0);
+}
+```
+
+Las clases generadas a partir de estas variables, como `bg-card`, cambian de tema automáticamente, así que no necesitan `dark:`.
+
+### Valores de Utilidad Dinámicos y Variantes (Variable `--spacing`)
+Las utilidades y variantes de Tailwind 4 permiten aceptar determinados tipos de valores arbitrarios sin necesidad de ninguna configuración ni de recurrir a la sintaxis de valores arbitrarios.
+
+Por ejemplo, en Tailwind 4 puedes crear cuadrículas de cualquier tamaño directamente:
+
+```HTML
+<div class="grid grid-cols-15">
+  <!-- ... -->
+</div>
+```
+
+También puedes usar atributos `data-*` booleanos personalizados sin necesidad de definirlos previamente:
+
+```HTML
+<div data-current class="opacity-75 data-current:opacity-100">
+  <!-- ... -->
+</div>
+```
+
+Incluso las utilidades de espaciado, como `px-*`, `mt-*`, `w-*` y `h-*`, ahora se derivan dinámicamente de una única variable de escala de espaciado y aceptan cualquier valor directamente. Cada clase de espaciado es el número de la clase multiplicado por la variable `--spacing`:
+
+```CSS
+/* CSS generado */
+
+@layer theme {
+  :root {
+    --spacing: 0.25rem;
+  }
+}
+
+@layer utilities {
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .w-17 {
+    width: calc(var(--spacing) * 17);
+  }
+  .pr-29 {
+    padding-right: calc(var(--spacing) * 29);
+  }
+}
+```
+
+### `@apply`
+Prohibido usar `@apply` de Tailwind
+
+***Incorrecto:***
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="button">
+  Boton
+</button>
+```
+
+```CSS
+.button {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg;
+}
+```
+
+## ¿Cómo Usar Tailwind y CSS Juntos?
+Los componentes se estilizan solo con clases de Tailwind en su plantilla. CSS se usa solo para estilos globales y para configurar librerías de UI, como las variables de tema de Shad cn.
+
+**Reglas:**
+* No escribas CSS que sobrescriba clases de Tailwind ni que compita con ellas por especificidad.
+
+* No escribas estilos de componentes en archivos CSS.
+
+* En los componentes de Next.js está prohibido usar:
+  * Estilos en linea con la prop `style`
+  * Elementos `<style>`, incluidos `<style jsx>` y `<style jsx global>`.
+  * Importaciones de hojas de estilo, como `import './Button.css'`.
+  * CSS Modules (`.module.css`).
+  * Librerías de CSS-in-JS, como styled-components
+
+### Anidamiento de Selectores CSS (CSS Nesting)
+Con CSS Nesting se anidan dentro del selector al que pertenecen:
+
+1. **Los selectores hijos:** para aplicar estilos a elementos dentro de otro elemento, anida su selector dentro del selector del padre.
+
+2. **Las media queries:** el bloque `@media` se anida dentro del selector al que le cambia los estilos.
+
+En ambos casos está prohibido repetir el selector en una regla aparte o en un bloque `@media` aparte.
+
+**Correcto**
+
+```CSS
+div.parent {
+  border: 1px solid green;
+
+  p.child {
+    color: red;
+  }
+}
+```
+
+**Incorrecto**
+
+```CSS
+div.parent {
+  border: 1px solid green;
+}
+
+div.parent p.child {
+  color: red;
+}
+```
+
+```CSS
+/* es incorrecto porque la media query está en un bloque @media aparte y repite el selector h1 */
+h1 {
+  color: red;
+}
+
+@media (width >= 768px) {
+  h1 {
+    color: blue;
+  }
+}
+```
+
+### Unidades Relativas al Viewport
+Esta regla aplica a Tailwind y a CSS en las siguientes propiedades de tamaño:
+
+* **Tailwind:** `h-*`, `min-h-*`, `max-h-*`, `w-*`, `min-w-*` y `max-w-*`.
+
+* **CSS:** `height`, `min-height`, `max-height`, `width`, `min-width` y `max-width`.
+
+Para medidas relativas al viewport, usa `dvh` y `dvw`. No uses `vh` ni `vw`, tampoco en valores arbitrarios como `h-[100vh]`.
+
+**Correcto:**
+
+```html
+<div class="h-dvh w-dvw">
+  <!-- ... -->
+</div>
+```
+
+```css
+.layout {
+  height: 100dvh;
+  width: 100dvw;
+}
+```
+
+**Incorrecto:**
+
+```html
+<div class="h-screen w-screen">
+  <!-- ... -->
+</div>
+```
+
+```css
+.layout {
+  height: 100vh;
+  width: 100vw;
+}
+```
+
+### Colores
+Esta regla aplica a Tailwind y a CSS. Todo color debe escribirse en `oklch` en:
+
+* **Tailwind:** variables de `@theme` y valores arbitrarios.
+
+* **CSS:** variables CSS y cualquier propiedad que reciba un color, como `color`, `background-color`, `border-color`, etc.
+
+No uses hexadecimal, `rgb()`, `rgba()`, `hsl()`, `hsla()` ni nombres de color como `red`.
+
+Las clases de la paleta predeterminada de Tailwind, como `bg-red-500`, están permitidas.
+
+**Correcto:**
+
+```css
+@theme {
+  --color-blue-azure: oklch(64.1% 0.172 247.8); /* #0191ee */
+}
+
+.header {
+  border-color: oklch(62.8% 0.258 29.23);
+}
+```
+
+```html
+<div class="bg-[oklch(62.8%_0.258_29.23)]"></div>
+```
+
+**Incorrecto:**
+
+```css
+@theme {
+  --color-blue-azure: #0191ee;
+}
+
+:root {
+  --card: #fff;
+}
+
+.header {
+  border-color: rgb(255 0 0);
+}
+```
+
+```html
+<div class="bg-[rgb(255_0_0)]"></div>
+```
+
+## Media Queries (Breakpoints)
+Tailwind y CSS usan los mismos breakpoints: los definidos en `@theme`. Está prohibido usar otros valores.
+
+```css
+@theme {
+  /* celular */
+  --breakpoint-xsm: 30rem; /* @media (width >= 480px) { ... } */
+
+  /* tablet */
+  --breakpoint-sm: 40rem; /* @media (width >= 640px) { ... } */
+  --breakpoint-md: 48rem; /* @media (width >= 768px) { ... } */
+  --breakpoint-lg: 64rem; /* @media (width >= 1024px) { ... } */
+
+  /* pantalla computador portátil */
+  --breakpoint-xl: 80rem; /* @media (width >= 1280px) { ... } */
+
+  /* monitor */
+  --breakpoint-2xl: 96rem; /* @media (width >= 1536px) { ... } */
+  --breakpoint-3xl: 120rem; /* @media (width >= 1920px) { ... } */
+}
+```
+
+`xsm` y `3xl` son propios del proyecto. El resto son los predeterminados de Tailwind 4.
+
+### Mobile First
+Tailwind y CSS se escriben mobile first
+
+**Correcto:**
+
+```tsx
+// MyComponent.tsx
+
+export default function MyComponent() {
+  return (
+    <div className="p-2 xsm:p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 3xl:p-10"></div>
+  );
+}
+```
+
+```css
+/* archivo global de CSS */
+
+h1 {
+  padding: 0.5rem;
+
+  @media (width >= 480px) {
+    padding: 0.75rem;
+  }
+
+  @media (width >= 640px) {
+    padding: 1rem;
+  }
+
+  @media (width >= 768px) {
+    padding: 1.25rem;
+  }
+
+  @media (width >= 1024px) {
+    padding: 1.5rem;
+  }
+
+  @media (width >= 1280px) {
+    padding: 1.75rem;
+  }
+
+  @media (width >= 1536px) {
+    padding: 2rem;
+  }
+
+  @media (width >= 1920px) {
+    padding: 2.5rem;
+  }
+}
+```
+
+### Sintaxis de Rango
+Escribir las media queries con la sintaxis de rango (operadores de comparación) de CSS Media Queries Level 4. Está **PROHIBIDO** usar los prefijos `min-width` y `max-width`.
+
+La sintaxis de rango también se escribe como se especifica en el titulo [Mobile First](#mobile-first): se parte del estilo base de móvil y se amplía hacia arriba con `width >=`. Por lo tanto, dentro de la sintaxis de rango también está **PROHIBIDO** `width <=` (desktop first) y acotar entre dos anchos (`768px <= width <= 1023px`).
+
+| Sintaxis Legacy (prohibida)                         | Sintaxis de rango (obligatoria)     | ¿Mobile first? |
+| --------------------------------------------------- | ----------------------------------- | -------------- |
+| `@media (min-width: 768px)`                         | `@media (width >= 768px)`           | Sí             |
+| `@media (max-width: 767px)`                         | `@media (width <= 767px)`           | No, prohibido  |
+| `@media (min-width: 768px) and (max-width: 1023px)` | `@media (768px <= width <= 1023px)` | No, prohibido  |
+
+**Correcto:**
+
+```css
+/* archivo global de CSS */
+
+/* usa la sintaxis de rango y es mobile first: desde 768px en adelante */
+h1 {
+  color: red;
+
+  @media (width >= 768px) {
+    color: blue;
+  }
+}
+```
+
+**Incorrecto**
+
+```css
+/* archivo global de CSS */
+
+/* es incorrecto porque usa min-width en vez de la sintaxis de rango */
+h1 {
+  color: red;
+
+  @media (min-width: 768px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* archivo global de CSS */
+
+/* es incorrecto porque usa max-width: no es sintaxis de rango y además es desktop first */
+h1 {
+  color: red;
+
+  @media (max-width: 767px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* archivo global de CSS */
+
+/* es incorrecto porque usa min-width y max-width en vez de la sintaxis de rango */
+h1 {
+  color: red;
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    color: blue;
+  }
+}
+```
+
+### Media Queries en CSS
+Las media queries en CSS solo se usan en estilos globales. Los componentes usan los prefijos de Tailwind.
+
+**Correcto:**
+
+```css
+/* archivo global de CSS */
+
+h1 {
+  color: red;
+
+  @media (width >= 768px) {
+    color: blue;
+  }
+}
+```
+
+**Incorrecto**
+
+```css
+/* es incorrecto porque usa width <= (desktop first) */
+h1 {
+  color: red;
+
+  @media (width <= 767px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* es incorrecto porque acota entre dos anchos en vez de ser mobile first */
+h1 {
+  color: red;
+
+  @media (768px <= width <= 1023px) {
+    color: blue;
+  }
+}
+```
+
+```css
+/* MyComponent.module.css */
+
+/* es incorrecto porque son estilos de componente en un archivo CSS */
+.card {
+  padding: 1rem;
+
+  @media (width >= 768px) {
+    padding: 1.5rem;
+  }
+}
+```
+
+## Componentes de UI
+Este proyecto usa los componentes de shad cn que están instalados en `src/shared/ui/shad-cn`.
+
+shad cn usa Base UI, no Radix UI.
+
+A diferencia de Radix UI, Base UI ya no utiliza la prop `asChild`; en su lugar usa la prop `render`.
+
+Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
+
+### Orden de Decisión
+Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el primer caso que aplique:
+
+1. **¿El componente está en "[Componentes Permitidos](#componentes-permitidos)"?**
+   Usar el componente de shadcn de la lista. Está prohibido usar su equivalente nativo de HTML.
+   Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar `<Dialog>` de shadcn.
+
+2. **¿El componente es un botón?**
+   Ir a [Orden de Decisión para Botones](#orden-de-decisión-para-botones) y aplicar sus 3 pasos. Esa sección resuelve el caso completo: **no** continuar con los pasos 3 ni 4 de esta lista.
+
+3. **¿El componente NO está en la lista y NO es un botón?**
+   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado. Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
+
+4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
+   El HTML nativo solo está prohibido en dos situaciones:
+   * (a) Cuando existe un equivalente en [Componentes Permitidos](#componentes-permitidos): usar shadcn, no el nativo.
+
+   * (b) La etiqueta `<button>` nativa: ver [Orden de Decisión para Botones](#orden-de-decisión-para-botones).
+
+   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
+
+### Refuerzo para Formularios
+Además de lo anterior, en formularios usar los componentes de shad cn de "[Componentes Permitidos](#componentes-permitidos)" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+
+Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con react-hook-form para el manejo de estado y validación.
+
+### Orden de Decisión para Botones
+
+> [!CAUTION]
+> Evaluar los 3 pasos **en orden** y **detenerse en el primer caso que aplique**. No saltar pasos ni combinarlos.
+
+Todo se decide con una sola pregunta: **¿el archivo que estás editando _implementa_ la librería de UI, o la _consume_?**
+
+| El archivo que estás editando…             | Rol           | Botón que se usa                  |
+| ------------------------------------------ | ------------- | --------------------------------- |
+| Está dentro de `src/shared/ui/shad-cn`     | Implementa    | `Button` de shadcn → **paso 1**   |
+| Está en cualquier otra ruta de `src`       | Consume       | Botón composable → **paso 2**     |
+
+#### Paso 1 - Botón Interno de la Librería de UI → `Button` de shadcn
+**Condición:** el botón se escribe **dentro** de `src/shared/ui/shad-cn`, en el archivo que implementa o define un componente de shadcn.
+
+**Usar:** `Button` de `src/shared/ui/shad-cn/react-hook-form/action/button/Button.tsx` — alias `@shad-cn/Button`.
+
+Así lo hace la propia librería:
+
+```tsx
+/* src/shared/ui/shad-cn/overlay/dialog/DialogContent.tsx */
+import { Button } from '@shad-cn/Button';
+
+<DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>;
+```
+
+**Alcance:** esta regla aplica **únicamente** al código que implementa o define los componentes de la librería de UI. **NO** aplica al código de la aplicación donde esos componentes son consumidos — ese caso lo resuelve el paso 2.
+
+#### Paso 2 - Botón Fuera de la Librería de UI → Botón Composable
+**Condición:** el botón **NO** se escribe dentro de `src/shared/ui/shad-cn`. Ocurre en cualquiera de estos dos casos:
+
+**2.1. El botón se usa al consumir un componente de la librería de UI.**
+Ejemplo: al usar `Dialog`, `Drawer`, `Sheet`, `AlertDialog` o `DropdownMenu` — tanto el trigger que abre el overlay como los botones de acción de su contenido (Guardar, Cancelar).
+
+**2.2. El botón pertenece a la interfaz de usuario de la aplicación.**
+Ejemplo: Iniciar sesión, Guardar, Cancelar, Crear, Editar, Eliminar, Buscar, Aceptar, Continuar.
+
+**Usar:** Botón composable de `src/shared/ui/buttons` de acuerdo al siguiente criterio:
+
+| Componente                               | Renderiza           | Cuándo usarlo                                  |
+| ---------------------------------------- | ------------------- | ---------------------------------------------- |
+| `src/shared/ui/buttons/Button.tsx`       | `<button>`          | Acciones que no navegan                        |
+| `src/shared/ui/buttons/AnchorButton.tsx` | `<a>`               | Enlaces externos, descargas, `target="_blank"` |
+| `src/shared/ui/buttons/NextLink.tsx`     | `<Link>` de Next.js | Navegación interna con prefetch                |
+
+**PROHIBIDO** usar `Button` de shadcn (`@shad-cn/Button`) fuera de `src/shared/ui/shad-cn`.
+
+#### PROHIBIDA la Etiqueta `<button>` Nativa de HTML
+Aplica a los pasos 1 y 2. Al escribir un componente de React **nunca** se construye un botón con la etiqueta `<button>`: siempre se usa `Button` de `src/shared/ui/buttons`.
+
+La única etiqueta `<button>` nativa del proyecto vive dentro de `src/shared/ui/buttons/Button.tsx`, que es donde se aplican los estilos composables. Ningún otro archivo la escribe.
+
+La misma regla aplica a los elementos **con apariencia de botón**: un `<a>` estilizado como botón usa `AnchorButton`, y un `<Link>` de Next.js estilizado como botón usa `NextLink`.
+
+**Incorrecto:**
+```tsx
+<button className="btn btn-primary btn-background" onClick={onSave}>Guardar</button>
+```
+
+**Correcto:**
+```tsx
+<Button theme="primary" variant="background" onClick={onSave}>Guardar</Button>
+```
+
+#### Cómo Pasar el Botón Composable a un Componente de la Librería
+Base UI usa la prop **`render`** para reemplazar el elemento que renderiza un componente. Los props internos del componente (`onClick`, `aria-*`, `data-*`, `ref`, `className`) se fusionan sobre el elemento recibido.
+
+Escribir el contenido del botón **dentro** del elemento que se pasa a `render`, y dejar el componente de Base UI autocerrado:
+
+**Motivo:** los tres botones composables declaran `children` como prop, así que `<Button theme="primary" variant="background" />` no compila. Además Base UI fusiona con `mergeProps(props, render.props)`, donde el objeto de la derecha gana: los `children` del elemento de `render` sobrescriben a los del componente de Base UI.
+
+**Incorrecto:**
+
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background" />}>Abrir</DialogTrigger>
+```
+
+**Correcto:**
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+```
+
+**Base UI NO usa `asChild`.** `asChild` es de Radix UI y en `@base-ui/react` no existe. Su equivalente es `render`.
+
+**Incorrecto:**
+```tsx
+<DialogTrigger asChild><Button theme="primary" variant="background">Abrir</Button></DialogTrigger>
+```
+
+**Correcto:**
+```tsx
+<DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+```
+
+**Ejemplo completo — `Dialog` consumido desde la aplicación:**
+
+```tsx
+<Dialog>
+  {/* 2.1 — trigger: botón composable vía render */}
+  <DialogTrigger render={<Button theme="primary" variant="background">Abrir</Button>} />
+
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Título</DialogTitle>
+    </DialogHeader>
+
+    <DialogFooter>
+      {/* 2.1 — cerrar: botón composable vía render */}
+      <DialogClose render={<Button theme="secondary" variant="outline">Cancelar</Button>} />
+
+      {/* 2.2 — acción de la aplicación: botón composable suelto */}
+      <Button theme="primary" variant="background" type="submit">
+        Guardar
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+#### Piezas que Traen el `Button` de shadcn Incrustado
+Algunos sub-componentes **son** el `Button` de shadcn por definición. No todos se pueden reemplazar, así que se resuelven caso por caso:
+
+| Pieza                               | ¿Botón incrustado?     | Qué hacer                                                    |
+| ----------------------------------- | ---------------------- | ------------------------------------------------------------ |
+| `DialogTrigger` / `DialogClose`     | No                     | `render={<Button …>texto</Button>}`                          |
+| `SheetTrigger` / `SheetClose`       | No                     | `render={<Button …>texto</Button>}`                          |
+| `DrawerTrigger` / `DrawerClose`     | No                     | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogTrigger`                | No                     | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogCancel`                 | Sí, **sobrescribible** | `render={<Button …>texto</Button>}`                          |
+| `AlertDialogAction`                 | Sí, NO sobrescribible  | **PROHIBIDO.** Poner un botón composable suelto en el footer |
+| `InputGroupButton`                  | Sí                     | **Permitido**: es cromo interno del `InputGroup`             |
+| `CarouselPrevious` / `CarouselNext` | Sí                     | **Permitido**: es cromo interno del `Carousel`               |
+
+**Criterio que resuelve cualquier pieza que no esté en la tabla:**
+* El botón representa una **acción de la aplicación** (Guardar, Cancelar, Eliminar) → botón composable. Su apariencia pertenece a la aplicación.
+
+* El botón es **cromo interno del componente** (flechas del `Carousel`, addon del `InputGroup`) → botón de la librería. Su apariencia pertenece al componente, no a la aplicación.
+
+`AlertDialogAction` está prohibido porque solo aporta estilos: **no cierra el diálogo**, así que reemplazarlo por un botón composable no pierde ningún comportamiento.
+
+```tsx
+<AlertDialogFooter>
+  {/* sobrescribible con render */}
+  <AlertDialogCancel render={<Button theme="secondary" variant="outline">Cancelar</Button>} />
+
+  {/* en vez de AlertDialogAction, botón composable suelto */}
+  <Button theme="danger" variant="background" onClick={onDelete}>
+    Eliminar
+  </Button>
+</AlertDialogFooter>
+```
+
+### Dependencias Internas de los Componentes Permitidos
+
+Si un componente de "[Componentes Permitidos](#componentes-permitidos)" depende de otros componentes de shadcn para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Dependencias reales de este proyecto:
+
+| Componente       | Depende de                              |
+| ---------------- | --------------------------------------- |
+| `Combobox`       | `Input Group` + `Button`                |
+| `Date Picker`    | `Calendar` + `Popover` + `Button`       |
+| `Calendar`       | `Button`                                |
+| `Input Group`    | `Input Base` + `Textarea` + `Button`    |
+| `Input Text`     | `Input Base`                            |
+| `Input Number`   | `Input Base`                            |
+| `Input Email`    | `Input Base`                            |
+| `Input Password` | `Input Base` + `Input Group` + `Button` |
+| `Carousel`       | `Button`                                |
+
+`Button` (`@shad-cn/Button`) e `Input Base` (`@shad-cn/InputBase`) son los dos requisitos que **no** aparecen en la tabla "[Componentes Permitidos](#componentes-permitidos)", y son justamente el caso que cubre esta regla: solo se usan internamente para construir los demás componentes.
+
+Los botones se resuelven aparte, con [Orden de Decisión para Botones](#orden-de-decisión-para-botones): dentro de `src/shared/ui/shad-cn` se usa el `Button` de shadcn, y al consumir esos componentes desde la aplicación se usa el botón composable de `src/shared/ui/buttons`.
+
+### Data Table
+Solo se permite el patrón "Data Table" de shadcn con `@tanstack/react-table`, incluyendo paginación y sorting. **No** está permitido usar el primitivo `Table` de shadcn por sí solo ni la etiqueta `<table>` nativa de HTML
+
+### Prohibiciones
+* Prohibido instalar componentes nuevos de shadcn (vía su CLI, por ejemplo: `pn dlx shadcn@latest add <componente>`) distintos a los de "[Componentes Permitidos](#componentes-permitidos)".
+
+* Prohibido usar cualquier librería de UI externa (MUI, Ant Design, react-select, etc.).
+
+* Prohibido usar `input-base` (`src\shared\ui\shad-cn\react-hook-form\text\input\input-base`) fuera de `src/shared`. Es una pieza interna que solo existe para construir `input-text`, `input-number`, `input-password` e `input-email`. Fuera de `src/shared` se usa uno de esos cuatro, nunca el base.
+
+### Componentes Permitidos
+Los componentes están agrupados en cuatro categorías dentro de `src\shared\ui\shad-cn`: `data-display`, `navigation`, `overlay` y `react-hook-form`
+
+Siempre para importar los componentes usar los import alias de shad cn que estan en `tsconfig.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@shad-cn/<Componente>`) y coincide exactamente con el nombre del archivo, en PascalCase.
+
+| Nombre Componente                                              | Ruta                                                              |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Accordion                                                      | `src\shared\ui\shad-cn\navigation\accordion`                      |
+| Alert Dialog                                                   | `src\shared\ui\shad-cn\overlay\alert-dialog`                      |
+| Calendar                                                       | `src\shared\ui\shad-cn\react-hook-form\date\calendar`             |
+| Carousel                                                       | `src\shared\ui\shad-cn\data-display\carousel`                     |
+| Checkbox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\checkbox`        |
+| Combobox                                                       | `src\shared\ui\shad-cn\react-hook-form\selection\combobox`        |
+| Data Table (con `@tanstack/react-table`, paginación y sorting) | `src\shared\ui\shad-cn\data-display\data-table`                   |
+| Date Picker                                                    | `src\shared\ui\shad-cn\react-hook-form\date\date-picker`          |
+| Dialog                                                         | `src\shared\ui\shad-cn\overlay\dialog`                            |
+| Drawer                                                         | `src\shared\ui\shad-cn\overlay\drawer`                            |
+| Dropdown Menu                                                  | `src\shared\ui\shad-cn\overlay\dropdown-menu`                     |
+| Input Email                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-email`    |
+| Input Group                                                    | `src\shared\ui\shad-cn\react-hook-form\text\input\input-group`    |
+| Input Number                                                   | `src\shared\ui\shad-cn\react-hook-form\text\input\input-number`   |
+| Input Password                                                 | `src\shared\ui\shad-cn\react-hook-form\text\input\input-password` |
+| Input Text                                                     | `src\shared\ui\shad-cn\react-hook-form\text\input\input-text`     |
+| Label                                                          | `src\shared\ui\shad-cn\react-hook-form\text\label`                |
+| Pagination                                                     | `src\shared\ui\shad-cn\navigation\pagination`                     |
+| Popover                                                        | `src\shared\ui\shad-cn\overlay\popover`                           |
+| Radio Group                                                    | `src\shared\ui\shad-cn\react-hook-form\selection\radio-group`     |
+| Select                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\select`          |
+| Sheet                                                          | `src\shared\ui\shad-cn\overlay\sheet`                             |
+| Toast (Sonner)                                                 | `src\shared\ui\overlay\toast`                                     |
+| Switch                                                         | `src\shared\ui\shad-cn\react-hook-form\selection\switch`          |
+| Tabs                                                           | `src\shared\ui\shad-cn\navigation\tabs`                           |
+| Textarea                                                       | `src\shared\ui\shad-cn\react-hook-form\text\textarea`             |
+| Tooltip                                                        | `src\shared\ui\shad-cn\overlay\tooltip`                           |
+
+
+## Estilos Globales para Botones
+
+**Enlaces de Referencia**
+**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia. Está guía de estilos para botones está basada en:
+
+* [Botones de Bootstrap 5](https://getbootstrap.com/docs/5.3/components/buttons/)
+
+* [Tailwind 4 font-size](https://tailwindcss.com/docs/font-size)
+
+* [Tailwind 4 line-height](https://tailwindcss.com/docs/line-height)
+
+* [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
+
+**Incorrecto:**
+
+Usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
+
+- `color`
+- `hover`
+- `active`
+- `disabled`
+- `font-size`
+- dark mode
+
+Esto rompe la consistencia visual y vuelve el código más difícil de mantener y escalar.
+
+```tsx
+<button>
+  <img src='/assets/icon/delete.svg' alt='Eliminar' />
+</button>
+```
+
+Por ejemplo, para intentar cambiar color, tamaño o estados visuales de imágenes `<img>`, normalmente se termina recurriendo a hacks visuales con CSS, lo cual es mala práctica:
+
+```SCSS
+// cambiar tamaño de imagen
+button {
+  img {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+}
+```
+
+```SCSS
+// cambiar color de imagen
+img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+```
+
+```SCSS
+// Recortar la imagen usando la forma del SVG
+img {
+  mask-image: url(icon.svg);
+}
+```
+
+```SCSS
+// Hacer imagen semitransparente al pasar el mouse
+button {
+  &:hover {
+    img {
+      opacity: 0.5;
+    }
+  }
+}
+```
+
+Esto genera:
+
+- Son difíciles de mantener.
+- Generan inconsistencias visuales.
+- Complican los estilos para los estados del botón.
+- Rompen fácilmente en dark mode.
+- Vuelven el CSS más complejo y frágil.
+
+**Correcto:**
+
+Los iconos de los botones deben utilizar React Icons
+
+React Icons funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
+
+```tsx
+import { MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn btn-primary btn-outline btn-icon-only btn-rounded-full btn-shadow'>
+      <MdArrowForward />
+    </button>
+  );
+}
+```
+
+**Incorrecto:**
+
+Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto genera estilos inconsistentes y no escalables:
+
+```tsx
+<button className='rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer'>
+  Aceptar
+</button>
+```
+
+Mezclar las clases globales de botones (`.btn`, `.btn-primary`, `.btn-outline-*`, etc.) con clases de Tailwind CSS.
+
+```tsx
+import { MdSave } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn btn-primary bg-red-500 px-10 rounded-full'>
+      <MdSave />
+      <span className='text-blue-500'>Guardar</span>
+    </button>
+  );
+}
+```
+
+Usar muchas clases de Sass para cada uno de los estilos de los botones, porque mezcla múltiples responsabilidades en una sola clase:
+
+- Icono
+- Texto
+- Borde
+
+```tsx
+import { MdHome } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn-with-icon-text-border'>
+      <MdHome />
+      <span>Boton</span>
+    </button>
+  );
+}
+```
+
+Ese enfoque no escala bien, ya que cada nueva combinación obliga a crear más clases:
+
+```SCSS
+.btn-with-icon-text-border-loading {}
+.btn-with-icon-text-background-lg {}
+.btn-with-icon-text-border-disabled {}
+```
+
+Esto genera:
+
+- Archivos Sass enormes y difíciles de mantener.
+- Duplicación innecesaria de código.
+- Inconsistencias visuales.
+- Dificultad para reutilizar un estándar de diseño.
+
+**Correcto:**
+
+Las clases de botones deben representar una sola responsabilidad y ser **composables**.
+
+En arquitectura CSS y de componentes, composable significa que una clase puede combinarse con otras clases pequeñas y reutilizables para construir distintos comportamientos sin duplicar código.
+
+Cada clase modifica únicamente una característica específica del botón. Esto permite combinar comportamientos sin duplicar estilos:
+
+| Archivo              | Descripción                                                                                                                                                                  | Ejemplo de código                                                |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `index-buttons.scss` | Archivo orquestador. Importa todos los módulos SCSS mediante `@use`. No debe contener estilos CSS, variables ni lógica visual.                                               | `@use "./base.scss";`                                            |
+| `_base.scss`         | Define la estructura base del sistema de botones: reset CSS, layout, alineación, box model y estilos fundamentales de `.btn`. Todas las variantes parten de esta clase base. | `.btn {} `                                                       |
+| `_variants.scss`     | Define la apariencia principal del botón (fondo, borde y comportamiento visual). Las variantes pueden combinarse con cualquier tema, tamaño o modificador.                   | `.btn-background {} .btn-outline {} .btn-ghost {} .btn-link {} ` |
+| `_themes.scss`       | Define los temas de color mediante CSS Custom Properties. Cada tema establece los colores utilizados por las variantes (`solid`, `outline`, `ghost`, etc.).                  | `.btn-primary {} .btn-secondary {} .btn-success {} `             |
+| `_sizes.scss`        | Define la escala de tamaños del botón mediante `padding`, `font-size` y `line-height`. Puede combinarse con cualquier variante o tema.                                       | `.btn-xs {} .btn-sm {} .btn-base {} .btn-lg {} `                 |
+| `_states.scss`       | Define los estados interactivos y de accesibilidad del botón. Centraliza comportamientos relacionados con `focus-visible`, `hover`, `active` y `disabled`.                   |                                                                  |
+| `_effects.scss`      | Contiene utilidades visuales reutilizables independientes de la lógica del botón. Permite agregar efectos opcionales como sombras, blur o elevación.                         | `.btn-shadow {} `                                                |
+| `_modifiers.scss`    | Clases composables que alteran o extienden características específicas del botón sin modificar su variante principal.                                                        | `.btn-full-width {} .btn-rounded-full {} .btn-icon-only {}`      |
+| `_mixins.scss`       | Codigo de Sass reutilizable que se repite en diferentes archivos de src\styles\global\scss\buttons                                                                                | `@mixin btn-base-size {}`                                        |
+| `_tokens.scss`       | Variables globales de Sass utilizadas por todo el sistema de botones. Centraliza colores, tamaños tipográficos y escalas de espaciado para mantener consistencia visual.     | `$primary: oklch(...);`                                          |
+
+### Manual de Uso para Dar Estilos a Botones
+
+Esta guía explica cómo utilizar correctamente los estilos globales de botones definidos en:
+
+```txt
+src/styles/global/scss/buttons
+```
+
+### UI/UX
+
+En el diseño de interfaces (UI/UX), el color de un botón no es solo decorativo:
+cada variante representa una intención de acción dentro del sistema.
+
+Esto ayuda al usuario a entender rápidamente qué va a ocurrir antes de hacer clic.
+
+**Los colores fuertes:**
+
+- Capturan atención.
+- Indican importancia.
+- El usuario lo identifica como el botón más importante para hacer clic.
+
+**Los colores suaves o transparentes:**
+
+- Reducen distracción.
+- Bajan la jerarquía visual.
+- Mantienen el foco en el contenido principal.
+
+**Reglas de UI/UX**
+
+- Solo debe existir 1 acción primaria por pantalla (colores fuertes).
+- Las acciones secundarias deben tener menor jerarquía visual (colores suaves).
+- Las acciones destructivas deben ser claramente identificables.
+- El color no es decoración, es comunicación.
+
+### Clase `.btn` con Estilos Base
+
+La clase `.btn` define los estilos base y actúa como un reset CSS para todos los botones, sin importar su variante o tipo (`primary`, `outline`, `ghost`, etc.).
+
+Esta clase **siempre debe utilizarse**, ya que establece la estructura común del componente y garantiza consistencia en toda la UI.
+
+Incluye estilos fundamentales como `padding`, `font-size`, alineación del contenido, comportamiento de interacción (`hover`, `active`, `disabled`) y configuración de layout.
+
+Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no representa un botón visual completo por sí sola**. Su función es servir como base para que las variantes (`.btn-primary`, `.btn-outline-*`, etc.) apliquen el estilo visual final.
+
+- Botones **activados** usan `cursor: pointer` para indicar que el botón es interactivo y puede ser clickeado.
+
+- Botones **desactivados** usan `cursor: not-allowed` para indicar que el botón no está disponible y no puede ser clickeado.
+
+```tsx
+<button className='btn'>Base class</button>
+```
+
+### Enlaces
+
+`btn btn-link` define los estilos para los enlaces para `<a>`, `<button>` y `<Link>` de Next.js
+
+![enlaces](./docs/readme-md/img/button/enlaces.png)
+
+```tsx
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+export default function MyComponent() {
+  const router = useRouter();
+
+  const onClickNavigation = (): void => {
+    router.push('/home');
+  };
+
+  return (
+    <>
+      <Link href='/home' className='btn btn-link'>
+        Ir a home
+      </Link>
+
+      <button className='btn btn-link' onClick={onClickNavigation}>
+        Ir a home
+      </button>
+
+      <button disabled className='btn btn-link' onClick={onClickNavigation}>
+        Ir a home
+      </button>
+
+      <a
+        className='btn btn-link'
+        href='https://www.google.com'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        Ir a Google
+      </a>
+    </>
+  );
+}
+```
+
+### Botones con Color de Fondo
+
+`btn-background` agrega color de fondo al boton.
+
+En sistemas de diseño modernos, los botones se clasifican según su nivel de importancia y riesgo de la acción:
+
+| Tipo de boton | Significado                                                    |
+| ------------- | -------------------------------------------------------------- |
+| Primary       | acción principal (continuar / confirmar / guardar)             |
+| Secondary     | acción secundaria (cancelar / salir)                           |
+| Ghost         | acción discreta sin estructura visual fuerte - no tiene border |
+| Danger        | eliminar o destruir                                            |
+| Warning       | advertencia                                                    |
+| Success       | confirmación positiva                                          |
+| Info          | información                                                    |
+| Link          | navegación / enlaces                                           |
+| Dark          | variante de alto contraste para acciones neutras o de soporte  |
+
+![variantes-con-color-de-fondo](./docs/readme-md/img/button/variantes-con-color-de-fondo.png)
+
+```tsx
+<button className="btn btn-primary btn-background">Primary</button>
+<button className="btn btn-secondary btn-background">Secondary</button>
+<button className="btn btn-success btn-background">Success</button>
+<button className="btn btn-danger btn-background">Danger</button>
+<button className="btn btn-warning btn-background">Warning</button>
+<button className="btn btn-info btn-background">Info</button>
+<button className="btn btn-light btn-background">Light</button>
+<button className="btn btn-dark btn-background">Dark</button>
+```
+
+### Botones con Borde + Texto
+
+Las clases `.btn-outline-*` se usan para botones que tienen `border`, pero no color de fondo `background-color` por defecto.
+
+El comportamiento visual depende del estado de interacción:
+
+- **Estado normal (sin `hover`)** → sin fondo `background-color: transparent` y se muestra únicamente el `border`.
+
+- **Estado `hover`** → botón cambia su `background-color` dependiendo del tipo de botón.
+
+Algunos botones usan colores claros en el texto o borde, por lo que deben colocarse sobre fondos oscuros para mantener un buen contraste y asegurar que sean claramente visibles.
+
+![borde-con-texto](./docs/readme-md/img/button/borde-con-texto.png)
+
+```tsx
+<button className="btn btn-primary btn-outline">Primary</button>
+<button className="btn btn-secondary btn-outline">Secondary</button>
+<button className="btn btn-success btn-outline">Success</button>
+<button className="btn btn-danger btn-outline">Danger</button>
+<button className="btn btn-warning btn-outline">Warning</button>
+<button className="btn btn-info btn-outline">Info</button>
+<button className="btn btn-light btn-outline">Light</button>
+<button className="btn btn-dark btn-outline">Dark</button>
+```
+
+### Botones con Sombra
+
+`btn-shadow` agrega una sombra a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+![botones-con-sombra](./docs/readme-md/img/button/botones-con-sombra.png)
+
+```tsx
+import { MdWarning, MdCheckCircle, MdDelete, MdInfo, MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      {/* sombra + fondo + texto */}
+      <button className='btn btn-primary btn-background btn-shadow'>Primary</button>
+
+      {/* sombra + texto */}
+      <button className='btn btn-secondary btn-ghost btn-shadow'>Secondary</button>
+
+      {/* sombra + borde + texto */}
+      <button className='btn btn-success btn-outline btn-shadow'>Success</button>
+
+      {/* sombra + bordes redondeados + icono + fondo */}
+      <button className='btn btn-warning btn-background btn-icon-only btn-shadow'>
+        <MdWarning />
+      </button>
+
+      {/* sombra + bordes redondeados + icono + borde */}
+      <button className='btn btn-success btn-outline btn-icon-only btn-shadow'>
+        <MdCheckCircle />
+      </button>
+
+      {/* sombra + borde + btn-rounded-full forma de circulo + icono */}
+      <button className='btn btn-outline btn-danger btn-icon-only btn-rounded-full btn-shadow'>
+        <MdDelete />
+      </button>
+
+      {/* sombra + btn-rounded-full forma de circulo + icono */}
+      <button className='btn btn-ghost btn-info btn-icon-only btn-rounded-full btn-shadow'>
+        <MdInfo />
+      </button>
+
+      {/* sombra + icono + fondo + texto */}
+      <button className='btn btn-primary btn-background btn-shadow'>
+        <MdArrowForward />
+        <span>Primary</span>
+      </button>
+
+      {/* sombra + icono + fondo + texto + boton redondo */}
+      <button className='btn btn-info btn-background btn-rounded-full btn-shadow'>
+        <MdInfo />
+        <span>Info</span>
+      </button>
+    </>
+  );
+}
+```
+
+### Botones con Icono
+
+Cuando el botón contenga únicamente un icono (sin texto), se utilicen las clases `btn` y `btn-icon-only`
+
+![solo-icono](./docs/readme-md/img/button/solo-icono.png)
+
+```tsx
+import { MdWarning, MdDelete, MdSettings, MdInfo, MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      {/* bordes redondeados */}
+      <button className='btn btn-warning btn-background btn-icon-only'>
+        <MdWarning />
+      </button>
+
+      {/* btn-rounded-full forma de circulo */}
+      <button className='btn btn-outline btn-danger btn-icon-only btn-rounded-full'>
+        <MdDelete />
+      </button>
+
+      <button className='btn btn-ghost btn-dark btn-icon-only btn-rounded-full'>
+        <MdSettings />
+      </button>
+
+      {/* xs boton muy pequeño */}
+      <button className='btn btn-info btn-background btn-icon-only btn-rounded-full btn-xs'>
+        <MdInfo />
+      </button>
+
+      {/* 2xl boton muy grande*/}
+      <button className='btn btn-primary btn-background btn-icon-only btn-rounded-full btn-2xl'>
+        <MdArrowForward />
+      </button>
+    </>
+  );
+}
+```
+
+### Botones con Icono + Fondo
+
+![icono-fondo](./docs/readme-md/img/button/icono-fondo.png)
+
+```tsx
+import {
+  MdArrowForward,
+  MdClose,
+  MdCheckCircle,
+  MdDelete,
+  MdWarning,
+  MdInfo,
+  MdLightMode,
+  MdDarkMode,
+} from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-background btn-icon-only'>
+        <MdArrowForward />
+      </button>
+
+      <button className='btn btn-secondary btn-background btn-icon-only'>
+        <MdClose />
+      </button>
+
+      <button className='btn btn-success btn-background btn-icon-only'>
+        <MdCheckCircle />
+      </button>
+
+      <button className='btn btn-danger btn-background btn-icon-only'>
+        <MdDelete />
+      </button>
+
+      <button className='btn btn-warning btn-background btn-icon-only'>
+        <MdWarning />
+      </button>
+
+      <button className='btn btn-info btn-background btn-icon-only'>
+        <MdInfo />
+      </button>
+
+      <button className='btn btn-light btn-background btn-icon-only'>
+        <MdLightMode />
+      </button>
+
+      <button className='btn btn-dark btn-background btn-icon-only'>
+        <MdDarkMode />
+      </button>
+    </>
+  );
+}
+```
+
+### Botones con Borde + Icono
+
+![icono-borde](./docs/readme-md/img/button/icono-borde.png)
+
+```tsx
+import {
+  MdArrowForward,
+  MdClose,
+  MdCheckCircle,
+  MdDelete,
+  MdWarning,
+  MdInfo,
+  MdLightMode,
+  MdDarkMode,
+} from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-outline btn-icon-only'>
+        <MdArrowForward />
+      </button>
+
+      <button className='btn btn-secondary btn-outline btn-icon-only'>
+        <MdClose />
+      </button>
+
+      <button className='btn btn-success btn-outline btn-icon-only'>
+        <MdCheckCircle />
+      </button>
+
+      <button className='btn btn-danger btn-outline btn-icon-only'>
+        <MdDelete />
+      </button>
+
+      <button className='btn btn-warning btn-outline btn-icon-only'>
+        <MdWarning />
+      </button>
+
+      <button className='btn btn-info btn-outline btn-icon-only'>
+        <MdInfo />
+      </button>
+
+      <button className='btn btn-light btn-outline btn-icon-only'>
+        <MdLightMode />
+      </button>
+
+      <button className='btn btn-dark btn-outline btn-icon-only'>
+        <MdDarkMode />
+      </button>
+    </>
+  );
+}
+```
+
+### Botones con Icono + Fondo + Texto
+
+![icono-fondo-texto](./docs/readme-md/img/button/icono-fondo-texto.png)
+
+```tsx
+import {
+  MdArrowForward,
+  MdClose,
+  MdCheckCircle,
+  MdDelete,
+  MdWarning,
+  MdInfo,
+  MdLightMode,
+  MdDarkMode,
+} from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-background'>
+        <MdArrowForward />
+        <span>Primary</span>
+      </button>
+
+      <button className='btn btn-secondary btn-background'>
+        <MdClose />
+        <span>Secondary</span>
+      </button>
+
+      <button className='btn btn-success btn-background'>
+        <MdCheckCircle />
+        <span>Success</span>
+      </button>
+
+      <button className='btn btn-danger btn-background'>
+        <MdDelete />
+        <span>Danger</span>
+      </button>
+
+      <button className='btn btn-warning btn-background'>
+        <MdWarning />
+        <span>Warning</span>
+      </button>
+
+      <button className='btn btn-info btn-background'>
+        <MdInfo />
+        <span>Info</span>
+      </button>
+
+      <button className='btn btn-light btn-background'>
+        <MdLightMode />
+        <span>Light</span>
+      </button>
+
+      <button className='btn btn-dark btn-background'>
+        <MdDarkMode />
+        <span>Dark</span>
+      </button>
+    </>
+  );
+}
+```
+
+### Botones Redondos
+
+`btn-rounded-full` redondea al maximo las esquinas de cualquier tipo de boton
+
+| Tipo de botón | Condición (dimensiones) | Resultado visual                                 |
+| ------------- | ----------------------- | ------------------------------------------------ |
+| Rectangular   | width ≠ height          | Esquinas totalmente redondeadas (forma alargada) |
+| Cuadrado      | width = height          | Círculo perfecto (no óvalo)                      |
+
+![botones-redondos](./docs/readme-md/img/button/botones-redondos.png)
+
+```tsx
+import { MdInfo, MdDelete, MdWarning, MdCheckCircle } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-background btn-rounded-full'>Primary</button>
+
+      <button className='btn btn-secondary btn-outline btn-rounded-full'>Secondary</button>
+
+      <button className='btn btn-info btn-background btn-rounded-full'>
+        <MdInfo />
+        <span>Info</span>
+      </button>
+
+      <button className='btn btn-outline btn-danger btn-icon-only btn-rounded-full'>
+        <MdDelete />
+      </button>
+
+      <button className='btn btn-background btn-warning btn-icon-only btn-rounded-full'>
+        <MdWarning />
+      </button>
+
+      {/* SIN btn-rounded-full tiene esquinas redondeadas */}
+      <button className='btn btn-background btn-success btn-icon-only'>
+        <MdCheckCircle />
+      </button>
+    </>
+  );
+}
+```
+
+### Botones sin Fondo ni Borde
+
+`btn-ghost` tiene las siguientes características:
+
+- **Fondo:** transparente.
+- **Borde:** inexistente.
+- **Color:** usa los mismos colores de las variantes (primary, secondary, success, etc).
+- **Hover:** Cambia color de fondo al situar mouse en boton.
+- **Uso:** acciones secundarias o discretas.
+
+**NO hover**
+
+![botones-sin-fondo-ni-borde](./docs/readme-md/img/button/botones-sin-fondo-ni-borde.png)
+
+**hover**
+
+![botones-sin-fondo-ni-borde-hover](./docs/readme-md/img/button/botones-sin-fondo-ni-borde-hover.png)
+
+```tsx
+import { MdClose, MdWarning } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-ghost'>Primary</button>
+
+      <button className='btn btn-secondary btn-ghost'>
+        <MdClose />
+        <span>Secondary</span>
+      </button>
+
+      <button className='btn btn-warning btn-ghost btn-icon-only btn-rounded-full'>
+        <MdWarning />
+      </button>
+    </>
+  );
+}
+```
+
+### Boton Desactivado `cursor: not-allowed`
+
+Agregar el atributo booleano de HTML `disabled` a la etiqueta `<button>` hace que los botones tomen estilos de desactivados.
+
+El estilo de boton desactivado se aplica a cualquier tipo de boton.
+
+![boton-desactivado](./docs/readme-md/img/button/boton-desactivado.png)
+
+```tsx
+'use client';
+
+import { MdDelete, MdWarning, MdInfo, MdDarkMode } from 'react-icons/md';
+
+export default function MyComponent() {
+  const router = useRouter();
+
+  const onClickNavigation = (): void => {
+    router.push('/home');
+  };
+
+  return (
+    <>
+      <button disabled className='btn btn-primary btn-background'>
+        Primary
+      </button>
+
+      <button disabled className='btn btn-secondary btn-outline'>
+        Secondary
+      </button>
+
+      <button disabled className='btn btn-icon-only btn-outline btn-danger btn-rounded-full'>
+        <MdDelete />
+      </button>
+
+      <button disabled className='btn btn-icon-only btn-warning btn-background'>
+        <MdWarning />
+      </button>
+
+      <button disabled className='btn btn-icon-only btn-outline btn-info'>
+        <MdInfo />
+      </button>
+
+      <button disabled className='btn btn-dark btn-background'>
+        <MdDarkMode />
+        <span>Dark</span>
+      </button>
+
+      {/* Enlaces */}
+      <button disabled className='btn btn-link' onClick={onClickNavigation}>
+        Ir a home
+      </button>
+    </>
+  );
+}
+```
+
+### Tamaños
+
+Puedes modificar el tamaño de cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+El ajuste de tamaño se aplica a todo el boton y afecta de manera proporcional a todos sus elementos internos:
+
+- Tamaño del botón `padding`.
+
+- Tamaño del texto `font-size`.
+
+- Tamaño de los iconos.
+
+- El espacio entre el icono y el texto `gap` es proporcional al tamaño del botón, ya que utiliza la unidad de medida `em`, la cual depende del `font-size` del propio botón.
+
+El tamaño por defecto de todos los botones es `.btn-base`:
+
+Esto significa que no es necesario declararlo explícitamente: si no se especifica un modificador de tamaño, el botón siempre asumirá este estilo automáticamente.
+
+```SCSS
+.btn-base {
+  padding: 0.5rem 1rem;         // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
+
+  font-size: 1rem;              // text-base = 1rem = 16px
+  line-height: calc(1.2 / 1);   // (line-height que se desea aplicar / font-size)
+}
+```
+
+![tamanos](./docs/readme-md/img/button/tamanos.png)
+
+```tsx
+import { MdCheckCircle, MdDelete, MdWarning, MdRocketLaunch } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      <button className='btn btn-primary btn-background btn-xs'>Muy pequeño</button>
+
+      <button className='btn btn-secondary btn-outline btn-sm'>Pequeño</button>
+
+      <button className='btn btn-secondary btn-outline'>Valor por defecto</button>
+
+      <button className='btn btn-secondary btn-outline btn-base'>Valor por defecto</button>
+
+      <button className='btn btn-success btn-background btn-lg'>
+        <MdCheckCircle />
+        <span>Grande</span>
+      </button>
+
+      <button className='btn btn-danger btn-outline btn-xl'>
+        <MdDelete />
+        <span>Muy grande</span>
+      </button>
+
+      <button className='btn btn-warning btn-background btn-2xl'>
+        <MdWarning />
+        <span>Enorme</span>
+      </button>
+
+      <button className='btn btn-info btn-background btn-3xl'>
+        <MdRocketLaunch />
+        <span>Gigante</span>
+      </button>
+    </>
+  );
+}
+```
+
+### Modificadores - Boton en Bloque - Responsive
+
+En CSS un elemento en bloque es aquel que ocupa todo el ancho disponible de su contenedor y siempre inicia en una nueva línea ("renglon")
+
+```SCSS
+.block {
+  display: block;
+}
+```
+
+```SCSS
+.flex {
+  display: flex;
+}
+```
+
+`btn-full-width` convierte el boton a elemento en bloque, hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive
+
+Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+![boton-responsive](./docs/readme-md/img/button/boton-responsive.png)
+
+```tsx
+import { MdDarkMode, MdCheckCircle, MdInfo, MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <>
+      {/* solo texto */}
+      <button className='btn btn-danger btn-background btn-full-width'>Danger</button>
+
+      {/* solo icono + fondo */}
+      <button className='btn btn-dark btn-background btn-icon-only btn-full-width'>
+        <MdDarkMode />
+      </button>
+
+      {/* icono + fondo + texto */}
+      <button className='btn btn-success btn-background btn-full-width'>
+        <MdCheckCircle />
+        <span>Success</span>
+      </button>
+
+      {/* icono + borde */}
+      <button className='btn btn-outline btn-info btn-icon-only btn-full-width'>
+        <MdInfo />
+      </button>
+
+      {/* sin fondo ni borde */}
+      <button className='btn btn-primary btn-icon-only btn-ghost btn-full-width'>
+        <MdArrowForward />
+      </button>
+    </>
+  );
+}
+```
+
+### Ubicación de Iconos y Texto en Botones
+
+**Incorrecto:**
+
+Usar [flex-direction](https://tailwindcss.com/docs/flex-direction) para cambiar ubicacion de iconos:
+
+```tsx
+import { MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn btn-primary btn-background flex-row-reverse'>
+      <MdArrowForward />
+      <span>Primary</span>
+    </button>
+  );
+}
+```
+
+**Correcto:**
+
+Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
+
+_icono a la izquierda - texto a la derecha_
+
+![icono-izquierda-texto-derecha](./docs/readme-md/img/button/icono-izquierda-texto-derecha.png)
+
+```tsx
+import { MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn btn-primary btn-background'>
+      <MdArrowForward />
+      <span>Primary</span>
+    </button>
+  );
+}
+```
+
+_icono a la derecha - texto a la izquierda_
+
+![icono-derecha-texto-izquierda](./docs/readme-md/img/button/icono-derecha-texto-izquierda.png)
+
+```tsx
+import { MdArrowForward } from 'react-icons/md';
+
+export default function MyComponent() {
+  return (
+    <button className='btn btn-primary btn-background'>
+      <span>Primary</span>
+      <MdArrowForward />
+    </button>
+  );
+}
+```
+
+# Buenas Practicas
+
+## Tipado en TypeScript
+
+### Strict Type Checking
+Usar strict type checking
+
+### Inferencia de Tipos
+Preferir la inferencia de tipos cuando el tipo sea obvio
+
+**Incorrecto:**
+
+```ts
+// el tipo es obvio, anotarlo es ruido
+const total: number = 10;
+const isActive: boolean = true;
+const tags: string[] = ['angular', 'signals'];
+```
+
+**Correcto:**
+
+```ts
+const total = 10;
+const isActive = true;
+const tags = ['angular', 'signals'];
+```
+
+### `unknown` en Lugar de `any`
+Prohibido el tipo `any`; usa `unknown` cuando el tipo sea incierto.
+
+**Incorrecto:**
+
+```ts
+function parseTitle(value: any): string {
+  // any desactiva el chequeo de tipos: esto compila y falla en runtime
+  return value.toUpperCase();
+}
+```
+
+**Correcto:**
+
+```ts
+function parseTitle(value: unknown): string {
+  // unknown obliga a comprobar el tipo antes de usarlo
+  if (typeof value === 'string') return value;
+
+  return '';
+}
+```
+
+### Uso de `interface`
+Preferir `interface` para tipos de objeto (`Task`) y para el tipo de los elementos en arrays de objetos (`Task[]`).
+
+**Incorrecto:**
+
+```ts
+// un objeto no se modela con type
+type Task = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+// ni con el objeto escrito en línea
+const tasks: { id: number; title: string; completed: boolean }[] = [];
+```
+
+**Correcto:**
+
+```ts
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+// elementos en arrays de objetos Task[]
+const arrayOfTaskObjects: Task[] = [];
+
+// tipos de objeto Task
+const literalTaskObject: Task = {};
+```
+
+### `Record<Clave, Valor>` para Claves Dinámicas
+Usar `Record<Clave, Valor>` para objetos con claves dinámicas.
+
+**Incorrecto:**
+
+```ts
+interface TasksById {
+  [key: number]: Task;
+}
+```
+
+**Correcto:**
+
+```ts
+const tasksById: Record<number, Task> = {};
+const labels: Record<string, string> = { pending: 'Pendiente', done: 'Hecha' };
+```
+
+### `type` para Primitivos, Literales y Uniones
+Usar `type` para tipos primitivos, literales y uniones.
+
+**Incorrecto:**
+
+```ts
+// una union no se modela con interface
+interface TaskStatus {
+  value: 'pending' | 'in-progress' | 'done';
+}
+```
+
+**Correcto:**
+
+```ts
+type TaskStatus = 'pending' | 'in-progress' | 'done';
+type TaskFilter = TaskStatus | 'all';
+
+interface TaskStatus {
+  value: TaskStatus;
+}
+```
+
+## Evitar Prop Drilling y Usar Data Down, Events Up
+
+**Regla:**
+PROHIBIDO el prop drilling. Toda comunicación entre componentes usa **data down, events up**.
+
+Aplicar SIEMPRE que se diseñe, cree, divida, modifique o refactorice un componente, o que se defina cómo se comunican dos componentes.
+
+**Definiciones:**
+* **Data down:** el padre pasa el dato al hijo **directo** por props. El hijo lo consume; nunca lo muta.
+
+* **Events up:** el hijo notifica al padre **directo** con una callback prop (`onAlgo`). El padre es dueño del estado y el único que lo actualiza.
+
+* **Prop drilling (PROHIBIDO):** una prop (de datos o callback) que atraviesa **1 o más componentes intermedios que no la consumen** y que solo la reenvían hacia abajo o la re-emiten hacia arriba.
+
+Una prop que el hijo directo sí consume NO es prop drilling. Lo prohibido es el componente de paso.
+
+### Alternativas, en Este Orden
+1. **Composición, reestructurar el árbol de componentes:** eliminar o reubicar el componente intermedio para que el que produce el dato y el que lo consume queden padre/hijo directos. No usa ninguna API extra, cambia la forma del árbol. Es la opción por defecto.
+
+2. **Composición con `children` o slots:** cuando el componente intermedio debe existir, que reciba el contenido ya construido en lugar de reenviar props. Así el padre queda conectado directamente con el componente que consume el dato.
+
+3. **Store de zustand:** solo si lo anterior no aplica. El estado vive en un store y cada componente lo consume con su hook donde lo necesita.
+
+React Context queda reservado a los compound components de UI. PROHIBIDO usarlo como store de estado de feature para evitar el drilling.
+
+### Checklist Antes de Escribir el Componente
+```
+- [ ] 1. Por cada prop nueva: verificar que el componente que la declara consume el valor.
+- [ ] 2. Si solo la reenvía o la re-emite, es prop drilling: no escribirla.
+- [ ] 3. Resolverlo reestructurando el árbol; si el intermedio debe existir, pasarle children/slots; si nada de eso aplica, mover el estado a un store de zustand.
+- [ ] 4. Confirmar que el hijo no muta la prop: notifica con la callback y el padre decide.
+```
+
+### Prohibiciones
+* Declarar una prop cuyo único uso sea pasarla a otro componente en el JSX.
+
+* Declarar una callback prop cuyo único uso sea re-emitir la callback de un hijo.
+
+* Mutar dentro del hijo el valor recibido por props.
+
+### Al Refactorizar
+Antes de modificar un componente, recorrer la cadena de props de arriba abajo y listar las que atraviesan componentes intermedios. Cada una es una violación y debe eliminarse aplicando las alternativas.
+
+## Rutas Absolutas en `import` e Imágenes
+La regla es la misma para `import` e imágenes: siempre usar ruta absoluta. Está prohibido usar rutas relativas.
+
+* Para los `import`, usar los alias definidos en `paths` de `tsconfig.json`.
+
+* Para las imágenes (`<img>` nativo de HTML e `<Image>` de Next.js), usar rutas que empiecen con `/`. Estas rutas se resuelven desde la carpeta `public/`, así que `/assets/img/logo.png` apunta a `public/assets/img/logo.png`.
+
+**Correcto:**
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="/assets/img/logo.png" /* usar slash al principio de /assets */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// usar el alias @/ definido en tsconfig.json
+import MyComponent from '@/components/MyComponent';
+```
+
+**Incorrecto:**
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="../../../assets/img/logo.png" /* es incorrecto porque se escribe ../ */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// MyComponent.tsx
+
+import Image from 'next/image';
+
+export default function MyComponent() {
+  return (
+    <Image
+      src="assets/img/logo.png" /* es incorrecto porque NO se escribió el slash al principio de assets */
+      alt="Logo"
+      width={200}
+      height={200}
+    />
+  );
+}
+```
+
+```tsx
+// MyComponent.tsx
+
+export default function MyComponent() {
+  return (
+    /* es incorrecto porque se incluye /public en la ruta */
+    <img src="/public/assets/img/logo.png" alt="Logo" />
+  );
+}
+```
+
+```tsx
+// es incorrecto porque se escribe ../ en lugar de usar el alias @/
+import MyComponent from '../../components/MyComponent';
+```
