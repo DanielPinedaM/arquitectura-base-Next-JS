@@ -759,6 +759,13 @@ rutas especificas de donde estan los archivos, componentes, funciones, etc.
 que necesita para ejecutar el proceso >>>
 ```
 
+### 🔗 Enlaces - Alternativas a `playwright-cli`
+Esto no esta configurado en este proyecto:
+
+* [Chrome DevTools MCP](https://youtu.be/2wxCXppbpgs?si=tFR4TWmJUy3CSSW3)
+
+* [Vercel Agent Browser](https://github.com/vercel-labs/agent-browser/tree/main)
+
 # Reglas Obligatorias para Skill
 Aplican a toda respuesta o modificación de código de este proyecto.
 
