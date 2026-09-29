@@ -10,7 +10,7 @@ Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos d
 
 Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes se contradicen, gana la de número menor:
 
-1. [Skill `next-conventions`](.claude/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarlo genera codigo inescalable.
+1. [Skill `next-conventions`](.claude/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarla genera código inescalable.
 
 2. [Skill `vercel-react-best-practices`](.claude/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
 

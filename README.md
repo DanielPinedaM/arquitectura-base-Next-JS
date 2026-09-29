@@ -700,7 +700,7 @@ Cuando el MCP y el CLI sirven para lo mismo, es mejor usar el CLI porque consume
 | [Azure MCP](https://learn.microsoft.com/es-es/azure/developer/azure-mcp-server/) | [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)                                              |
 
 **Explicación:**
-Por defecto, Claude Code difiere las definiciones de las tools de un MCP usando ([MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search)): al iniciar la sesión solo carga en el contexto los nombres de las tools y las instrucciones del servidor, y la descripcion de lo que hace cada tool se carga cuando el modelo la necesita.
+Por defecto, Claude Code difiere las definiciones de las tools de un MCP usando ([MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search)): al iniciar la sesión solo carga en el contexto los nombres de las tools y las instrucciones del servidor, y la descripción de lo que hace cada tool se carga cuando el modelo la necesita.
 
 Un CLI es más eficiente en contexto porque no agrega ningún listado de tools: el modelo ejecuta los comandos directamente en la terminal ([documentación oficial](https://code.claude.com/docs/en/costs#reduce-mcp-server-overhead)).
 
