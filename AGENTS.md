@@ -10,11 +10,11 @@ Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos d
 
 Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes se contradicen, gana la de número menor:
 
-1. [Skill `next-conventions`](.claude/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarla genera código inescalable.
+1. [Skill `next-conventions`](/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarla genera código inescalable.
 
-2. [Skill `vercel-react-best-practices`](.claude/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
+2. [Skill `vercel-react-best-practices`](/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
 
-3. [Skill `next-docs`](.claude/skills/next-docs/): Busca en la documentación oficial de Next.js (`nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
+3. [Skill `next-docs`](/skills/next-docs/): Busca en la documentación oficial de Next.js (`nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
 
 4. Datos de entrenamiento: válidos, pero ceden ante todo lo anterior.
 
