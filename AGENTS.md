@@ -14,7 +14,7 @@ Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes
 
 2. [Skill `vercel-react-best-practices`](.claude/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
 
-3. [Skill `next-docs`](.claude/skills/next-docs/): Busca en la documentación oficial de Next.js (`https://nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
+3. [Skill `next-docs`](.claude/skills/next-docs/): Busca en la documentación oficial de Next.js (`nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
 
 4. Datos de entrenamiento: válidos, pero ceden ante todo lo anterior.
 
