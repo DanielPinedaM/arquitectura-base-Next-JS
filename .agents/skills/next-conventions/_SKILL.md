@@ -1182,13 +1182,13 @@ Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejempl
 ### Tema Oscuro
 Todo componente que renderice interfaz (`ui`, `components`, `page.tsx` y `layout.tsx`) debe verse bien y ser legible en tema claro y tema oscuro. El usuario puede cambiar de tema en cualquier momento, y un componente pensado para un solo tema queda con contraste ilegible.
 
-Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el HTML.
+Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el TSX.
 
 **Correcto:**
 
-```html
-<div class="bg-white dark:bg-gray-900">
-  <!-- ... -->
+```tsx
+<div className="bg-white dark:bg-gray-900">
+  {/* ... */}
 </div>
 ```
 
@@ -1231,17 +1231,17 @@ Las utilidades y variantes de Tailwind 4 permiten aceptar determinados tipos de 
 
 Por ejemplo, en Tailwind 4 puedes crear cuadrículas de cualquier tamaño directamente:
 
-```HTML
-<div class="grid grid-cols-15">
-  <!-- ... -->
+```tsx
+<div className="grid grid-cols-15">
+  {/* ... */}
 </div>
 ```
 
 También puedes usar atributos `data-*` booleanos personalizados sin necesidad de definirlos previamente:
 
-```HTML
-<div data-current class="opacity-75 data-current:opacity-100">
-  <!-- ... -->
+```tsx
+<div data-current className="opacity-75 data-current:opacity-100">
+  {/* ... */}
 </div>
 ```
 
@@ -1274,10 +1274,10 @@ Prohibido usar `@apply` de Tailwind
 
 ***Incorrecto:***
 
-```HTML
-<!-- my-component.component.html -->
+```tsx
+// MyComponent.tsx
 
-<button class="button">
+<button className="button">
   Boton
 </button>
 ```
@@ -1289,7 +1289,7 @@ Prohibido usar `@apply` de Tailwind
 ```
 
 ## ¿Cómo Usar Tailwind y CSS Juntos?
-Los componentes se estilizan solo con clases de Tailwind en su plantilla. CSS se usa solo para estilos globales y para configurar librerías de UI, como las variables de tema de Shad cn.
+Los componentes se estilizan solo con clases de Tailwind en su TSX. CSS se usa solo para estilos globales y para configurar librerías de UI, como las variables de tema de Shad cn.
 
 **Reglas:**
 * No escribas CSS que sobrescriba clases de Tailwind ni que compita con ellas por especificidad.
@@ -1360,9 +1360,9 @@ Para medidas relativas al viewport, usa `dvh` y `dvw`. No uses `vh` ni `vw`, tam
 
 **Correcto:**
 
-```html
-<div class="h-dvh w-dvw">
-  <!-- ... -->
+```tsx
+<div className="h-dvh w-dvw">
+  {/* ... */}
 </div>
 ```
 
@@ -1375,9 +1375,9 @@ Para medidas relativas al viewport, usa `dvh` y `dvw`. No uses `vh` ni `vw`, tam
 
 **Incorrecto:**
 
-```html
-<div class="h-screen w-screen">
-  <!-- ... -->
+```tsx
+<div className="h-screen w-screen">
+  {/* ... */}
 </div>
 ```
 
@@ -1411,8 +1411,8 @@ Las clases de la paleta predeterminada de Tailwind, como `bg-red-500`, están pe
 }
 ```
 
-```html
-<div class="bg-[oklch(62.8%_0.258_29.23)]"></div>
+```tsx
+<div className="bg-[oklch(62.8%_0.258_29.23)]"></div>
 ```
 
 **Incorrecto:**
@@ -1431,8 +1431,8 @@ Las clases de la paleta predeterminada de Tailwind, como `bg-red-500`, están pe
 }
 ```
 
-```html
-<div class="bg-[rgb(255_0_0)]"></div>
+```tsx
+<div className="bg-[rgb(255_0_0)]"></div>
 ```
 
 ## Media Queries (Breakpoints)
@@ -2960,7 +2960,7 @@ React Context queda reservado a los compound components de UI. PROHIBIDO usarlo 
 ```
 
 ### Prohibiciones
-* Declarar una prop cuyo único uso sea pasarla a otro componente en el JSX.
+* Declarar una prop cuyo único uso sea pasarla a otro componente en el TSX.
 
 * Declarar una callback prop cuyo único uso sea re-emitir la callback de un hijo.
 
