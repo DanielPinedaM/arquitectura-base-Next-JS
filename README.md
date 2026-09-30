@@ -681,7 +681,11 @@ El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la d
 ## 🔗 Enlaces - Mas Ejemplos de MCP
 Estos MCP no estan configurados en este proyecto:
 
-* [Repositorios de MCP](https://mcpservers.org/es/)
+* [Repositorios con MCP](https://mcpservers.org/es/)
+
+* [Repositorios con MCP de Claude](https://claude.ai/directory)
+
+* [Repositorios con MCP de Chat GPT](http://chatgpt.com/plugins)
 
 * [Figma MCP:](https://youtu.be/uZ6Nbwp8GtU?si=cf4h9SxQdnXbc3KI) Sirve para convertir un mockup de Figma a codigo de CSS/Sass/Tailwind/Bootstrap
 
