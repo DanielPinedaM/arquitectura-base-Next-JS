@@ -1,3 +1,6 @@
+# Descripción del Proyecto
+Arquitectura base agnóstica a las features para iniciar un nuevo proyecto en Next.js, configurada para trabajar con IA
+
 # Ejecución de Proyecto
 
 * Runtime: Node.js 24
