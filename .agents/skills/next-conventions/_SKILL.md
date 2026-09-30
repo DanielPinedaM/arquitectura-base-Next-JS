@@ -1180,6 +1180,8 @@ Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejempl
 ```
 
 ### Tema Oscuro
+Todo componente que renderice interfaz (`ui`, `components`, `page.tsx` y `layout.tsx`) debe verse bien y ser legible en tema claro y tema oscuro. El usuario puede cambiar de tema en cualquier momento, y un componente pensado para un solo tema queda con contraste ilegible.
+
 Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el HTML.
 
 **Correcto:**
