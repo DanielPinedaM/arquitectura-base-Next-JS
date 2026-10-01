@@ -8,6 +8,11 @@ Arquitectura base agnóstica a las features para iniciar un nuevo proyecto en Ne
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
 
+# Ante Cualquier Error o Ambigüedad
+Si encuentras un error, inconsistencia, duda o ambigüedad, detente y pregúntame antes de modificar código. No asumas ni deduzcas implementaciones.
+
+**Razón**: una suposición incorrecta genera código que después hay que revisar y deshacer; preguntar cuesta menos que corregir una implementación equivocada.
+
 # Reglas **OBLIGATORIAS** de Next.js
 Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento.
 

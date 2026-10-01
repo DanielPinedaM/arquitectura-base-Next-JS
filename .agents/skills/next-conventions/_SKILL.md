@@ -2,14 +2,9 @@
 Aplican a toda respuesta o modificación de código de este proyecto.
 
 ## 1. Autoridad de la Skill
-Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill).
+Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [3. Caso no Definido en la Skill](#3-caso-no-definido-en-la-skill).
 
-## 2. Ante Cualquier Error
-Esta regla aplica en cualquier momento. Si encuentras algún error, inconsistencia, duda o ambigüedad, debes detenerte y consultarme antes de realizar cualquier modificación. No puedes asumir ni deducir implementaciones. Es preferible preguntar para aclarar una duda que asumir una solución.
-
-La única excepción a esta regla es lo establecido en la regla anterior: [1. Autoridad de la Skill](#1-autoridad-de-la-skill).
-
-## 3. Instrucción que Contradice una Regla Definida
+## 2. Instrucción que Contradice una Regla Definida
 Se aplica cuando la instrucción recibida contradice una regla explícitamente definida en esta skill.
 
 Acción: implementa estrictamente lo definido en la skill. No preguntes, no propongas alternativas, no pidas confirmación.
@@ -28,14 +23,14 @@ Implementado:   <lo que define la skill>
 Motivo:         <por qué lo solicitado rompe la arquitectura, en una línea>
 ```
 
-La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [4. Caso no Definido en la Skill](#4-caso-no-definido-en-la-skill)
+La cita debe ser literal, no una paráfrasis. Si no puedes copiar el texto exacto de la skill, la regla no está definida: aplica [3. Caso no Definido en la Skill](#3-caso-no-definido-en-la-skill)
 
-## 4. Caso no Definido en la Skill
+## 3. Caso no Definido en la Skill
 Se aplica cuando el caso, problema o pregunta no está definido en la [Tabla de Contenido](#tabla-de-contenido)
 
 Acción: resuélvelo con tu comportamiento por defecto. La skill no restringe este caso y no altera tu forma normal de trabajar.
 
-## 5. Código Existente que Ya Viola la Arquitectura
+## 4. Código Existente que Ya Viola la Arquitectura
 Se aplica cuando detectas código ya escrito que incumple una regla de esta skill.
 
 No lo corrijas por iniciativa propia. Emite:
@@ -63,7 +58,7 @@ NO  → dejarlo como está
 
 Si detectas varias infracciones en la misma pasada, agrúpalas en una sola llamada a `AskUserQuestion`, una pregunta por infracción.
 
-## 6. ¿Como Leer la Skill?
+## 5. ¿Como Leer la Skill?
 Leer **bajo demanda** los archivos `.md` ubicados en `.agents/skills/next-conventions/referencias/`: usa la [Tabla de Contenido](#tabla-de-contenido) como referencia para inferir cuales archivos son necesarios para la tarea que estas resolviendo, y accede unicamente a esos archivos.
 
 **Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
