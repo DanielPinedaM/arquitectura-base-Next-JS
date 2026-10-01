@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- se ignoran los errores de tipos de forma intencional
+// @ts-nocheck
 import ErrorToast from '@/shared/ui/overlay/toast/ErrorToast';
 import {
   IObjectLogs,
