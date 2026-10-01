@@ -1,17 +1,17 @@
 ---
-title: Use Compound Components
+title: Usa compound components
 impact: HIGH
-impactDescription: enables flexible composition without prop drilling
+impactDescription: permite una composición flexible sin prop drilling
 tags: composition, compound-components, architecture
 ---
 
-## Use Compound Components
+## Usa compound components
 
-Structure complex components as compound components with a shared context. Each
-subcomponent accesses shared state via context, not props. Consumers compose the
-pieces they need.
+Estructura los componentes complejos como compound components con un context compartido. Cada
+subcomponente accede al estado compartido mediante el context, no mediante props. Los consumidores componen las
+piezas que necesitan.
 
-**Incorrect (monolithic component with render props):**
+**Incorrecto (componente monolítico con render props):**
 
 ```tsx
 function Composer({
@@ -41,7 +41,7 @@ function Composer({
 }
 ```
 
-**Correct (compound components with shared context):**
+**Correcto (compound components con context compartido):**
 
 ```tsx
 const ComposerContext = createContext<ComposerContextValue | null>(null)
@@ -80,7 +80,7 @@ function ComposerSubmit() {
   return <Button onPress={submit}>Send</Button>
 }
 
-// Export as compound component
+// Exporta como compound component
 const Composer = {
   Provider: ComposerProvider,
   Frame: ComposerFrame,
@@ -94,7 +94,7 @@ const Composer = {
 }
 ```
 
-**Usage:**
+**Uso:**
 
 ```tsx
 <Composer.Provider state={state} actions={actions} meta={meta}>
@@ -109,4 +109,4 @@ const Composer = {
 </Composer.Provider>
 ```
 
-Consumers explicitly compose exactly what they need. No hidden conditionals. And the state, actions and meta are dependency-injected by a parent provider, allowing multiple usages of the same component structure.
+Los consumidores componen explícitamente exactamente lo que necesitan. Sin condicionales ocultos. Y el state, las actions y la meta se inyectan como dependencias desde un provider padre, lo que permite múltiples usos de la misma estructura de componentes.

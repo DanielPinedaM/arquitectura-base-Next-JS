@@ -1,17 +1,17 @@
 ---
-title: Avoid Boolean Prop Proliferation
+title: Evita la proliferación de props booleanas
 impact: CRITICAL
-impactDescription: prevents unmaintainable component variants
+impactDescription: evita variantes de componentes inmantenibles
 tags: composition, props, architecture
 ---
 
-## Avoid Boolean Prop Proliferation
+## Evita la proliferación de props booleanas
 
-Don't add boolean props like `isThread`, `isEditing`, `isDMThread` to customize
-component behavior. Each boolean doubles possible states and creates
-unmaintainable conditional logic. Use composition instead.
+No agregues props booleanas como `isThread`, `isEditing`, `isDMThread` para personalizar
+el comportamiento de un componente. Cada booleano duplica los estados posibles y crea
+lógica condicional inmantenible. Usa composición en su lugar.
 
-**Incorrect (boolean props create exponential complexity):**
+**Incorrecto (las props booleanas crean una complejidad exponencial):**
 
 ```tsx
 function Composer({
@@ -45,10 +45,10 @@ function Composer({
 }
 ```
 
-**Correct (composition eliminates conditionals):**
+**Correcto (la composición elimina los condicionales):**
 
 ```tsx
-// Channel composer
+// Composer de canal
 function ChannelComposer() {
   return (
     <Composer.Frame>
@@ -64,7 +64,7 @@ function ChannelComposer() {
   )
 }
 
-// Thread composer - adds "also send to channel" field
+// Composer de hilo - agrega el campo "también enviar al canal"
 function ThreadComposer({ channelId }: { channelId: string }) {
   return (
     <Composer.Frame>
@@ -80,7 +80,7 @@ function ThreadComposer({ channelId }: { channelId: string }) {
   )
 }
 
-// Edit composer - different footer actions
+// Composer de edición - acciones diferentes en el footer
 function EditComposer() {
   return (
     <Composer.Frame>
@@ -96,5 +96,5 @@ function EditComposer() {
 }
 ```
 
-Each variant is explicit about what it renders. We can share internals without
-sharing a single monolithic parent.
+Cada variante es explícita sobre lo que renderiza. Podemos compartir los elementos internos sin
+compartir un único padre monolítico.

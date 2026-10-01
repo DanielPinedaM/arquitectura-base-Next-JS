@@ -1,17 +1,17 @@
 ---
-title: Lift State into Provider Components
+title: Levanta el estado a componentes provider
 impact: HIGH
-impactDescription: enables state sharing outside component boundaries
+impactDescription: permite compartir el estado fuera de los límites del componente
 tags: composition, state, context, providers
 ---
 
-## Lift State into Provider Components
+## Levanta el estado a componentes provider
 
-Move state management into dedicated provider components. This allows sibling
-components outside the main UI to access and modify state without prop drilling
-or awkward refs.
+Mueve la gestión del estado a componentes provider dedicados. Esto permite que los componentes
+hermanos fuera de la UI principal accedan al estado y lo modifiquen sin prop drilling
+ni refs incómodas.
 
-**Incorrect (state trapped inside component):**
+**Incorrecto (estado atrapado dentro del componente):**
 
 ```tsx
 function ForwardMessageComposer() {
@@ -26,22 +26,22 @@ function ForwardMessageComposer() {
   )
 }
 
-// Problem: How does this button access composer state?
+// Problema: ¿cómo accede este botón al estado del composer?
 function ForwardMessageDialog() {
   return (
     <Dialog>
       <ForwardMessageComposer />
-      <MessagePreview /> {/* Needs composer state */}
+      <MessagePreview /> {/* Necesita el estado del composer */}
       <DialogActions>
         <CancelButton />
-        <ForwardButton /> {/* Needs to call submit */}
+        <ForwardButton /> {/* Necesita llamar a submit */}
       </DialogActions>
     </Dialog>
   )
 }
 ```
 
-**Incorrect (useEffect to sync state up):**
+**Incorrecto (useEffect para sincronizar el estado hacia arriba):**
 
 ```tsx
 function ForwardMessageDialog() {
@@ -57,12 +57,12 @@ function ForwardMessageDialog() {
 function ForwardMessageComposer({ onInputChange }) {
   const [state, setState] = useState(initialState)
   useEffect(() => {
-    onInputChange(state.input) // Sync on every change 😬
+    onInputChange(state.input) // Sincroniza en cada cambio 😬
   }, [state.input])
 }
 ```
 
-**Incorrect (reading state from ref on submit):**
+**Incorrecto (leer el estado desde una ref al hacer submit):**
 
 ```tsx
 function ForwardMessageDialog() {
@@ -76,7 +76,7 @@ function ForwardMessageDialog() {
 }
 ```
 
-**Correct (state lifted to provider):**
+**Correcto (estado levantado al provider):**
 
 ```tsx
 function ForwardMessageProvider({ children }: { children: React.ReactNode }) {
@@ -100,10 +100,10 @@ function ForwardMessageDialog() {
     <ForwardMessageProvider>
       <Dialog>
         <ForwardMessageComposer />
-        <MessagePreview /> {/* Custom components can access state and actions */}
+        <MessagePreview /> {/* Los componentes personalizados pueden acceder al estado y a las acciones */}
         <DialogActions>
           <CancelButton />
-          <ForwardButton /> {/* Custom components can access state and actions */}
+          <ForwardButton /> {/* Los componentes personalizados pueden acceder al estado y a las acciones */}
         </DialogActions>
       </Dialog>
     </ForwardMessageProvider>
@@ -116,10 +116,10 @@ function ForwardButton() {
 }
 ```
 
-The ForwardButton lives outside the Composer.Frame but still has access to the
-submit action because it's within the provider. Even though it's a one-off
-component, it can still access the composer's state and actions from outside the
-UI itself.
+El ForwardButton vive fuera del Composer.Frame, pero aun así tiene acceso a la
+acción submit porque está dentro del provider. Aunque es un componente
+de un solo uso, aun así puede acceder al estado y a las acciones del composer desde fuera de la
+propia UI.
 
-**Key insight:** Components that need shared state don't have to be visually
-nested inside each other—they just need to be within the same provider.
+**Idea clave:** Los componentes que necesitan estado compartido no tienen que estar visualmente
+anidados unos dentro de otros; solo necesitan estar dentro del mismo provider.

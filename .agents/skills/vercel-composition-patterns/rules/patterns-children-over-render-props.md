@@ -1,17 +1,17 @@
 ---
-title: Prefer Composing Children Over Render Props
+title: Prefiere componer children en lugar de render props
 impact: MEDIUM
-impactDescription: cleaner composition, better readability
+impactDescription: composición más limpia, mejor legibilidad
 tags: composition, children, render-props
 ---
 
-## Prefer Children Over Render Props
+## Prefiere children en lugar de render props
 
-Use `children` for composition instead of `renderX` props. Children are more
-readable, compose naturally, and don't require understanding callback
-signatures.
+Usa `children` para la composición en lugar de props `renderX`. Los children son más
+legibles, se componen de forma natural y no requieren entender las firmas de los
+callbacks.
 
-**Incorrect (render props):**
+**Incorrecto (render props):**
 
 ```tsx
 function Composer({
@@ -33,7 +33,7 @@ function Composer({
   )
 }
 
-// Usage is awkward and inflexible
+// El uso es incómodo e inflexible
 return (
   <Composer
     renderHeader={() => <CustomHeader />}
@@ -48,7 +48,7 @@ return (
 )
 ```
 
-**Correct (compound components with children):**
+**Correcto (compound components con children):**
 
 ```tsx
 function ComposerFrame({ children }: { children: React.ReactNode }) {
@@ -59,7 +59,7 @@ function ComposerFooter({ children }: { children: React.ReactNode }) {
   return <footer className='flex'>{children}</footer>
 }
 
-// Usage is flexible
+// El uso es flexible
 return (
   <Composer.Frame>
     <CustomHeader />
@@ -73,15 +73,15 @@ return (
 )
 ```
 
-**When render props are appropriate:**
+**Cuándo son apropiadas las render props:**
 
 ```tsx
-// Render props work well when you need to pass data back
+// Las render props funcionan bien cuando necesitas pasar datos de vuelta
 <List
   data={items}
   renderItem={({ item, index }) => <Item item={item} index={index} />}
 />
 ```
 
-Use render props when the parent needs to provide data or state to the child.
-Use children when composing static structure.
+Usa render props cuando el padre necesite proporcionar datos o estado al hijo.
+Usa children al componer una estructura estática.

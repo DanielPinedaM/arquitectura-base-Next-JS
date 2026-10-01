@@ -1,21 +1,21 @@
 ---
-title: Decouple State Management from UI
+title: Desacopla la gestión del estado de la UI
 impact: MEDIUM
-impactDescription: enables swapping state implementations without changing UI
+impactDescription: permite intercambiar implementaciones de estado sin cambiar la UI
 tags: composition, state, architecture
 ---
 
-## Decouple State Management from UI
+## Desacopla la gestión del estado de la UI
 
-The provider component should be the only place that knows how state is managed.
-UI components consume the context interface—they don't know if state comes from
-useState, Zustand, or a server sync.
+El componente provider debe ser el único lugar que sabe cómo se gestiona el estado.
+Los componentes de UI consumen la interfaz del context; no saben si el estado viene de
+useState, de Zustand o de una sincronización con el servidor.
 
-**Incorrect (UI coupled to state implementation):**
+**Incorrecto (UI acoplada a la implementación del estado):**
 
 ```tsx
 function ChannelComposer({ channelId }: { channelId: string }) {
-  // UI component knows about global state implementation
+  // El componente de UI conoce la implementación del estado global
   const state = useGlobalChannelState(channelId)
   const { submit, updateInput } = useChannelSync(channelId)
 
@@ -31,10 +31,10 @@ function ChannelComposer({ channelId }: { channelId: string }) {
 }
 ```
 
-**Correct (state management isolated in provider):**
+**Correcto (gestión del estado aislada en el provider):**
 
 ```tsx
-// Provider handles all state management details
+// El provider maneja todos los detalles de la gestión del estado
 function ChannelProvider({
   channelId,
   children,
@@ -56,7 +56,7 @@ function ChannelProvider({
   )
 }
 
-// UI component only knows about the context interface
+// El componente de UI solo conoce la interfaz del context
 function ChannelComposer() {
   return (
     <Composer.Frame>
@@ -69,7 +69,7 @@ function ChannelComposer() {
   )
 }
 
-// Usage
+// Uso
 function Channel({ channelId }: { channelId: string }) {
   return (
     <ChannelProvider channelId={channelId}>
@@ -79,10 +79,10 @@ function Channel({ channelId }: { channelId: string }) {
 }
 ```
 
-**Different providers, same UI:**
+**Diferentes providers, la misma UI:**
 
 ```tsx
-// Local state for ephemeral forms
+// Estado local para formularios efímeros
 function ForwardMessageProvider({ children }) {
   const [state, setState] = useState(initialState)
   const forwardMessage = useForwardMessage()
@@ -97,7 +97,7 @@ function ForwardMessageProvider({ children }) {
   )
 }
 
-// Global synced state for channels
+// Estado global sincronizado para canales
 function ChannelProvider({ channelId, children }) {
   const { state, update, submit } = useGlobalChannel(channelId)
 
@@ -109,5 +109,5 @@ function ChannelProvider({ channelId, children }) {
 }
 ```
 
-The same `Composer.Input` component works with both providers because it only
-depends on the context interface, not the implementation.
+El mismo componente `Composer.Input` funciona con ambos providers porque solo
+depende de la interfaz del context, no de la implementación.

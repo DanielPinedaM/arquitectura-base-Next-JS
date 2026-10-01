@@ -1,20 +1,20 @@
 ---
-title: Create Explicit Component Variants
+title: Crea variantes explícitas de componentes
 impact: MEDIUM
-impactDescription: self-documenting code, no hidden conditionals
+impactDescription: código autodocumentado, sin condicionales ocultos
 tags: composition, variants, architecture
 ---
 
-## Create Explicit Component Variants
+## Crea variantes explícitas de componentes
 
-Instead of one component with many boolean props, create explicit variant
-components. Each variant composes the pieces it needs. The code documents
-itself.
+En lugar de un solo componente con muchas props booleanas, crea componentes de variantes
+explícitas. Cada variante compone las piezas que necesita. El código se documenta
+a sí mismo.
 
-**Incorrect (one component, many modes):**
+**Incorrecto (un componente, muchos modos):**
 
 ```tsx
-// What does this component actually render?
+// ¿Qué renderiza realmente este componente?
 <Composer
   isThread
   isEditing={false}
@@ -24,23 +24,23 @@ itself.
 />
 ```
 
-**Correct (explicit variants):**
+**Correcto (variantes explícitas):**
 
 ```tsx
-// Immediately clear what this renders
+// Queda inmediatamente claro lo que esto renderiza
 <ThreadComposer channelId="abc" />
 
-// Or
+// O
 <EditMessageComposer messageId="xyz" />
 
-// Or
+// O
 <ForwardMessageComposer messageId="123" />
 ```
 
-Each implementation is unique, explicit and self-contained. Yet they can each
-use shared parts.
+Cada implementación es única, explícita y autocontenida. Aun así, cada una puede
+usar partes compartidas.
 
-**Implementation:**
+**Implementación:**
 
 ```tsx
 function ThreadComposer({ channelId }: { channelId: string }) {
@@ -91,10 +91,10 @@ function ForwardMessageComposer({ messageId }: { messageId: string }) {
 }
 ```
 
-Each variant is explicit about:
+Cada variante es explícita sobre:
 
-- What provider/state it uses
-- What UI elements it includes
-- What actions are available
+- Qué provider/estado usa
+- Qué elementos de UI incluye
+- Qué acciones están disponibles
 
-No boolean prop combinations to reason about. No impossible states.
+No hay combinaciones de props booleanas sobre las que razonar. No hay estados imposibles.

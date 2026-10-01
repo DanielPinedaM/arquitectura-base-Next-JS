@@ -1,29 +1,29 @@
-# Sections
+# Secciones
 
-This file defines all sections, their ordering, impact levels, and descriptions.
-The section ID (in parentheses) is the filename prefix used to group rules.
+Este archivo define todas las secciones, su orden, niveles de impacto y descripciones.
+El ID de la sección (entre paréntesis) es el prefijo del nombre de archivo que se usa para agrupar las reglas.
 
 ---
 
-## 1. Component Architecture (architecture)
+## 1. Arquitectura de componentes (architecture)
 
-**Impact:** HIGH  
-**Description:** Fundamental patterns for structuring components to avoid prop
-proliferation and enable flexible composition.
+**Impacto:** HIGH  
+**Descripción:** Patrones fundamentales para estructurar componentes, evitar la proliferación
+de props y permitir una composición flexible.
 
-## 2. State Management (state)
+## 2. Gestión del estado (state)
 
-**Impact:** MEDIUM  
-**Description:** Patterns for lifting state and managing shared context across
-composed components.
+**Impacto:** MEDIUM  
+**Descripción:** Patrones para levantar el estado y gestionar el context compartido entre
+componentes compuestos.
 
-## 3. Implementation Patterns (patterns)
+## 3. Patrones de implementación (patterns)
 
-**Impact:** MEDIUM  
-**Description:** Specific techniques for implementing compound components and
+**Impacto:** MEDIUM  
+**Descripción:** Técnicas específicas para implementar compound components y
 context providers.
 
-## 4. React 19 APIs (react19)
+## 4. APIs de React 19 (react19)
 
-**Impact:** MEDIUM  
-**Description:** React 19+ only. Don't use `forwardRef`; use `use()` instead of `useContext()`.
+**Impacto:** MEDIUM  
+**Descripción:** Solo React 19+. No uses `forwardRef`; usa `use()` en lugar de `useContext()`.

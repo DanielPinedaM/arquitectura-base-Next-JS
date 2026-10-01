@@ -1,17 +1,17 @@
 ---
-title: React 19 API Changes
+title: Cambios en la API de React 19
 impact: MEDIUM
-impactDescription: cleaner component definitions and context usage
+impactDescription: definiciones de componentes y uso del context más limpios
 tags: react19, refs, context, hooks
 ---
 
-## React 19 API Changes
+## Cambios en la API de React 19
 
-> **⚠️ React 19+ only.** Skip this if you're on React 18 or earlier.
+> **⚠️ Solo React 19+.** Omite esto si estás en React 18 o una versión anterior.
 
-In React 19, `ref` is now a regular prop (no `forwardRef` wrapper needed), and `use()` replaces `useContext()`.
+En React 19, `ref` ahora es una prop normal (no se necesita el wrapper `forwardRef`), y `use()` reemplaza a `useContext()`.
 
-**Incorrect (forwardRef in React 19):**
+**Incorrecto (forwardRef en React 19):**
 
 ```tsx
 const ComposerInput = forwardRef<TextInput, Props>((props, ref) => {
@@ -19,7 +19,7 @@ const ComposerInput = forwardRef<TextInput, Props>((props, ref) => {
 })
 ```
 
-**Correct (ref as a regular prop):**
+**Correcto (ref como una prop normal):**
 
 ```tsx
 function ComposerInput({ ref, ...props }: Props & { ref?: React.Ref<TextInput> }) {
@@ -27,16 +27,16 @@ function ComposerInput({ ref, ...props }: Props & { ref?: React.Ref<TextInput> }
 }
 ```
 
-**Incorrect (useContext in React 19):**
+**Incorrecto (useContext en React 19):**
 
 ```tsx
 const value = useContext(MyContext)
 ```
 
-**Correct (use instead of useContext):**
+**Correcto (use en lugar de useContext):**
 
 ```tsx
 const value = use(MyContext)
 ```
 
-`use()` can also be called conditionally, unlike `useContext()`.
+`use()` también puede llamarse de forma condicional, a diferencia de `useContext()`.
