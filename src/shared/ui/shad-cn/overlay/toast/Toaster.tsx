@@ -6,11 +6,11 @@ import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import { LuCircleCheck, LuInfo, LuTriangleAlert, LuOctagonX, LuLoaderCircle } from 'react-icons/lu';
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const { resolvedTheme = 'light' } = useTheme();
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={resolvedTheme as ToasterProps['theme']}
       className='toaster group'
       icons={{
         success: <LuCircleCheck className='size-4' />,
