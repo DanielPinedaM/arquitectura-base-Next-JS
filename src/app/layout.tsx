@@ -6,6 +6,7 @@ import '../styles/global/scss/main.scss'; // SCSS
 import FixedLoaderProvider from '@/shared/ui/loader/FixedLoaderProvider';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 
 const geistSans = localFont({
@@ -30,13 +31,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='es-ES'>
+    <html lang='es-ES' suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <FixedLoaderProvider />
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='light'
+          enableSystem={false}
+          enableColorScheme={true}
+          disableTransitionOnChange
+        >
+          <FixedLoaderProvider />
 
-        <Toaster position='top-right' reverseOrder={true} />
+          <Toaster position='top-right' reverseOrder={true} />
 
-        <div className='mx-auto max-w-[1920px]'>{children}</div>
+          <div className='mx-auto max-w-[1920px]'>{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );
