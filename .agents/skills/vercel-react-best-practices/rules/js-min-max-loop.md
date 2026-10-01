@@ -1,15 +1,15 @@
 ---
-title: Use Loop for Min/Max Instead of Sort
+title: Usa un bucle para min/max en lugar de sort
 impact: LOW
-impactDescription: O(n) instead of O(n log n)
+impactDescription: O(n) en lugar de O(n log n)
 tags: javascript, arrays, performance, sorting, algorithms
 ---
 
-## Use Loop for Min/Max Instead of Sort
+## Usa un bucle para min/max en lugar de sort
 
-Finding the smallest or largest element only requires a single pass through the array. Sorting is wasteful and slower.
+Encontrar el elemento más pequeño o más grande solo requiere una pasada por el array. Ordenar es un desperdicio y es más lento.
 
-**Incorrect (O(n log n) - sort to find latest):**
+**Incorrecto (O(n log n) - ordenar para encontrar el más reciente):**
 
 ```typescript
 interface Project {
@@ -24,9 +24,9 @@ function getLatestProject(projects: Project[]) {
 }
 ```
 
-Sorts the entire array just to find the maximum value.
+Ordena todo el array solo para encontrar el valor máximo.
 
-**Incorrect (O(n log n) - sort for oldest and newest):**
+**Incorrecto (O(n log n) - ordenar para el más antiguo y el más reciente):**
 
 ```typescript
 function getOldestAndNewest(projects: Project[]) {
@@ -35,9 +35,9 @@ function getOldestAndNewest(projects: Project[]) {
 }
 ```
 
-Still sorts unnecessarily when only min/max are needed.
+Sigue ordenando innecesariamente cuando solo se necesitan el mínimo y el máximo.
 
-**Correct (O(n) - single loop):**
+**Correcto (O(n) - un solo bucle):**
 
 ```typescript
 function getLatestProject(projects: Project[]) {
@@ -69,9 +69,9 @@ function getOldestAndNewest(projects: Project[]) {
 }
 ```
 
-Single pass through the array, no copying, no sorting.
+Una sola pasada por el array, sin copias, sin ordenamiento.
 
-**Alternative (Math.min/Math.max for small arrays):**
+**Alternativa (Math.min/Math.max para arrays pequeños):**
 
 ```typescript
 const numbers = [5, 2, 8, 1, 9]
@@ -79,4 +79,4 @@ const min = Math.min(...numbers)
 const max = Math.max(...numbers)
 ```
 
-This works for small arrays, but can be slower or just throw an error for very large arrays due to spread operator limitations. Maximal array length is approximately 124000 in Chrome 143 and 638000 in Safari 18; exact numbers may vary - see [the fiddle](https://jsfiddle.net/qw1jabsx/4/). Use the loop approach for reliability.
+Esto funciona para arrays pequeños, pero puede ser más lento o directamente lanzar un error para arrays muy grandes debido a las limitaciones del spread operator. La longitud máxima del array es aproximadamente 124000 en Chrome 143 y 638000 en Safari 18; los números exactos pueden variar - consulta [el fiddle](https://jsfiddle.net/qw1jabsx/4/). Usa el enfoque del bucle para mayor confiabilidad.

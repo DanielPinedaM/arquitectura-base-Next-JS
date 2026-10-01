@@ -1,24 +1,24 @@
 ---
-title: Cache Storage API Calls
+title: Cachea las llamadas a la Storage API
 impact: LOW-MEDIUM
-impactDescription: reduces expensive I/O
+impactDescription: reduce la I/O costosa
 tags: javascript, localStorage, storage, caching, performance
 ---
 
-## Cache Storage API Calls
+## Cachea las llamadas a la Storage API
 
-`localStorage`, `sessionStorage`, and `document.cookie` are synchronous and expensive. Cache reads in memory.
+`localStorage`, `sessionStorage` y `document.cookie` son síncronos y costosos. Cachea las lecturas en memoria.
 
-**Incorrect (reads storage on every call):**
+**Incorrecto (lee el storage en cada llamada):**
 
 ```typescript
 function getTheme() {
   return localStorage.getItem('theme') ?? 'light'
 }
-// Called 10 times = 10 storage reads
+// Llamada 10 veces = 10 lecturas del storage
 ```
 
-**Correct (Map cache):**
+**Correcto (caché con Map):**
 
 ```typescript
 const storageCache = new Map<string, string | null>()
@@ -32,13 +32,13 @@ function getLocalStorage(key: string) {
 
 function setLocalStorage(key: string, value: string) {
   localStorage.setItem(key, value)
-  storageCache.set(key, value)  // keep cache in sync
+  storageCache.set(key, value)  // mantén la caché sincronizada
 }
 ```
 
-Use a Map (not a hook) so it works everywhere: utilities, event handlers, not just React components.
+Usa un Map (no un hook) para que funcione en todas partes: utilidades, event handlers, no solo en componentes de React.
 
-**Cookie caching:**
+**Caching de cookies:**
 
 ```typescript
 let cookieCache: Record<string, string> | null = null
@@ -53,9 +53,9 @@ function getCookie(name: string) {
 }
 ```
 
-**Important (invalidate on external changes):**
+**Importante (invalida ante cambios externos):**
 
-If storage can change externally (another tab, server-set cookies), invalidate cache:
+Si el storage puede cambiar externamente (otra pestaña, cookies establecidas por el servidor), invalida la caché:
 
 ```typescript
 window.addEventListener('storage', (e) => {

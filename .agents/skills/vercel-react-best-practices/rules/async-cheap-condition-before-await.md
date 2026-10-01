@@ -1,17 +1,17 @@
 ---
-title: Check Cheap Conditions Before Async Flags
+title: Verifica las condiciones baratas antes de los flags asíncronos
 impact: HIGH
-impactDescription: avoids unnecessary async work when a synchronous guard already fails
+impactDescription: evita trabajo asíncrono innecesario cuando un guard síncrono ya falla
 tags: async, await, feature-flags, short-circuit, conditional
 ---
 
-## Check Cheap Conditions Before Async Flags
+## Verifica las condiciones baratas antes de los flags asíncronos
 
-When a branch uses `await` for a flag or remote value and also requires a **cheap synchronous** condition (local props, request metadata, already-loaded state), evaluate the cheap condition **first**. Otherwise you pay for the async call even when the compound condition can never be true.
+Cuando una rama usa `await` para un flag o un valor remoto y además requiere una condición **síncrona barata** (props locales, metadata de la petición, estado ya cargado), evalúa la condición barata **primero**. De lo contrario, pagas por la llamada asíncrona incluso cuando la condición compuesta nunca puede ser verdadera.
 
-This is a specialization of [Defer Await Until Needed](./async-defer-await.md) for `flag && cheapCondition` style checks.
+Esta es una especialización de [Difiere el await hasta que sea necesario](./async-defer-await.md) para verificaciones del estilo `flag && cheapCondition`.
 
-**Incorrect:**
+**Incorrecto:**
 
 ```typescript
 const someFlag = await getFlag()
@@ -21,7 +21,7 @@ if (someFlag && someCondition) {
 }
 ```
 
-**Correct:**
+**Correcto:**
 
 ```typescript
 if (someCondition) {
@@ -32,6 +32,6 @@ if (someCondition) {
 }
 ```
 
-This matters when `getFlag` hits the network, a feature-flag service, or `React.cache` / DB work: skipping it when `someCondition` is false removes that cost on the cold path.
+Esto es importante cuando `getFlag` accede a la red, a un servicio de feature flags o a trabajo de `React.cache` / base de datos: omitirlo cuando `someCondition` es false elimina ese costo en el cold path.
 
-Keep the original order if `someCondition` is expensive, depends on the flag, or you must run side effects in a fixed order.
+Mantén el orden original si `someCondition` es costosa, depende del flag o debes ejecutar efectos secundarios en un orden fijo.

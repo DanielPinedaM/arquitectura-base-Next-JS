@@ -1,15 +1,15 @@
 ---
-title: Preload Based on User Intent
+title: Haz preload según la intención del usuario
 impact: MEDIUM
-impactDescription: reduces perceived latency
+impactDescription: reduce la latencia percibida
 tags: bundle, preload, user-intent, hover
 ---
 
-## Preload Based on User Intent
+## Haz preload según la intención del usuario
 
-Preload heavy bundles before they're needed to reduce perceived latency.
+Haz preload de los bundles pesados antes de que se necesiten para reducir la latencia percibida.
 
-**Example (preload on hover/focus):**
+**Ejemplo (preload en hover/focus):**
 
 ```tsx
 function EditorButton({ onClick }: { onClick: () => void }) {
@@ -31,7 +31,7 @@ function EditorButton({ onClick }: { onClick: () => void }) {
 }
 ```
 
-**Example (preload when feature flag is enabled):**
+**Ejemplo (preload cuando el feature flag está habilitado):**
 
 ```tsx
 function FlagsProvider({ children, flags }: Props) {
@@ -47,4 +47,4 @@ function FlagsProvider({ children, flags }: Props) {
 }
 ```
 
-The `typeof window !== 'undefined'` check prevents bundling preloaded modules for SSR, optimizing server bundle size and build speed.
+La verificación `typeof window !== 'undefined'` evita incluir en el bundle para SSR los módulos con preload, optimizando el tamaño del bundle del servidor y la velocidad del build.

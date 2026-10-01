@@ -1,15 +1,15 @@
 ---
-title: Build Index Maps for Repeated Lookups
+title: Construye index maps para búsquedas repetidas
 impact: LOW-MEDIUM
-impactDescription: 1M ops to 2K ops
+impactDescription: de 1M operaciones a 2K operaciones
 tags: javascript, map, indexing, optimization, performance
 ---
 
-## Build Index Maps for Repeated Lookups
+## Construye index maps para búsquedas repetidas
 
-Multiple `.find()` calls by the same key should use a Map.
+Múltiples llamadas a `.find()` por la misma key deben usar un Map.
 
-**Incorrect (O(n) per lookup):**
+**Incorrecto (O(n) por búsqueda):**
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
@@ -20,7 +20,7 @@ function processOrders(orders: Order[], users: User[]) {
 }
 ```
 
-**Correct (O(1) per lookup):**
+**Correcto (O(1) por búsqueda):**
 
 ```typescript
 function processOrders(orders: Order[], users: User[]) {
@@ -33,5 +33,5 @@ function processOrders(orders: Order[], users: User[]) {
 }
 ```
 
-Build map once (O(n)), then all lookups are O(1).
-For 1000 orders × 1000 users: 1M ops → 2K ops.
+Construye el map una vez (O(n)), y luego todas las búsquedas son O(1).
+Para 1000 órdenes × 1000 usuarios: 1M operaciones → 2K operaciones.

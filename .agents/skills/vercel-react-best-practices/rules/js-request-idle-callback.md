@@ -1,38 +1,38 @@
 ---
-title: Defer Non-Critical Work with requestIdleCallback
+title: Difiere el trabajo no crítico con requestIdleCallback
 impact: MEDIUM
-impactDescription: keeps UI responsive during background tasks
+impactDescription: mantiene la UI responsiva durante las tareas en segundo plano
 tags: javascript, performance, idle, scheduling, analytics
 ---
 
-## Defer Non-Critical Work with requestIdleCallback
+## Difiere el trabajo no crítico con requestIdleCallback
 
-**Impact: MEDIUM (keeps UI responsive during background tasks)**
+**Impacto: MEDIUM (mantiene la UI responsiva durante las tareas en segundo plano)**
 
-Use `requestIdleCallback()` to schedule non-critical work during browser idle periods. This keeps the main thread free for user interactions and animations, reducing jank and improving perceived performance.
+Usa `requestIdleCallback()` para programar el trabajo no crítico durante los periodos ociosos del navegador. Esto mantiene el main thread libre para las interacciones del usuario y las animaciones, reduciendo el jank y mejorando el rendimiento percibido.
 
-**Incorrect (blocks main thread during user interaction):**
+**Incorrecto (bloquea el main thread durante la interacción del usuario):**
 
 ```typescript
 function handleSearch(query: string) {
   const results = searchItems(query)
   setResults(results)
 
-  // These block the main thread immediately
+  // Esto bloquea el main thread de inmediato
   analytics.track('search', { query })
   saveToRecentSearches(query)
   prefetchTopResults(results.slice(0, 3))
 }
 ```
 
-**Correct (defers non-critical work to idle time):**
+**Correcto (difiere el trabajo no crítico al tiempo ocioso):**
 
 ```typescript
 function handleSearch(query: string) {
   const results = searchItems(query)
   setResults(results)
 
-  // Defer non-critical work to idle periods
+  // Difiere el trabajo no crítico a los periodos ociosos
   requestIdleCallback(() => {
     analytics.track('search', { query })
   })
@@ -47,30 +47,30 @@ function handleSearch(query: string) {
 }
 ```
 
-**With timeout for required work:**
+**Con timeout para el trabajo obligatorio:**
 
 ```typescript
-// Ensure analytics fires within 2 seconds even if browser stays busy
+// Asegura que las analíticas se disparen en 2 segundos aunque el navegador siga ocupado
 requestIdleCallback(
   () => analytics.track('page_view', { path: location.pathname }),
   { timeout: 2000 }
 )
 ```
 
-**Chunking large tasks:**
+**Dividir tareas grandes en chunks:**
 
 ```typescript
 function processLargeDataset(items: Item[]) {
   let index = 0
 
   function processChunk(deadline: IdleDeadline) {
-    // Process items while we have idle time (aim for <50ms chunks)
+    // Procesa elementos mientras haya tiempo ocioso (apunta a chunks de <50ms)
     while (index < items.length && deadline.timeRemaining() > 0) {
       processItem(items[index])
       index++
     }
 
-    // Schedule next chunk if more items remain
+    // Programa el siguiente chunk si quedan más elementos
     if (index < items.length) {
       requestIdleCallback(processChunk)
     }
@@ -80,26 +80,26 @@ function processLargeDataset(items: Item[]) {
 }
 ```
 
-**With fallback for unsupported browsers:**
+**Con fallback para navegadores sin soporte:**
 
 ```typescript
 const scheduleIdleWork = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 1))
 
 scheduleIdleWork(() => {
-  // Non-critical work
+  // Trabajo no crítico
 })
 ```
 
-**When to use:**
+**Cuándo usarlo:**
 
-- Analytics and telemetry
-- Saving state to localStorage/IndexedDB
-- Prefetching resources for likely next actions
-- Processing non-urgent data transformations
-- Lazy initialization of non-critical features
+- Analíticas y telemetría
+- Guardar el estado en localStorage/IndexedDB
+- Hacer prefetch de recursos para las siguientes acciones probables
+- Procesar transformaciones de datos no urgentes
+- Inicialización lazy de funcionalidades no críticas
 
-**When NOT to use:**
+**Cuándo NO usarlo:**
 
-- User-initiated actions that need immediate feedback
-- Rendering updates the user is waiting for
-- Time-sensitive operations
+- Acciones iniciadas por el usuario que necesitan feedback inmediato
+- Actualizaciones de renderizado que el usuario está esperando
+- Operaciones sensibles al tiempo

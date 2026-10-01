@@ -1,15 +1,15 @@
 ---
-title: Use useTransition Over Manual Loading States
+title: Usa useTransition en lugar de estados de carga manuales
 impact: LOW
-impactDescription: reduces re-renders and improves code clarity
+impactDescription: reduce los re-renders y mejora la claridad del código
 tags: rendering, transitions, useTransition, loading, state
 ---
 
-## Use useTransition Over Manual Loading States
+## Usa useTransition en lugar de estados de carga manuales
 
-Use `useTransition` instead of manual `useState` for loading states. This provides built-in `isPending` state and automatically manages transitions.
+Usa `useTransition` en lugar de `useState` manual para los estados de carga. Proporciona un estado `isPending` integrado y gestiona las transiciones automáticamente.
 
-**Incorrect (manual loading state):**
+**Incorrecto (estado de carga manual):**
 
 ```tsx
 function SearchResults() {
@@ -35,7 +35,7 @@ function SearchResults() {
 }
 ```
 
-**Correct (useTransition with built-in pending state):**
+**Correcto (useTransition con estado pending integrado):**
 
 ```tsx
 import { useTransition, useState } from 'react'
@@ -46,10 +46,10 @@ function SearchResults() {
   const [isPending, startTransition] = useTransition()
 
   const handleSearch = (value: string) => {
-    setQuery(value) // Update input immediately
+    setQuery(value) // Actualiza el input de inmediato
     
     startTransition(async () => {
-      // Fetch and update results
+      // Obtiene y actualiza los resultados
       const data = await fetchResults(value)
       setResults(data)
     })
@@ -65,11 +65,11 @@ function SearchResults() {
 }
 ```
 
-**Benefits:**
+**Beneficios:**
 
-- **Automatic pending state**: No need to manually manage `setIsLoading(true/false)`
-- **Error resilience**: Pending state correctly resets even if the transition throws
-- **Better responsiveness**: Keeps the UI responsive during updates
-- **Interrupt handling**: New transitions automatically cancel pending ones
+- **Estado pending automático**: No es necesario gestionar manualmente `setIsLoading(true/false)`
+- **Resiliencia ante errores**: El estado pending se restablece correctamente incluso si la transición lanza un error
+- **Mejor capacidad de respuesta**: Mantiene la UI responsiva durante las actualizaciones
+- **Manejo de interrupciones**: Las nuevas transiciones cancelan automáticamente las pendientes
 
-Reference: [useTransition](https://react.dev/reference/react/useTransition)
+Referencia: [useTransition](https://react.dev/reference/react/useTransition)

@@ -1,15 +1,15 @@
 ---
-title: Per-Request Deduplication with React.cache()
+title: Deduplicación por petición con React.cache()
 impact: MEDIUM
-impactDescription: deduplicates within request
+impactDescription: deduplica dentro de la petición
 tags: server, cache, react-cache, deduplication
 ---
 
-## Per-Request Deduplication with React.cache()
+## Deduplicación por petición con React.cache()
 
-Use `React.cache()` for server-side request deduplication. Authentication and database queries benefit most.
+Usa `React.cache()` para la deduplicación de peticiones del lado del servidor. La autenticación y las queries a la base de datos son las que más se benefician.
 
-**Usage:**
+**Uso:**
 
 ```typescript
 import { cache } from 'react'
@@ -23,54 +23,54 @@ export const getCurrentUser = cache(async () => {
 })
 ```
 
-Within a single request, multiple calls to `getCurrentUser()` execute the query only once.
+Dentro de una sola petición, múltiples llamadas a `getCurrentUser()` ejecutan la query solo una vez.
 
-**Avoid inline objects as arguments:**
+**Evita los objetos inline como argumentos:**
 
-`React.cache()` uses shallow equality (`Object.is`) to determine cache hits. Inline objects create new references each call, preventing cache hits.
+`React.cache()` usa igualdad superficial (`Object.is`) para determinar los cache hits. Los objetos inline crean nuevas referencias en cada llamada, lo que impide los cache hits.
 
-**Incorrect (always cache miss):**
+**Incorrecto (siempre cache miss):**
 
 ```typescript
 const getUser = cache(async (params: { uid: number }) => {
   return await db.user.findUnique({ where: { id: params.uid } })
 })
 
-// Each call creates new object, never hits cache
+// Cada llamada crea un nuevo objeto, nunca hay cache hit
 getUser({ uid: 1 })
-getUser({ uid: 1 })  // Cache miss, runs query again
+getUser({ uid: 1 })  // Cache miss, ejecuta la query de nuevo
 ```
 
-**Correct (cache hit):**
+**Correcto (cache hit):**
 
 ```typescript
 const getUser = cache(async (uid: number) => {
   return await db.user.findUnique({ where: { id: uid } })
 })
 
-// Primitive args use value equality
+// Los argumentos primitivos usan igualdad por valor
 getUser(1)
-getUser(1)  // Cache hit, returns cached result
+getUser(1)  // Cache hit, devuelve el resultado cacheado
 ```
 
-If you must pass objects, pass the same reference:
+Si debes pasar objetos, pasa la misma referencia:
 
 ```typescript
 const params = { uid: 1 }
-getUser(params)  // Query runs
-getUser(params)  // Cache hit (same reference)
+getUser(params)  // Se ejecuta la query
+getUser(params)  // Cache hit (misma referencia)
 ```
 
-**Next.js-Specific Note:**
+**Nota específica de Next.js:**
 
-In Next.js, the `fetch` API is automatically extended with request memoization. Requests with the same URL and options are automatically deduplicated within a single request, so you don't need `React.cache()` for `fetch` calls. However, `React.cache()` is still essential for other async tasks:
+En Next.js, la API `fetch` se extiende automáticamente con request memoization. Las peticiones con la misma URL y las mismas opciones se deduplican automáticamente dentro de una sola petición, por lo que no necesitas `React.cache()` para las llamadas a `fetch`. Sin embargo, `React.cache()` sigue siendo esencial para otras tareas asíncronas:
 
-- Database queries (Prisma, Drizzle, etc.)
-- Heavy computations
-- Authentication checks
-- File system operations
-- Any non-fetch async work
+- Queries a la base de datos (Prisma, Drizzle, etc.)
+- Cómputos pesados
+- Verificaciones de autenticación
+- Operaciones del sistema de archivos
+- Cualquier trabajo asíncrono que no sea fetch
 
-Use `React.cache()` to deduplicate these operations across your component tree.
+Usa `React.cache()` para deduplicar estas operaciones a lo largo de tu árbol de componentes.
 
-Reference: [React.cache documentation](https://react.dev/reference/react/cache)
+Referencia: [Documentación de React.cache](https://react.dev/reference/react/cache)

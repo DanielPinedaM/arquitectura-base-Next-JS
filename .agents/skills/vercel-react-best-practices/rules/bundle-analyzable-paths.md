@@ -1,25 +1,25 @@
 ---
-title: Prefer Statically Analyzable Paths
+title: Prefiere paths analizables estáticamente
 impact: HIGH
-impactDescription: avoids accidental broad bundles and file traces
+impactDescription: evita bundles y file traces amplios accidentales
 tags: bundle, nextjs, vite, webpack, rollup, esbuild, path
 ---
 
-## Prefer Statically Analyzable Paths
+## Prefiere paths analizables estáticamente
 
-Build tools work best when import and file-system paths are obvious at build time. If you hide the real path inside a variable or compose it too dynamically, the tool either has to include a broad set of possible files, warn that it cannot analyze the import, or widen file tracing to stay safe.
+Las herramientas de build funcionan mejor cuando los paths de import y del sistema de archivos son evidentes en tiempo de build. Si ocultas el path real dentro de una variable o lo compones de forma demasiado dinámica, la herramienta tiene que incluir un conjunto amplio de archivos posibles, advertir que no puede analizar el import o ampliar el file tracing para no correr riesgos.
 
-Prefer explicit maps or literal paths so the set of reachable files stays narrow and predictable. This is the same rule whether you are choosing modules with `import()` or reading files in server/build code.
+Prefiere maps explícitos o paths literales para que el conjunto de archivos alcanzables se mantenga acotado y predecible. Es la misma regla tanto si eliges módulos con `import()` como si lees archivos en código del servidor o de build.
 
-When analysis becomes too broad, the cost is real:
-- Larger server bundles
-- Slower builds
-- Worse cold starts
-- More memory use
+Cuando el análisis se vuelve demasiado amplio, el costo es real:
+- Bundles del servidor más grandes
+- Builds más lentos
+- Peores cold starts
+- Mayor uso de memoria
 
-### Import Paths
+### Paths de import
 
-**Incorrect (the bundler cannot tell what may be imported):**
+**Incorrecto (el bundler no puede saber qué se puede importar):**
 
 ```ts
 const PAGE_MODULES = {
@@ -30,7 +30,7 @@ const PAGE_MODULES = {
 const Page = await import(PAGE_MODULES[pageName])
 ```
 
-**Correct (use an explicit map of allowed modules):**
+**Correcto (usa un map explícito de los módulos permitidos):**
 
 ```ts
 const PAGE_MODULES = {
@@ -41,15 +41,15 @@ const PAGE_MODULES = {
 const Page = await PAGE_MODULES[pageName]()
 ```
 
-### File-System Paths
+### Paths del sistema de archivos
 
-**Incorrect (a 2-value enum still hides the final path from static analysis):**
+**Incorrecto (un enum de 2 valores aun así oculta el path final al análisis estático):**
 
 ```ts
 const baseDir = path.join(process.cwd(), 'content/' + contentKind)
 ```
 
-**Correct (make each final path literal at the callsite):**
+**Correcto (haz que cada path final sea literal en el punto de llamada):**
 
 ```ts
 const baseDir =
@@ -58,6 +58,6 @@ const baseDir =
     : path.join(process.cwd(), 'content/docs')
 ```
 
-In Next.js server code, this matters for output file tracing too. `path.join(process.cwd(), someVar)` can widen the traced file set because Next.js statically analyze `import`, `require`, and `fs` usage.
+En el código del servidor de Next.js, esto también es importante para el output file tracing. `path.join(process.cwd(), someVar)` puede ampliar el conjunto de archivos rastreados porque Next.js analiza estáticamente el uso de `import`, `require` y `fs`.
 
-Reference: [Next.js output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output), [Next.js dynamic imports](https://nextjs.org/learn/seo/dynamic-imports), [Vite features](https://vite.dev/guide/features.html), [esbuild API](https://esbuild.github.io/api/), [Rollup dynamic import vars](https://www.npmjs.com/package/@rollup/plugin-dynamic-import-vars), [Webpack dependency management](https://webpack.js.org/guides/dependency-management/)
+Referencia: [Next.js output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output), [Dynamic imports de Next.js](https://nextjs.org/learn/seo/dynamic-imports), [Funcionalidades de Vite](https://vite.dev/guide/features.html), [API de esbuild](https://esbuild.github.io/api/), [Rollup dynamic import vars](https://www.npmjs.com/package/@rollup/plugin-dynamic-import-vars), [Gestión de dependencias de Webpack](https://webpack.js.org/guides/dependency-management/)

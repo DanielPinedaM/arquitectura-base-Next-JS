@@ -1,18 +1,18 @@
 ---
-title: Avoid Layout Thrashing
+title: Evita el layout thrashing
 impact: MEDIUM
-impactDescription: prevents forced synchronous layouts and reduces performance bottlenecks
+impactDescription: evita layouts síncronos forzados y reduce los cuellos de botella de rendimiento
 tags: javascript, dom, css, performance, reflow, layout-thrashing
 ---
 
-## Avoid Layout Thrashing
+## Evita el layout thrashing
 
-Avoid interleaving style writes with layout reads. When you read a layout property (like `offsetWidth`, `getBoundingClientRect()`, or `getComputedStyle()`) between style changes, the browser is forced to trigger a synchronous reflow.
+Evita intercalar escrituras de estilos con lecturas de layout. Cuando lees una propiedad de layout (como `offsetWidth`, `getBoundingClientRect()` o `getComputedStyle()`) entre cambios de estilo, el navegador se ve obligado a disparar un reflow síncrono.
 
-**This is OK (browser batches style changes):**
+**Esto está bien (el navegador agrupa los cambios de estilo):**
 ```typescript
 function updateElementStyles(element: HTMLElement) {
-  // Each line invalidates style, but browser batches the recalculation
+  // Cada línea invalida el estilo, pero el navegador agrupa el recálculo
   element.style.width = '100px'
   element.style.height = '200px'
   element.style.backgroundColor = 'blue'
@@ -20,45 +20,45 @@ function updateElementStyles(element: HTMLElement) {
 }
 ```
 
-**Incorrect (interleaved reads and writes force reflows):**
+**Incorrecto (las lecturas y escrituras intercaladas fuerzan reflows):**
 ```typescript
 function layoutThrashing(element: HTMLElement) {
   element.style.width = '100px'
-  const width = element.offsetWidth  // Forces reflow
+  const width = element.offsetWidth  // Fuerza un reflow
   element.style.height = '200px'
-  const height = element.offsetHeight  // Forces another reflow
+  const height = element.offsetHeight  // Fuerza otro reflow
 }
 ```
 
-**Correct (batch writes, then read once):**
+**Correcto (agrupa las escrituras y luego lee una sola vez):**
 ```typescript
 function updateElementStyles(element: HTMLElement) {
-  // Batch all writes together
+  // Agrupa todas las escrituras juntas
   element.style.width = '100px'
   element.style.height = '200px'
   element.style.backgroundColor = 'blue'
   element.style.border = '1px solid black'
   
-  // Read after all writes are done (single reflow)
+  // Lee después de que terminen todas las escrituras (un solo reflow)
   const { width, height } = element.getBoundingClientRect()
 }
 ```
 
-**Correct (batch reads, then writes):**
+**Correcto (agrupa las lecturas y luego las escrituras):**
 ```typescript
 function avoidThrashing(element: HTMLElement) {
-  // Read phase - all layout queries first
+  // Fase de lectura - todas las consultas de layout primero
   const rect1 = element.getBoundingClientRect()
   const offsetWidth = element.offsetWidth
   const offsetHeight = element.offsetHeight
   
-  // Write phase - all style changes after
+  // Fase de escritura - todos los cambios de estilo después
   element.style.width = '100px'
   element.style.height = '200px'
 }
 ```
 
-**Better: use CSS classes**
+**Mejor: usa clases CSS**
 ```css
 .highlighted-box {
   width: 100px;
@@ -75,16 +75,16 @@ function updateElementStyles(element: HTMLElement) {
 }
 ```
 
-**React example:**
+**Ejemplo en React:**
 ```tsx
-// Incorrect: interleaving style changes with layout queries
+// Incorrecto: intercalar cambios de estilo con consultas de layout
 function Box({ isHighlighted }: { isHighlighted: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
     if (ref.current && isHighlighted) {
       ref.current.style.width = '100px'
-      const width = ref.current.offsetWidth // Forces layout
+      const width = ref.current.offsetWidth // Fuerza el layout
       ref.current.style.height = '200px'
     }
   }, [isHighlighted])
@@ -92,7 +92,7 @@ function Box({ isHighlighted }: { isHighlighted: boolean }) {
   return <div ref={ref}>Content</div>
 }
 
-// Correct: toggle class
+// Correcto: alterna la clase
 function Box({ isHighlighted }: { isHighlighted: boolean }) {
   return (
     <div className={isHighlighted ? 'highlighted-box' : ''}>
@@ -102,6 +102,6 @@ function Box({ isHighlighted }: { isHighlighted: boolean }) {
 }
 ```
 
-Prefer CSS classes over inline styles when possible. CSS files are cached by the browser, and classes provide better separation of concerns and are easier to maintain.
+Prefiere las clases CSS en lugar de los estilos inline cuando sea posible. Los archivos CSS son cacheados por el navegador, y las clases proporcionan una mejor separación de responsabilidades y son más fáciles de mantener.
 
-See [this gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) and [CSS Triggers](https://csstriggers.com/) for more information on layout-forcing operations.
+Consulta [este gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) y [CSS Triggers](https://csstriggers.com/) para más información sobre las operaciones que fuerzan el layout.

@@ -1,49 +1,49 @@
 ---
-title: Defer Await Until Needed
+title: Difiere el await hasta que sea necesario
 impact: HIGH
-impactDescription: avoids blocking unused code paths
+impactDescription: evita bloquear code paths que no se usan
 tags: async, await, conditional, optimization
 ---
 
-## Defer Await Until Needed
+## Difiere el await hasta que sea necesario
 
-Move `await` operations into the branches where they're actually used to avoid blocking code paths that don't need them.
+Mueve las operaciones `await` a las ramas donde realmente se usan para evitar bloquear code paths que no las necesitan.
 
-**Incorrect (blocks both branches):**
+**Incorrecto (bloquea ambas ramas):**
 
 ```typescript
 async function handleRequest(userId: string, skipProcessing: boolean) {
   const userData = await fetchUserData(userId)
   
   if (skipProcessing) {
-    // Returns immediately but still waited for userData
+    // Retorna de inmediato, pero aun así esperó a userData
     return { skipped: true }
   }
   
-  // Only this branch uses userData
+  // Solo esta rama usa userData
   return processUserData(userData)
 }
 ```
 
-**Correct (only blocks when needed):**
+**Correcto (solo bloquea cuando es necesario):**
 
 ```typescript
 async function handleRequest(userId: string, skipProcessing: boolean) {
   if (skipProcessing) {
-    // Returns immediately without waiting
+    // Retorna de inmediato sin esperar
     return { skipped: true }
   }
   
-  // Fetch only when needed
+  // Obtiene los datos solo cuando es necesario
   const userData = await fetchUserData(userId)
   return processUserData(userData)
 }
 ```
 
-**Another example (early return optimization):**
+**Otro ejemplo (optimización con early return):**
 
 ```typescript
-// Incorrect: always fetches permissions
+// Incorrecto: siempre obtiene los permisos
 async function updateResource(resourceId: string, userId: string) {
   const permissions = await fetchPermissions(userId)
   const resource = await getResource(resourceId)
@@ -59,7 +59,7 @@ async function updateResource(resourceId: string, userId: string) {
   return await updateResourceData(resource, permissions)
 }
 
-// Correct: fetches only when needed
+// Correcto: obtiene los datos solo cuando es necesario
 async function updateResource(resourceId: string, userId: string) {
   const resource = await getResource(resourceId)
   
@@ -77,6 +77,6 @@ async function updateResource(resourceId: string, userId: string) {
 }
 ```
 
-This optimization is especially valuable when the skipped branch is frequently taken, or when the deferred operation is expensive.
+Esta optimización es especialmente valiosa cuando la rama omitida se toma con frecuencia, o cuando la operación diferida es costosa.
 
-For `await getFlag()` combined with a cheap synchronous guard (`flag && someCondition`), see [Check Cheap Conditions Before Async Flags](./async-cheap-condition-before-await.md).
+Para `await getFlag()` combinado con un guard síncrono barato (`flag && someCondition`), consulta [Verifica las condiciones baratas antes de los flags asíncronos](./async-cheap-condition-before-await.md).

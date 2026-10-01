@@ -1,23 +1,23 @@
 ---
-title: Don't Define Components Inside Components
+title: No definas componentes dentro de componentes
 impact: HIGH
-impactDescription: prevents remount on every render
+impactDescription: evita el remontaje en cada render
 tags: rerender, components, remount, performance
 ---
 
-## Don't Define Components Inside Components
+## No definas componentes dentro de componentes
 
-**Impact: HIGH (prevents remount on every render)**
+**Impacto: HIGH (evita el remontaje en cada render)**
 
-Defining a component inside another component creates a new component type on every render. React sees a different component each time and fully remounts it, destroying all state and DOM.
+Definir un componente dentro de otro componente crea un nuevo tipo de componente en cada render. React ve un componente diferente cada vez y lo vuelve a montar por completo, destruyendo todo el estado y el DOM.
 
-A common reason developers do this is to access parent variables without passing props. Always pass props instead.
+Una razón común por la que los desarrolladores hacen esto es para acceder a las variables del padre sin pasar props. En su lugar, pasa siempre props.
 
-**Incorrect (remounts on every render):**
+**Incorrecto (se vuelve a montar en cada render):**
 
 ```tsx
 function UserProfile({ user, theme }) {
-  // Defined inside to access `theme` - BAD
+  // Definido dentro para acceder a `theme` - MAL
   const Avatar = () => (
     <img
       src={user.avatarUrl}
@@ -25,7 +25,7 @@ function UserProfile({ user, theme }) {
     />
   )
 
-  // Defined inside to access `user` - BAD
+  // Definido dentro para acceder a `user` - MAL
   const Stats = () => (
     <div>
       <span>{user.followers} followers</span>
@@ -42,9 +42,9 @@ function UserProfile({ user, theme }) {
 }
 ```
 
-Every time `UserProfile` renders, `Avatar` and `Stats` are new component types. React unmounts the old instances and mounts new ones, losing any internal state, running effects again, and recreating DOM nodes.
+Cada vez que `UserProfile` se renderiza, `Avatar` y `Stats` son nuevos tipos de componentes. React desmonta las instancias anteriores y monta nuevas, perdiendo cualquier estado interno, volviendo a ejecutar los effects y recreando los nodos del DOM.
 
-**Correct (pass props instead):**
+**Correcto (en su lugar, pasa props):**
 
 ```tsx
 function Avatar({ src, theme }: { src: string; theme: string }) {
@@ -75,8 +75,8 @@ function UserProfile({ user, theme }) {
 }
 ```
 
-**Symptoms of this bug:**
-- Input fields lose focus on every keystroke
-- Animations restart unexpectedly
-- `useEffect` cleanup/setup runs on every parent render
-- Scroll position resets inside the component
+**Síntomas de este bug:**
+- Los campos de input pierden el foco en cada pulsación de tecla
+- Las animaciones se reinician inesperadamente
+- El cleanup/setup de `useEffect` se ejecuta en cada render del padre
+- La posición del scroll se restablece dentro del componente

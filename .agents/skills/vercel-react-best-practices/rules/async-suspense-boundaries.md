@@ -1,19 +1,19 @@
 ---
-title: Strategic Suspense Boundaries
+title: Suspense boundaries estratégicos
 impact: HIGH
-impactDescription: faster initial paint
+impactDescription: primer pintado más rápido
 tags: async, suspense, streaming, layout-shift
 ---
 
-## Strategic Suspense Boundaries
+## Suspense boundaries estratégicos
 
-Instead of awaiting data in async components before returning JSX, use Suspense boundaries to show the wrapper UI faster while data loads.
+En lugar de hacer await de los datos en componentes asíncronos antes de devolver el JSX, usa Suspense boundaries para mostrar más rápido la UI contenedora mientras se cargan los datos.
 
-**Incorrect (wrapper blocked by data fetching):**
+**Incorrecto (el contenedor queda bloqueado por la obtención de datos):**
 
 ```tsx
 async function Page() {
-  const data = await fetchData() // Blocks entire page
+  const data = await fetchData() // Bloquea toda la página
   
   return (
     <div>
@@ -28,9 +28,9 @@ async function Page() {
 }
 ```
 
-The entire layout waits for data even though only the middle section needs it.
+Todo el layout espera los datos aunque solo la sección central los necesita.
 
-**Correct (wrapper shows immediately, data streams in):**
+**Correcto (el contenedor se muestra de inmediato, los datos llegan por streaming):**
 
 ```tsx
 function Page() {
@@ -49,18 +49,18 @@ function Page() {
 }
 
 async function DataDisplay() {
-  const data = await fetchData() // Only blocks this component
+  const data = await fetchData() // Solo bloquea este componente
   return <div>{data.content}</div>
 }
 ```
 
-Sidebar, Header, and Footer render immediately. Only DataDisplay waits for data.
+Sidebar, Header y Footer se renderizan de inmediato. Solo DataDisplay espera los datos.
 
-**Alternative (share promise across components):**
+**Alternativa (compartir la promise entre componentes):**
 
 ```tsx
 function Page() {
-  // Start fetch immediately, but don't await
+  // Inicia el fetch de inmediato, pero no hagas await
   const dataPromise = fetchData()
   
   return (
@@ -77,23 +77,23 @@ function Page() {
 }
 
 function DataDisplay({ dataPromise }: { dataPromise: Promise<Data> }) {
-  const data = use(dataPromise) // Unwraps the promise
+  const data = use(dataPromise) // Desenvuelve la promise
   return <div>{data.content}</div>
 }
 
 function DataSummary({ dataPromise }: { dataPromise: Promise<Data> }) {
-  const data = use(dataPromise) // Reuses the same promise
+  const data = use(dataPromise) // Reutiliza la misma promise
   return <div>{data.summary}</div>
 }
 ```
 
-Both components share the same promise, so only one fetch occurs. Layout renders immediately while both components wait together.
+Ambos componentes comparten la misma promise, por lo que solo ocurre un fetch. El layout se renderiza de inmediato mientras ambos componentes esperan juntos.
 
-**When NOT to use this pattern:**
+**Cuándo NO usar este patrón:**
 
-- Critical data needed for layout decisions (affects positioning)
-- SEO-critical content above the fold
-- Small, fast queries where suspense overhead isn't worth it
-- When you want to avoid layout shift (loading → content jump)
+- Datos críticos necesarios para decisiones de layout (afectan el posicionamiento)
+- Contenido crítico para el SEO en la parte superior de la página (above the fold)
+- Queries pequeñas y rápidas donde el overhead de suspense no vale la pena
+- Cuando quieres evitar el layout shift (salto de carga → contenido)
 
-**Trade-off:** Faster initial paint vs potential layout shift. Choose based on your UX priorities.
+**Compromiso:** Primer pintado más rápido vs. posible layout shift. Elige según tus prioridades de UX.

@@ -1,22 +1,22 @@
 ---
-title: Use Set/Map for O(1) Lookups
+title: Usa Set/Map para búsquedas O(1)
 impact: LOW-MEDIUM
-impactDescription: O(n) to O(1)
+impactDescription: de O(n) a O(1)
 tags: javascript, set, map, data-structures, performance
 ---
 
-## Use Set/Map for O(1) Lookups
+## Usa Set/Map para búsquedas O(1)
 
-Convert arrays to Set/Map for repeated membership checks.
+Convierte los arrays en Set/Map para las verificaciones de pertenencia repetidas.
 
-**Incorrect (O(n) per check):**
+**Incorrecto (O(n) por verificación):**
 
 ```typescript
 const allowedIds = ['a', 'b', 'c', ...]
 items.filter(item => allowedIds.includes(item.id))
 ```
 
-**Correct (O(1) per check):**
+**Correcto (O(1) por verificación):**
 
 ```typescript
 const allowedIds = new Set(['a', 'b', 'c', ...])

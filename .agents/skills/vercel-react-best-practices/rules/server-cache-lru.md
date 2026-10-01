@@ -1,22 +1,22 @@
 ---
-title: Cross-Request LRU Caching
+title: Caching LRU entre peticiones
 impact: HIGH
-impactDescription: caches across requests
+impactDescription: cachea entre peticiones
 tags: server, cache, lru, cross-request
 ---
 
-## Cross-Request LRU Caching
+## Caching LRU entre peticiones
 
-`React.cache()` only works within one request. For data shared across sequential requests (user clicks button A then button B), use an LRU cache.
+`React.cache()` solo funciona dentro de una petición. Para los datos compartidos entre peticiones secuenciales (el usuario hace clic en el botón A y luego en el botón B), usa una caché LRU.
 
-**Implementation:**
+**Implementación:**
 
 ```typescript
 import { LRUCache } from 'lru-cache'
 
 const cache = new LRUCache<string, any>({
   max: 1000,
-  ttl: 5 * 60 * 1000  // 5 minutes
+  ttl: 5 * 60 * 1000  // 5 minutos
 })
 
 export async function getUser(id: string) {
@@ -28,14 +28,14 @@ export async function getUser(id: string) {
   return user
 }
 
-// Request 1: DB query, result cached
-// Request 2: cache hit, no DB query
+// Petición 1: query a la base de datos, resultado cacheado
+// Petición 2: cache hit, sin query a la base de datos
 ```
 
-Use when sequential user actions hit multiple endpoints needing the same data within seconds.
+Úsala cuando las acciones secuenciales del usuario llamen a múltiples endpoints que necesiten los mismos datos en cuestión de segundos.
 
-**With Vercel's [Fluid Compute](https://vercel.com/docs/fluid-compute):** LRU caching is especially effective because multiple concurrent requests can share the same function instance and cache. This means the cache persists across requests without needing external storage like Redis.
+**Con [Fluid Compute](https://vercel.com/docs/fluid-compute) de Vercel:** El caching LRU es especialmente efectivo porque múltiples peticiones concurrentes pueden compartir la misma instancia de la función y la caché. Esto significa que la caché persiste entre peticiones sin necesitar un almacenamiento externo como Redis.
 
-**In traditional serverless:** Each invocation runs in isolation, so consider Redis for cross-process caching.
+**En serverless tradicional:** Cada invocación se ejecuta de forma aislada, así que considera Redis para el caching entre procesos.
 
-Reference: [https://github.com/isaacs/node-lru-cache](https://github.com/isaacs/node-lru-cache)
+Referencia: [https://github.com/isaacs/node-lru-cache](https://github.com/isaacs/node-lru-cache)

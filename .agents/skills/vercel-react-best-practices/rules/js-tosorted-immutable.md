@@ -1,19 +1,19 @@
 ---
-title: Use toSorted() Instead of sort() for Immutability
+title: Usa toSorted() en lugar de sort() para la inmutabilidad
 impact: MEDIUM-HIGH
-impactDescription: prevents mutation bugs in React state
+impactDescription: evita bugs de mutación en el estado de React
 tags: javascript, arrays, immutability, react, state, mutation
 ---
 
-## Use toSorted() Instead of sort() for Immutability
+## Usa toSorted() en lugar de sort() para la inmutabilidad
 
-`.sort()` mutates the array in place, which can cause bugs with React state and props. Use `.toSorted()` to create a new sorted array without mutation.
+`.sort()` muta el array in-place, lo que puede provocar bugs con el estado y las props de React. Usa `.toSorted()` para crear un nuevo array ordenado sin mutación.
 
-**Incorrect (mutates original array):**
+**Incorrecto (muta el array original):**
 
 ```typescript
 function UserList({ users }: { users: User[] }) {
-  // Mutates the users prop array!
+  // ¡Muta el array de la prop users!
   const sorted = useMemo(
     () => users.sort((a, b) => a.name.localeCompare(b.name)),
     [users]
@@ -22,11 +22,11 @@ function UserList({ users }: { users: User[] }) {
 }
 ```
 
-**Correct (creates new array):**
+**Correcto (crea un nuevo array):**
 
 ```typescript
 function UserList({ users }: { users: User[] }) {
-  // Creates new sorted array, original unchanged
+  // Crea un nuevo array ordenado, el original no cambia
   const sorted = useMemo(
     () => users.toSorted((a, b) => a.name.localeCompare(b.name)),
     [users]
@@ -35,23 +35,23 @@ function UserList({ users }: { users: User[] }) {
 }
 ```
 
-**Why this matters in React:**
+**Por qué es importante en React:**
 
-1. Props/state mutations break React's immutability model - React expects props and state to be treated as read-only
-2. Causes stale closure bugs - Mutating arrays inside closures (callbacks, effects) can lead to unexpected behavior
+1. Las mutaciones de props/estado rompen el modelo de inmutabilidad de React: React espera que las props y el estado se traten como de solo lectura
+2. Provoca bugs de stale closures: mutar arrays dentro de closures (callbacks, effects) puede llevar a un comportamiento inesperado
 
-**Browser support (fallback for older browsers):**
+**Soporte de navegadores (fallback para navegadores antiguos):**
 
-`.toSorted()` is available in all modern browsers (Chrome 110+, Safari 16+, Firefox 115+, Node.js 20+). For older environments, use spread operator:
+`.toSorted()` está disponible en todos los navegadores modernos (Chrome 110+, Safari 16+, Firefox 115+, Node.js 20+). Para entornos más antiguos, usa el spread operator:
 
 ```typescript
-// Fallback for older browsers
+// Fallback para navegadores antiguos
 const sorted = [...items].sort((a, b) => a.value - b.value)
 ```
 
-**Other immutable array methods:**
+**Otros métodos inmutables de arrays:**
 
-- `.toSorted()` - immutable sort
-- `.toReversed()` - immutable reverse
-- `.toSpliced()` - immutable splice
-- `.with()` - immutable element replacement
+- `.toSorted()` - sort inmutable
+- `.toReversed()` - reverse inmutable
+- `.toSpliced()` - splice inmutable
+- `.with()` - reemplazo inmutable de elementos

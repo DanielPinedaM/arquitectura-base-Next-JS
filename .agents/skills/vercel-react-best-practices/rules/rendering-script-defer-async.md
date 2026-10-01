@@ -1,22 +1,22 @@
 ---
-title: Use defer or async on Script Tags
+title: Usa defer o async en las etiquetas script
 impact: HIGH
-impactDescription: eliminates render-blocking
+impactDescription: elimina el bloqueo del renderizado
 tags: rendering, script, defer, async, performance
 ---
 
-## Use defer or async on Script Tags
+## Usa defer o async en las etiquetas script
 
-**Impact: HIGH (eliminates render-blocking)**
+**Impacto: HIGH (elimina el bloqueo del renderizado)**
 
-Script tags without `defer` or `async` block HTML parsing while the script downloads and executes. This delays First Contentful Paint and Time to Interactive.
+Las etiquetas script sin `defer` ni `async` bloquean el parseo del HTML mientras el script se descarga y se ejecuta. Esto retrasa el First Contentful Paint y el Time to Interactive.
 
-- **`defer`**: Downloads in parallel, executes after HTML parsing completes, maintains execution order
-- **`async`**: Downloads in parallel, executes immediately when ready, no guaranteed order
+- **`defer`**: Se descarga en paralelo, se ejecuta después de que termina el parseo del HTML y mantiene el orden de ejecución
+- **`async`**: Se descarga en paralelo, se ejecuta inmediatamente cuando está listo, sin orden garantizado
 
-Use `defer` for scripts that depend on DOM or other scripts. Use `async` for independent scripts like analytics.
+Usa `defer` para los scripts que dependen del DOM o de otros scripts. Usa `async` para scripts independientes como las analíticas.
 
-**Incorrect (blocks rendering):**
+**Incorrecto (bloquea el renderizado):**
 
 ```tsx
 export default function Document() {
@@ -26,31 +26,31 @@ export default function Document() {
         <script src="https://example.com/analytics.js" />
         <script src="/scripts/utils.js" />
       </head>
-      <body>{/* content */}</body>
+      <body>{/* contenido */}</body>
     </html>
   )
 }
 ```
 
-**Correct (non-blocking):**
+**Correcto (no bloqueante):**
 
 ```tsx
 export default function Document() {
   return (
     <html>
       <head>
-        {/* Independent script - use async */}
+        {/* Script independiente - usa async */}
         <script src="https://example.com/analytics.js" async />
-        {/* DOM-dependent script - use defer */}
+        {/* Script que depende del DOM - usa defer */}
         <script src="/scripts/utils.js" defer />
       </head>
-      <body>{/* content */}</body>
+      <body>{/* contenido */}</body>
     </html>
   )
 }
 ```
 
-**Note:** In Next.js, prefer the `next/script` component with `strategy` prop instead of raw script tags:
+**Nota:** En Next.js, prefiere el componente `next/script` con la prop `strategy` en lugar de etiquetas script directas:
 
 ```tsx
 import Script from 'next/script'
@@ -65,4 +65,4 @@ export default function Page() {
 }
 ```
 
-Reference: [MDN - Script element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#defer)
+Referencia: [MDN - Elemento script](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#defer)

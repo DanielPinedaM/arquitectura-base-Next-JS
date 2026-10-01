@@ -1,15 +1,15 @@
 ---
-title: Put Interaction Logic in Event Handlers
+title: Pon la lógica de interacción en los event handlers
 impact: MEDIUM
-impactDescription: avoids effect re-runs and duplicate side effects
+impactDescription: evita re-ejecuciones del effect y efectos secundarios duplicados
 tags: rerender, useEffect, events, side-effects, dependencies
 ---
 
-## Put Interaction Logic in Event Handlers
+## Pon la lógica de interacción en los event handlers
 
-If a side effect is triggered by a specific user action (submit, click, drag), run it in that event handler. Do not model the action as state + effect; it makes effects re-run on unrelated changes and can duplicate the action.
+Si un efecto secundario lo dispara una acción específica del usuario (submit, click, drag), ejecútalo en ese event handler. No modeles la acción como estado + effect; eso hace que los effects se vuelvan a ejecutar ante cambios no relacionados y puede duplicar la acción.
 
-**Incorrect (event modeled as state + effect):**
+**Incorrecto (evento modelado como estado + effect):**
 
 ```tsx
 function Form() {
@@ -27,7 +27,7 @@ function Form() {
 }
 ```
 
-**Correct (do it in the handler):**
+**Correcto (hazlo en el handler):**
 
 ```tsx
 function Form() {
@@ -42,4 +42,4 @@ function Form() {
 }
 ```
 
-Reference: [Should this code move to an event handler?](https://react.dev/learn/removing-effect-dependencies#should-this-code-move-to-an-event-handler)
+Referencia: [¿Debería este código moverse a un event handler?](https://react.dev/learn/removing-effect-dependencies#should-this-code-move-to-an-event-handler)

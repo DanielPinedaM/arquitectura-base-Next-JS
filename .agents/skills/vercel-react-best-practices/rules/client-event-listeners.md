@@ -1,15 +1,15 @@
 ---
-title: Deduplicate Global Event Listeners
+title: Deduplica los event listeners globales
 impact: LOW
-impactDescription: single listener for N components
+impactDescription: un solo listener para N componentes
 tags: client, swr, event-listeners, subscription
 ---
 
-## Deduplicate Global Event Listeners
+## Deduplica los event listeners globales
 
-Use `useSWRSubscription()` to share global event listeners across component instances.
+Usa `useSWRSubscription()` para compartir los event listeners globales entre las instancias de un componente.
 
-**Incorrect (N instances = N listeners):**
+**Incorrecto (N instancias = N listeners):**
 
 ```tsx
 function useKeyboardShortcut(key: string, callback: () => void) {
@@ -25,18 +25,18 @@ function useKeyboardShortcut(key: string, callback: () => void) {
 }
 ```
 
-When using the `useKeyboardShortcut` hook multiple times, each instance will register a new listener.
+Al usar el hook `useKeyboardShortcut` varias veces, cada instancia registrará un nuevo listener.
 
-**Correct (N instances = 1 listener):**
+**Correcto (N instancias = 1 listener):**
 
 ```tsx
 import useSWRSubscription from 'swr/subscription'
 
-// Module-level Map to track callbacks per key
+// Map a nivel de módulo para rastrear los callbacks por key
 const keyCallbacks = new Map<string, Set<() => void>>()
 
 function useKeyboardShortcut(key: string, callback: () => void) {
-  // Register this callback in the Map
+  // Registra este callback en el Map
   useEffect(() => {
     if (!keyCallbacks.has(key)) {
       keyCallbacks.set(key, new Set())
@@ -66,7 +66,7 @@ function useKeyboardShortcut(key: string, callback: () => void) {
 }
 
 function Profile() {
-  // Multiple shortcuts will share the same listener
+  // Múltiples shortcuts compartirán el mismo listener
   useKeyboardShortcut('p', () => { /* ... */ }) 
   useKeyboardShortcut('k', () => { /* ... */ })
   // ...

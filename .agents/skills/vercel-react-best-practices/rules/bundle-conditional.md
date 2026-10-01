@@ -1,15 +1,15 @@
 ---
-title: Conditional Module Loading
+title: Carga condicional de módulos
 impact: HIGH
-impactDescription: loads large data only when needed
+impactDescription: carga datos grandes solo cuando es necesario
 tags: bundle, conditional-loading, lazy-loading
 ---
 
-## Conditional Module Loading
+## Carga condicional de módulos
 
-Load large data or modules only when a feature is activated.
+Carga datos o módulos grandes solo cuando se activa una funcionalidad.
 
-**Example (lazy-load animation frames):**
+**Ejemplo (lazy-load de los frames de una animación):**
 
 ```tsx
 function AnimationPlayer({ enabled, setEnabled }: { enabled: boolean; setEnabled: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -28,4 +28,4 @@ function AnimationPlayer({ enabled, setEnabled }: { enabled: boolean; setEnabled
 }
 ```
 
-The `typeof window !== 'undefined'` check prevents bundling this module for SSR, optimizing server bundle size and build speed.
+La verificación `typeof window !== 'undefined'` evita incluir este módulo en el bundle para SSR, optimizando el tamaño del bundle del servidor y la velocidad del build.

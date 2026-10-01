@@ -1,15 +1,15 @@
 ---
-title: Split Combined Hook Computations
+title: Divide los cómputos combinados de los hooks
 impact: MEDIUM
-impactDescription: avoids recomputing independent steps
+impactDescription: evita recalcular pasos independientes
 tags: rerender, useMemo, useEffect, dependencies, optimization
 ---
 
-## Split Combined Hook Computations
+## Divide los cómputos combinados de los hooks
 
-When a hook contains multiple independent tasks with different dependencies, split them into separate hooks. A combined hook reruns all tasks when any dependency changes, even if some tasks don't use the changed value.
+Cuando un hook contiene múltiples tareas independientes con diferentes dependencias, divídelas en hooks separados. Un hook combinado vuelve a ejecutar todas las tareas cuando cambia cualquier dependencia, aunque algunas tareas no usen el valor que cambió.
 
-**Incorrect (changing `sortOrder` recomputes filtering):**
+**Incorrecto (cambiar `sortOrder` vuelve a calcular el filtrado):**
 
 ```tsx
 const sortedProducts = useMemo(() => {
@@ -21,7 +21,7 @@ const sortedProducts = useMemo(() => {
 }, [products, category, sortOrder])
 ```
 
-**Correct (filtering only recomputes when products or category change):**
+**Correcto (el filtrado solo se vuelve a calcular cuando cambian products o category):**
 
 ```tsx
 const filteredProducts = useMemo(
@@ -38,9 +38,9 @@ const sortedProducts = useMemo(
 )
 ```
 
-This pattern also applies to `useEffect` when combining unrelated side effects:
+Este patrón también aplica a `useEffect` al combinar efectos secundarios no relacionados:
 
-**Incorrect (both effects run when either dependency changes):**
+**Incorrecto (ambos efectos se ejecutan cuando cambia cualquiera de las dependencias):**
 
 ```tsx
 useEffect(() => {
@@ -49,7 +49,7 @@ useEffect(() => {
 }, [pathname, pageTitle])
 ```
 
-**Correct (effects run independently):**
+**Correcto (los effects se ejecutan de forma independiente):**
 
 ```tsx
 useEffect(() => {
@@ -61,4 +61,4 @@ useEffect(() => {
 }, [pageTitle])
 ```
 
-**Note:** If your project has [React Compiler](https://react.dev/learn/react-compiler) enabled, it automatically optimizes dependency tracking and may handle some of these cases for you.
+**Nota:** Si tu proyecto tiene [React Compiler](https://react.dev/learn/react-compiler) habilitado, este optimiza automáticamente el rastreo de dependencias y puede manejar algunos de estos casos por ti.

@@ -1,17 +1,17 @@
 ---
-title: Avoid Shared Module State for Request Data
+title: Evita el estado compartido del módulo para los datos de la petición
 impact: HIGH
-impactDescription: prevents concurrency bugs and request data leaks
+impactDescription: evita bugs de concurrencia y fugas de datos entre peticiones
 tags: server, rsc, ssr, concurrency, security, state
 ---
 
-## Avoid Shared Module State for Request Data
+## Evita el estado compartido del módulo para los datos de la petición
 
-For React Server Components and client components rendered during SSR, avoid using mutable module-level variables to share request-scoped data. Server renders can run concurrently in the same process. If one render writes to shared module state and another render reads it, you can get race conditions, cross-request contamination, and security bugs where one user's data appears in another user's response.
+En los React Server Components y en los client components renderizados durante el SSR, evita usar variables mutables a nivel de módulo para compartir datos con alcance de petición. Los renders del servidor pueden ejecutarse de forma concurrente en el mismo proceso. Si un render escribe en el estado compartido del módulo y otro render lo lee, puedes obtener race conditions, contaminación entre peticiones y bugs de seguridad en los que los datos de un usuario aparecen en la respuesta de otro usuario.
 
-Treat module scope on the server as process-wide shared memory, not request-local state.
+Trata el scope del módulo en el servidor como memoria compartida de todo el proceso, no como estado local de la petición.
 
-**Incorrect (request data leaks across concurrent renders):**
+**Incorrecto (los datos de la petición se filtran entre renders concurrentes):**
 
 ```tsx
 let currentUser: User | null = null
@@ -26,9 +26,9 @@ async function Dashboard() {
 }
 ```
 
-If two requests overlap, request A can set `currentUser`, then request B overwrites it before request A finishes rendering `Dashboard`.
+Si dos peticiones se superponen, la petición A puede establecer `currentUser`, y luego la petición B lo sobrescribe antes de que la petición A termine de renderizar `Dashboard`.
 
-**Correct (keep request data local to the render tree):**
+**Correcto (mantén los datos de la petición locales al árbol de render):**
 
 ```tsx
 export default async function Page() {
@@ -41,10 +41,10 @@ function Dashboard({ user }: { user: User | null }) {
 }
 ```
 
-Safe exceptions:
+Excepciones seguras:
 
-- Immutable static assets or config loaded once at module scope
-- Shared caches intentionally designed for cross-request reuse and keyed correctly
-- Process-wide singletons that do not store request- or user-specific mutable data
+- Assets estáticos inmutables o configuración cargados una vez en el scope del módulo
+- Cachés compartidas diseñadas intencionalmente para reutilizarse entre peticiones y con las keys correctas
+- Singletons de todo el proceso que no almacenan datos mutables específicos de la petición o del usuario
 
-For static assets and config, see [Hoist Static I/O to Module Level](./server-hoist-static-io.md).
+Para los assets estáticos y la configuración, consulta [Haz hoisting de la I/O estática al nivel del módulo](./server-hoist-static-io.md).

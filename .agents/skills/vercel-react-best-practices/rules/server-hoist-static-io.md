@@ -1,24 +1,24 @@
 ---
-title: Hoist Static I/O to Module Level
+title: Haz hoisting de la I/O estática al nivel del módulo
 impact: HIGH
-impactDescription: avoids repeated file/network I/O per request
+impactDescription: evita la I/O repetida de archivos/red en cada petición
 tags: server, io, performance, next.js, route-handlers, og-image
 ---
 
-## Hoist Static I/O to Module Level
+## Haz hoisting de la I/O estática al nivel del módulo
 
-**Impact: HIGH (avoids repeated file/network I/O per request)**
+**Impacto: HIGH (evita la I/O repetida de archivos/red en cada petición)**
 
-When loading static assets (fonts, logos, images, config files) in route handlers or server functions, hoist the I/O operation to module level. Module-level code runs once when the module is first imported, not on every request. This eliminates redundant file system reads or network fetches that would otherwise run on every invocation.
+Al cargar assets estáticos (fuentes, logos, imágenes, archivos de configuración) en route handlers o funciones del servidor, haz hoisting de la operación de I/O al nivel del módulo. El código a nivel de módulo se ejecuta una vez cuando el módulo se importa por primera vez, no en cada petición. Esto elimina las lecturas redundantes del sistema de archivos o los fetches de red que, de otro modo, se ejecutarían en cada invocación.
 
-**Incorrect (reads font file on every request):**
+**Incorrecto (lee el archivo de la fuente en cada petición):**
 
 ```typescript
 // app/api/og/route.tsx
 import { ImageResponse } from 'next/og'
 
 export async function GET(request: Request) {
-  // Runs on EVERY request - expensive!
+  // Se ejecuta en CADA petición - ¡costoso!
   const fontData = await fetch(
     new URL('./fonts/Inter.ttf', import.meta.url)
   ).then(res => res.arrayBuffer())
@@ -37,13 +37,13 @@ export async function GET(request: Request) {
 }
 ```
 
-**Correct (loads once at module initialization):**
+**Correcto (se carga una vez al inicializar el módulo):**
 
 ```typescript
 // app/api/og/route.tsx
 import { ImageResponse } from 'next/og'
 
-// Module-level: runs ONCE when module is first imported
+// Nivel de módulo: se ejecuta UNA VEZ cuando el módulo se importa por primera vez
 const fontData = fetch(
   new URL('./fonts/Inter.ttf', import.meta.url)
 ).then(res => res.arrayBuffer())
@@ -53,7 +53,7 @@ const logoData = fetch(
 ).then(res => res.arrayBuffer())
 
 export async function GET(request: Request) {
-  // Await the already-started promises
+  // Hace await de las promises ya iniciadas
   const [font, logo] = await Promise.all([fontData, logoData])
 
   return new ImageResponse(
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
 }
 ```
 
-**Correct (synchronous fs at module level):**
+**Correcto (fs síncrono a nivel de módulo):**
 
 ```typescript
 // app/api/og/route.tsx
@@ -74,7 +74,7 @@ import { ImageResponse } from 'next/og'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-// Synchronous read at module level - blocks only during module init
+// Lectura síncrona a nivel de módulo - bloquea solo durante la inicialización del módulo
 const fontData = readFileSync(
   join(process.cwd(), 'public/fonts/Inter.ttf')
 )
@@ -94,7 +94,7 @@ export async function GET(request: Request) {
 }
 ```
 
-**Incorrect (reads config on every call):**
+**Incorrecto (lee la configuración en cada llamada):**
 
 ```typescript
 import fs from 'node:fs/promises'
@@ -109,7 +109,7 @@ export async function processRequest(data: Data) {
 }
 ```
 
-**Correct (hoists config and template to module level):**
+**Correcto (hace hoisting de la configuración y la plantilla al nivel del módulo):**
 
 ```typescript
 import fs from 'node:fs/promises'
@@ -129,21 +129,21 @@ export async function processRequest(data: Data) {
 }
 ```
 
-When to use this pattern:
+Cuándo usar este patrón:
 
-- Loading fonts for OG image generation
-- Loading static logos, icons, or watermarks
-- Reading configuration files that don't change at runtime
-- Loading email templates or other static templates
-- Any static asset that's the same across all requests
+- Cargar fuentes para la generación de imágenes OG
+- Cargar logos, íconos o marcas de agua estáticos
+- Leer archivos de configuración que no cambian en runtime
+- Cargar plantillas de email u otras plantillas estáticas
+- Cualquier asset estático que sea igual en todas las peticiones
 
-When not to use this pattern:
+Cuándo no usar este patrón:
 
-- Assets that vary per request or user
-- Files that may change during runtime (use caching with TTL instead)
-- Large files that would consume too much memory if kept loaded
-- Sensitive data that shouldn't persist in memory
+- Assets que varían por petición o por usuario
+- Archivos que pueden cambiar durante el runtime (en su lugar, usa caching con TTL)
+- Archivos grandes que consumirían demasiada memoria si se mantienen cargados
+- Datos sensibles que no deben persistir en memoria
 
-With Vercel's [Fluid Compute](https://vercel.com/docs/fluid-compute), module-level caching is especially effective because multiple concurrent requests share the same function instance. The static assets stay loaded in memory across requests without cold start penalties.
+Con [Fluid Compute](https://vercel.com/docs/fluid-compute) de Vercel, el caching a nivel de módulo es especialmente efectivo porque múltiples peticiones concurrentes comparten la misma instancia de la función. Los assets estáticos se mantienen cargados en memoria entre peticiones sin penalizaciones de cold start.
 
-In traditional serverless, each cold start re-executes module-level code, but subsequent warm invocations reuse the loaded assets until the instance is recycled.
+En serverless tradicional, cada cold start vuelve a ejecutar el código a nivel de módulo, pero las invocaciones en caliente posteriores reutilizan los assets cargados hasta que la instancia se recicla.

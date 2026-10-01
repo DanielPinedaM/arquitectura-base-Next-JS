@@ -1,28 +1,28 @@
 ---
-title: Rule Title Here
+title: Título de la regla aquí
 impact: MEDIUM
-impactDescription: Optional description of impact (e.g., "20-50% improvement")
+impactDescription: Descripción opcional del impacto (p. ej., "20-50% de mejora")
 tags: tag1, tag2
 ---
 
-## Rule Title Here
+## Título de la regla aquí
 
-**Impact: MEDIUM (optional impact description)**
+**Impacto: MEDIUM (descripción opcional del impacto)**
 
-Brief explanation of the rule and why it matters. This should be clear and concise, explaining the performance implications.
+Breve explicación de la regla y de por qué es importante. Debe ser clara y concisa, y explicar las implicaciones en el rendimiento.
 
-**Incorrect (description of what's wrong):**
+**Incorrecto (descripción de lo que está mal):**
 
 ```typescript
-// Bad code example here
+// Ejemplo de código malo aquí
 const bad = example()
 ```
 
-**Correct (description of what's right):**
+**Correcto (descripción de lo que está bien):**
 
 ```typescript
-// Good code example here
+// Ejemplo de código bueno aquí
 const good = example()
 ```
 
-Reference: [Link to documentation or resource](https://example.com)
+Referencia: [Enlace a la documentación o recurso](https://example.com)

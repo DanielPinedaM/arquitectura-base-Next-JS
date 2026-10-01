@@ -1,23 +1,23 @@
 ---
-title: Version and Minimize localStorage Data
+title: Versiona y minimiza los datos de localStorage
 impact: MEDIUM
-impactDescription: prevents schema conflicts, reduces storage size
+impactDescription: evita conflictos de schema, reduce el tamaño del almacenamiento
 tags: client, localStorage, storage, versioning, data-minimization
 ---
 
-## Version and Minimize localStorage Data
+## Versiona y minimiza los datos de localStorage
 
-Add version prefix to keys and store only needed fields. Prevents schema conflicts and accidental storage of sensitive data.
+Agrega un prefijo de versión a las keys y almacena solo los campos necesarios. Evita conflictos de schema y el almacenamiento accidental de datos sensibles.
 
-**Incorrect:**
+**Incorrecto:**
 
 ```typescript
-// No version, stores everything, no error handling
+// Sin versión, almacena todo, sin manejo de errores
 localStorage.setItem('userConfig', JSON.stringify(fullUserObject))
 const data = localStorage.getItem('userConfig')
 ```
 
-**Correct:**
+**Correcto:**
 
 ```typescript
 const VERSION = 'v2'
@@ -26,7 +26,7 @@ function saveConfig(config: { theme: string; language: string }) {
   try {
     localStorage.setItem(`userConfig:${VERSION}`, JSON.stringify(config))
   } catch {
-    // Throws in incognito/private browsing, quota exceeded, or disabled
+    // Lanza una excepción en navegación incógnito/privada, al exceder la cuota o si está deshabilitado
   }
 }
 
@@ -39,7 +39,7 @@ function loadConfig() {
   }
 }
 
-// Migration from v1 to v2
+// Migración de v1 a v2
 function migrate() {
   try {
     const v1 = localStorage.getItem('userConfig:v1')
@@ -52,10 +52,10 @@ function migrate() {
 }
 ```
 
-**Store minimal fields from server responses:**
+**Almacena los campos mínimos de las respuestas del servidor:**
 
 ```typescript
-// User object has 20+ fields, only store what UI needs
+// El objeto User tiene más de 20 campos, almacena solo lo que la UI necesita
 function cachePrefs(user: FullUser) {
   try {
     localStorage.setItem('prefs:v1', JSON.stringify({
@@ -66,6 +66,6 @@ function cachePrefs(user: FullUser) {
 }
 ```
 
-**Always wrap in try-catch:** `getItem()` and `setItem()` throw in incognito/private browsing (Safari, Firefox), when quota exceeded, or when disabled.
+**Envuelve siempre en try-catch:** `getItem()` y `setItem()` lanzan excepciones en la navegación incógnito/privada (Safari, Firefox), cuando se excede la cuota o cuando están deshabilitados.
 
-**Benefits:** Schema evolution via versioning, reduced storage size, prevents storing tokens/PII/internal flags.
+**Beneficios:** Evolución del schema mediante el versionado, menor tamaño de almacenamiento, evita almacenar tokens/PII/flags internos.

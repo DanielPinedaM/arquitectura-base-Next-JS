@@ -1,16 +1,16 @@
 ---
-title: Do not wrap a simple expression with a primitive result type in useMemo
+title: No envuelvas en useMemo una expresión simple con un tipo de resultado primitivo
 impact: LOW-MEDIUM
-impactDescription: wasted computation on every render
+impactDescription: cómputo desperdiciado en cada render
 tags: rerender, useMemo, optimization
 ---
 
-## Do not wrap a simple expression with a primitive result type in useMemo
+## No envuelvas en useMemo una expresión simple con un tipo de resultado primitivo
 
-When an expression is simple (few logical or arithmetical operators) and has a primitive result type (boolean, number, string), do not wrap it in `useMemo`.
-Calling `useMemo` and comparing hook dependencies may consume more resources than the expression itself.
+Cuando una expresión es simple (pocos operadores lógicos o aritméticos) y tiene un tipo de resultado primitivo (boolean, number, string), no la envuelvas en `useMemo`.
+Llamar a `useMemo` y comparar las dependencias del hook puede consumir más recursos que la propia expresión.
 
-**Incorrect:**
+**Incorrecto:**
 
 ```tsx
 function Header({ user, notifications }: Props) {
@@ -19,17 +19,17 @@ function Header({ user, notifications }: Props) {
   }, [user.isLoading, notifications.isLoading])
 
   if (isLoading) return <Skeleton />
-  // return some markup
+  // devuelve algo de markup
 }
 ```
 
-**Correct:**
+**Correcto:**
 
 ```tsx
 function Header({ user, notifications }: Props) {
   const isLoading = user.isLoading || notifications.isLoading
 
   if (isLoading) return <Skeleton />
-  // return some markup
+  // devuelve algo de markup
 }
 ```

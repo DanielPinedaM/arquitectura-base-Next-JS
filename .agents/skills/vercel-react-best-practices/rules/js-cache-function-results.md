@@ -1,22 +1,22 @@
 ---
-title: Cache Repeated Function Calls
+title: Cachea las llamadas repetidas a funciones
 impact: MEDIUM
-impactDescription: avoid redundant computation
+impactDescription: evita cómputos redundantes
 tags: javascript, cache, memoization, performance
 ---
 
-## Cache Repeated Function Calls
+## Cachea las llamadas repetidas a funciones
 
-Use a module-level Map to cache function results when the same function is called repeatedly with the same inputs during render.
+Usa un Map a nivel de módulo para cachear los resultados de una función cuando la misma función se llama repetidamente con los mismos inputs durante el render.
 
-**Incorrect (redundant computation):**
+**Incorrecto (cómputo redundante):**
 
 ```typescript
 function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <div>
       {projects.map(project => {
-        // slugify() called 100+ times for same project names
+        // slugify() se llama más de 100 veces para los mismos nombres de proyecto
         const slug = slugify(project.name)
         
         return <ProjectCard key={project.id} slug={slug} />
@@ -26,10 +26,10 @@ function ProjectList({ projects }: { projects: Project[] }) {
 }
 ```
 
-**Correct (cached results):**
+**Correcto (resultados cacheados):**
 
 ```typescript
-// Module-level cache
+// Caché a nivel de módulo
 const slugifyCache = new Map<string, string>()
 
 function cachedSlugify(text: string): string {
@@ -45,7 +45,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <div>
       {projects.map(project => {
-        // Computed only once per unique project name
+        // Se calcula solo una vez por cada nombre de proyecto único
         const slug = cachedSlugify(project.name)
         
         return <ProjectCard key={project.id} slug={slug} />
@@ -55,7 +55,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
 }
 ```
 
-**Simpler pattern for single-value functions:**
+**Patrón más simple para funciones de un solo valor:**
 
 ```typescript
 let isLoggedInCache: boolean | null = null
@@ -69,12 +69,12 @@ function isLoggedIn(): boolean {
   return isLoggedInCache
 }
 
-// Clear cache when auth changes
+// Limpia la caché cuando cambia la autenticación
 function onAuthChange() {
   isLoggedInCache = null
 }
 ```
 
-Use a Map (not a hook) so it works everywhere: utilities, event handlers, not just React components.
+Usa un Map (no un hook) para que funcione en todas partes: utilidades, event handlers, no solo en componentes de React.
 
-Reference: [How we made the Vercel Dashboard twice as fast](https://vercel.com/blog/how-we-made-the-vercel-dashboard-twice-as-fast)
+Referencia: [Cómo hicimos el Dashboard de Vercel dos veces más rápido](https://vercel.com/blog/how-we-made-the-vercel-dashboard-twice-as-fast)

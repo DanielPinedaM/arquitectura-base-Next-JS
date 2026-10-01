@@ -1,46 +1,46 @@
-# Sections
+# Secciones
 
-This file defines all sections, their ordering, impact levels, and descriptions.
-The section ID (in parentheses) is the filename prefix used to group rules.
+Este archivo define todas las secciones, su orden, niveles de impacto y descripciones.
+El ID de la sección (entre paréntesis) es el prefijo del nombre de archivo que se usa para agrupar las reglas.
 
 ---
 
-## 1. Eliminating Waterfalls (async)
+## 1. Eliminar waterfalls (async)
 
-**Impact:** CRITICAL  
-**Description:** Waterfalls are the #1 performance killer. Each sequential await adds full network latency. Eliminating them yields the largest gains.
+**Impacto:** CRITICAL  
+**Descripción:** Los waterfalls son el asesino número 1 del rendimiento. Cada await secuencial agrega la latencia de red completa. Eliminarlos produce las mayores mejoras.
 
-## 2. Bundle Size Optimization (bundle)
+## 2. Optimización del tamaño del bundle (bundle)
 
-**Impact:** CRITICAL  
-**Description:** Reducing initial bundle size improves Time to Interactive and Largest Contentful Paint.
+**Impacto:** CRITICAL  
+**Descripción:** Reducir el tamaño del bundle inicial mejora el Time to Interactive y el Largest Contentful Paint.
 
-## 3. Server-Side Performance (server)
+## 3. Rendimiento del lado del servidor (server)
 
-**Impact:** HIGH  
-**Description:** Optimizing server-side rendering and data fetching eliminates server-side waterfalls and reduces response times.
+**Impacto:** HIGH  
+**Descripción:** Optimizar el server-side rendering y la obtención de datos elimina los waterfalls del lado del servidor y reduce los tiempos de respuesta.
 
-## 4. Client-Side Data Fetching (client)
+## 4. Obtención de datos del lado del cliente (client)
 
-**Impact:** MEDIUM-HIGH  
-**Description:** Automatic deduplication and efficient data fetching patterns reduce redundant network requests.
+**Impacto:** MEDIUM-HIGH  
+**Descripción:** La deduplicación automática y los patrones eficientes de obtención de datos reducen las peticiones de red redundantes.
 
-## 5. Re-render Optimization (rerender)
+## 5. Optimización de re-renders (rerender)
 
-**Impact:** MEDIUM  
-**Description:** Reducing unnecessary re-renders minimizes wasted computation and improves UI responsiveness.
+**Impacto:** MEDIUM  
+**Descripción:** Reducir los re-renders innecesarios minimiza el cómputo desperdiciado y mejora la capacidad de respuesta de la UI.
 
-## 6. Rendering Performance (rendering)
+## 6. Rendimiento del renderizado (rendering)
 
-**Impact:** MEDIUM  
-**Description:** Optimizing the rendering process reduces the work the browser needs to do.
+**Impacto:** MEDIUM  
+**Descripción:** Optimizar el proceso de renderizado reduce el trabajo que el navegador necesita hacer.
 
-## 7. JavaScript Performance (js)
+## 7. Rendimiento de JavaScript (js)
 
-**Impact:** LOW-MEDIUM  
-**Description:** Micro-optimizations for hot paths can add up to meaningful improvements.
+**Impacto:** LOW-MEDIUM  
+**Descripción:** Las micro-optimizaciones en los hot paths pueden sumar mejoras significativas.
 
-## 8. Advanced Patterns (advanced)
+## 8. Patrones avanzados (advanced)
 
-**Impact:** LOW  
-**Description:** Advanced patterns for specific cases that require careful implementation.
+**Impacto:** LOW  
+**Descripción:** Patrones avanzados para casos específicos que requieren una implementación cuidadosa.

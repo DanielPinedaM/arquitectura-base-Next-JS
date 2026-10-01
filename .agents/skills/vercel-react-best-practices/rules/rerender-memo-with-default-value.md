@@ -1,30 +1,30 @@
 ---
 
-title: Extract Default Non-primitive Parameter Value from Memoized Component to Constant
+title: Extrae a una constante el valor por defecto no primitivo de un parámetro de un componente memoizado
 impact: MEDIUM
-impactDescription: restores memoization by using a constant for default value
+impactDescription: restablece la memoization usando una constante para el valor por defecto
 tags: rerender, memo, optimization
 
 ---
 
-## Extract Default Non-primitive Parameter Value from Memoized Component to Constant
+## Extrae a una constante el valor por defecto no primitivo de un parámetro de un componente memoizado
 
-When memoized component has a default value for some non-primitive optional parameter, such as an array, function, or object, calling the component without that parameter results in broken memoization. This is because new value instances are created on every rerender, and they do not pass strict equality comparison in `memo()`.
+Cuando un componente memoizado tiene un valor por defecto para algún parámetro opcional no primitivo, como un array, una función o un objeto, llamar al componente sin ese parámetro rompe la memoization. Esto se debe a que se crean nuevas instancias del valor en cada rerender, y estas no pasan la comparación de igualdad estricta en `memo()`.
 
-To address this issue, extract the default value into a constant.
+Para resolver este problema, extrae el valor por defecto a una constante.
 
-**Incorrect (`onClick` has different values on every rerender):**
+**Incorrecto (`onClick` tiene valores diferentes en cada rerender):**
 
 ```tsx
 const UserAvatar = memo(function UserAvatar({ onClick = () => {} }: { onClick?: () => void }) {
   // ...
 })
 
-// Used without optional onClick
+// Se usa sin el onClick opcional
 <UserAvatar />
 ```
 
-**Correct (stable default value):**
+**Correcto (valor por defecto estable):**
 
 ```tsx
 const NOOP = () => {};
@@ -33,6 +33,6 @@ const UserAvatar = memo(function UserAvatar({ onClick = NOOP }: { onClick?: () =
   // ...
 })
 
-// Used without optional onClick
+// Se usa sin el onClick opcional
 <UserAvatar />
 ```

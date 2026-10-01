@@ -1,17 +1,17 @@
 ---
-title: Use flatMap to Map and Filter in One Pass
+title: Usa flatMap para hacer map y filter en una sola pasada
 impact: LOW-MEDIUM
-impactDescription: eliminates intermediate array
+impactDescription: elimina el array intermedio
 tags: javascript, arrays, flatMap, filter, performance
 ---
 
-## Use flatMap to Map and Filter in One Pass
+## Usa flatMap para hacer map y filter en una sola pasada
 
-**Impact: LOW-MEDIUM (eliminates intermediate array)**
+**Impacto: LOW-MEDIUM (elimina el array intermedio)**
 
-Chaining `.map().filter(Boolean)` creates an intermediate array and iterates twice. Use `.flatMap()` to transform and filter in a single pass.
+Encadenar `.map().filter(Boolean)` crea un array intermedio e itera dos veces. Usa `.flatMap()` para transformar y filtrar en una sola pasada.
 
-**Incorrect (2 iterations, intermediate array):**
+**Incorrecto (2 iteraciones, array intermedio):**
 
 ```typescript
 const userNames = users
@@ -19,7 +19,7 @@ const userNames = users
   .filter(Boolean)
 ```
 
-**Correct (1 iteration, no intermediate array):**
+**Correcto (1 iteración, sin array intermedio):**
 
 ```typescript
 const userNames = users.flatMap(user =>
@@ -27,34 +27,34 @@ const userNames = users.flatMap(user =>
 )
 ```
 
-**More examples:**
+**Más ejemplos:**
 
 ```typescript
-// Extract valid emails from responses
-// Before
+// Extrae los emails válidos de las respuestas
+// Antes
 const emails = responses
   .map(r => r.success ? r.data.email : null)
   .filter(Boolean)
 
-// After
+// Después
 const emails = responses.flatMap(r =>
   r.success ? [r.data.email] : []
 )
 
-// Parse and filter valid numbers
-// Before
+// Parsea y filtra los números válidos
+// Antes
 const numbers = strings
   .map(s => parseInt(s, 10))
   .filter(n => !isNaN(n))
 
-// After
+// Después
 const numbers = strings.flatMap(s => {
   const n = parseInt(s, 10)
   return isNaN(n) ? [] : [n]
 })
 ```
 
-**When to use:**
-- Transforming items while filtering some out
-- Conditional mapping where some inputs produce no output
-- Parsing/validating where invalid inputs should be skipped
+**Cuándo usarlo:**
+- Al transformar elementos mientras se filtran algunos
+- En mapeos condicionales donde algunos inputs no producen ningún output
+- Al parsear/validar donde los inputs inválidos deben omitirse

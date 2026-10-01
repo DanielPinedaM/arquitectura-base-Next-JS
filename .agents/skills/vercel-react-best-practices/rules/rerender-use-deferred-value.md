@@ -1,15 +1,15 @@
 ---
-title: Use useDeferredValue for Expensive Derived Renders
+title: Usa useDeferredValue para renders derivados costosos
 impact: MEDIUM
-impactDescription: keeps input responsive during heavy computation
+impactDescription: mantiene el input responsivo durante cómputos pesados
 tags: rerender, useDeferredValue, optimization, concurrent
 ---
 
-## Use useDeferredValue for Expensive Derived Renders
+## Usa useDeferredValue para renders derivados costosos
 
-When user input triggers expensive computations or renders, use `useDeferredValue` to keep the input responsive. The deferred value lags behind, allowing React to prioritize the input update and render the expensive result when idle.
+Cuando el input del usuario dispara cómputos o renders costosos, usa `useDeferredValue` para mantener el input responsivo. El valor diferido se queda atrás, lo que permite a React priorizar la actualización del input y renderizar el resultado costoso cuando esté ocioso.
 
-**Incorrect (input feels laggy while filtering):**
+**Incorrecto (el input se siente lento mientras se filtra):**
 
 ```tsx
 function Search({ items }: { items: Item[] }) {
@@ -25,7 +25,7 @@ function Search({ items }: { items: Item[] }) {
 }
 ```
 
-**Correct (input stays snappy, results render when ready):**
+**Correcto (el input se mantiene ágil, los resultados se renderizan cuando están listos):**
 
 ```tsx
 function Search({ items }: { items: Item[] }) {
@@ -48,12 +48,12 @@ function Search({ items }: { items: Item[] }) {
 }
 ```
 
-**When to use:**
+**Cuándo usarlo:**
 
-- Filtering/searching large lists
-- Expensive visualizations (charts, graphs) reacting to input
-- Any derived state that causes noticeable render delays
+- Filtrar/buscar en listas grandes
+- Visualizaciones costosas (charts, gráficos) que reaccionan al input
+- Cualquier estado derivado que provoque retrasos de render perceptibles
 
-**Note:** Wrap the expensive computation in `useMemo` with the deferred value as a dependency, otherwise it still runs on every render.
+**Nota:** Envuelve el cómputo costoso en `useMemo` con el valor diferido como dependencia; de lo contrario, se seguirá ejecutando en cada render.
 
-Reference: [React useDeferredValue](https://react.dev/reference/react/useDeferredValue)
+Referencia: [React useDeferredValue](https://react.dev/reference/react/useDeferredValue)

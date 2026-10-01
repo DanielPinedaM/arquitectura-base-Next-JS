@@ -1,15 +1,15 @@
 ---
-title: Do Not Put Effect Events in Dependency Arrays
+title: No pongas los Effect Events en los arrays de dependencias
 impact: LOW
-impactDescription: avoids unnecessary effect re-runs and lint errors
+impactDescription: evita re-ejecuciones innecesarias del effect y errores de lint
 tags: advanced, hooks, useEffectEvent, dependencies, effects
 ---
 
-## Do Not Put Effect Events in Dependency Arrays
+## No pongas los Effect Events en los arrays de dependencias
 
-Effect Event functions do not have a stable identity. Their identity intentionally changes on every render. Do not include the function returned by `useEffectEvent` in a `useEffect` dependency array. Keep the actual reactive values as dependencies and call the Effect Event from inside the effect body or subscriptions created by that effect.
+Las funciones Effect Event no tienen una identidad estable. Su identidad cambia intencionalmente en cada render. No incluyas la función devuelta por `useEffectEvent` en el array de dependencias de un `useEffect`. Mantén los valores reactivos reales como dependencias y llama al Effect Event desde dentro del cuerpo del effect o desde las suscripciones creadas por ese effect.
 
-**Incorrect (Effect Event added as a dependency):**
+**Incorrecto (Effect Event agregado como dependencia):**
 
 ```tsx
 import { useEffect, useEffectEvent } from 'react'
@@ -30,9 +30,9 @@ function ChatRoom({ roomId, onConnected }: {
 }
 ```
 
-Including the Effect Event in dependencies makes the effect re-run every render and triggers the React Hooks lint rule.
+Incluir el Effect Event en las dependencias hace que el effect se vuelva a ejecutar en cada render y dispara la regla de lint de React Hooks.
 
-**Correct (depend on reactive values, not the Effect Event):**
+**Correcto (depende de los valores reactivos, no del Effect Event):**
 
 ```tsx
 import { useEffect, useEffectEvent } from 'react'
@@ -53,4 +53,4 @@ function ChatRoom({ roomId, onConnected }: {
 }
 ```
 
-Reference: [React useEffectEvent: Effect Event in deps](https://react.dev/reference/react/useEffectEvent#effect-event-in-deps)
+Referencia: [React useEffectEvent: Effect Event en las dependencias](https://react.dev/reference/react/useEffectEvent#effect-event-in-deps)

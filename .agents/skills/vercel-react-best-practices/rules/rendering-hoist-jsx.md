@@ -1,15 +1,15 @@
 ---
-title: Hoist Static JSX Elements
+title: Haz hoisting de los elementos JSX estáticos
 impact: LOW
-impactDescription: avoids re-creation
+impactDescription: evita la recreación
 tags: rendering, jsx, static, optimization
 ---
 
-## Hoist Static JSX Elements
+## Haz hoisting de los elementos JSX estáticos
 
-Extract static JSX outside components to avoid re-creation.
+Extrae el JSX estático fuera de los componentes para evitar su recreación.
 
-**Incorrect (recreates element every render):**
+**Incorrecto (recrea el elemento en cada render):**
 
 ```tsx
 function LoadingSkeleton() {
@@ -25,7 +25,7 @@ function Container() {
 }
 ```
 
-**Correct (reuses same element):**
+**Correcto (reutiliza el mismo elemento):**
 
 ```tsx
 const loadingSkeleton = (
@@ -41,6 +41,6 @@ function Container() {
 }
 ```
 
-This is especially helpful for large and static SVG nodes, which can be expensive to recreate on every render.
+Esto es especialmente útil para nodos SVG grandes y estáticos, que pueden ser costosos de recrear en cada render.
 
-**Note:** If your project has [React Compiler](https://react.dev/learn/react-compiler) enabled, the compiler automatically hoists static JSX elements and optimizes component re-renders, making manual hoisting unnecessary.
+**Nota:** Si tu proyecto tiene [React Compiler](https://react.dev/learn/react-compiler) habilitado, el compiler hace hoisting automáticamente de los elementos JSX estáticos y optimiza los re-renders de los componentes, lo que hace innecesario el hoisting manual.
