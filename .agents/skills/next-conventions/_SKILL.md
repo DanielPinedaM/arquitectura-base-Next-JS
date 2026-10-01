@@ -1180,7 +1180,17 @@ Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejempl
 ```
 
 ### Tema Oscuro
+
+**Enlaces de Referencia**
+**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia. Las reglas para cambiar entre tema claro y oscuro están basadas en:
+
+* [next-themes](https://github.com/pacocoursey/next-themes/tree/main)
+
+* [Lazy Loading en Next.js](https://nextjs.org/docs/app/guides/lazy-loading)
+
 Todo componente que renderice interfaz (`ui`, `components`, `page.tsx` y `layout.tsx`) debe verse bien y ser legible en tema claro y tema oscuro. El usuario puede cambiar de tema en cualquier momento, y un componente pensado para un solo tema queda con contraste ilegible.
+
+El tema claro y oscuro se gestiona con la librería `next-themes`, configurada con su `ThemeProvider` en `src/app/layout.tsx`. El provider agrega o quita la clase `dark` del elemento `<html>`, y la variante `dark:` de Tailwind reacciona a esa clase.
 
 Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwind directamente en el TSX.
 
@@ -1191,6 +1201,52 @@ Para aplicar estilos del tema oscuro, usar siempre la variante `dark:` de Tailwi
   {/* ... */}
 </div>
 ```
+
+Está prohibido leer el tema actual con `useTheme()` (`theme` o `resolvedTheme`) para elegir estilos. En el servidor el tema todavía no se conoce, porque `useTheme()` devuelve `undefined` hasta que el componente se monta en el cliente: el primer render usa el tema equivocado y provoca un error de hydration mismatch. Además obliga a convertir el componente en client component. La variante `dark:` no tiene estos problemas porque la resuelve CSS.
+
+**Incorrecto:**
+
+```tsx
+'use client';
+
+import { useTheme } from 'next-themes';
+
+export default function MyComponent() {
+  const { resolvedTheme } = useTheme();
+
+  return (
+    <div className={resolvedTheme === 'dark' ? 'bg-black' : 'bg-blue-500'}>
+      My component
+    </div>
+  );
+}
+```
+
+**Correcto:**
+
+```tsx
+export default function MyComponent() {
+  return (
+    <div className="bg-blue-500 dark:bg-black">
+      My component
+    </div>
+  );
+}
+```
+
+Para mostrar contenido distinto según el tema, como un icono o una imagen, renderiza las dos versiones y oculta con `dark:` la que no corresponde.
+
+**Correcto:**
+
+```tsx
+<MdDarkMode className="dark:hidden" />
+<MdLightMode className="hidden dark:inline" />
+
+<Image src="/light.png" alt="Logo" width={400} height={400} className="dark:hidden" />
+<Image src="/dark.png" alt="Logo" width={400} height={400} className="hidden dark:block" />
+```
+
+Reserva `useTheme()` para lo que CSS no puede resolver: la UI que cambia el tema con `setTheme` y las librerías de terceros que reciben el tema como prop, como el Toaster de Sonner. Si esa UI también muestra el tema actual, sigue [Evitar Hydration Mismatch](#evitar-hydration-mismatch).
 
 No escribas estilos del tema oscuro en archivos CSS.
 
@@ -1225,6 +1281,89 @@ La única excepción son las variables de color del tema de Shad cn. Estas se de
 ```
 
 Las clases generadas a partir de estas variables, como `bg-card`, cambian de tema automáticamente, así que no necesitan `dark:`.
+
+#### Evitar Hydration Mismatch
+Como `useTheme()` devuelve `undefined` en el servidor, la UI que muestra el tema actual solo se puede renderizar después de que el componente se monte en el cliente. Si se renderiza antes, el HTML del servidor y el del cliente no coinciden y React lanza un error de hydration mismatch.
+
+**Incorrecto:**
+
+```tsx
+'use client';
+
+import { useTheme } from 'next-themes';
+import Button from '@/shared/ui/buttons/Button';
+
+// NO usar: en el servidor `theme` es undefined y provoca un error de hydration mismatch
+export default function ThemeSwitch() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <Button
+      theme="primary"
+      variant="background"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+    >
+      Tema actual: {theme}
+    </Button>
+  );
+}
+```
+
+**Correcto:**
+
+```tsx
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import Button from '@/shared/ui/buttons/Button';
+
+export default function ThemeSwitch() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  // useEffect solo se ejecuta en el cliente: a partir de aquí se puede mostrar el tema sin riesgo
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <Button
+      theme="primary"
+      variant="background"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+    >
+      Tema actual: {theme}
+    </Button>
+  );
+}
+```
+
+Otra opción es cargar el componente solo en el cliente con `next/dynamic` y `ssr: false`. Esta opción solo funciona dentro de un Client Component: en un Server Component, Next.js lanza el error `` `ssr: false` is not allowed with `next/dynamic` in Server Components ``. Por eso el archivo que importa el componente lleva `'use client'`.
+
+**Correcto:**
+
+```tsx
+'use client';
+
+import dynamic from 'next/dynamic';
+
+const ThemeSwitch = dynamic(() => import('@/shared/ui/ThemeSwitch'), { ssr: false });
+
+export default function ThemePage() {
+  return (
+    <div>
+      <ThemeSwitch />
+    </div>
+  );
+}
+```
+
+Para evitar un layout shift, renderiza un skeleton o un placeholder del mismo tamaño hasta que el componente se monte en el cliente, en lugar de no renderizar nada.
 
 ### Valores de Utilidad Dinámicos y Variantes (Variable `--spacing`)
 Las utilidades y variantes de Tailwind 4 permiten aceptar determinados tipos de valores arbitrarios sin necesidad de ninguna configuración ni de recurrir a la sintaxis de valores arbitrarios.
