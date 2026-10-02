@@ -84,7 +84,7 @@ levantando el estado y componiendo los elementos internos.
 - `HIGH` - Mejoras significativas de mantenibilidad
 - `MEDIUM` - Buenas prácticas para un código más limpio
 
-## Cuándo aplicarla
+## Cuándo aplicar la skill
 
 Consulta estos lineamientos cuando:
 

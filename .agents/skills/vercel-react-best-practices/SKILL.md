@@ -135,7 +135,7 @@ Al agregar o modificar reglas:
 5. Ejecuta `pnpm build` para regenerar AGENTS.md y test-cases.json
 6. Las reglas se ordenan automáticamente por título: ¡no es necesario gestionar los números!
 
-## Cuándo aplicarla
+## Cuándo aplicar la skill
 
 Consulta estos lineamientos cuando:
 - Escribas nuevos componentes de React o páginas de Next.js
