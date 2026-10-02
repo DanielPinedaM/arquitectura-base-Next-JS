@@ -10,14 +10,6 @@ Enero de 2026
 > también pueden encontrarlo útil, pero las indicaciones aquí están optimizadas para la automatización  
 > y la consistencia en flujos de trabajo asistidos por IA.
 
----
-
-## Resumen
-
-Guía completa de optimización del rendimiento para aplicaciones de React y Next.js, diseñada para agentes de IA y LLMs. Contiene más de 40 reglas en 8 categorías, priorizadas por impacto, desde críticas (eliminar waterfalls, reducir el tamaño del bundle) hasta incrementales (patrones avanzados). Cada regla incluye explicaciones detalladas, ejemplos del mundo real que comparan implementaciones incorrectas vs. correctas y métricas de impacto específicas para guiar la refactorización y la generación de código automatizadas.
-
----
-
 ## Tabla de contenidos
 
 1. [Eliminar waterfalls](#1-eliminar-waterfalls) — **CRITICAL**
