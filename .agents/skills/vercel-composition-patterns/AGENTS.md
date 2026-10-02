@@ -10,14 +10,6 @@ Enero de 2026
 > también pueden encontrarlo útil, pero las indicaciones aquí están optimizadas para la automatización  
 > y la consistencia en flujos de trabajo asistidos por IA.
 
----
-
-## Resumen
-
-Patrones de composición para construir componentes de React flexibles y mantenibles. Evita la proliferación de props booleanas usando compound components, levantando el estado y componiendo los elementos internos. Estos patrones hacen que los codebases sean más fáciles de trabajar, tanto para humanos como para agentes de IA, a medida que escalan.
-
----
-
 ## Tabla de contenidos
 
 1. [Arquitectura de componentes](#1-arquitectura-de-componentes) — **HIGH**
