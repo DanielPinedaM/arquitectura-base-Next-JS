@@ -635,13 +635,13 @@ Permite a la IA escribir código limpio de React.
 Para probar que funcione:
 
 ```txt
-/vercel-react-best-practices explicame `async-parallel` - Use Promise.all() for independent operations
+/vercel-react-best-practices explicame `async-paralelo` - Use Promise.all() for independent operations
 ```
 
 La salida debe contener algo similar a esto:
 
 ```bash
-● Read(\.agents\skills\vercel-react-best-practices\rules\[nombre_archivo].md)
+● Read(\.agents\skills\vercel-react-best-practices\reglas\[carpeta]\[nombre_archivo].md)
 
 Read 57 lines
 ```

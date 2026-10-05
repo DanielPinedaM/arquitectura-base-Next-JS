@@ -9,131 +9,9 @@ metadata:
 
 # Buenas prácticas de React de Vercel
 
-Guía completa de optimización del rendimiento para aplicaciones de React y Next.js, mantenida por Vercel. Contiene 70 reglas en 8 categorías, priorizadas por impacto para guiar la refactorización y la generación de código automatizadas.
+## Resumen
 
-# Resumen
-
-Guía completa de optimización del rendimiento para aplicaciones de React y Next.js, diseñada para agentes de IA y LLMs. Contiene más de 40 reglas en 8 categorías, priorizadas por impacto, desde críticas (eliminar waterfalls, reducir el tamaño del bundle) hasta incrementales (patrones avanzados). Cada regla incluye explicaciones detalladas, ejemplos del mundo real que comparan implementaciones incorrectas vs. correctas y métricas de impacto específicas para guiar la refactorización y la generación de código automatizadas.
-
-# Buenas prácticas de React
-
-Un repositorio estructurado para crear y mantener buenas prácticas de React optimizadas para agentes y LLMs.
-
-## Estructura
-
-- `rules/` - Archivos de reglas individuales (uno por regla)
-  - `_sections.md` - Metadata de las secciones (títulos, impactos, descripciones)
-  - `_template.md` - Plantilla para crear nuevas reglas
-  - `area-description.md` - Archivos de reglas individuales
-- `src/` - Scripts de build y utilidades
-- `metadata.json` - Metadata del documento (versión, organización, resumen)
-- __`AGENTS.md`__ - Salida compilada (generada)
-- __`test-cases.json`__ - Casos de prueba para la evaluación de LLMs (generado)
-
-## Primeros pasos
-
-1. Instala las dependencias:
-   ```bash
-   pnpm install
-   ```
-
-2. Haz build de AGENTS.md a partir de las reglas:
-   ```bash
-   pnpm build
-   ```
-
-3. Valida los archivos de reglas:
-   ```bash
-   pnpm validate
-   ```
-
-4. Extrae los casos de prueba:
-   ```bash
-   pnpm extract-tests
-   ```
-
-## Crear una nueva regla
-
-1. Copia `rules/_template.md` a `rules/area-description.md`
-2. Elige el prefijo de área apropiado:
-   - `async-` para Eliminar waterfalls (Sección 1)
-   - `bundle-` para Optimización del tamaño del bundle (Sección 2)
-   - `server-` para Rendimiento del lado del servidor (Sección 3)
-   - `client-` para Obtención de datos del lado del cliente (Sección 4)
-   - `rerender-` para Optimización de re-renders (Sección 5)
-   - `rendering-` para Rendimiento del renderizado (Sección 6)
-   - `js-` para Rendimiento de JavaScript (Sección 7)
-   - `advanced-` para Patrones avanzados (Sección 8)
-3. Completa el frontmatter y el contenido
-4. Asegúrate de tener ejemplos claros con explicaciones
-5. Ejecuta `pnpm build` para regenerar AGENTS.md y test-cases.json
-
-## Estructura de los archivos de reglas
-
-Cada archivo de regla debe seguir esta estructura:
-
-```markdown
----
-title: Título de la regla aquí
-impact: MEDIUM
-impactDescription: Descripción opcional
-tags: tag1, tag2, tag3
----
-
-## Título de la regla aquí
-
-Breve explicación de la regla y de por qué es importante.
-
-**Incorrecto (descripción de lo que está mal):**
-
-```typescript
-// Ejemplo de código malo
-```
-
-**Correcto (descripción de lo que está bien):**
-
-```typescript
-// Ejemplo de código bueno
-```
-
-Texto explicativo opcional después de los ejemplos.
-
-Referencia: [Enlace](https://example.com)
-
-## Convención de nombres de archivos
-
-- Los archivos que empiezan con `_` son especiales (excluidos del build)
-- Archivos de reglas: `area-description.md` (p. ej., `async-parallel.md`)
-- La sección se infiere automáticamente a partir del prefijo del nombre de archivo
-- Las reglas se ordenan alfabéticamente por título dentro de cada sección
-- Los IDs (p. ej., 1.1, 1.2) se generan automáticamente durante el build
-
-## Niveles de impacto
-
-- `CRITICAL` - Máxima prioridad, grandes mejoras de rendimiento
-- `HIGH` - Mejoras de rendimiento significativas
-- `MEDIUM-HIGH` - Mejoras moderadas-altas
-- `MEDIUM` - Mejoras de rendimiento moderadas
-- `LOW-MEDIUM` - Mejoras bajas-medias
-- `LOW` - Mejoras incrementales
-
-## Scripts
-
-- `pnpm build` - Compila las reglas en AGENTS.md
-- `pnpm validate` - Valida todos los archivos de reglas
-- `pnpm extract-tests` - Extrae los casos de prueba para la evaluación de LLMs
-- `pnpm dev` - Hace build y valida
-
-## Contribuir
-
-Al agregar o modificar reglas:
-
-1. Usa el prefijo de nombre de archivo correcto para tu sección
-2. Sigue la estructura de `_template.md`
-3. Incluye ejemplos malos/buenos claros con explicaciones
-4. Agrega los tags apropiados
-5. Ejecuta `pnpm build` para regenerar AGENTS.md y test-cases.json
-6. Las reglas se ordenan automáticamente por título: ¡no es necesario gestionar los números!
+Guía completa de optimización del rendimiento para aplicaciones de React y Next.js, mantenida por Vercel y diseñada para agentes de IA y LLMs. Contiene 70 reglas en 8 categorías, priorizadas por impacto, desde críticas (eliminar waterfalls, reducir el tamaño del bundle) hasta incrementales (patrones avanzados). Cada regla incluye explicaciones detalladas, ejemplos del mundo real que comparan implementaciones incorrectas vs. correctas y métricas de impacto específicas para guiar la refactorización y la generación de código automatizadas.
 
 ## Cuándo aplicar la skill
 
@@ -144,130 +22,169 @@ Consulta estos lineamientos cuando:
 - Refactorices código existente de React/Next.js
 - Optimices el tamaño del bundle o los tiempos de carga
 
+## ¿Cómo Leer la Skill?
+
+Lee **bajo demanda** los archivos `.md` ubicados en [`.agents/skills/vercel-react-best-practices/reglas/`](reglas/): usa la [Tabla de Contenido](#tabla-de-contenido) como referencia para inferir cuáles archivos son necesarios para la tarea que estás resolviendo, y accede únicamente a esos archivos.
+
+**Razón**: leer todos los archivos consume contexto y tokens innecesariamente.
+
+Hay dos criterios para leer un archivo:
+
+1. La columna **¿Cuándo leerlo?**: abre el archivo cuando tu tarea coincida con la situación que describe.
+
+2. El **impacto** (CRITICAL → HIGH → MEDIUM-HIGH → MEDIUM → LOW-MEDIUM → LOW) que aparece entre paréntesis en el subtítulo de cada categoría de la [Tabla de Contenido](#tabla-de-contenido). Consulta las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad).
+
+Cada archivo de regla contiene: una breve explicación de por qué es importante, un ejemplo de código incorrecto, un ejemplo de código correcto y contexto adicional con referencias.
+
 ## Categorías de reglas por prioridad
 
 | Prioridad | Categoría | Impacto | Prefijo |
 |----------|----------|--------|--------|
-| 1 | Eliminar waterfalls | CRITICAL | `async-` |
-| 2 | Optimización del tamaño del bundle | CRITICAL | `bundle-` |
-| 3 | Rendimiento del lado del servidor | HIGH | `server-` |
-| 4 | Obtención de datos del lado del cliente | MEDIUM-HIGH | `client-` |
-| 5 | Optimización de re-renders | MEDIUM | `rerender-` |
-| 6 | Rendimiento del renderizado | MEDIUM | `rendering-` |
-| 7 | Rendimiento de JavaScript | LOW-MEDIUM | `js-` |
-| 8 | Patrones avanzados | LOW | `advanced-` |
+| 1 | [Eliminar waterfalls](#1-eliminar-waterfalls-critical) | CRITICAL | `async-` |
+| 2 | [Optimización del tamaño del bundle](#2-optimización-del-tamaño-del-bundle-critical) | CRITICAL | `bundle-` |
+| 3 | [Rendimiento del lado del servidor](#3-rendimiento-del-lado-del-servidor-high) | HIGH | `server-` |
+| 4 | [Obtención de datos del lado del cliente](#4-obtención-de-datos-del-lado-del-cliente-medium-high) | MEDIUM-HIGH | `client-` |
+| 5 | [Optimización de re-renders](#5-optimización-de-re-renders-medium) | MEDIUM | `rerender-` |
+| 6 | [Rendimiento del renderizado](#6-rendimiento-del-renderizado-medium) | MEDIUM | `rendering-` |
+| 7 | [Rendimiento de JavaScript](#7-rendimiento-de-javascript-low-medium) | LOW-MEDIUM | `js-` |
+| 8 | [Patrones avanzados](#8-patrones-avanzados-low) | LOW | `advanced-` |
 
-## Referencia rápida
+## Tabla de Contenido
 
 ### 1. Eliminar waterfalls (CRITICAL)
 
-- `async-cheap-condition-before-await` - Verifica las condiciones síncronas baratas antes de hacer await de flags o valores remotos
-- `async-defer-await` - Mueve el await a las ramas donde realmente se usa
-- `async-parallel` - Usa Promise.all() para operaciones independientes
-- `async-dependencies` - Usa better-all para dependencias parciales
-- `async-api-routes` - Inicia las promises temprano y haz await tarde en las API routes
-- `async-suspense-boundaries` - Usa Suspense para hacer streaming del contenido
+Carpeta: [reglas/eliminar-waterfalls/](reglas/eliminar-waterfalls/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Verifica las condiciones baratas antes de los flags asíncronos](reglas/eliminar-waterfalls/async-cheap-condition-before-await.md) | Cuando una condición combina un `await` a un flag o a un valor remoto (`await getFlag()`, un servicio de feature flags, `React.cache` o la base de datos) con una condición síncrona barata (`flag && someCondition`): evalúa primero la condición barata y haz el `await` solo si se cumple, salvo que esa condición sea costosa o dependa del flag. |
+| [Difiere el await hasta que sea necesario](reglas/eliminar-waterfalls/async-defer-await.md) | Al escribir una función asíncrona (handler, API route, Server Action) que hace `await` de datos al principio, pero tiene ramas o early returns que no los usan (`if (skipProcessing) return`, `if (!resource) return`): mueve el `await` a la rama donde realmente se usa el valor. |
+| [Paralelización basada en dependencias](reglas/eliminar-waterfalls/async-dependencias.md) | Cuando varias operaciones asíncronas dependen solo en parte unas de otras (por ejemplo, `profile` necesita a `user`, pero `config` no) y un `Promise.all` seguido de otro `await` deja una operación esperando de más: usa `better-all` (`all({ ... })` con `this.$`) o encadena las promises con `.then()` antes de un único `Promise.all()`. |
+| [Evita las cadenas de waterfalls en las API routes](reglas/eliminar-waterfalls/async-api-routes.md) | Al escribir un route handler (`export async function GET`) o una Server Action que hace varios `await` seguidos (`auth()`, `fetchConfig()`, `fetchData()`) aunque algunos no dependan de otros: inicia de inmediato las promises independientes y haz el `await` lo más tarde posible, combinándolas con `Promise.all()`. |
+| [Promise.all() para operaciones independientes](reglas/eliminar-waterfalls/async-paralelo.md) | Cuando hay varios `await` secuenciales de operaciones asíncronas que no dependen entre sí (`fetchUser()`, `fetchPosts()`, `fetchComments()`): ejecútalas en paralelo con `Promise.all()` para hacer un solo round trip. |
+| [Suspense boundaries estratégicos](reglas/eliminar-waterfalls/async-suspense-boundaries.md) | Al escribir un Server Component asíncrono (una página o un layout) que hace `await` de datos antes de devolver el JSX y así bloquea también las partes que no los usan (sidebar, header, footer): mueve la obtención de datos a un componente hijo envuelto en `<Suspense fallback={...}>` o comparte la promise con `use()`; incluye cuándo no conviene (datos que afectan el layout, contenido SEO above the fold). |
 
 ### 2. Optimización del tamaño del bundle (CRITICAL)
 
-- `bundle-barrel-imports` - Importa directamente, evita los barrel files
-- `bundle-analyzable-paths` - Prefiere paths de import y del sistema de archivos analizables estáticamente para evitar bundles y traces amplios
-- `bundle-dynamic-imports` - Usa next/dynamic para los componentes pesados
-- `bundle-defer-third-party` - Carga analytics/logging después de la hydration
-- `bundle-conditional` - Carga los módulos solo cuando la funcionalidad está activada
-- `bundle-preload` - Haz preload en hover/focus para mejorar la velocidad percibida
+Carpeta: [reglas/optimizacion-del-tamano-del-bundle/](reglas/optimizacion-del-tamano-del-bundle/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Evita los imports desde barrel files](reglas/optimizacion-del-tamano-del-bundle/bundle-barrel-imports.md) | Al importar desde librerías con barrel files (`lucide-react`, `@mui/material`, `@mui/icons-material`, `react-icons`, `lodash`, `date-fns`, `@radix-ui/react-*`), o cuando el arranque en dev, el build o los cold starts son lentos por la cantidad de módulos: configura `experimental.optimizePackageImports` en `next.config.js`, o usa imports directos fuera de Next.js (verificando que existan los tipos de los subpaths). |
+| [Carga condicional de módulos](reglas/optimizacion-del-tamano-del-bundle/bundle-condicional.md) | Cuando un módulo o un archivo de datos grande (por ejemplo, los frames de una animación) solo se necesita si el usuario activa una funcionalidad: cárgalo con `import()` dinámico dentro de un `useEffect` condicionado a esa activación y con `typeof window !== 'undefined'`, para que no entre en el bundle inicial ni en el del servidor. |
+| [Difiere las librerías de terceros no críticas](reglas/optimizacion-del-tamano-del-bundle/bundle-diferir-terceros.md) | Al agregar analytics, logging o seguimiento de errores (por ejemplo, `<Analytics />` de `@vercel/analytics`) en el layout raíz: cárgalos después de la hydration con `next/dynamic` y `{ ssr: false }`, porque no bloquean la interacción del usuario. |
+| [Dynamic imports para los componentes pesados](reglas/optimizacion-del-tamano-del-bundle/bundle-dynamic-imports.md) | Al usar un componente pesado que no se necesita en el render inicial (un editor como Monaco, gráficos, mapas): impórtalo con `next/dynamic` (`dynamic(() => import('./monaco-editor').then(m => m.MonacoEditor), { ssr: false })`) para sacarlo del chunk principal. |
+| [Prefiere paths analizables estáticamente](reglas/optimizacion-del-tamano-del-bundle/bundle-paths-analizables.md) | Al hacer un `import()` dinámico con un path guardado en una variable (`import(PAGE_MODULES[pageName])`) o al leer archivos en el servidor con paths compuestos (`path.join(process.cwd(), 'content/' + kind)`), o cuando el bundle del servidor o el output file tracing de Next.js crecen sin motivo: usa maps explícitos de funciones `() => import('./...')` y paths literales en cada llamada. |
+| [Haz preload según la intención del usuario](reglas/optimizacion-del-tamano-del-bundle/bundle-preload.md) | Cuando un componente pesado cargado bajo demanda tarda en aparecer al hacer clic (por ejemplo, un editor que se abre con un botón): haz preload con `import()` al detectar la intención del usuario (`onMouseEnter`, `onFocus`) o cuando se habilita el feature flag, con `typeof window !== 'undefined'`. |
 
 ### 3. Rendimiento del lado del servidor (HIGH)
 
-- `server-auth-actions` - Autentica las server actions como las API routes
-- `server-cache-react` - Usa React.cache() para la deduplicación por petición
-- `server-cache-lru` - Usa una caché LRU para el caching entre peticiones
-- `server-dedup-props` - Evita la serialización duplicada en las props de RSC
-- `server-hoist-static-io` - Haz hoisting de la I/O estática (fuentes, logos) al nivel del módulo
-- `server-no-shared-module-state` - Evita el estado de petición mutable a nivel de módulo en RSC/SSR
-- `server-serialization` - Minimiza los datos que se pasan a los client components
-- `server-parallel-fetching` - Reestructura los componentes para paralelizar los fetches
-- `server-parallel-nested-fetching` - Encadena los fetches anidados por elemento en Promise.all
-- `server-after-nonblocking` - Usa after() para operaciones no bloqueantes
+Carpeta: [reglas/rendimiento-del-lado-del-servidor/](reglas/rendimiento-del-lado-del-servidor/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Autentica las Server Actions como las API routes](reglas/rendimiento-del-lado-del-servidor/server-auth-actions.md) | Al escribir o revisar una Server Action (`'use server'`) que modifica datos, aunque la página, el layout o el middleware ya verifiquen la sesión: verifica la autenticación y la autorización dentro de cada action (`verifySession()`, el rol o el dueño del recurso) y valida el input con Zod, porque las Server Actions son endpoints públicos. |
+| [Evita la serialización duplicada en las props de RSC](reglas/rendimiento-del-lado-del-servidor/server-deduplicar-props.md) | Al pasar props desde un Server Component a un client component con datos derivados del mismo valor (`usernames` y `usernames.toSorted()`, `users` y `users.filter(...)`, `product` y `product.name`): pasa el dato una sola vez y haz la transformación en el cliente, porque la serialización RSC deduplica por referencia y no por valor. |
+| [Evita el estado compartido del módulo para los datos de la petición](reglas/rendimiento-del-lado-del-servidor/server-no-estado-compartido-del-modulo.md) | Al escribir código de Server Components o de SSR que guarda datos de la petición o del usuario en una variable mutable a nivel de módulo (`let currentUser = ...` asignada dentro de `Page`), o al investigar datos de un usuario que aparecen en la respuesta de otro: mantén esos datos locales al árbol de render y pásalos por props, porque el scope del módulo es memoria compartida de todo el proceso. |
+| [Caching LRU entre peticiones](reglas/rendimiento-del-lado-del-servidor/server-cache-lru.md) | Cuando acciones seguidas del usuario llaman a varios endpoints que necesitan los mismos datos en cuestión de segundos, y `React.cache()` no alcanza porque solo deduplica dentro de una petición: usa una caché LRU entre peticiones (`LRUCache` de `lru-cache` con `max` y `ttl`), o Redis en serverless tradicional. |
+| [Haz hoisting de la I/O estática al nivel del módulo](reglas/rendimiento-del-lado-del-servidor/server-hoist-static-io.md) | Al cargar en un route handler o en una función del servidor assets que no cambian entre peticiones (fuentes y logos para imágenes OG con `ImageResponse`, archivos de configuración, plantillas de email) con `fetch`, `fs.readFile` o `readFileSync` dentro del handler: mueve esa I/O al nivel del módulo para que se ejecute una sola vez, salvo que el asset varíe por petición, cambie en runtime, sea muy grande o sensible. |
+| [Minimiza la serialización en los límites de RSC](reglas/rendimiento-del-lado-del-servidor/server-serializacion.md) | Al pasar un objeto completo (por ejemplo, un `user` con 50 campos obtenido con `fetchUser()`) desde un Server Component a un client component (`'use client'`) que solo usa algunos campos: pasa solo los campos que el cliente realmente usa, porque todo lo que cruza el límite de RSC se serializa en el HTML. |
+| [Obtención de datos en paralelo con composición de componentes](reglas/rendimiento-del-lado-del-servidor/server-obtencion-de-datos-en-paralelo.md) | Cuando un Server Component hace `await` de sus datos y renderiza dentro otro Server Component asíncrono que también obtiene datos (por ejemplo, `Page` con `fetchHeader()` y un `Sidebar` hijo con `fetchSidebarItems()`), lo que crea un waterfall en el servidor: reestructura con composición, en componentes hermanos o con `children`, para que cada uno haga su fetch en paralelo. |
+| [Obtención en paralelo de datos anidados](reglas/rendimiento-del-lado-del-servidor/server-obtencion-en-paralelo-de-datos-anidados.md) | Al obtener en paralelo una lista de elementos y después los datos anidados de cada uno (por ejemplo, `getChat(id)` y luego `getUser(chat.author)`) con dos `Promise.all` seguidos: encadena el fetch dependiente dentro de la promise de cada elemento (`getChat(id).then(chat => getUser(chat.author))`) para que un elemento lento no bloquee a los demás. |
+| [Deduplicación por petición con React.cache()](reglas/rendimiento-del-lado-del-servidor/server-cache-react.md) | Cuando la misma función asíncrona del servidor (verificar la sesión con `auth()`, una query de Prisma o Drizzle, un cómputo pesado) se llama varias veces durante una misma petición desde distintos componentes: envuélvela en `React.cache()` con argumentos primitivos (no objetos inline); no hace falta para `fetch`, que Next.js ya memoiza. |
+| [Usa after() para operaciones no bloqueantes](reglas/rendimiento-del-lado-del-servidor/server-after-no-bloqueante.md) | Cuando un route handler, una Server Action o un Server Component hace trabajo secundario antes de responder (logging, analytics, auditoría, notificaciones, invalidación de caché) y eso retrasa la respuesta: prográmalo con `after()` de `next/server` para que se ejecute después de enviar la respuesta. |
 
 ### 4. Obtención de datos del lado del cliente (MEDIUM-HIGH)
 
-- `client-swr-dedup` - Usa SWR para la deduplicación automática de peticiones
-- `client-event-listeners` - Deduplica los event listeners globales
-- `client-passive-event-listeners` - Usa listeners pasivos para el scroll
-- `client-localstorage-schema` - Versiona y minimiza los datos de localStorage
+Carpeta: [reglas/obtencion-de-datos-del-lado-del-cliente/](reglas/obtencion-de-datos-del-lado-del-cliente/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Deduplica los event listeners globales](reglas/obtencion-de-datos-del-lado-del-cliente/client-event-listeners.md) | Cuando un hook personalizado registra un listener global (`window.addEventListener('keydown', ...)`, atajos de teclado) y se usa en varios componentes, lo que crea un listener por instancia: comparte un único listener con `useSWRSubscription()` y un `Map` de callbacks a nivel de módulo. |
+| [Usa event listeners pasivos para el rendimiento del scroll](reglas/obtencion-de-datos-del-lado-del-cliente/client-event-listeners-pasivos.md) | Al registrar listeners de `touchstart`, `touchmove` o `wheel` con `addEventListener` (para tracking, analytics o logging) que no llaman a `preventDefault()`, o cuando el scroll se siente retrasado: agrega `{ passive: true }`; no lo uses en gestos de swipe o zoom personalizados que sí necesitan `preventDefault()`. |
+| [Usa SWR para la deduplicación automática](reglas/obtencion-de-datos-del-lado-del-cliente/client-swr-deduplicacion.md) | Al obtener datos en el cliente con `useEffect`, `fetch` y `useState`, sobre todo si varios componentes piden el mismo endpoint: usa SWR (`useSWR(key, fetcher)`) para deduplicar las peticiones, cachear y revalidar; `useImmutableSWR` para datos que no cambian y `useSWRMutation` para mutaciones. |
+| [Versiona y minimiza los datos de localStorage](reglas/obtencion-de-datos-del-lado-del-cliente/client-localstorage-schema.md) | Al guardar o leer datos en `localStorage` (preferencias del usuario, configuración, datos cacheados del servidor): agrega una versión a la key (`userConfig:v2`) con su migración, guarda solo los campos que la UI necesita (sin tokens ni PII) y envuelve `getItem` y `setItem` en `try/catch` por la navegación privada y los límites de cuota. |
 
 ### 5. Optimización de re-renders (MEDIUM)
 
-- `rerender-defer-reads` - No te suscribas a un estado que solo se usa en callbacks
-- `rerender-memo` - Extrae el trabajo costoso a componentes memoizados
-- `rerender-memo-with-default-value` - Haz hoisting de las props por defecto no primitivas
-- `rerender-dependencies` - Usa dependencias primitivas en los effects
-- `rerender-derived-state` - Suscríbete a booleanos derivados, no a valores en bruto
-- `rerender-derived-state-no-effect` - Deriva el estado durante el render, no en effects
-- `rerender-functional-setstate` - Usa el setState funcional para callbacks estables
-- `rerender-lazy-state-init` - Pasa una función a useState para valores costosos
-- `rerender-simple-expression-in-memo` - Evita memo para primitivos simples
-- `rerender-split-combined-hooks` - Divide los hooks con dependencias independientes
-- `rerender-move-effect-to-event` - Pon la lógica de interacción en los event handlers
-- `rerender-transitions` - Usa startTransition para las actualizaciones no urgentes
-- `rerender-use-deferred-value` - Difiere los renders costosos para mantener el input responsivo
-- `rerender-use-ref-transient-values` - Usa refs para valores transitorios frecuentes
-- `rerender-no-inline-components` - No definas componentes dentro de componentes
+Carpeta: [reglas/optimizacion-de-re-renders/](reglas/optimizacion-de-re-renders/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Calcula el estado derivado durante el renderizado](reglas/optimizacion-de-re-renders/rerender-estado-derivado-sin-effect.md) | Cuando un `useEffect` solo calcula un valor a partir de props o de otro estado y lo guarda con `setState` (por ejemplo, `setFullName(firstName + ' ' + lastName)`), o cuando ves estado que se «sincroniza» con las props: calcula ese valor directamente durante el render, o usa un reset mediante `key`. |
+| [Difiere las lecturas del estado al punto de uso](reglas/optimizacion-de-re-renders/rerender-diferir-lecturas.md) | Cuando un componente se suscribe a un estado dinámico (`useSearchParams()`, `localStorage`) solo para leerlo dentro de un callback o de un event handler (por ejemplo, leer el parámetro `ref` al hacer clic en compartir): léelo bajo demanda dentro del callback (`new URLSearchParams(window.location.search)`) para no hacer re-render ante cada cambio. |
+| [No envuelvas en useMemo una expresión simple con un tipo de resultado primitivo](reglas/optimizacion-de-re-renders/rerender-expresion-simple-en-memo.md) | Cuando ves un `useMemo` que envuelve una expresión simple con resultado primitivo (un boolean, number o string, como `user.isLoading \|\| notifications.isLoading`): quítalo y calcula la expresión directamente, porque el hook y la comparación de dependencias cuestan más que la propia expresión. |
+| [No definas componentes dentro de componentes](reglas/optimizacion-de-re-renders/rerender-no-componentes-inline.md) | Cuando un componente se define dentro de otro (`const Avatar = () => ...` dentro de `UserProfile`) para acceder a las variables del padre sin pasar props, o al depurar inputs que pierden el foco en cada pulsación de tecla, animaciones que se reinician, effects que se re-ejecutan o un scroll que se restablece: define el componente afuera y pásale props. |
+| [Extrae a una constante el valor por defecto no primitivo de un parámetro de un componente memoizado](reglas/optimizacion-de-re-renders/rerender-memo-con-valor-por-defecto.md) | Al declarar un componente con `memo()` que tiene un parámetro opcional no primitivo con valor por defecto (`onClick = () => {}`, `items = []`, `options = {}`), lo que rompe la memoization cuando se usa sin ese parámetro: extrae el valor por defecto a una constante del módulo (`const NOOP = () => {}`). |
+| [Extrae a componentes memoizados](reglas/optimizacion-de-re-renders/rerender-memo.md) | Cuando un componente hace un cómputo costoso con `useMemo` antes de un early return (por ejemplo, calcular un avatar aunque `loading` sea `true`): extrae ese trabajo a un componente memoizado con `memo()` para que el early return lo evite; si el proyecto usa React Compiler, la memoization manual no hace falta. |
+| [Acota las dependencias de los effects](reglas/optimizacion-de-re-renders/rerender-dependencias.md) | Al escribir el array de dependencias de un `useEffect` que usa un objeto completo (`[user]`) cuando solo necesita un campo, o que depende de un valor continuo (`width`) cuando solo importa una condición (`width < 768`): usa dependencias primitivas (`user.id`) o deriva el booleano fuera del effect (`isMobile`). |
+| [Pon la lógica de interacción en los event handlers](reglas/optimizacion-de-re-renders/rerender-mover-effect-a-evento.md) | Cuando una acción del usuario (submit, click, drag) se modela como estado más un `useEffect` que reacciona a ese estado (`setSubmitted(true)` y un effect que hace el `post`), o cuando un effect se re-ejecuta y duplica una acción ante cambios no relacionados: pon esa lógica directamente en el event handler. |
+| [Divide los cómputos combinados de los hooks](reglas/optimizacion-de-re-renders/rerender-dividir-hooks-combinados.md) | Cuando un solo `useMemo` o `useEffect` agrupa tareas independientes con dependencias distintas (filtrar por `category` y ordenar por `sortOrder` en el mismo `useMemo`, o registrar analytics y cambiar `document.title` en el mismo effect), de modo que cambiar una dependencia recalcula todo: divide el hook en varios, uno por tarea y con sus propias dependencias. |
+| [Suscríbete al estado derivado](reglas/optimizacion-de-re-renders/rerender-estado-derivado.md) | Cuando un componente se suscribe a un valor que cambia de forma continua (`useWindowWidth()`, el ancho de la ventana) pero solo usa una condición derivada (`width < 768`), lo que provoca un re-render en cada píxel: suscríbete directamente al booleano derivado (por ejemplo, con `useMediaQuery('(max-width: 767px)')`). |
+| [Usa actualizaciones funcionales de setState](reglas/optimizacion-de-re-renders/rerender-setstate-funcional.md) | Al actualizar el estado a partir de su valor actual dentro de callbacks de `useCallback`, event handlers u operaciones asíncronas (`setItems([...items, ...newItems])`), o al depurar un stale closure por una dependencia faltante o callbacks que se recrean en cada cambio: usa la forma funcional (`setItems(curr => [...curr, ...newItems])`) para tener callbacks estables sin depender del estado. |
+| [Usa la inicialización lazy del estado](reglas/optimizacion-de-re-renders/rerender-inicializacion-lazy-del-estado.md) | Cuando el valor inicial de un `useState` se calcula con algo costoso (`buildSearchIndex(items)`, `JSON.parse(localStorage.getItem(...))`, leer el DOM, construir maps) que se vuelve a ejecutar en cada render aunque solo se use una vez: pasa una función inicializadora (`useState(() => ...)`); con primitivos o literales baratos no hace falta. |
+| [Usa transitions para las actualizaciones no urgentes](reglas/optimizacion-de-re-renders/rerender-transitions.md) | Cuando un estado se actualiza con mucha frecuencia y no es urgente (por ejemplo, guardar `window.scrollY` en un listener de scroll) y esas actualizaciones bloquean la UI: envuelve el `setState` en `startTransition()` para marcarlo como no urgente. No trata el indicador de carga de una acción asíncrona. |
+| [Usa useDeferredValue para renders derivados costosos](reglas/optimizacion-de-re-renders/rerender-use-deferred-value.md) | Cuando lo que el usuario escribe en un input dispara un cómputo o un render costoso (filtrar o buscar en una lista grande, charts que reaccionan al input) y el input se siente lento: usa `useDeferredValue` sobre el valor del input, envuelve el cómputo en `useMemo` con el valor diferido y muestra cuándo el resultado está desactualizado (`query !== deferredQuery`). |
+| [Usa useRef para valores transitorios](reglas/optimizacion-de-re-renders/rerender-use-ref-valores-transitorios.md) | Cuando un valor cambia con mucha frecuencia y no necesita un re-render en cada cambio (la posición del mouse con `mousemove`, intervalos, flags transitorios) pero está guardado en `useState`: guárdalo en `useRef` y, si hay que reflejarlo en pantalla, actualiza el DOM directamente a través de una ref (`node.style.transform`). |
 
 ### 6. Rendimiento del renderizado (MEDIUM)
 
-- `rendering-animate-svg-wrapper` - Anima un div wrapper, no el elemento SVG
-- `rendering-content-visibility` - Usa content-visibility para listas largas
-- `rendering-hoist-jsx` - Extrae el JSX estático fuera de los componentes
-- `rendering-svg-precision` - Reduce la precisión de las coordenadas SVG
-- `rendering-hydration-no-flicker` - Usa un script inline para los datos solo del cliente
-- `rendering-hydration-suppress-warning` - Suprime los mismatches esperados
-- `rendering-activity` - Usa el componente Activity para mostrar/ocultar
-- `rendering-conditional-render` - Usa el ternario, no &&, para los condicionales
-- `rendering-usetransition-loading` - Prefiere useTransition para el estado de carga
-- `rendering-resource-hints` - Usa los resource hints de React DOM para el preloading
-- `rendering-script-defer-async` - Usa defer o async en las etiquetas script
+Carpeta: [reglas/rendimiento-del-renderizado/](reglas/rendimiento-del-renderizado/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Anima el wrapper del SVG en lugar del elemento SVG](reglas/rendimiento-del-renderizado/rendering-animar-wrapper-del-svg.md) | Al animar un ícono o un SVG con CSS (`animate-spin`, `transform`, `opacity`, `scale`, `rotate`), como un spinner de carga, aplicando la animación directamente sobre el elemento `<svg>`: envuelve el SVG en un `<div>` y anima ese wrapper para obtener aceleración por hardware. |
+| [content-visibility de CSS para listas largas](reglas/rendimiento-del-renderizado/rendering-content-visibility.md) | Al renderizar en la web una lista larga sin virtualizar (cientos o miles de mensajes, comentarios o filas) cuyo render inicial es lento: aplica `content-visibility: auto` con `contain-intrinsic-size` en el CSS de cada elemento para que el navegador omita el layout y el paint de lo que está fuera de la pantalla. |
+| [Haz hoisting de los elementos JSX estáticos](reglas/rendimiento-del-renderizado/rendering-hoist-jsx.md) | Cuando un componente recrea en cada render un JSX estático que no depende de props ni de estado (un skeleton de carga, un SVG grande): extráelo a una constante a nivel de módulo (`const loadingSkeleton = <div ... />`) y reutilízalo; con React Compiler habilitado no hace falta hacerlo a mano. |
+| [Optimiza la precisión de los SVG](reglas/rendimiento-del-renderizado/rendering-precision-de-svg.md) | Al agregar u optimizar archivos SVG (íconos, ilustraciones) cuyas coordenadas en el atributo `d` de los `<path>` tienen muchos decimales: reduce la precisión de las coordenadas, por ejemplo con `npx svgo --precision=1 --multipass`, para achicar el archivo. |
+| [Evita el hydration mismatch sin parpadeos](reglas/rendimiento-del-renderizado/rendering-hydration-sin-parpadeo.md) | Al renderizar con SSR contenido que depende de datos del cliente (`localStorage`, cookies), como el tema, las preferencias o el estado de autenticación, cuando leerlo en el render rompe el SSR o leerlo en un `useEffect` provoca un parpadeo después de la hydration: inyecta un `<script>` inline síncrono con `dangerouslySetInnerHTML` que actualice el DOM antes de que React haga la hydration. |
+| [Suprime los hydration mismatches esperados](reglas/rendimiento-del-renderizado/rendering-hydration-suprimir-advertencia.md) | Cuando aparecen advertencias de hydration mismatch por valores que son distintos a propósito en el servidor y en el cliente (fechas con `new Date().toLocaleString()`, IDs aleatorios, zona horaria o locale): envuelve solo ese texto en un elemento con `suppressHydrationWarning`, sin usarlo para ocultar bugs reales. |
+| [Usa el componente Activity para mostrar/ocultar](reglas/rendimiento-del-renderizado/rendering-activity.md) | Cuando un componente costoso se muestra y se oculta con frecuencia (un dropdown, un menú, un panel o una pestaña) y, al ocultarlo con renderizado condicional, pierde su estado o su DOM: envuélvelo en `<Activity mode={isOpen ? 'visible' : 'hidden'}>` de React. |
+| [Usa defer o async en las etiquetas script](reglas/rendimiento-del-renderizado/rendering-script-defer-async.md) | Al agregar etiquetas `<script>` en el `<head>` o en el documento (analytics, utilidades de terceros) sin `defer` ni `async`, lo que bloquea el parseo del HTML: usa `async` para los scripts independientes y `defer` para los que dependen del DOM o de otros scripts; en Next.js, usa `next/script` con `strategy`. |
+| [Usa renderizado condicional explícito](reglas/rendimiento-del-renderizado/rendering-renderizado-condicional.md) | Al renderizar en JSX contenido condicional con `&&` cuando la condición puede ser `0`, `NaN` u otro valor falsy que se renderiza (por ejemplo, `{count && <span>...</span>}` muestra «0»): usa un ternario explícito con `null` (`count > 0 ? ... : null`). |
+| [Usa los resource hints de React DOM](reglas/rendimiento-del-renderizado/rendering-resource-hints.md) | Cuando la página depende de recursos críticos o de dominios de terceros (fuentes, stylesheets, APIs, CDNs, módulos de la siguiente navegación) y quieres que el navegador empiece a cargarlos antes: usa las APIs de React DOM `prefetchDNS`, `preconnect`, `preload`, `preloadModule`, `preinit` y `preinitModule`, idealmente desde Server Components. |
+| [Usa useTransition en lugar de estados de carga manuales](reglas/rendimiento-del-renderizado/rendering-usetransition-carga.md) | Cuando un componente maneja a mano un estado de carga con `useState` (`setIsLoading(true)` antes de un `await` y `setIsLoading(false)` después) para mostrar un spinner durante una actualización: usa `useTransition` y su `isPending`, con `startTransition(async () => ...)`. No trata las actualizaciones frecuentes no urgentes, como las del scroll. |
 
 ### 7. Rendimiento de JavaScript (LOW-MEDIUM)
 
-- `js-batch-dom-css` - Agrupa los cambios de CSS mediante clases o cssText
-- `js-index-maps` - Construye un Map para búsquedas repetidas
-- `js-cache-property-access` - Cachea las propiedades de los objetos en los bucles
-- `js-cache-function-results` - Cachea los resultados de las funciones en un Map a nivel de módulo
-- `js-cache-storage` - Cachea las lecturas de localStorage/sessionStorage
-- `js-combine-iterations` - Combina múltiples filter/map en un solo bucle
-- `js-length-check-first` - Verifica la longitud del array antes de una comparación costosa
-- `js-early-exit` - Retorna temprano de las funciones
-- `js-hoist-regexp` - Haz hoisting de la creación de RegExp fuera de los bucles
-- `js-min-max-loop` - Usa un bucle para min/max en lugar de sort
-- `js-set-map-lookups` - Usa Set/Map para búsquedas O(1)
-- `js-tosorted-immutable` - Usa toSorted() para la inmutabilidad
-- `js-flatmap-filter` - Usa flatMap para hacer map y filter en una sola pasada
-- `js-request-idle-callback` - Difiere el trabajo no crítico al tiempo ocioso del navegador
+Carpeta: [reglas/rendimiento-de-javascript/](reglas/rendimiento-de-javascript/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Evita el layout thrashing](reglas/rendimiento-de-javascript/js-agrupar-dom-css.md) | Al manipular estilos del DOM desde JavaScript (`element.style.*`, refs dentro de un `useEffect`) intercalando lecturas de layout (`offsetWidth`, `getBoundingClientRect()`, `getComputedStyle()`), o al investigar reflows forzados y layout thrashing: agrupa primero todas las escrituras y después las lecturas o, mejor, alterna clases CSS. |
+| [Construye index maps para búsquedas repetidas](reglas/rendimiento-de-javascript/js-index-maps.md) | Cuando dentro de un `map` o de un bucle se busca repetidamente en otro array con `.find()` por la misma key (por ejemplo, el usuario de cada orden con `users.find(u => u.id === order.userId)`): construye una sola vez un `Map` indexado por esa key (`new Map(users.map(u => [u.id, u]))`) y usa `.get()`. |
+| [Cachea el acceso a propiedades en los bucles](reglas/rendimiento-de-javascript/js-cache-acceso-a-propiedades.md) | En bucles de hot paths que leen en cada iteración una propiedad anidada (`obj.config.settings.value`) o `arr.length`: guarda esos valores en variables locales antes del bucle. |
+| [Cachea las llamadas repetidas a funciones](reglas/rendimiento-de-javascript/js-cache-resultados-de-funciones.md) | Cuando una función pura se llama repetidamente con los mismos inputs durante el render o en utilidades (por ejemplo, `slugify(project.name)` para cada elemento de una lista, o verificar una cookie de sesión): cachea los resultados en un `Map` a nivel de módulo (no en un hook) e invalida la caché cuando cambie la fuente. |
+| [Cachea las llamadas a la Storage API](reglas/rendimiento-de-javascript/js-cache-storage.md) | Cuando el código lee varias veces `localStorage`, `sessionStorage` o `document.cookie` (por ejemplo, un `getTheme()` que se llama desde muchos lugares): cachea las lecturas en un `Map` en memoria, mantenlo sincronizado al escribir e invalídalo ante cambios externos (evento `storage`, `visibilitychange`). |
+| [Combina múltiples iteraciones de arrays](reglas/rendimiento-de-javascript/js-combinar-iteraciones.md) | Cuando el mismo array se recorre varias veces con `.filter()` o `.map()` para obtener distintos resultados (por ejemplo, admins, testers e inactivos a partir de `users`): combina todo en un solo bucle `for...of`. |
+| [Difiere el trabajo no crítico con requestIdleCallback](reglas/rendimiento-de-javascript/js-request-idle-callback.md) | Cuando después de una interacción del usuario se ejecuta trabajo no crítico que puede esperar (analytics, telemetría, guardar en `localStorage` o IndexedDB, prefetch, procesar datos grandes en chunks): prográmalo con `requestIdleCallback()` (con `timeout` si es obligatorio y un fallback a `setTimeout`), y no lo uses para el feedback inmediato. |
+| [Verificación temprana de la longitud en las comparaciones de arrays](reglas/rendimiento-de-javascript/js-verificar-longitud-primero.md) | Al comparar dos arrays con una operación costosa (ordenar, unir con `join()`, igualdad profunda, serialización), por ejemplo para detectar cambios en un event handler o en un render: verifica primero si las longitudes difieren y retorna temprano, y compara elemento por elemento con `toSorted()` sin mutar los originales. |
+| [Early return en las funciones](reglas/rendimiento-de-javascript/js-early-exit.md) | Al escribir una función o un bucle que sigue procesando después de que el resultado ya está determinado (por ejemplo, una validación que guarda el error en una variable y continúa con el resto de los elementos): retorna de inmediato en cuanto conoces el resultado. |
+| [Haz hoisting de la creación de RegExp](reglas/rendimiento-de-javascript/js-hoist-regexp.md) | Cuando se crea una expresión regular con `new RegExp(...)` o un literal dentro del render de un componente o de una función que se llama muchas veces (por ejemplo, para resaltar la búsqueda en un texto): muévela al scope del módulo o memoízala con `useMemo`, teniendo en cuenta el estado `lastIndex` de las regex globales (`/g`). |
+| [Usa flatMap para hacer map y filter en una sola pasada](reglas/rendimiento-de-javascript/js-flatmap-filter.md) | Cuando ves `.map(...).filter(Boolean)` o un `map` seguido de un `filter` para transformar elementos y descartar los que no aplican (nombres de usuarios activos, emails válidos, números parseados): usa `.flatMap()` devolviendo `[valor]` o `[]` para hacerlo en una sola pasada y sin array intermedio. |
+| [Usa un bucle para min/max en lugar de sort](reglas/rendimiento-de-javascript/js-bucle-min-max.md) | Cuando se ordena un array completo con `sort()` solo para obtener el mínimo o el máximo (el proyecto más reciente, el más antiguo y el más nuevo): recórrelo una sola vez con un bucle; `Math.min` y `Math.max` con spread solo sirven para arrays chicos. |
+| [Usa Set/Map para búsquedas O(1)](reglas/rendimiento-de-javascript/js-busquedas-con-set-map.md) | Cuando se verifica repetidamente si un valor está en un array con `.includes()`, por ejemplo dentro de un `filter` (`allowedIds.includes(item.id)`): convierte el array en un `Set` (o `Map`) y usa `.has()` para búsquedas O(1). |
+| [Usa toSorted() en lugar de sort() para la inmutabilidad](reglas/rendimiento-de-javascript/js-tosorted-inmutable.md) | Al ordenar arrays que vienen de las props o del estado de React (por ejemplo, `users.sort(...)` dentro de un `useMemo`), o al depurar bugs por mutaciones: usa `.toSorted()` (o `[...items].sort()` en navegadores antiguos) y los demás métodos inmutables (`.toReversed()`, `.toSpliced()`, `.with()`) en lugar de mutar el original. |
 
 ### 8. Patrones avanzados (LOW)
 
-- `advanced-effect-event-deps` - No pongas los resultados de `useEffectEvent` en las dependencias del effect
-- `advanced-event-handler-refs` - Almacena los event handlers en refs
-- `advanced-init-once` - Inicializa la app una vez por carga de la app
-- `advanced-use-latest` - useLatest para refs de callbacks estables
+Carpeta: [reglas/patrones-avanzados/](reglas/patrones-avanzados/)
 
-## Cómo usarla
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [No pongas los Effect Events en los arrays de dependencias](reglas/patrones-avanzados/advanced-effect-event-dependencias.md) | Cuando una función devuelta por `useEffectEvent` aparece en el array de dependencias de un `useEffect` (por ejemplo, `[roomId, handleConnected]`), lo que re-ejecuta el effect en cada render y dispara la regla de lint de React Hooks: deja como dependencias solo los valores reactivos reales (`[roomId]`). |
+| [Inicializa la app una vez, no en cada montaje](reglas/patrones-avanzados/advanced-inicializar-una-vez.md) | Al ejecutar la inicialización de toda la app (cargar datos del storage, verificar el token de autenticación, configurar SDKs) dentro del `useEffect(() => ..., [])` de un componente, o cuando esa inicialización se ejecuta dos veces en desarrollo o al volver a montar: usa un guard a nivel de módulo (`let didInit = false`) o inicializa en el módulo de entrada. |
+| [Almacena los event handlers en refs](reglas/patrones-avanzados/advanced-event-handler-refs.md) | Al escribir un hook personalizado que se suscribe a eventos dentro de un `useEffect` con un handler recibido por parámetro (`useWindowEvent(event, handler)`) y que se vuelve a suscribir cada vez que cambia el handler: guarda el handler en una ref (`handlerRef.current`) o usa `useEffectEvent` para mantener estable la suscripción. |
+| [useEffectEvent para refs de callbacks estables](reglas/patrones-avanzados/advanced-use-latest.md) | Cuando un `useEffect` necesita llamar a un callback recibido por props (por ejemplo, un `onSearch` con debounce dentro de un `setTimeout`) y tenerlo en las dependencias lo re-ejecuta cada vez que cambia: envuélvelo con `useEffectEvent` para leer siempre la versión más reciente sin agregarlo a las dependencias y sin stale closures. |
 
-Lee los archivos de reglas individuales para ver explicaciones detalladas y ejemplos de código:
+### Crear una nueva regla
 
-```
-rules/async-parallel.md
-rules/bundle-barrel-imports.md
-```
+Estos archivos no contienen buenas prácticas: solo sirven para crear una nueva regla. Si creas una regla nueva, agrégala a esta [Tabla de Contenido](#tabla-de-contenido), bajo el subtítulo de su categoría, con su ¿Cuándo leerlo?, y actualiza el conteo «N reglas en M categorías» del [Resumen](#resumen). Si la regla necesita una categoría nueva, primero crea la categoría: agrega su sección al archivo de secciones, crea su subcarpeta, agrega su prefijo a la lista de prefijos de la guía y agrégala a las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad) y a esta Tabla de Contenido, según su prioridad, y actualiza también el conteo de categorías del Resumen.
 
-Cada archivo de regla contiene:
-- Una breve explicación de por qué es importante
-- Un ejemplo de código incorrecto con su explicación
-- Un ejemplo de código correcto con su explicación
-- Contexto adicional y referencias
+Carpeta: [reglas/crear-nueva-regla/](reglas/crear-nueva-regla/)
 
-## Documento compilado completo
-
-Para la guía completa con todas las reglas desarrolladas: `AGENTS.md`
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Secciones](reglas/crear-nueva-regla/_secciones.md) | Solo cuando se desee crear una nueva regla: para consultar las secciones (categorías) de la skill, con su orden, su impacto, su descripción y el prefijo de archivo de cada una, o para agregar la sección de una categoría nueva. |
+| [Plantilla para crear nuevas reglas](reglas/crear-nueva-regla/_plantilla.md) | Solo cuando se desee crear una nueva regla: para copiar la plantilla del archivo de regla, con el frontmatter (`title`, `impact`, `impactDescription`, `tags`), la línea de impacto y los ejemplos de código incorrecto y correcto. |
+| [Cómo crear una nueva regla](reglas/crear-nueva-regla/como-crear-una-nueva-regla.md) | Solo cuando se desee crear una nueva regla: para seguir los pasos (copiar la plantilla, elegir el prefijo y la subcarpeta de la categoría, agregar la regla a la Tabla de Contenido y actualizar el conteo del Resumen), crear una categoría nueva si ninguna corresponde, y consultar la estructura de la skill, la estructura de los archivos de reglas, la convención de nombres, los niveles de impacto y cómo contribuir. |
