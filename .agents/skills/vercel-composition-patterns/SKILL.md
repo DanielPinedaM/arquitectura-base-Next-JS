@@ -18,7 +18,7 @@ metadata:
 
 Patrones de composición para construir componentes de React flexibles y mantenibles. Evita la proliferación de props booleanas usando compound components, levantando el estado y componiendo los elementos internos. Estos patrones hacen que los codebases sean más fáciles de trabajar, tanto para humanos como para agentes de IA, a medida que escalan.
 
-## Cuándo aplicar la skill
+## ¿Cuándo aplicar la skill?
 
 Consulta estos lineamientos cuando:
 
@@ -28,7 +28,7 @@ Consulta estos lineamientos cuando:
 - Revises la arquitectura de componentes
 - Trabajes con compound components o context providers
 
-## Principios fundamentales
+## Reglas fundamentales
 
 1. **Composición sobre configuración** — En lugar de agregar props, deja que los consumidores
    compongan
