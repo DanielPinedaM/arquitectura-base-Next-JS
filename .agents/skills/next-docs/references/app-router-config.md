@@ -1,9 +1,9 @@
 # App Router — configuration
 
-One page per `next.config.js` option, plus TypeScript and ESLint setup. Covers `docs/01-app/03-api-reference/05-config/`.
+One page per `next.config.js` option, plus TypeScript and ESLint setup. Covers [`docs/01-app/03-api-reference/05-config/`](../docs/01-app/03-api-reference/05-config/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 01-app/03-api-reference/05-config/ — Project configuration
+## [01-app/03-api-reference/05-config/ — Project configuration](../docs/01-app/03-api-reference/05-config/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -11,7 +11,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [TypeScript](../docs/01-app/03-api-reference/05-config/02-typescript.md) | When setting up TypeScript, typed routes, or the generated types Next.js emits |
 | [ESLint Plugin](../docs/01-app/03-api-reference/05-config/03-eslint.md) | When configuring `eslint-config-next` or silencing one of its rules |
 
-### 01-app/03-api-reference/05-config/01-next-config-js/ — One page per `next.config.js` option
+### [01-app/03-api-reference/05-config/01-next-config-js/ — One page per `next.config.js` option](../docs/01-app/03-api-reference/05-config/01-next-config-js/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

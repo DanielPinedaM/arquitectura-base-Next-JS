@@ -1,16 +1,16 @@
 # App Router — fundamentals
 
-Installation, project structure and the core concepts of `app/`, in the order you meet them. Covers `docs/01-app/` and `docs/01-app/01-getting-started/`.
+Installation, project structure and the core concepts of `app/`, in the order you meet them. Covers [`docs/01-app/`](../docs/01-app/index.md) and [`docs/01-app/01-getting-started/`](../docs/01-app/01-getting-started/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 01-app/ — App Router
+## [01-app/ — App Router](../docs/01-app/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
 | [App Router](../docs/01-app/index.md) | When deciding whether a task belongs to the App Router at all, or when you need the one-paragraph definition of what `app/` is |
 | [Next.js Glossary](../docs/01-app/04-glossary.md) | When a Next.js term (prerendering, App Shell, dynamic hole, revalidation, PPR) appears and you are not certain what it means |
 
-### 01-app/01-getting-started/ — Core concepts, in the order you meet them
+### [01-app/01-getting-started/ — Core concepts, in the order you meet them](../docs/01-app/01-getting-started/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

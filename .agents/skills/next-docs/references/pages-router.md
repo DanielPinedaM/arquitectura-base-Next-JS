@@ -1,9 +1,9 @@
 # Pages Router
 
-Fundamentals, guides, routing, rendering and data fetching for `pages/`. Covers `docs/02-pages/` except its API reference.
+Fundamentals, guides, routing, rendering and data fetching for `pages/`. Covers [`docs/02-pages/`](../docs/02-pages/index.md) except its API reference.
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 02-pages/ — Pages Router
+## [02-pages/ — Pages Router](../docs/02-pages/index.md)
 
 Only relevant when the code already lives in `pages/`, or when migrating away from it. For new code use the App Router above.
 
@@ -11,7 +11,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | --- | --- |
 | [Pages Router](../docs/02-pages/index.md) | When you need the short definition of the Pages Router and how it differs from `app/` |
 
-### 02-pages/01-getting-started/ — Core concepts
+### [02-pages/01-getting-started/ — Core concepts](../docs/02-pages/01-getting-started/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -23,7 +23,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [How to use CSS in your application](../docs/02-pages/01-getting-started/06-css.md) | When setting up CSS Modules, global CSS or Tailwind in the Pages Router |
 | [How to deploy your Next.js application](../docs/02-pages/01-getting-started/11-deploying.md) | When shipping a Pages Router app — **stub**: the body lives in [docs/01-app/01-getting-started/17-deploying.md](../docs/01-app/01-getting-started/17-deploying.md) |
 
-### 02-pages/02-guides/ — Task-oriented guides
+### [02-pages/02-guides/ — Task-oriented guides](../docs/02-pages/02-guides/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -58,7 +58,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [Tailwind CSS](../docs/02-pages/02-guides/tailwind-v3-css.md) | When setting up Tailwind in the Pages Router — **stub**: the body lives in [docs/01-app/02-guides/tailwind-v3-css.md](../docs/01-app/02-guides/tailwind-v3-css.md) |
 | [How to optimize third-party libraries](../docs/02-pages/02-guides/third-party-libraries.md) | When embedding analytics, maps or widgets through `@next/third-parties` — **stub**: the body lives in [docs/01-app/02-guides/third-party-libraries.md](../docs/01-app/02-guides/third-party-libraries.md) |
 
-#### 02-pages/02-guides/migrating/ — Coming from another stack
+#### [02-pages/02-guides/migrating/ — Coming from another stack](../docs/02-pages/02-guides/migrating/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -67,7 +67,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [How to migrate from Create React App to Next.js](../docs/02-pages/02-guides/migrating/from-create-react-app.md) | When porting a CRA codebase into the Pages Router — **stub**: the body lives in [docs/01-app/02-guides/migrating/from-create-react-app.md](../docs/01-app/02-guides/migrating/from-create-react-app.md) |
 | [How to migrate from Vite to Next.js](../docs/02-pages/02-guides/migrating/from-vite.md) | When porting a Vite codebase into the Pages Router — **stub**: the body lives in [docs/01-app/02-guides/migrating/from-vite.md](../docs/01-app/02-guides/migrating/from-vite.md) |
 
-#### 02-pages/02-guides/testing/ — Test tooling setup
+#### [02-pages/02-guides/testing/ — Test tooling setup](../docs/02-pages/02-guides/testing/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -77,7 +77,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [How to set up Playwright with Next.js](../docs/02-pages/02-guides/testing/playwright.md) | When configuring Playwright for E2E and integration tests — **stub**: the body lives in [docs/01-app/02-guides/testing/playwright.md](../docs/01-app/02-guides/testing/playwright.md) |
 | [How to set up Vitest with Next.js](../docs/02-pages/02-guides/testing/vitest.md) | When configuring Vitest with React Testing Library — **stub**: the body lives in [docs/01-app/02-guides/testing/vitest.md](../docs/01-app/02-guides/testing/vitest.md) |
 
-#### 02-pages/02-guides/upgrading/ — Version upgrades
+#### [02-pages/02-guides/upgrading/ — Version upgrades](../docs/02-pages/02-guides/upgrading/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -90,13 +90,13 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [How to upgrade to version 13](../docs/02-pages/02-guides/upgrading/version-13.md) | When upgrading from Next.js 12 to 13 |
 | [How to upgrade to version 14](../docs/02-pages/02-guides/upgrading/version-14.md) | When upgrading from Next.js 13 to 14 — **stub**: the body lives in [docs/01-app/02-guides/upgrading/version-14.md](../docs/01-app/02-guides/upgrading/version-14.md) |
 
-### 02-pages/03-building-your-application/ — How a Pages Router app is built
+### [02-pages/03-building-your-application/ — How a Pages Router app is built](../docs/02-pages/03-building-your-application/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
 | [Building Your Application](../docs/02-pages/03-building-your-application/index.md) | Landing page only; pick the subsection below |
 
-#### 02-pages/03-building-your-application/01-routing/ — Routing
+#### [02-pages/03-building-your-application/01-routing/ — Routing](../docs/02-pages/03-building-your-application/01-routing/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -109,7 +109,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [API Routes](../docs/02-pages/03-building-your-application/01-routing/07-api-routes.md) | When building an endpoint under `pages/api` |
 | [Custom Errors](../docs/02-pages/03-building-your-application/01-routing/08-custom-error.md) | When customizing the 404 or 500 pages |
 
-#### 02-pages/03-building-your-application/02-rendering/ — Rendering strategies
+#### [02-pages/03-building-your-application/02-rendering/ — Rendering strategies](../docs/02-pages/03-building-your-application/02-rendering/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -119,7 +119,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [Automatic Static Optimization](../docs/02-pages/03-building-your-application/02-rendering/04-automatic-static-optimization.md) | When a page unexpectedly became static, or unexpectedly did not |
 | [Client-side Rendering (CSR)](../docs/02-pages/03-building-your-application/02-rendering/05-client-side-rendering.md) | When a page must render entirely in the browser |
 
-#### 02-pages/03-building-your-application/03-data-fetching/ — Data fetching
+#### [02-pages/03-building-your-application/03-data-fetching/ — Data fetching](../docs/02-pages/03-building-your-application/03-data-fetching/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -129,7 +129,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [getServerSideProps](../docs/02-pages/03-building-your-application/03-data-fetching/03-get-server-side-props.md) | When data must be fetched on every request |
 | [Client-side Fetching](../docs/02-pages/03-building-your-application/03-data-fetching/05-client-side.md) | When data belongs in the browser, typically with SWR |
 
-#### 02-pages/03-building-your-application/06-configuring/ — Configuring
+#### [02-pages/03-building-your-application/06-configuring/ — Configuring](../docs/02-pages/03-building-your-application/06-configuring/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

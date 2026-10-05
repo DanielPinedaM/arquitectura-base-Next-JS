@@ -1,9 +1,9 @@
 # App Router — API reference
 
-Directives, built-in components, file-system conventions, metadata files, route segment config, functions and hooks. Covers `docs/01-app/03-api-reference/` except configuration, CLI and adapters.
+Directives, built-in components, file-system conventions, metadata files, route segment config, functions and hooks. Covers [`docs/01-app/03-api-reference/`](../docs/01-app/03-api-reference/index.md) except configuration, CLI and adapters.
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 01-app/03-api-reference/ — Exact signatures and options
+## [01-app/03-api-reference/ — Exact signatures and options](../docs/01-app/03-api-reference/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -11,7 +11,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [Edge Runtime](../docs/01-app/03-api-reference/07-edge.md) | When code must run on the Edge Runtime and you need the list of supported APIs |
 | [Turbopack](../docs/01-app/03-api-reference/08-turbopack.md) | When the bundler itself is the subject: supported features, unsupported ones, known limitations |
 
-### 01-app/03-api-reference/01-directives/ — The `'use ...'` strings
+### [01-app/03-api-reference/01-directives/ — The `'use ...'` strings](../docs/01-app/03-api-reference/01-directives/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -22,7 +22,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [use client](../docs/01-app/03-api-reference/01-directives/use-client.md) | Before adding `'use client'`, to know exactly where the boundary lands |
 | [use server](../docs/01-app/03-api-reference/01-directives/use-server.md) | Before declaring a Server Function, at file level or inline |
 
-### 01-app/03-api-reference/02-components/ — Built-in components
+### [01-app/03-api-reference/02-components/ — Built-in components](../docs/01-app/03-api-reference/02-components/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -33,7 +33,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [Link Component](../docs/01-app/03-api-reference/02-components/link.md) | When you need every `next/link` prop, especially `prefetch`, `replace` and `scroll` |
 | [Script Component](../docs/01-app/03-api-reference/02-components/script.md) | When you need the `next/script` strategies and event handlers |
 
-### 01-app/03-api-reference/03-file-conventions/ — Special files and folders
+### [01-app/03-api-reference/03-file-conventions/ — Special files and folders](../docs/01-app/03-api-reference/03-file-conventions/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -60,7 +60,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [template.js](../docs/01-app/03-api-reference/03-file-conventions/template.md) | When a layout must remount on every navigation instead of persisting |
 | [unauthorized.js](../docs/01-app/03-api-reference/03-file-conventions/unauthorized.md) | When rendering the 401 UI triggered by `unauthorized()` |
 
-#### 01-app/03-api-reference/03-file-conventions/01-metadata/ — Metadata files
+#### [01-app/03-api-reference/03-file-conventions/01-metadata/ — Metadata files](../docs/01-app/03-api-reference/03-file-conventions/01-metadata/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -71,7 +71,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [robots.txt](../docs/01-app/03-api-reference/03-file-conventions/01-metadata/robots.md) | When controlling what crawlers may index |
 | [sitemap.xml](../docs/01-app/03-api-reference/03-file-conventions/01-metadata/sitemap.md) | When emitting a sitemap, static or generated from data |
 
-#### 01-app/03-api-reference/03-file-conventions/02-route-segment-config/ — Per-segment exports
+#### [01-app/03-api-reference/03-file-conventions/02-route-segment-config/ — Per-segment exports](../docs/01-app/03-api-reference/03-file-conventions/02-route-segment-config/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -83,7 +83,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [prefetch](../docs/01-app/03-api-reference/03-file-conventions/02-route-segment-config/prefetch.md) | When overriding prefetch behavior for a whole segment rather than per link |
 | [runtime](../docs/01-app/03-api-reference/03-file-conventions/02-route-segment-config/runtime.md) | When a segment must run on Node.js or on the Edge Runtime |
 
-### 01-app/03-api-reference/04-functions/ — Functions and hooks
+### [01-app/03-api-reference/04-functions/ — Functions and hooks](../docs/01-app/03-api-reference/04-functions/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

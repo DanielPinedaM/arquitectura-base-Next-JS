@@ -1,9 +1,9 @@
 # Pages Router — API reference
 
-Components, file conventions, functions, `next.config.js` options, CLI and adapters for `pages/`. Covers `docs/02-pages/04-api-reference/`.
+Components, file conventions, functions, `next.config.js` options, CLI and adapters for `pages/`. Covers [`docs/02-pages/04-api-reference/`](../docs/02-pages/04-api-reference/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 02-pages/04-api-reference/ — Exact signatures and options
+## [02-pages/04-api-reference/ — Exact signatures and options](../docs/02-pages/04-api-reference/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -11,7 +11,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [Edge Runtime](../docs/02-pages/04-api-reference/06-edge.md) | When code must run on the Edge Runtime and you need the supported APIs — **stub**: the body lives in [docs/01-app/03-api-reference/07-edge.md](../docs/01-app/03-api-reference/07-edge.md) |
 | [Turbopack](../docs/02-pages/04-api-reference/08-turbopack.md) | When the bundler itself is the subject: supported features and limitations — **stub**: the body lives in [docs/01-app/03-api-reference/08-turbopack.md](../docs/01-app/03-api-reference/08-turbopack.md) |
 
-### 02-pages/04-api-reference/01-components/ — Built-in components
+### [02-pages/04-api-reference/01-components/ — Built-in components](../docs/02-pages/04-api-reference/01-components/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -24,7 +24,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [Link](../docs/02-pages/04-api-reference/01-components/link.md) | When you need every `<Link>` prop in the Pages Router — **stub**: the body lives in [docs/01-app/03-api-reference/02-components/link.md](../docs/01-app/03-api-reference/02-components/link.md) |
 | [Script](../docs/02-pages/04-api-reference/01-components/script.md) | When you need the `next/script` strategies — **stub**: the body lives in [docs/01-app/03-api-reference/02-components/script.md](../docs/01-app/03-api-reference/02-components/script.md) |
 
-### 02-pages/04-api-reference/02-file-conventions/ — Special files and folders
+### [02-pages/04-api-reference/02-file-conventions/ — Special files and folders](../docs/02-pages/04-api-reference/02-file-conventions/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -34,7 +34,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [public Folder](../docs/02-pages/04-api-reference/02-file-conventions/public-folder.md) | When serving static assets straight from `public/` — **stub**: the body lives in [docs/01-app/03-api-reference/03-file-conventions/public-folder.md](../docs/01-app/03-api-reference/03-file-conventions/public-folder.md) |
 | [src Directory](../docs/02-pages/04-api-reference/02-file-conventions/src-folder.md) | When `pages/` lives under `src/` — **stub**: the body lives in [docs/01-app/03-api-reference/03-file-conventions/src-folder.md](../docs/01-app/03-api-reference/03-file-conventions/src-folder.md) |
 
-### 02-pages/04-api-reference/03-functions/ — Functions and hooks
+### [02-pages/04-api-reference/03-functions/ — Functions and hooks](../docs/02-pages/04-api-reference/03-functions/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -52,7 +52,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [useRouter](../docs/02-pages/04-api-reference/03-functions/use-router.md) | When navigating programmatically or reading `query`, `asPath` and router events |
 | [useSearchParams](../docs/02-pages/04-api-reference/03-functions/use-search-params.md) | When reading the query string with the App Router-style hook inside `pages/` |
 
-### 02-pages/04-api-reference/04-config/ — Project configuration
+### [02-pages/04-api-reference/04-config/ — Project configuration](../docs/02-pages/04-api-reference/04-config/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -60,7 +60,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [TypeScript](../docs/02-pages/04-api-reference/04-config/01-typescript.md) | When setting up TypeScript in a Pages Router project — **stub**: the body lives in [docs/01-app/03-api-reference/05-config/02-typescript.md](../docs/01-app/03-api-reference/05-config/02-typescript.md) |
 | [ESLint](../docs/02-pages/04-api-reference/04-config/02-eslint.md) | When configuring ESLint during builds, or opting out of it — **stub**: the body lives in [docs/01-app/03-api-reference/05-config/03-eslint.md](../docs/01-app/03-api-reference/05-config/03-eslint.md) |
 
-#### 02-pages/04-api-reference/04-config/01-next-config-js/ — One page per `next.config.js` option
+#### [02-pages/04-api-reference/04-config/01-next-config-js/ — One page per `next.config.js` option](../docs/02-pages/04-api-reference/04-config/01-next-config-js/index.md)
 
 These are the Pages Router copies of the config reference. When the project uses `app/`, prefer the App Router pages above.
 
@@ -109,7 +109,7 @@ These are the Pages Router copies of the config reference. When the project uses
 | [Custom Webpack Config](../docs/02-pages/04-api-reference/04-config/01-next-config-js/webpack.md) | Only when the project still builds with webpack — **stub**: the body lives in [docs/01-app/03-api-reference/05-config/01-next-config-js/webpack.md](../docs/01-app/03-api-reference/05-config/01-next-config-js/webpack.md) |
 | [webVitalsAttribution](../docs/02-pages/04-api-reference/04-config/01-next-config-js/webVitalsAttribution.md) | When a Web Vitals score is bad and you need the element that caused it — **stub**: the body lives in [docs/01-app/03-api-reference/05-config/01-next-config-js/webVitalsAttribution.md](../docs/01-app/03-api-reference/05-config/01-next-config-js/webVitalsAttribution.md) |
 
-### 02-pages/04-api-reference/05-cli/ — Command line
+### [02-pages/04-api-reference/05-cli/ — Command line](../docs/02-pages/04-api-reference/05-cli/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -117,7 +117,7 @@ These are the Pages Router copies of the config reference. When the project uses
 | [create-next-app CLI](../docs/02-pages/04-api-reference/05-cli/create-next-app.md) | When scaffolding a project and you need the flags or templates — **stub**: the body lives in [docs/01-app/03-api-reference/06-cli/create-next-app.md](../docs/01-app/03-api-reference/06-cli/create-next-app.md) |
 | [next CLI](../docs/02-pages/04-api-reference/05-cli/next.md) | When you need the flags of `next dev`, `next build` or `next start` — **stub**: the body lives in [docs/01-app/03-api-reference/06-cli/next.md](../docs/01-app/03-api-reference/06-cli/next.md) |
 
-### 02-pages/04-api-reference/06-adapters/ — Building a deployment adapter
+### [02-pages/04-api-reference/06-adapters/ — Building a deployment adapter](../docs/02-pages/04-api-reference/06-adapters/index.md)
 
 Read this folder only when integrating Next.js into a hosting platform. Application code never needs it.
 

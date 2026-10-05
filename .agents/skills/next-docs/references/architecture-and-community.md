@@ -1,9 +1,9 @@
 # Architecture and community
 
-How Next.js works internally, and the community and ecosystem pages. Applies to both routers. Covers `docs/03-architecture/` and `docs/04-community/`.
+How Next.js works internally, and the community and ecosystem pages. Applies to both routers. Covers [`docs/03-architecture/`](../docs/03-architecture/index.md) and [`docs/04-community/`](../docs/04-community/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 03-architecture/ — How Next.js works internally
+## [03-architecture/ — How Next.js works internally](../docs/03-architecture/index.md)
 
 Applies to both routers. Read it when you need to explain behavior rather than change code.
 
@@ -15,7 +15,7 @@ Applies to both routers. Read it when you need to explain behavior rather than c
 | [Next.js Compiler](../docs/03-architecture/nextjs-compiler.md) | When you need the transforms the Rust compiler applies, and their options |
 | [Supported Browsers](../docs/03-architecture/supported-browsers.md) | When deciding which browsers and JavaScript features are safe to target |
 
-## 04-community/ — Community and ecosystem
+## [04-community/ — Community and ecosystem](../docs/04-community/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

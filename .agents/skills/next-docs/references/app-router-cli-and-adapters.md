@@ -1,9 +1,9 @@
 # App Router — CLI and deployment adapters
 
-The `next` and `create-next-app` commands, and the adapter interface for integrating Next.js into a hosting platform. Covers `docs/01-app/03-api-reference/06-cli/` and `07-adapters/`.
+The `next` and `create-next-app` commands, and the adapter interface for integrating Next.js into a hosting platform. Covers [`docs/01-app/03-api-reference/06-cli/`](../docs/01-app/03-api-reference/06-cli/index.md) and [`07-adapters/`](../docs/01-app/03-api-reference/07-adapters/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 01-app/03-api-reference/06-cli/ — Command line
+## [01-app/03-api-reference/06-cli/ — Command line](../docs/01-app/03-api-reference/06-cli/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -11,7 +11,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [create-next-app](../docs/01-app/03-api-reference/06-cli/create-next-app.md) | When scaffolding a project and you need the flags or the available templates |
 | [next CLI](../docs/01-app/03-api-reference/06-cli/next.md) | When you need the flags of `next dev`, `next build`, `next start` or `next lint` |
 
-## 01-app/03-api-reference/07-adapters/ — Building a deployment adapter
+## [01-app/03-api-reference/07-adapters/ — Building a deployment adapter](../docs/01-app/03-api-reference/07-adapters/index.md)
 
 Read this folder only when integrating Next.js into a hosting platform. Application code never needs it.
 

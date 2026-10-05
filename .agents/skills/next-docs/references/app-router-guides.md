@@ -1,9 +1,9 @@
 # App Router — guides
 
-Task-oriented how-to guides, plus client-side data fetching, migrations from other stacks, testing setup and version upgrades. Covers `docs/01-app/02-guides/`.
+Task-oriented how-to guides, plus client-side data fetching, migrations from other stacks, testing setup and version upgrades. Covers [`docs/01-app/02-guides/`](../docs/01-app/02-guides/index.md).
 
 Part of the `next-docs` skill. Open only the rows this task needs; paths are relative to this file.
-## 01-app/02-guides/ — Task-oriented guides
+## [01-app/02-guides/ — Task-oriented guides](../docs/01-app/02-guides/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -69,7 +69,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [How to use and optimize videos](../docs/01-app/02-guides/videos.md) | When self-hosting or embedding video |
 | [Designing view transitions](../docs/01-app/02-guides/view-transitions.md) | When animating between routes or content states with View Transitions |
 
-### 01-app/02-guides/client-side-data-fetching/ — Fetching from Client Components
+### [01-app/02-guides/client-side-data-fetching/ — Fetching from Client Components](../docs/01-app/02-guides/client-side-data-fetching/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -77,7 +77,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [How to fetch client-side data with SWR](../docs/01-app/02-guides/client-side-data-fetching/swr.md) | When the project uses SWR and server and client caches must stay coordinated |
 | [How to fetch client-side data with TanStack Query](../docs/01-app/02-guides/client-side-data-fetching/tanstack-query.md) | When the project uses TanStack Query and server and client caches must stay coordinated |
 
-### 01-app/02-guides/migrating/ — Coming from another stack
+### [01-app/02-guides/migrating/ — Coming from another stack](../docs/01-app/02-guides/migrating/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -86,7 +86,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [How to migrate from Create React App to Next.js](../docs/01-app/02-guides/migrating/from-create-react-app.md) | When porting a CRA codebase into Next.js |
 | [How to migrate from Vite to Next.js](../docs/01-app/02-guides/migrating/from-vite.md) | When porting a Vite + React codebase into Next.js |
 
-### 01-app/02-guides/testing/ — Test tooling setup
+### [01-app/02-guides/testing/ — Test tooling setup](../docs/01-app/02-guides/testing/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |
@@ -96,7 +96,7 @@ Part of the `next-docs` skill. Open only the rows this task needs; paths are rel
 | [How to set up Playwright with Next.js](../docs/01-app/02-guides/testing/playwright.md) | When configuring Playwright for E2E tests |
 | [How to set up Vitest with Next.js](../docs/01-app/02-guides/testing/vitest.md) | When configuring Vitest for unit tests |
 
-### 01-app/02-guides/upgrading/ — Version upgrades
+### [01-app/02-guides/upgrading/ — Version upgrades](../docs/01-app/02-guides/upgrading/index.md)
 
 | Title and file path | When to read it |
 | --- | --- |

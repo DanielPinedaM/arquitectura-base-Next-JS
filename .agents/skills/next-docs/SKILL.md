@@ -11,17 +11,17 @@ This project runs **Next.js 16**, whose breaking changes may contradict your tra
 
 The documentation is split into two routers, and picking the wrong one produces code that does not work:
 
-- **`docs/01-app/` — App Router**: the `app/` directory, Server and Client Components, Server Actions, `use cache`. This is the default for new code.
-- **`docs/02-pages/` — Pages Router**: the `pages/` directory, `getStaticProps`, `getServerSideProps`, API Routes. Read it only when the code you are touching already lives in `pages/`, or when migrating away from it.
+- **[`docs/01-app/` — App Router](docs/01-app/index.md)**: the `app/` directory, Server and Client Components, Server Actions, `use cache`. This is the default for new code.
+- **[`docs/02-pages/` — Pages Router](docs/02-pages/index.md)**: the `pages/` directory, `getStaticProps`, `getServerSideProps`, API Routes. Read it only when the code you are touching already lives in `pages/`, or when migrating away from it.
 
-`docs/03-architecture/` and `docs/04-community/` apply to both routers.
+[`docs/03-architecture/`](docs/03-architecture/index.md) and [`docs/04-community/`](docs/04-community/index.md) apply to both routers.
 
 # The `index.md` files
 
 Every folder inside `docs/` has an `index.md`. It is the landing page of that section, never a page about one specific API. Two kinds exist:
 
-- **Listing pages** — only frontmatter, no body (for example `docs/01-app/02-guides/index.md`). The reference files already tell you what the section contains, so opening them adds nothing.
-- **Section overviews** — a real page that explains the model the whole folder assumes and compares the siblings inside it (for example `docs/01-app/02-guides/testing/index.md` weighs Cypress, Playwright, Vitest and Jest against each other before you pick one).
+- **Listing pages** — only frontmatter, no body (for example [`docs/01-app/02-guides/index.md`](docs/01-app/02-guides/index.md)). The reference files already tell you what the section contains, so opening them adds nothing.
+- **Section overviews** — a real page that explains the model the whole folder assumes and compares the siblings inside it (for example [`docs/01-app/02-guides/testing/index.md`](docs/01-app/02-guides/testing/index.md) weighs Cypress, Playwright, Vitest and Jest against each other before you pick one).
 
 **Read an `index.md` when** you must *choose* among the files of a folder, or when you need the shared mental model a section takes for granted. **Skip it when** you already know which page you need: open that page directly.
 
@@ -35,7 +35,7 @@ Finding a page takes two hops, for that same reason:
 1. The [Table of Contents](#table-of-contents) below lists **reference files**, not documentation pages. Pick the single one whose area matches the task, and read it.
 2. That reference file lists every page of its area, one row per page, with the reason to open it. Open only the rows the task actually needs — normally one to three.
 
-Reading a second reference file is usually a sign the area was misidentified, not a sign that more context is needed. Before reaching for one, use the shortcut the pages themselves provide: **a concept page's `related:` frontmatter lists the exact API pages that belong to it**, as full paths. Going from `09-revalidating.md` to `revalidateTag.md` costs one `related:` link, not a second reference file. Open a second reference deliberately only when the task genuinely straddles two areas.
+Reading a second reference file is usually a sign the area was misidentified, not a sign that more context is needed. Before reaching for one, use the shortcut the pages themselves provide: **a concept page's `related:` frontmatter lists the exact API pages that belong to it**, as full paths. Going from [`09-revalidating.md`](docs/01-app/01-getting-started/09-revalidating.md) to [`revalidateTag.md`](docs/01-app/03-api-reference/04-functions/revalidateTag.md) costs one `related:` link, not a second reference file. Open a second reference deliberately only when the task genuinely straddles two areas.
 
 ## Three traps in the corpus
 
@@ -43,7 +43,7 @@ Reading a second reference file is usually a sign the area was misidentified, no
 
 > `{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. */}`
 
-That notice speaks to whoever maintains the Next.js repository, not to you. It means *this file is an auto-generated copy; edit the page named in `source:` instead*. What it tells a reader is that the body lives elsewhere — and in these files nothing was copied at all, so opening one yields only frontmatter and this comment. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page; follow that link. Only a minority of the pages under `docs/02-pages/` have a body of their own.
+That notice speaks to whoever maintains the Next.js repository, not to you. It means *this file is an auto-generated copy; edit the page named in `source:` instead*. What it tells a reader is that the body lives elsewhere — and in these files nothing was copied at all, so opening one yields only frontmatter and this comment. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page; follow that link. Only a minority of the pages under [`docs/02-pages/`](docs/02-pages/index.md) have a body of their own.
 
 **Some App Router pages carry content for both routers at once.** These are the source pages those copies are generated from, so router-specific sections inside them are wrapped in JSX tags:
 
@@ -54,7 +54,7 @@ That notice speaks to whoever maintains the Next.js repository, not to you. It m
 
 Anything not wrapped applies to both. When reading one of these pages for App Router work, skip every `<PagesOnly>` block — it describes `pages/`, and following it produces code that does not belong in `app/`. The same page may open with a note saying its content is shared between both routers; that is the marker.
 
-**Caching pages assume Cache Components.** `08-caching.md` and `09-revalidating.md` document the `use cache` model. If `cacheComponents` is not enabled in `next.config.js`, the page that applies is *Caching and Revalidating (Previous Model)* in `references/app-router-guides.md`. Check the flag before writing caching code, or the snippet will not apply to the project.
+**Caching pages assume Cache Components.** [`08-caching.md`](docs/01-app/01-getting-started/08-caching.md) and [`09-revalidating.md`](docs/01-app/01-getting-started/09-revalidating.md) document the `use cache` model. If `cacheComponents` is not enabled in `next.config.js`, the page that applies is *[Caching and Revalidating (Previous Model)](docs/01-app/02-guides/caching-without-cache-components.md)* in [`references/app-router-guides.md`](references/app-router-guides.md). Check the flag before writing caching code, or the snippet will not apply to the project.
 
 # Table of Contents
 
