@@ -43,9 +43,17 @@ Hay dos criterios para leer un archivo:
 
 1. La columna **¿Cuándo leerlo?**: abre el archivo cuando tu tarea coincida con la situación que describe.
 
-2. El **impacto** (CRITICAL → HIGH → MEDIUM-HIGH → MEDIUM → LOW-MEDIUM → LOW) que aparece entre paréntesis en el subtítulo de cada categoría de la [Tabla de Contenido](#tabla-de-contenido). Consulta las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad).
+2. [El **impacto**](#niveles-de-impacto) (CRITICAL → HIGH → MEDIUM-HIGH → MEDIUM → LOW-MEDIUM → LOW) que aparece entre paréntesis en el subtítulo de cada categoría de la [Tabla de Contenido](#tabla-de-contenido). Consulta las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad).
 
 Cada archivo de regla contiene: una breve explicación de por qué es importante, un ejemplo de código incorrecto, un ejemplo de código correcto y contexto adicional con referencias.
+
+## Niveles de impacto
+
+| Nivel | Significado |
+| ----- | ----------- |
+| `CRITICAL` | Patrones fundamentales; evita código difícil de mantener |
+| `HIGH` | Mejoras significativas en la mantenibilidad |
+| `MEDIUM` | Buenas prácticas para un código más limpio |
 
 ## Categorías de reglas por prioridad
 
