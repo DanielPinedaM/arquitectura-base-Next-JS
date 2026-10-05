@@ -14,75 +14,9 @@ metadata:
 
 # Patrones de composición de React
 
-Patrones de composición para construir componentes de React flexibles y mantenibles. Evita
-la proliferación de props booleanas usando compound components, levantando el estado y
-componiendo los elementos internos. Estos patrones hacen que los codebases sean más fáciles
-de trabajar, tanto para humanos como para agentes de IA, a medida que escalan.
-
-# Resumen
+## Resumen
 
 Patrones de composición para construir componentes de React flexibles y mantenibles. Evita la proliferación de props booleanas usando compound components, levantando el estado y componiendo los elementos internos. Estos patrones hacen que los codebases sean más fáciles de trabajar, tanto para humanos como para agentes de IA, a medida que escalan.
-
-# Patrones de composición de React
-
-Un repositorio estructurado de patrones de composición de React que escalan. Estos
-patrones ayudan a evitar la proliferación de props booleanas usando compound components,
-levantando el estado y componiendo los elementos internos.
-
-## Estructura
-
-- `rules/` - Archivos de reglas individuales (uno por regla)
-  - `_sections.md` - Metadata de las secciones (títulos, impactos, descripciones)
-  - `_template.md` - Plantilla para crear nuevas reglas
-  - `area-description.md` - Archivos de reglas individuales
-- `metadata.json` - Metadata del documento (versión, organización, resumen)
-- **`AGENTS.md`** - Salida compilada (generada)
-
-## Reglas
-
-### Arquitectura de componentes (CRITICAL)
-
-- `architecture-avoid-boolean-props.md` - No agregues props booleanas para personalizar
-  el comportamiento
-- `architecture-compound-components.md` - Estructura como compound components con
-  context compartido
-
-### Gestión del estado (HIGH)
-
-- `state-lift-state.md` - Levanta el estado a componentes provider
-- `state-context-interface.md` - Define interfaces de context claras
-  (state/actions/meta)
-- `state-decouple-implementation.md` - Desacopla la gestión del estado de la UI
-
-### Patrones de implementación (MEDIUM)
-
-- `patterns-children-over-render-props.md` - Prefiere children en lugar de props renderX
-- `patterns-explicit-variants.md` - Crea variantes explícitas de componentes
-
-## Principios fundamentales
-
-1. **Composición sobre configuración** — En lugar de agregar props, deja que los consumidores
-   compongan
-2. **Levanta tu estado** — El estado en providers, no atrapado en componentes
-3. **Compón tus elementos internos** — Los subcomponentes acceden al context, no a props
-4. **Variantes explícitas** — Crea ThreadComposer, EditComposer, no un Composer
-   con isThread
-
-## Crear una nueva regla
-
-1. Copia `rules/_template.md` a `rules/area-description.md`
-2. Elige el prefijo de área apropiado:
-   - `architecture-` para Arquitectura de componentes
-   - `state-` para Gestión del estado
-   - `patterns-` para Patrones de implementación
-3. Completa el frontmatter y el contenido
-4. Asegúrate de tener ejemplos claros con explicaciones
-
-## Niveles de impacto
-
-- `CRITICAL` - Patrones fundamentales, evita código inmantenible
-- `HIGH` - Mejoras significativas de mantenibilidad
-- `MEDIUM` - Buenas prácticas para un código más limpio
 
 ## Cuándo aplicar la skill
 
@@ -94,61 +28,86 @@ Consulta estos lineamientos cuando:
 - Revises la arquitectura de componentes
 - Trabajes con compound components o context providers
 
+## Principios fundamentales
+
+1. **Composición sobre configuración** — En lugar de agregar props, deja que los consumidores
+   compongan
+2. **Levanta tu estado** — El estado en providers, no atrapado en componentes
+3. **Compón tus elementos internos** — Los subcomponentes acceden al context, no a props
+4. **Variantes explícitas** — Crea ThreadComposer, EditComposer, no un Composer
+   con isThread
+
+## ¿Cómo Leer la Skill?
+
+Lee **bajo demanda** los archivos `.md` ubicados en [`.agents/skills/vercel-composition-patterns/reglas/`](reglas/): usa la [Tabla de Contenido](#tabla-de-contenido) como referencia para inferir cuáles archivos son necesarios para la tarea que estás resolviendo, y accede únicamente a esos archivos.
+
+**Razón**: leer todos los archivos consume contexto y tokens innecesariamente.
+
+Hay dos criterios para leer un archivo:
+
+1. La columna **¿Cuándo leerlo?**: abre el archivo cuando tu tarea coincida con la situación que describe.
+
+2. El **impacto** (CRITICAL → HIGH → MEDIUM-HIGH → MEDIUM → LOW-MEDIUM → LOW) que aparece entre paréntesis en el subtítulo de cada categoría de la [Tabla de Contenido](#tabla-de-contenido). Consulta las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad).
+
+Cada archivo de regla contiene: una breve explicación de por qué es importante, un ejemplo de código incorrecto, un ejemplo de código correcto y contexto adicional con referencias.
+
 ## Categorías de reglas por prioridad
 
-| Prioridad | Categoría                    | Impacto | Prefijo         |
-| --------- | ---------------------------- | ------- | --------------- |
-| 1         | Arquitectura de componentes  | HIGH    | `architecture-` |
-| 2         | Gestión del estado           | MEDIUM  | `state-`        |
-| 3         | Patrones de implementación   | MEDIUM  | `patterns-`     |
-| 4         | APIs de React 19             | MEDIUM  | `react19-`      |
+| Prioridad | Categoría | Impacto | Prefijo |
+| --------- | --------- | ------- | ------- |
+| 1 | [Arquitectura de componentes](#1-arquitectura-de-componentes-high) | HIGH | `architecture-` |
+| 2 | [Gestión del estado](#2-gestión-del-estado-medium) | MEDIUM | `state-` |
+| 3 | [Patrones de implementación](#3-patrones-de-implementación-medium) | MEDIUM | `patterns-` |
+| 4 | [APIs de React 19](#4-apis-de-react-19-medium) | MEDIUM | `react19-` |
 
-## Referencia rápida
+## Tabla de Contenido
 
 ### 1. Arquitectura de componentes (HIGH)
 
-- `architecture-avoid-boolean-props` - No agregues props booleanas para personalizar
-  el comportamiento; usa composición
-- `architecture-compound-components` - Estructura los componentes complejos con un
-  context compartido
+Carpeta: [reglas/arquitectura-de-componentes/](reglas/arquitectura-de-componentes/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Evita la proliferación de props booleanas](reglas/arquitectura-de-componentes/architecture-evitar-props-booleanas.md) | Al crear o refactorizar un componente que acumula props booleanas para cambiar su comportamiento (`isThread`, `isEditing`, `isDMThread`, `isForwarding`) y ternarios anidados en el JSX, o cuando te piden agregarle «un flag más» a un componente, aunque no se mencione la composición: explica por qué cada booleano duplica los estados posibles y cómo reemplazarlos componiendo piezas compartidas (`Composer.Frame`, `Composer.Input`, `Composer.Footer`). |
+| [Usa compound components](reglas/arquitectura-de-componentes/architecture-compound-components.md) | Al diseñar o refactorizar un componente complejo con partes opcionales (`renderHeader`, `renderFooter`, `showAttachments`, `showEmojis`) para estructurarlo como compound components (`Composer.Provider`, `Composer.Frame`, `Composer.Input`, `Composer.Submit`) que comparten el estado mediante `createContext` y `use()` en lugar de prop drilling. Trata la estructura del compound component, no el tipado del context ni dónde vive el estado. |
 
 ### 2. Gestión del estado (MEDIUM)
 
-- `state-decouple-implementation` - El provider es el único lugar que sabe cómo
-  se gestiona el estado
-- `state-context-interface` - Define una interfaz genérica con state, actions, meta
-  para la inyección de dependencias
-- `state-lift-state` - Mueve el estado a componentes provider para que los hermanos puedan acceder a él
+Carpeta: [reglas/gestion-del-estado/](reglas/gestion-del-estado/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Desacopla la gestión del estado de la UI](reglas/gestion-del-estado/state-desacoplar-implementacion.md) | Cuando un componente de UI llama directamente a hooks de estado global o de sincronización (`useGlobalChannelState`, `useChannelSync`, un store de Zustand), o cuando la misma UI debe funcionar con otra fuente de estado (`useState` local, Zustand o sincronización con el servidor): solo el provider debe conocer la implementación del estado y la UI consume únicamente la interfaz del context. |
+| [Define interfaces de context genéricas para la inyección de dependencias](reglas/gestion-del-estado/state-interfaz-de-context.md) | Al definir el tipo del context de un compound component o de un provider (`createContext<ComposerContextValue \| null>`): una interfaz genérica con tres partes, `state`, `actions` y `meta` (`ComposerState`, `ComposerActions`, `ComposerMeta`), que funciona como contrato de inyección de dependencias para que varios providers distintos sirvan a los mismos componentes de UI. |
+| [Levanta el estado a componentes provider](reglas/gestion-del-estado/state-levantar-estado.md) | Cuando un estado vive dentro de un componente (`useState` dentro de `ForwardMessageComposer`) pero lo necesitan componentes hermanos que están fuera de él, como una vista previa o un botón de submit en un diálogo, o cuando ves un `useEffect` que sincroniza el estado hacia el padre (`onInputChange`) o una ref que se lee al hacer submit: mueve ese estado a un componente provider dedicado. |
 
 ### 3. Patrones de implementación (MEDIUM)
 
-- `patterns-explicit-variants` - Crea componentes de variantes explícitas en lugar de
-  modos booleanos
-- `patterns-children-over-render-props` - Usa children para la composición en lugar
-  de props renderX
+Carpeta: [reglas/patrones-de-implementacion/](reglas/patrones-de-implementacion/)
+
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Crea variantes explícitas de componentes](reglas/patrones-de-implementacion/patterns-variantes-explicitas.md) | Al decidir cómo se usan los distintos casos de un componente desde afuera: en lugar de un `<Composer isThread isEditing={false} showAttachments />` configurado por modos, crea componentes con nombre propio (`ThreadComposer`, `EditMessageComposer`, `ForwardMessageComposer`), cada uno con su provider y sus piezas compartidas, aunque no se mencione la palabra «variante». |
+| [Prefiere componer children en lugar de render props](reglas/patrones-de-implementacion/patterns-children-en-lugar-de-render-props.md) | Al diseñar la API de un componente que recibe props `renderHeader`, `renderFooter`, `renderActions` u otras `renderX` para inyectar UI, o al dudar entre `children` y render props: prefiere componer con `children` para estructuras estáticas y reserva las render props (como `renderItem`) para cuando el padre necesita pasarle datos al hijo. |
 
 ### 4. APIs de React 19 (MEDIUM)
 
 > **⚠️ Solo React 19+.** Omite esta sección si usas React 18 o una versión anterior.
 
-- `react19-no-forwardref` - No uses `forwardRef`; usa `use()` en lugar de `useContext()`
+Carpeta: [reglas/apis-de-react-19/](reglas/apis-de-react-19/)
 
-## Cómo usarla
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Cambios en la API de React 19](reglas/apis-de-react-19/react19-no-forwardref.md) | Al escribir o migrar componentes de un proyecto con React 19 o superior que usan `forwardRef` para recibir una `ref`, o `useContext()` para leer un context: en React 19, `ref` es una prop normal y `use()` reemplaza a `useContext()` (y se puede llamar de forma condicional). No aplica a React 18 ni a versiones anteriores. |
 
-Lee los archivos de reglas individuales para ver explicaciones detalladas y ejemplos de código:
+### Crear una nueva regla
 
-```
-rules/architecture-avoid-boolean-props.md
-rules/state-context-interface.md
-```
+Estos archivos no contienen buenas prácticas: solo sirven para crear una nueva regla. Si creas una regla nueva, agrégala a esta [Tabla de Contenido](#tabla-de-contenido), bajo el subtítulo de su categoría, con su ¿Cuándo leerlo? Si la regla necesita una categoría nueva, primero crea la categoría: agrega su sección al archivo de secciones, crea su subcarpeta, agrega su prefijo a la lista de prefijos de la guía y agrégala a las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad) y a esta Tabla de Contenido, según su prioridad.
 
-Cada archivo de regla contiene:
+Carpeta: [reglas/crear-nueva-regla/](reglas/crear-nueva-regla/)
 
-- Una breve explicación de por qué es importante
-- Un ejemplo de código incorrecto con su explicación
-- Un ejemplo de código correcto con su explicación
-- Contexto adicional y referencias
-
-## Documento compilado completo
-
-Para la guía completa con todas las reglas desarrolladas: `AGENTS.md`
+| Título y ruta archivo | ¿Cuándo leerlo? |
+| --- | --- |
+| [Secciones](reglas/crear-nueva-regla/_secciones.md) | Solo cuando se desee crear una nueva regla: para consultar las secciones (categorías) de la skill, con su orden, su impacto, su descripción y el prefijo de archivo de cada una, o para agregar la sección de una categoría nueva. |
+| [Plantilla para crear nuevas reglas](reglas/crear-nueva-regla/_plantilla.md) | Solo cuando se desee crear una nueva regla: para copiar la plantilla del archivo de regla, con el frontmatter (`title`, `impact`, `impactDescription`, `tags`) y los ejemplos de código incorrecto y correcto. |
+| [Cómo crear una nueva regla](reglas/crear-nueva-regla/como-crear-una-nueva-regla.md) | Solo cuando se desee crear una nueva regla: para seguir los pasos (copiar la plantilla, elegir el prefijo y la subcarpeta de la categoría, y agregar la regla a la Tabla de Contenido), crear una categoría nueva si ninguna corresponde, y consultar la estructura de la skill y los niveles de impacto. |
