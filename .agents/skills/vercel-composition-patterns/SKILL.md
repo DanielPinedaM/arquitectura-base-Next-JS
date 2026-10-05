@@ -58,18 +58,14 @@ Cada archivo de regla contiene: una breve explicación de por qué es importante
 
 ## Tabla de Contenido
 
-### 1. Arquitectura de componentes (HIGH)
-
-Carpeta: [reglas/arquitectura-de-componentes/](reglas/arquitectura-de-componentes/)
+### [1. Arquitectura de componentes (HIGH)](reglas/arquitectura-de-componentes/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
 | [Evita la proliferación de props booleanas](reglas/arquitectura-de-componentes/architecture-evitar-props-booleanas.md) | Al crear o refactorizar un componente que acumula props booleanas para cambiar su comportamiento (`isThread`, `isEditing`, `isDMThread`, `isForwarding`) y ternarios anidados en el JSX, o cuando te piden agregarle «un flag más» a un componente, aunque no se mencione la composición: explica por qué cada booleano duplica los estados posibles y cómo reemplazarlos componiendo piezas compartidas (`Composer.Frame`, `Composer.Input`, `Composer.Footer`). |
 | [Usa compound components](reglas/arquitectura-de-componentes/architecture-compound-components.md) | Al diseñar o refactorizar un componente complejo con partes opcionales (`renderHeader`, `renderFooter`, `showAttachments`, `showEmojis`) para estructurarlo como compound components (`Composer.Provider`, `Composer.Frame`, `Composer.Input`, `Composer.Submit`) que comparten el estado mediante `createContext` y `use()` en lugar de prop drilling. Trata la estructura del compound component, no el tipado del context ni dónde vive el estado. |
 
-### 2. Gestión del estado (MEDIUM)
-
-Carpeta: [reglas/gestion-del-estado/](reglas/gestion-del-estado/)
+### [2. Gestión del estado (MEDIUM)](reglas/gestion-del-estado/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -77,33 +73,17 @@ Carpeta: [reglas/gestion-del-estado/](reglas/gestion-del-estado/)
 | [Define interfaces de context genéricas para la inyección de dependencias](reglas/gestion-del-estado/state-interfaz-de-context.md) | Al definir el tipo del context de un compound component o de un provider (`createContext<ComposerContextValue \| null>`): una interfaz genérica con tres partes, `state`, `actions` y `meta` (`ComposerState`, `ComposerActions`, `ComposerMeta`), que funciona como contrato de inyección de dependencias para que varios providers distintos sirvan a los mismos componentes de UI. |
 | [Levanta el estado a componentes provider](reglas/gestion-del-estado/state-levantar-estado.md) | Cuando un estado vive dentro de un componente (`useState` dentro de `ForwardMessageComposer`) pero lo necesitan componentes hermanos que están fuera de él, como una vista previa o un botón de submit en un diálogo, o cuando ves un `useEffect` que sincroniza el estado hacia el padre (`onInputChange`) o una ref que se lee al hacer submit: mueve ese estado a un componente provider dedicado. |
 
-### 3. Patrones de implementación (MEDIUM)
-
-Carpeta: [reglas/patrones-de-implementacion/](reglas/patrones-de-implementacion/)
+### [3. Patrones de implementación (MEDIUM)](reglas/patrones-de-implementacion/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
 | [Crea variantes explícitas de componentes](reglas/patrones-de-implementacion/patterns-variantes-explicitas.md) | Al decidir cómo se usan los distintos casos de un componente desde afuera: en lugar de un `<Composer isThread isEditing={false} showAttachments />` configurado por modos, crea componentes con nombre propio (`ThreadComposer`, `EditMessageComposer`, `ForwardMessageComposer`), cada uno con su provider y sus piezas compartidas, aunque no se mencione la palabra «variante». |
 | [Prefiere componer children en lugar de render props](reglas/patrones-de-implementacion/patterns-children-en-lugar-de-render-props.md) | Al diseñar la API de un componente que recibe props `renderHeader`, `renderFooter`, `renderActions` u otras `renderX` para inyectar UI, o al dudar entre `children` y render props: prefiere componer con `children` para estructuras estáticas y reserva las render props (como `renderItem`) para cuando el padre necesita pasarle datos al hijo. |
 
-### 4. APIs de React 19 (MEDIUM)
+### [4. APIs de React 19 (MEDIUM)](reglas/apis-de-react-19/)
 
 > **⚠️ Solo React 19+.** Omite esta sección si usas React 18 o una versión anterior.
-
-Carpeta: [reglas/apis-de-react-19/](reglas/apis-de-react-19/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
 | [Cambios en la API de React 19](reglas/apis-de-react-19/react19-no-forwardref.md) | Al escribir o migrar componentes de un proyecto con React 19 o superior que usan `forwardRef` para recibir una `ref`, o `useContext()` para leer un context: en React 19, `ref` es una prop normal y `use()` reemplaza a `useContext()` (y se puede llamar de forma condicional). No aplica a React 18 ni a versiones anteriores. |
-
-### Crear una nueva regla
-
-Estos archivos no contienen buenas prácticas: solo sirven para crear una nueva regla. Si creas una regla nueva, agrégala a esta [Tabla de Contenido](#tabla-de-contenido), bajo el subtítulo de su categoría, con su ¿Cuándo leerlo? Si la regla necesita una categoría nueva, primero crea la categoría: agrega su sección al archivo de secciones, crea su subcarpeta, agrega su prefijo a la lista de prefijos de la guía y agrégala a las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad) y a esta Tabla de Contenido, según su prioridad.
-
-Carpeta: [reglas/crear-nueva-regla/](reglas/crear-nueva-regla/)
-
-| Título y ruta archivo | ¿Cuándo leerlo? |
-| --- | --- |
-| [Secciones](reglas/crear-nueva-regla/_secciones.md) | Solo cuando se desee crear una nueva regla: para consultar las secciones (categorías) de la skill, con su orden, su impacto, su descripción y el prefijo de archivo de cada una, o para agregar la sección de una categoría nueva. |
-| [Plantilla para crear nuevas reglas](reglas/crear-nueva-regla/_plantilla.md) | Solo cuando se desee crear una nueva regla: para copiar la plantilla del archivo de regla, con el frontmatter (`title`, `impact`, `impactDescription`, `tags`) y los ejemplos de código incorrecto y correcto. |
-| [Cómo crear una nueva regla](reglas/crear-nueva-regla/como-crear-una-nueva-regla.md) | Solo cuando se desee crear una nueva regla: para seguir los pasos (copiar la plantilla, elegir el prefijo y la subcarpeta de la categoría, y agregar la regla a la Tabla de Contenido), crear una categoría nueva si ninguna corresponde, y consultar la estructura de la skill y los niveles de impacto. |
