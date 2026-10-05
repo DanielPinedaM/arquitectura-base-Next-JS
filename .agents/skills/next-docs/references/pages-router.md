@@ -20,7 +20,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 | [Project Structure and Organization](../docs/02-pages/01-getting-started/02-project-structure.md) | Before adding folders or special files under `pages/` — **stub**: the body lives in [docs/01-app/01-getting-started/02-project-structure.md](../docs/01-app/01-getting-started/02-project-structure.md) |
 | [Image Optimization](../docs/02-pages/01-getting-started/04-images.md) | When adding images with `next/image` in the Pages Router — **stub**: the body lives in [docs/01-app/01-getting-started/12-images.md](../docs/01-app/01-getting-started/12-images.md) |
 | [How to use fonts](../docs/02-pages/01-getting-started/05-fonts.md) | When loading fonts in the Pages Router — **stub**: the body lives in [docs/01-app/01-getting-started/13-fonts.md](../docs/01-app/01-getting-started/13-fonts.md) |
-| [How to use CSS in your application](../docs/02-pages/01-getting-started/06-css.md) | When setting up CSS Modules, global CSS or Tailwind in the Pages Router |
+| [How to use CSS in your application](../docs/02-pages/01-getting-started/06-css.md) | When setting up CSS Modules, global CSS or Tailwind in the Pages Router — **stub**: the body lives in [docs/01-app/01-getting-started/11-css.md](../docs/01-app/01-getting-started/11-css.md) |
 | [How to deploy your Next.js application](../docs/02-pages/01-getting-started/11-deploying.md) | When shipping a Pages Router app — **stub**: the body lives in [docs/01-app/01-getting-started/17-deploying.md](../docs/01-app/01-getting-started/17-deploying.md) |
 
 ### [02-pages/02-guides/ — Task-oriented guides](../docs/02-pages/02-guides/index.md)
