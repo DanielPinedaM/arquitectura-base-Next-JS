@@ -13,7 +13,7 @@ metadata:
 
 Guía completa de optimización del rendimiento para aplicaciones de React y Next.js, mantenida por Vercel y diseñada para agentes de IA y LLMs. Contiene 70 reglas en 8 categorías, priorizadas por impacto, desde críticas (eliminar waterfalls, reducir el tamaño del bundle) hasta incrementales (patrones avanzados). Cada regla incluye explicaciones detalladas, ejemplos del mundo real que comparan implementaciones incorrectas vs. correctas y métricas de impacto específicas para guiar la refactorización y la generación de código automatizadas.
 
-## Cuándo aplicar la skill
+## ¿Cuándo aplicar la skill?
 
 Consulta estos lineamientos cuando:
 - Escribas nuevos componentes de React o páginas de Next.js
