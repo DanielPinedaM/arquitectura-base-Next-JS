@@ -47,9 +47,7 @@ Cada archivo de regla contiene: una breve explicación de por qué es importante
 
 ## Tabla de Contenido
 
-### 1. Eliminar waterfalls (CRITICAL)
-
-Carpeta: [reglas/eliminar-waterfalls/](reglas/eliminar-waterfalls/)
+### [1. Eliminar waterfalls (CRITICAL)](reglas/eliminar-waterfalls/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -60,9 +58,7 @@ Carpeta: [reglas/eliminar-waterfalls/](reglas/eliminar-waterfalls/)
 | [Promise.all() para operaciones independientes](reglas/eliminar-waterfalls/async-paralelo.md) | Cuando hay varios `await` secuenciales de operaciones asíncronas que no dependen entre sí (`fetchUser()`, `fetchPosts()`, `fetchComments()`): ejecútalas en paralelo con `Promise.all()` para hacer un solo round trip. |
 | [Suspense boundaries estratégicos](reglas/eliminar-waterfalls/async-suspense-boundaries.md) | Al escribir un Server Component asíncrono (una página o un layout) que hace `await` de datos antes de devolver el JSX y así bloquea también las partes que no los usan (sidebar, header, footer): mueve la obtención de datos a un componente hijo envuelto en `<Suspense fallback={...}>` o comparte la promise con `use()`; incluye cuándo no conviene (datos que afectan el layout, contenido SEO above the fold). |
 
-### 2. Optimización del tamaño del bundle (CRITICAL)
-
-Carpeta: [reglas/optimizacion-del-tamano-del-bundle/](reglas/optimizacion-del-tamano-del-bundle/)
+### [2. Optimización del tamaño del bundle (CRITICAL)](reglas/optimizacion-del-tamano-del-bundle/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -73,9 +69,7 @@ Carpeta: [reglas/optimizacion-del-tamano-del-bundle/](reglas/optimizacion-del-ta
 | [Prefiere paths analizables estáticamente](reglas/optimizacion-del-tamano-del-bundle/bundle-paths-analizables.md) | Al hacer un `import()` dinámico con un path guardado en una variable (`import(PAGE_MODULES[pageName])`) o al leer archivos en el servidor con paths compuestos (`path.join(process.cwd(), 'content/' + kind)`), o cuando el bundle del servidor o el output file tracing de Next.js crecen sin motivo: usa maps explícitos de funciones `() => import('./...')` y paths literales en cada llamada. |
 | [Haz preload según la intención del usuario](reglas/optimizacion-del-tamano-del-bundle/bundle-preload.md) | Cuando un componente pesado cargado bajo demanda tarda en aparecer al hacer clic (por ejemplo, un editor que se abre con un botón): haz preload con `import()` al detectar la intención del usuario (`onMouseEnter`, `onFocus`) o cuando se habilita el feature flag, con `typeof window !== 'undefined'`. |
 
-### 3. Rendimiento del lado del servidor (HIGH)
-
-Carpeta: [reglas/rendimiento-del-lado-del-servidor/](reglas/rendimiento-del-lado-del-servidor/)
+### [3. Rendimiento del lado del servidor (HIGH)](reglas/rendimiento-del-lado-del-servidor/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -90,9 +84,7 @@ Carpeta: [reglas/rendimiento-del-lado-del-servidor/](reglas/rendimiento-del-lado
 | [Deduplicación por petición con React.cache()](reglas/rendimiento-del-lado-del-servidor/server-cache-react.md) | Cuando la misma función asíncrona del servidor (verificar la sesión con `auth()`, una query de Prisma o Drizzle, un cómputo pesado) se llama varias veces durante una misma petición desde distintos componentes: envuélvela en `React.cache()` con argumentos primitivos (no objetos inline); no hace falta para `fetch`, que Next.js ya memoiza. |
 | [Usa after() para operaciones no bloqueantes](reglas/rendimiento-del-lado-del-servidor/server-after-no-bloqueante.md) | Cuando un route handler, una Server Action o un Server Component hace trabajo secundario antes de responder (logging, analytics, auditoría, notificaciones, invalidación de caché) y eso retrasa la respuesta: prográmalo con `after()` de `next/server` para que se ejecute después de enviar la respuesta. |
 
-### 4. Obtención de datos del lado del cliente (MEDIUM-HIGH)
-
-Carpeta: [reglas/obtencion-de-datos-del-lado-del-cliente/](reglas/obtencion-de-datos-del-lado-del-cliente/)
+### [4. Obtención de datos del lado del cliente (MEDIUM-HIGH)](reglas/obtencion-de-datos-del-lado-del-cliente/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -101,9 +93,7 @@ Carpeta: [reglas/obtencion-de-datos-del-lado-del-cliente/](reglas/obtencion-de-d
 | [Usa SWR para la deduplicación automática](reglas/obtencion-de-datos-del-lado-del-cliente/client-swr-deduplicacion.md) | Al obtener datos en el cliente con `useEffect`, `fetch` y `useState`, sobre todo si varios componentes piden el mismo endpoint: usa SWR (`useSWR(key, fetcher)`) para deduplicar las peticiones, cachear y revalidar; `useImmutableSWR` para datos que no cambian y `useSWRMutation` para mutaciones. |
 | [Versiona y minimiza los datos de localStorage](reglas/obtencion-de-datos-del-lado-del-cliente/client-localstorage-schema.md) | Al guardar o leer datos en `localStorage` (preferencias del usuario, configuración, datos cacheados del servidor): agrega una versión a la key (`userConfig:v2`) con su migración, guarda solo los campos que la UI necesita (sin tokens ni PII) y envuelve `getItem` y `setItem` en `try/catch` por la navegación privada y los límites de cuota. |
 
-### 5. Optimización de re-renders (MEDIUM)
-
-Carpeta: [reglas/optimizacion-de-re-renders/](reglas/optimizacion-de-re-renders/)
+### [5. Optimización de re-renders (MEDIUM)](reglas/optimizacion-de-re-renders/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -123,9 +113,7 @@ Carpeta: [reglas/optimizacion-de-re-renders/](reglas/optimizacion-de-re-renders/
 | [Usa useDeferredValue para renders derivados costosos](reglas/optimizacion-de-re-renders/rerender-use-deferred-value.md) | Cuando lo que el usuario escribe en un input dispara un cómputo o un render costoso (filtrar o buscar en una lista grande, charts que reaccionan al input) y el input se siente lento: usa `useDeferredValue` sobre el valor del input, envuelve el cómputo en `useMemo` con el valor diferido y muestra cuándo el resultado está desactualizado (`query !== deferredQuery`). |
 | [Usa useRef para valores transitorios](reglas/optimizacion-de-re-renders/rerender-use-ref-valores-transitorios.md) | Cuando un valor cambia con mucha frecuencia y no necesita un re-render en cada cambio (la posición del mouse con `mousemove`, intervalos, flags transitorios) pero está guardado en `useState`: guárdalo en `useRef` y, si hay que reflejarlo en pantalla, actualiza el DOM directamente a través de una ref (`node.style.transform`). |
 
-### 6. Rendimiento del renderizado (MEDIUM)
-
-Carpeta: [reglas/rendimiento-del-renderizado/](reglas/rendimiento-del-renderizado/)
+### [6. Rendimiento del renderizado (MEDIUM)](reglas/rendimiento-del-renderizado/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -141,9 +129,7 @@ Carpeta: [reglas/rendimiento-del-renderizado/](reglas/rendimiento-del-renderizad
 | [Usa los resource hints de React DOM](reglas/rendimiento-del-renderizado/rendering-resource-hints.md) | Cuando la página depende de recursos críticos o de dominios de terceros (fuentes, stylesheets, APIs, CDNs, módulos de la siguiente navegación) y quieres que el navegador empiece a cargarlos antes: usa las APIs de React DOM `prefetchDNS`, `preconnect`, `preload`, `preloadModule`, `preinit` y `preinitModule`, idealmente desde Server Components. |
 | [Usa useTransition en lugar de estados de carga manuales](reglas/rendimiento-del-renderizado/rendering-usetransition-carga.md) | Cuando un componente maneja a mano un estado de carga con `useState` (`setIsLoading(true)` antes de un `await` y `setIsLoading(false)` después) para mostrar un spinner durante una actualización: usa `useTransition` y su `isPending`, con `startTransition(async () => ...)`. No trata las actualizaciones frecuentes no urgentes, como las del scroll. |
 
-### 7. Rendimiento de JavaScript (LOW-MEDIUM)
-
-Carpeta: [reglas/rendimiento-de-javascript/](reglas/rendimiento-de-javascript/)
+### [7. Rendimiento de JavaScript (LOW-MEDIUM)](reglas/rendimiento-de-javascript/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -162,9 +148,7 @@ Carpeta: [reglas/rendimiento-de-javascript/](reglas/rendimiento-de-javascript/)
 | [Usa Set/Map para búsquedas O(1)](reglas/rendimiento-de-javascript/js-busquedas-con-set-map.md) | Cuando se verifica repetidamente si un valor está en un array con `.includes()`, por ejemplo dentro de un `filter` (`allowedIds.includes(item.id)`): convierte el array en un `Set` (o `Map`) y usa `.has()` para búsquedas O(1). |
 | [Usa toSorted() en lugar de sort() para la inmutabilidad](reglas/rendimiento-de-javascript/js-tosorted-inmutable.md) | Al ordenar arrays que vienen de las props o del estado de React (por ejemplo, `users.sort(...)` dentro de un `useMemo`), o al depurar bugs por mutaciones: usa `.toSorted()` (o `[...items].sort()` en navegadores antiguos) y los demás métodos inmutables (`.toReversed()`, `.toSpliced()`, `.with()`) en lugar de mutar el original. |
 
-### 8. Patrones avanzados (LOW)
-
-Carpeta: [reglas/patrones-avanzados/](reglas/patrones-avanzados/)
+### [8. Patrones avanzados (LOW)](reglas/patrones-avanzados/)
 
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
@@ -172,15 +156,3 @@ Carpeta: [reglas/patrones-avanzados/](reglas/patrones-avanzados/)
 | [Inicializa la app una vez, no en cada montaje](reglas/patrones-avanzados/advanced-inicializar-una-vez.md) | Al ejecutar la inicialización de toda la app (cargar datos del storage, verificar el token de autenticación, configurar SDKs) dentro del `useEffect(() => ..., [])` de un componente, o cuando esa inicialización se ejecuta dos veces en desarrollo o al volver a montar: usa un guard a nivel de módulo (`let didInit = false`) o inicializa en el módulo de entrada. |
 | [Almacena los event handlers en refs](reglas/patrones-avanzados/advanced-event-handler-refs.md) | Al escribir un hook personalizado que se suscribe a eventos dentro de un `useEffect` con un handler recibido por parámetro (`useWindowEvent(event, handler)`) y que se vuelve a suscribir cada vez que cambia el handler: guarda el handler en una ref (`handlerRef.current`) o usa `useEffectEvent` para mantener estable la suscripción. |
 | [useEffectEvent para refs de callbacks estables](reglas/patrones-avanzados/advanced-use-latest.md) | Cuando un `useEffect` necesita llamar a un callback recibido por props (por ejemplo, un `onSearch` con debounce dentro de un `setTimeout`) y tenerlo en las dependencias lo re-ejecuta cada vez que cambia: envuélvelo con `useEffectEvent` para leer siempre la versión más reciente sin agregarlo a las dependencias y sin stale closures. |
-
-### Crear una nueva regla
-
-Estos archivos no contienen buenas prácticas: solo sirven para crear una nueva regla. Si creas una regla nueva, agrégala a esta [Tabla de Contenido](#tabla-de-contenido), bajo el subtítulo de su categoría, con su ¿Cuándo leerlo?, y actualiza el conteo «N reglas en M categorías» del [Resumen](#resumen). Si la regla necesita una categoría nueva, primero crea la categoría: agrega su sección al archivo de secciones, crea su subcarpeta, agrega su prefijo a la lista de prefijos de la guía y agrégala a las [Categorías de reglas por prioridad](#categorías-de-reglas-por-prioridad) y a esta Tabla de Contenido, según su prioridad, y actualiza también el conteo de categorías del Resumen.
-
-Carpeta: [reglas/crear-nueva-regla/](reglas/crear-nueva-regla/)
-
-| Título y ruta archivo | ¿Cuándo leerlo? |
-| --- | --- |
-| [Secciones](reglas/crear-nueva-regla/_secciones.md) | Solo cuando se desee crear una nueva regla: para consultar las secciones (categorías) de la skill, con su orden, su impacto, su descripción y el prefijo de archivo de cada una, o para agregar la sección de una categoría nueva. |
-| [Plantilla para crear nuevas reglas](reglas/crear-nueva-regla/_plantilla.md) | Solo cuando se desee crear una nueva regla: para copiar la plantilla del archivo de regla, con el frontmatter (`title`, `impact`, `impactDescription`, `tags`), la línea de impacto y los ejemplos de código incorrecto y correcto. |
-| [Cómo crear una nueva regla](reglas/crear-nueva-regla/como-crear-una-nueva-regla.md) | Solo cuando se desee crear una nueva regla: para seguir los pasos (copiar la plantilla, elegir el prefijo y la subcarpeta de la categoría, agregar la regla a la Tabla de Contenido y actualizar el conteo del Resumen), crear una categoría nueva si ninguna corresponde, y consultar la estructura de la skill, la estructura de los archivos de reglas, la convención de nombres, los niveles de impacto y cómo contribuir. |
