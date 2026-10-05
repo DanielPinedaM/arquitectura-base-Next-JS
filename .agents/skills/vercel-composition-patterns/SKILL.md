@@ -6,10 +6,6 @@ description:
   diseñar APIs reutilizables. Se activa en tareas que involucran compound components,
   render props, context providers o arquitectura de componentes. Incluye los cambios de API
   de React 19.
-license: MIT
-metadata:
-  author: vercel
-  version: '1.0.0'
 ---
 
 # Patrones de composición de React
@@ -20,7 +16,7 @@ Patrones de composición para construir componentes de React flexibles y manteni
 
 ## ¿Cuándo aplicar la skill?
 
-Consulta estos lineamientos cuando:
+Consulta estas reglas cuando:
 
 - Refactorices componentes con muchas props booleanas
 - Construyas librerías de componentes reutilizables
