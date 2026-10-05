@@ -63,6 +63,9 @@ Leer **bajo demanda** los archivos `.md` ubicados en `.agents/skills/next-conven
 
 **Razon**: Leer todos los archivos consume contexto y tokens innecesariamente.
 
+## 6. Referencias
+Al leer la skill encontrara subtitulos con una lista de enlaces de referencias. **NO** es necesario leer ni hacer fetch a estos enlaces; se incluyen únicamente como documentacion
+
 # Tabla de Contenido
 
 # INCOMPLETO - aqui me falta escribir la tabla de contenido con la estructura de archivos, carpetas y titulos de /rules - para tabla de contenido usar  enlace en línea con ruta relativa ejemplo [angular-animations.md](references/angular-animations.md)
@@ -1075,8 +1078,7 @@ Cuando el icono no este en React Icons, entonces agregarlo dentro de la carpeta 
 ## Uso de Tailwind con Next.js
 El texto a continuación es una guia de los breaking changes mas importantes de Tailwind 4 que esta basado en la documentación oficial.
 
-**Enlaces de Referencia**
-**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia:
+**Referencias:**
 * [Breaking changes de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4)
 
 * [Tema oscuro en Tailwind](https://tailwindcss.com/docs/dark-mode)
@@ -1176,9 +1178,7 @@ Por defecto, el orden de las capas de Tailwind 4 es el siguiente. En este ejempl
 
 ### Tema Oscuro
 
-**Enlaces de Referencia**
-**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia. Las reglas para cambiar entre tema claro y oscuro están basadas en:
-
+**Referencias:**
 * [next-themes](https://github.com/pacocoursey/next-themes/tree/main)
 
 * [Lazy Loading en Next.js](https://nextjs.org/docs/app/guides/lazy-loading)
@@ -2020,9 +2020,7 @@ Siempre para importar los componentes usar los import alias de shad cn que estan
 
 ## Estilos Globales para Botones
 
-**Enlaces de Referencia**
-**NO** es necesario leer estos enlaces; se incluyen únicamente como referencia. Está guía de estilos para botones está basada en:
-
+**Referencias:**
 * [Botones de Bootstrap 5](https://getbootstrap.com/docs/5.3/components/buttons/)
 
 * [Tailwind 4 font-size](https://tailwindcss.com/docs/font-size)
