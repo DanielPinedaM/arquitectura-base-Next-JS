@@ -7,7 +7,7 @@ description: Official Next.js 16 documentation (App Router and Pages Router) mir
 
 Every `.md` file under `.agents/skills/next-docs/docs/` is a local, offline copy of the **official Next.js documentation** published at <https://nextjs.org/docs>. The folder tree mirrors the sections of the website, and each file keeps its original frontmatter (`title`, `description`, `related`) followed by the full page body.
 
-This project runs **Next.js 16**, whose breaking changes may contradict your training data. Treat these files as the source of truth: when a file and your memory disagree, the file wins, and every deprecation notice inside them applies.
+This project runs **Next.js**, whose breaking changes may contradict your training data. Treat these files as the source of truth: when a file and your memory disagree, the file wins, and every deprecation notice inside them applies.
 
 The documentation is split into two routers, and picking the wrong one produces code that does not work:
 
