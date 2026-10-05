@@ -39,13 +39,13 @@ Reading a second reference file is usually a sign the area was misidentified, no
 
 ## Three traps in the corpus
 
-**112 of the 164 Pages Router pages are empty husks.** They carry a `source:` key in the frontmatter, this notice, and nothing else:
+**Most Pages Router pages are empty husks.** They carry a `source:` key in the frontmatter, this notice, and nothing else:
 
 > `{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. */}`
 
-That notice speaks to whoever maintains the Next.js repository, not to you. It means *this file is an auto-generated copy; edit the page named in `source:` instead*. What it tells a reader is that the body lives elsewhere — and in these 112 files nothing was copied at all, so opening one yields 8–13 lines of frontmatter and this comment. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page; follow that link. Only 51 pages under `docs/02-pages/` have a body of their own.
+That notice speaks to whoever maintains the Next.js repository, not to you. It means *this file is an auto-generated copy; edit the page named in `source:` instead*. What it tells a reader is that the body lives elsewhere — and in these files nothing was copied at all, so opening one yields only frontmatter and this comment. Every affected row in the two Pages Router references is marked `**stub**` with a direct link to the real page; follow that link. Only a minority of the pages under `docs/02-pages/` have a body of their own.
 
-**60 App Router pages carry content for both routers at once.** These are the source pages those copies are generated from, so router-specific sections inside them are wrapped in JSX tags:
+**Some App Router pages carry content for both routers at once.** These are the source pages those copies are generated from, so router-specific sections inside them are wrapped in JSX tags:
 
 ```
 <AppOnly>   … applies to app/ only   … </AppOnly>
@@ -58,15 +58,15 @@ Anything not wrapped applies to both. When reading one of these pages for App Ro
 
 # Table of Contents
 
-The 455 documentation pages are indexed across these eight reference files.
+The documentation pages are indexed across these reference files.
 
-| Reference file | When to open it | Pages |
-| --- | --- | --- |
-| [App Router — fundamentals](references/app-router-fundamentals.md) | Scaffolding a project, or working with the core concepts of `app/`: project structure, layouts and pages, navigation, Server and Client Components, fetching and mutating data, caching, revalidating, error handling, CSS, images, fonts, metadata, Route Handlers, proxy, deploying, upgrading | 21 |
-| [App Router — guides](references/app-router-guides.md) | Solving a concrete task end to end: authentication, forms, internationalization, ISR, streaming, prefetching, bundle optimization, self-hosting, PWA, MDX, CSP, analytics, debugging, test tooling setup, migrating from CRA/Vite/Pages Router, and version upgrades | 78 |
-| [App Router — API reference](references/app-router-api.md) | You need an exact signature or option: the `use` directives, `next/image`, `next/link`, `next/font`, `layout.js`, `page.js`, `route.js`, `error.js`, parallel and intercepting routes, metadata files, route segment config, `cookies()`, `generateMetadata`, `revalidateTag`, and the client hooks | 92 |
-| [App Router — configuration](references/app-router-config.md) | Editing `next.config.js` — one page per option — or setting up TypeScript and the ESLint plugin | 76 |
-| [App Router — CLI and deployment adapters](references/app-router-cli-and-adapters.md) | You need the flags of `next` or `create-next-app`, or you are integrating Next.js into a hosting platform through the adapter interface | 16 |
-| [Pages Router](references/pages-router.md) | The code lives in `pages/`: routing, `_app`, `_document`, API Routes, SSR/SSG/CSR, `getStaticProps`, `getServerSideProps`, plus the guides and upgrade paths for that router | 76 |
-| [Pages Router — API reference](references/pages-router-api.md) | You need an exact signature, component prop or `next.config.js` option specific to `pages/` | 88 |
-| [Architecture and community](references/architecture-and-community.md) | Explaining behavior rather than changing code — Fast Refresh, the Rust compiler, supported browsers, built-in accessibility — or contributing to the docs and using `next-rspack` | 8 |
+| Reference file | When to open it |
+| --- | --- |
+| [App Router — fundamentals](references/app-router-fundamentals.md) | Scaffolding a project, or working with the core concepts of `app/`: project structure, layouts and pages, navigation, Server and Client Components, fetching and mutating data, caching, revalidating, error handling, CSS, images, fonts, metadata, Route Handlers, proxy, deploying, upgrading |
+| [App Router — guides](references/app-router-guides.md) | Solving a concrete task end to end: authentication, forms, internationalization, ISR, streaming, prefetching, bundle optimization, self-hosting, PWA, MDX, CSP, analytics, debugging, test tooling setup, migrating from CRA/Vite/Pages Router, and version upgrades |
+| [App Router — API reference](references/app-router-api.md) | You need an exact signature or option: the `use` directives, `next/image`, `next/link`, `next/font`, `layout.js`, `page.js`, `route.js`, `error.js`, parallel and intercepting routes, metadata files, route segment config, `cookies()`, `generateMetadata`, `revalidateTag`, and the client hooks |
+| [App Router — configuration](references/app-router-config.md) | Editing `next.config.js` — one page per option — or setting up TypeScript and the ESLint plugin |
+| [App Router — CLI and deployment adapters](references/app-router-cli-and-adapters.md) | You need the flags of `next` or `create-next-app`, or you are integrating Next.js into a hosting platform through the adapter interface |
+| [Pages Router](references/pages-router.md) | The code lives in `pages/`: routing, `_app`, `_document`, API Routes, SSR/SSG/CSR, `getStaticProps`, `getServerSideProps`, plus the guides and upgrade paths for that router |
+| [Pages Router — API reference](references/pages-router-api.md) | You need an exact signature, component prop or `next.config.js` option specific to `pages/` |
+| [Architecture and community](references/architecture-and-community.md) | Explaining behavior rather than changing code — Fast Refresh, the Rust compiler, supported browsers, built-in accessibility — or contributing to the docs and using `next-rspack` |

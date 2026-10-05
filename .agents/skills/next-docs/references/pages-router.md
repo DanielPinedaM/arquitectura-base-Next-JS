@@ -113,7 +113,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 
 | Title and file path | When to read it |
 | --- | --- |
-| [Rendering](../docs/02-pages/03-building-your-application/02-rendering/index.md) | When choosing a rendering strategy for a page — read before the four pages below |
+| [Rendering](../docs/02-pages/03-building-your-application/02-rendering/index.md) | When choosing a rendering strategy for a page — read before the pages below |
 | [Server-side Rendering (SSR)](../docs/02-pages/03-building-your-application/02-rendering/01-server-side-rendering.md) | When a page must render per request |
 | [Static Site Generation (SSG)](../docs/02-pages/03-building-your-application/02-rendering/02-static-site-generation.md) | When a page can be prerendered at build time |
 | [Automatic Static Optimization](../docs/02-pages/03-building-your-application/02-rendering/04-automatic-static-optimization.md) | When a page unexpectedly became static, or unexpectedly did not |
@@ -123,7 +123,7 @@ Only relevant when the code already lives in `pages/`, or when migrating away fr
 
 | Title and file path | When to read it |
 | --- | --- |
-| [Data Fetching](../docs/02-pages/03-building-your-application/03-data-fetching/index.md) | When choosing among the `getX` functions — read before the four pages below |
+| [Data Fetching](../docs/02-pages/03-building-your-application/03-data-fetching/index.md) | When choosing among the `getX` functions — read before the pages below |
 | [getStaticProps](../docs/02-pages/03-building-your-application/03-data-fetching/01-get-static-props.md) | When fetching data at build time for a static page |
 | [getStaticPaths](../docs/02-pages/03-building-your-application/03-data-fetching/02-get-static-paths.md) | When prerendering dynamic routes and choosing a `fallback` mode |
 | [getServerSideProps](../docs/02-pages/03-building-your-application/03-data-fetching/03-get-server-side-props.md) | When data must be fetched on every request |
