@@ -23,8 +23,6 @@ Every folder inside `docs/` has an `index.md`. It is the landing page of that se
 - **Listing pages** — only frontmatter, no body (for example [`docs/01-app/02-guides/index.md`](docs/01-app/02-guides/index.md)). The reference files already tell you what the section contains, so opening them adds nothing.
 - **Section overviews** — a real page that explains the model the whole folder assumes and compares the siblings inside it (for example [`docs/01-app/02-guides/testing/index.md`](docs/01-app/02-guides/testing/index.md) weighs Cypress, Playwright, Vitest and Jest against each other before you pick one).
 
-**Read an `index.md` when** you must *choose* among the files of a folder, or when you need the shared mental model a section takes for granted. **Skip it when** you already know which page you need: open that page directly.
-
 # How to read the documentation
 Read the `.md` files located in `.agents/skills/next-docs/docs/` **on demand**: use the [Table of Contents](#table-of-contents) as a reference to infer which files the task you are solving needs, and open only those files.
 
