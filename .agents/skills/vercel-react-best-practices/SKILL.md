@@ -1,10 +1,6 @@
 ---
 name: vercel-react-best-practices
-description: Lineamientos de optimización del rendimiento de React y Next.js de Vercel Engineering. Esta skill debe usarse al escribir, revisar o refactorizar código de React/Next.js para asegurar patrones de rendimiento óptimos. Se activa en tareas que involucran componentes de React, páginas de Next.js, obtención de datos, optimización del bundle o mejoras de rendimiento.
-license: MIT
-metadata:
-  author: vercel
-  version: "1.0.0"
+description: Reglas de optimización del rendimiento de React y Next.js de Vercel Engineering. Esta skill debe usarse al escribir, revisar o refactorizar código de React/Next.js para asegurar patrones de rendimiento óptimos. Se activa en tareas que involucran componentes de React, páginas de Next.js, obtención de datos, optimización del bundle o mejoras de rendimiento.
 ---
 
 # Buenas prácticas de React de Vercel
@@ -15,7 +11,7 @@ Guía completa de optimización del rendimiento para aplicaciones de React y Nex
 
 ## ¿Cuándo aplicar la skill?
 
-Consulta estos lineamientos cuando:
+Consulta estas reglas cuando:
 - Escribas nuevos componentes de React o páginas de Next.js
 - Implementes la obtención de datos (del lado del cliente o del servidor)
 - Revises código en busca de problemas de rendimiento
