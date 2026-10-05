@@ -95,3 +95,6 @@ Cada archivo de regla contiene: una breve explicación de por qué es importante
 | Título y ruta archivo | ¿Cuándo leerlo? |
 | --- | --- |
 | [Cambios en la API de React 19](reglas/apis-de-react-19/react19-no-forwardref.md) | Al escribir o migrar componentes de un proyecto con React 19 o superior que usan `forwardRef` para recibir una `ref`, o `useContext()` para leer un context: en React 19, `ref` es una prop normal y `use()` reemplaza a `useContext()` (y se puede llamar de forma condicional). No aplica a React 18 ni a versiones anteriores. |
+
+**Referencias:**
+* [Esta skill es traducida del GitHub de Vercel](https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-patterns)
