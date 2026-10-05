@@ -2940,6 +2940,9 @@ export default function MyComponent() {
 
 ## Tipado en TypeScript
 
+**Referencias:**
+https://github.com/wshobson/agents/tree/main/plugins/javascript-typescript/skills/typescript-advanced-types
+
 ### Strict Type Checking
 Usar strict type checking
 
