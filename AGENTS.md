@@ -14,17 +14,16 @@ Si encuentras un error, inconsistencia, duda o ambigüedad, detente y pregúntam
 **Razón**: una suposición incorrecta genera código que después hay que revisar y deshacer; preguntar cuesta menos que corregir una implementación equivocada.
 
 # Reglas **OBLIGATORIAS** de Next.js
-Este proyecto usa Next.js 16. Sus breaking changes pueden diferir de tus datos de entrenamiento.
+Antes de editar código y responder, consulta solo las fuentes cuya columna **¿Cuándo leerlo?** coincida con la tarea, y aplica a la vez las reglas y la documentación consultadas.
 
-Antes de editar código y responder, consultar estas fuentes. Cuando las fuentes se contradicen, gana la de número menor:
+Cuando las fuentes se contradicen, gana la de número menor en la columna **Prioridad**:
 
-1. [Skill `next-conventions`](.agents/skills/next-conventions/SKILL.md): Reglas propias del proyecto que definen su arquitectura. Ignorarla genera código inescalable.
-
-2. [Skill `vercel-react-best-practices`](.agents/skills/vercel-react-best-practices/): Reglas de optimización de Next.js.
-
-3. [Skill `next-docs`](.agents/skills/next-docs/): Busca en la documentación oficial de Next.js (`nextjs.org/docs`) para responder preguntas sobre APIs, tutoriales, conceptos y convenciones. Respetar sus avisos de deprecación.
-
-4. Datos de entrenamiento: válidos, pero ceden ante todo lo anterior.
+| Prioridad | Fuente | ¿Qué es? | ¿Cuándo leerlo? |
+| --- | --- | --- | --- |
+| 1 | [Skill `next-conventions`](.agents/skills/next-conventions/SKILL.md) | Reglas propias del proyecto | Antes de crear, mover, modificar o revisar código, y al responder cómo se hace algo en este proyecto. |
+| 2 | [Skill `vercel-react-best-practices`](.agents/skills/vercel-react-best-practices/) | Reglas de terceros: rendimiento de React y Next.js (Vercel) | Al crear, modificar o revisar componentes, páginas u obtención de datos, y al optimizar el rendimiento o el bundle. |
+| 3 | [Skill `next-docs`](.agents/skills/next-docs/) | Documentación oficial completa (`nextjs.org/docs`) | Al responder sobre APIs de Next.js, al usar una API que aún no esté en el código (aunque creas conocerla) y ante errores de build. Respeta sus avisos de deprecación. |
+| 4 | Datos de entrenamiento | Tu conocimiento previo | Puedes usarlo, pero las fuentes anteriores tienen prioridad: este proyecto usa Next.js 16, cuyos breaking changes pueden haberlo dejado desactualizado. Que esté desactualizado no significa que esté mal; solo que puede no aplicar a esta versión. |
 
 # Resumen de la Skill `next-conventions`
 
