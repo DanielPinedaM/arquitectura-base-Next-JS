@@ -1,5 +1,5 @@
 ---
-name: next-docs
+name: next-16.3.8-docs
 description: Official Next.js 16 documentation (App Router and Pages Router) mirrored locally as markdown, with a table of contents that maps every page to the moment it becomes relevant. Use this skill whenever a task touches Next.js at all - routing, layouts, Server and Client Components, data fetching, caching and revalidation, Server Actions and forms, metadata and SEO, next.config.js options, the next CLI, proxy/middleware, deployment, testing setup, or migrations and version upgrades - and always consult it before answering a Next.js API question from memory, because Next.js 16 renamed, deprecated and removed APIs that older training data still recommends.
 ---
 
