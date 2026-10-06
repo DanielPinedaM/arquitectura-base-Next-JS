@@ -17,7 +17,7 @@ Cuando las fuentes se contradicen, gana la de número menor en la columna **Prio
 
 | Prioridad | Fuente | ¿Qué es? | ¿Cuándo leerlo? |
 | --- | --- | --- | --- |
-| 1 | [Skill `next-conventions`](.agents/skills/next-conventions/SKILL.md) | Reglas propias del proyecto | Antes de crear, mover, modificar o revisar código, y al responder cómo se hace algo en este proyecto. |
+| 1 | [Skill `next-conventions`](.agents/skills/next-conventions/SKILL.md) | Reglas propias del proyecto | Al decidir dónde va un archivo o carpeta, cómo se nombra, qué librería o componente del proyecto usar y cómo se estiliza, y al responder cómo se hace algo en este proyecto. |
 | 2 | [Skill `vercel-react-best-practices`](.agents/skills/vercel-react-best-practices/SKILL.md) | Reglas de terceros de Vercel sobre rendimiento de React y Next.js | Al crear, modificar o revisar componentes, páginas u obtención de datos, y al optimizar el rendimiento o el bundle. |
 | 3 | [Skill `vercel-composition-patterns`](.agents/skills/vercel-composition-patterns/SKILL.md) | Reglas de terceros de Vercel sobre composición de componentes de React | Al crear, modificar o revisar la API de un componente reutilizable: props booleanas, compound components, render props, context providers o `forwardRef`. |
 | 4 | [Skill `next-docs`](.agents/skills/next-docs/SKILL.md) | [Documentación oficial completa de Next.js](https://nextjs.org/docs) | Al responder y usar APIs de Next.js (aunque creas conocerla) y ante errores. Respeta sus avisos de deprecación. |
