@@ -714,51 +714,56 @@ Por defecto, Claude Code difiere las definiciones de las tools de un MCP usando 
 
 Un CLI es más eficiente en contexto porque no agrega ningún listado de tools: el modelo ejecuta los comandos directamente en la terminal ([documentación oficial](https://code.claude.com/docs/en/costs#reduce-mcp-server-overhead)).
 
-## 🌐 `playwright-cli` y `browser-agent`
+## 🌐 `playwright-cli`
 
 > [!CAUTION]
 > # ⚠️ Advertencia
 >
-> Usar esta skill con ciudado, es muy buena, pero
->
-> Si intentas solucionar un bug con esta skill sin entender el código, es probable que introduzcas nuevos bugs.
+> Usar esta skill con cuidado, es muy buena, pero si intentas solucionar un bug con esta skill sin entender el código, es probable que introduzcas nuevos bugs.
 
-Mira [este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿que es `playwright-cli`?
+[Mira este video](https://youtu.be/OXZRQ3BwHxQ?si=gOguZh7KLQ3aWBlE) para que aprendas ¿qué es y para qué sirve `playwright-cli`?
 
-Sirve para que la IA desde la terminal pueda controlar el navegador: navegar por páginas (rutas), hacer clics y llenar formularios sin hacerlo manualmente.
+Sirve para que la IA desde la terminal pueda controlar el navegador. Ejemplos de uso:
+* Solucionar bugs.
 
-Para que la IA controle el navegador hay dos skills que son **DIFERENTES**:
+* Navegar por páginas (rutas).
 
-* **`playwright-cli`**: Lista y explicación de los comandos que permiten a la IA controlar el navegador.
+* Hacer clics.
 
-* **`browser-agent`** Esta skill llama a la skill `playwright-cli` y le explica a la IA como usar `playwright-cli` para automatizar un proceso o solucionar un bug.
+* Tomar capturas de pantalla.
 
-`browser-agent` se usa para lo siguiente:
+* Permite que la IA acceda al DOM.
 
-| Pregunta ⬇️ / Modo ➡️                                                          | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
-|---------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
-| ¿Para qué sirve?                                                                | Ejecutar o automatizar un flujo de la app | Encontrar la causa de un bug                 |
-| ¿Escribe codigo de testing en Jest, Vitest, etc?                                | ❌ No                                     | ❌ No                                       |
-| Ejemplo de uso                                                                  | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
-| Modifica código fuente                                                          | ❌ No                                     | ✅ Sí                                       |
-| Diagnostica (logs del server, `curl -i`/`-v`, cuerpo y headers de la respuesta) | ❌ No                                     | ✅ Sí                                       |
-| ¿Ejecuta ESLint?                                                                | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
-| ¿Genera el build de la aplicacion?                                              | ❌ No                                     | ✅ Sí                                       |
-| ¿Abre el navegador y usa comandos de `playwright-cli`?                          | ✅ Sí                                     | ✅ Sí                                       |
-| ¿Pide usuario y contraseña y hace login?                                        | ✅ Sí                                     | ✅ Sí                                       |
+* Llenar formularios.
+
+* [Click aquí para ver más ejemplos.](/.agents/skills/playwright-cli/automatizacion-del-navegador.md#tareas-específicas)
+
+[Esta skill](.agents/skills/playwright-cli/SKILL.md) esta basada en [la skill oficial de Microsoft](https://github.com/microsoft/playwright-cli/blob/main/skills/playwright-cli/SKILL.md). La diferencia es que esta skill tiene dos modos diferentes:
+
+| Pregunta ⬇️ / Modo ➡️                                                                  | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
+|-----------------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
+| ¿Para qué sirve?                                                                        | Ejecutar o automatizar un flujo de la app | Encontrar la causa de un bug                 |
+| Ejemplo de uso                                                                          | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
+| ¿Escribe codigo de testing en Jest, Vitest, etc?                                        | ❌ No                                     | ❌ No                                       |
+| Modifica código fuente                                                                  | ❌ No                                     | ✅ Sí                                       |
+| Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | ❌ No                                     | ✅ Sí                                       |
+| ¿Ejecuta ESLint?                                                                        | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
+| ¿Genera el build de la aplicacion?                                                      | ❌ No                                     | ✅ Sí                                       |
+| ¿Abre el navegador y usa comandos de `playwright-cli`?                                  | ✅ Sí                                     | ✅ Sí                                       |
+| ¿Pide usuario y contraseña y hace login?                                                | ✅ Sí                                     | ✅ Sí                                       |
 
 **SIEMPRE** que necesites controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
 
-2. Llamar la skill `browser-agent` y **NO** la skill `playwright-cli` **NI** [playwright MCP](https://github.com/microsoft/playwright-mcp)
+2. Llamar [la skill `playwright-cli`](.agents/skills/playwright-cli/SKILL.md) y **NO** [playwright MCP](https://github.com/microsoft/playwright-mcp)
 
 3. Usar este prompt:
 
 ***Ejemplo de Prompt:***
 ```txt
-/browser-agent <<< Aqui describir de forma MUY DETALLADA
-la funcionalidad a testear o el proceso a automatizar,
-para mejorar el resultado es bueno decirle a Claude
+/playwright-cli <<< Aqui describir de forma MUY DETALLADA
+la funcionalidad a testear, bug a solucionar o el proceso a automatizar,
+para mejorar el resultado es bueno decirle a la IA
 rutas especificas de donde estan los archivos, componentes, funciones, etc.
 que necesita para ejecutar el proceso >>>
 ```
