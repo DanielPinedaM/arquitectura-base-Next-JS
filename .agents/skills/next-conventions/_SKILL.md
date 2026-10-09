@@ -3228,7 +3228,7 @@ useEffect(() => {
 }, [/* dependencyArray */]);
 ```
 
-# Reglas
+## Reglas
 - Si el `useEffect` necesita cleanup, retornar una cleanup function que solo llame a funciones.
 
 - Si varias funciones dependen de arrays de dependencias distintos, sepáralas en `useEffect` distintos.
