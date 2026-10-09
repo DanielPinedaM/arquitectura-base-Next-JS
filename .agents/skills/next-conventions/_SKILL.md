@@ -3186,3 +3186,49 @@ export default function MyComponent() {
 // es incorrecto porque se escribe ../ en lugar de usar el alias @/
 import MyComponent from '../../components/MyComponent';
 ```
+
+# No acumular código en `useEffect`
+
+Dentro de un `useEffect`, llama a funciones. No metas un montón de código.
+
+Dividir el código del `useEffect` en funciones: cada función cumple el principio de responsabilidad única, su nombre describe *qué* hace y no *cómo* (`saveFilterToStorage`, no `process`)
+
+**Razón:** el `useEffect` queda como un índice legible de *qué* pasa cuando cambian las dependencias, y cada función se puede leer, probar y reutilizar por separado.
+
+**Correcto**
+
+```tsx
+'use client';
+
+import { useEffect } from 'react';
+
+export default function MyComponent() {
+  useEffect(() => {
+    doSomething1();
+    doSomething2();
+  }, [/* dependencyArray */]);
+
+    const doSomething1 = () => {
+    // Código de una sola tarea
+  };
+
+  const doSomething2 = (): void => {
+    // Código de otra tarea
+  };
+
+  return null;
+}
+```
+
+**Incorrecto**
+
+```tsx
+useEffect(() => {
+  // 200 líneas de código
+}, [/* dependencyArray */]);
+```
+
+# Reglas
+- Si el `useEffect` necesita cleanup, retornar una cleanup function que solo llame a funciones.
+
+- Si varias funciones dependen de arrays de dependencias distintos, sepáralas en `useEffect` distintos.
