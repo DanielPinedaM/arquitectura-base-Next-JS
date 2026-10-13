@@ -767,7 +767,7 @@ src/shared/ui/shad-cn/react-hook-form
 │   defaultValues      │
 │   handleSubmit()     │
 │   control            │
-│   rules              │
+│   zodResolver        │
 │   watch()            │
 │   lógica condicional │
 │   estado derivado    │
@@ -819,7 +819,7 @@ Un input reutilizable debe:
 
 - Encapsular `Controller` de React Hook Form.
 - Ser genérico (`T extends FieldValues`).
-- Usar `control`, `name`, `rules`, `errors` como contrato base.
+- Usar `control`, `name`, `errors` como contrato base.
 - No contener lógica de negocio.
 - No definir reglas internas.
 - No usar `watch`.
@@ -855,9 +855,10 @@ Un input reutilizable debe:
 
 ### 9. Validaciones
 
-- Todas las validaciones se definen en el padre mediante `rules`.
-- Se soportan múltiples validaciones (`required`, `minLength`, `pattern`, etc.).
-- El input solo ejecuta las validaciones, no las define.
+- Todas las validaciones se definen en un Zod schema, dentro de un archivo `.schema.ts` ubicado en la carpeta padre mas cercana al componente que contiene el formulario.
+- El Zod schema se conecta en el componente padre con `useForm({ resolver: zodResolver(schema) })`, importando `import { zodResolver } from '@hookform/resolvers/zod'`.
+- Prohibido usar la prop `rules` de `Controller` o `useController`, y las validaciones nativas de React Hook Form (`required`, `minLength`, `pattern`, `validate`, etc.).
+- El input no define validaciones. El mensaje de error lo muestra `FormErrorMessages` (ver [11. Mensajes de Error de Formulario](#11-mensajes-de-error-de-formulario)).
 
 ### 10. Formularios Dinámicos
 
@@ -868,7 +869,7 @@ Un input reutilizable debe:
 
 - Todo componente de campo ubicado en `src/shared/ui/shad-cn/react-hook-form` debe usar `FormErrorMessages` para mostrar los mensajes de error de React Hook Form.
 
-* Prohibido mostrar errores de validación con elementos HTML propios, lógica manual o cualquier otro componente alternativo.
+- Prohibido mostrar errores de validación con elementos HTML propios, lógica manual o cualquier otro componente alternativo.
 
 ## Regla Clave de Arquitectura
 
