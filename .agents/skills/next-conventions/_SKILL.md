@@ -733,7 +733,7 @@ Estos componentes solamente manejan integración técnica:
 - `onBlur`
 - errores visuales del formulario
 
-No representan formularios del negocio.
+No representan formularios con logica de negocio.
 
 ## Reglas del Sistema de Formularios
 
@@ -905,30 +905,45 @@ Un input reutilizable debe:
 - Separación estricta entre lógica y UI.
 - Mantenimiento simple en proyectos grandes.
 
-## Prohibido Agregar Lógica de Negocio Dentro de src/shared/ui/shad-cn/react-hook-form
+## Los Componentes de `src/shared/ui/shad-cn/react-hook-form` Son Agnósticos al Negocio y al Dominio
+Los componentes de `src/shared/ui/shad-cn/react-hook-form` solo conectan React Hook Form con la UI de Shad cn. No conocen features, entidades del sistema, reglas de negocio ni casos de uso. La lógica de negocio se resuelve en el componente padre de la feature, que le pasa al input únicamente valores finales de UI (`disabled`, `placeholder`, `className`, etc.).
 
-En `src/shared/ui/shad-cn/react-hook-form` nunca agregar:
+**Razón:** un input con lógica de negocio queda **acoplado** a las entidades y features que conoce. Deja de ser reutilizable, acumula un `if` por cada feature hasta volverse inescalable, rompe la fuente única de verdad al repartir la regla entre el input y la feature, provoca regresiones en todos los formularios que lo usan cada vez que esa regla cambia, y solo se puede probar con datos del dominio.
 
-- Reglas de negocio
-- Reglas específicas de una feature
-- Validaciones de dominio
-- Condiciones de negocio
-- if relacionados con entidades del sistema
-- Permisos
-- Roles
-- Lógica de cualquier feature. Ejemplo: tareas, productos, usuarios, etc.
-
-**Ejemplo prohibido:**
+**Incorrecto**
+`InputText` decide su texto con un condicional según el campo de cada feature (tareas y productos). Por cada feature nueva hay que agregarle otra condición.
 
 ```tsx
-if (user.role === "admin") {
-  ...
+// src/shared/ui/shad-cn/react-hook-form/text/input/input-text/InputText.tsx
+
+function InputText({ name, ...props }: Omit<ComponentProps<'input'>, 'type'>) {
+  // condicional y textos del dominio dentro de un componente agnóstico
+  const placeholder = name === 'title' ? 'Título de la tarea' : 'Nombre del producto';
+
+  return <InputBase type='text' name={name} placeholder={placeholder} {...props} />;
 }
 ```
 
-> [!WARNING]
->
-> # **INCOMPLETO - AQUI ME FALTA AGREGAR EJEMPLO DE INPUTS Q ESTAN EN SRC/SHARED/COMPONENTS/REACT-HOOK-FORM**
+**Correcto:**
+`InputText` solo recibe props de UI. El componente padre de la feature le pasa el texto (`placeholder`) y aplica la regla de negocio para calcular el valor final de `disabled`.
+
+```tsx
+// src/shared/ui/shad-cn/react-hook-form/text/input/input-text/InputText.tsx
+function InputText({ ...props }: Omit<ComponentProps<'input'>, 'type'>) {
+  return <InputBase type='text' {...props} />;
+}
+
+export { InputText };
+```
+
+### Reglas
+* Prohibido agregar en `src/shared/ui/shad-cn/react-hook-form`: reglas de negocio, reglas específicas de una feature, validaciones de dominio, condiciones de negocio, permisos, roles ni `if` relacionados con entidades del sistema (tareas, productos, usuarios, etc.).
+
+* Prohibido que un componente de `src/shared/ui/shad-cn/react-hook-form` reciba como prop una entidad del sistema (`user`, `task`, `product`, etc.) para decidir su comportamiento. Recibe solo valores primitivos de UI ya calculados por el padre.
+
+* Las validaciones de dominio se definen en el Zod schema (`.schema.ts`) de la feature, no dentro del input.
+
+* Si un input necesita una condición para funcionar, esa condición se calcula en el padre con `watch` (ver [Uso de `watch`](#6-uso-de-watch)) y llega al input como prop.
 
 # Consumo de API
 Usar `src\shared\api\http-client\http-gateway.api.ts` para realizar cualquier petición HTTP.
