@@ -676,6 +676,21 @@ Es decir, la IA debe consultar los archivos de la skill que contienen la informa
 
 El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la documentacion oficial de Next.js](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
 
+## `design`
+[Mira este video](https://youtu.be/Bb-hjNbvXmM?si=LGrcN90kD-J0IlFB) para aprender a usar la skill `design`.
+
+Solo funciona en Claude. Crea un mockup (similar a Figma) que puedes editar con IA, pidiéndole a Claude los cambios en lenguaje natural. Genera una URL que puedes compartir, y puedes convertirlo a código de CSS, Sass, Tailwind o Bootstrap.
+
+**Ejemplos**
+
+```txt
+/design crea una landing page para un portafolio
+```
+
+```txt
+/design cambia el color del titulo del texto X por rojo
+```
+
 # MCP
 
 ## 🔗 Enlaces - Mas Ejemplos de MCP
