@@ -3203,7 +3203,7 @@ export default function MyComponent() {
 import MyComponent from '../../components/MyComponent';
 ```
 
-# No acumular código en `useEffect`
+## No acumular código en `useEffect`
 
 Dentro de un `useEffect`, llama a funciones. No metas un montón de código.
 
@@ -3244,7 +3244,7 @@ useEffect(() => {
 }, [/* dependencyArray */]);
 ```
 
-## Reglas
+### Reglas
 - Si el `useEffect` necesita cleanup, retornar una cleanup function que solo llame a funciones.
 
 - Si varias funciones dependen de arrays de dependencias distintos, sepáralas en `useEffect` distintos.
