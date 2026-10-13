@@ -156,7 +156,7 @@ export interface IItemStyle {
 }
 
 export interface IChartOptions {
-  // titulo y sub-titulo de grafica
+  /** titulo y sub-titulo de grafica */
   title?: {
     text?: string;
     subtext?: string;
@@ -166,7 +166,7 @@ export interface IChartOptions {
     subtextStyle?: IStyleText;
   };
 
-  // leyenda de grafica: A la izquierda tiene un cuadro con color y a la derecha tiene el signifcado del color
+  /** leyenda de grafica: A la izquierda tiene un cuadro con color y a la derecha tiene el signifcado del color */
   legend?: {
     orient?: TOrient;
     left?: TLeft;

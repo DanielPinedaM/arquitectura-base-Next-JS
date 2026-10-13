@@ -17,9 +17,9 @@ export const useQueryParams = () => {
    * En vez de usar params.set(), es mejor usar este custom hook setQueryParams()
    * http://nextjs.org/docs/app/api-reference/functions/use-search-params#updating-searchparams
    *
-   * @param {Object} [paramsObj] — objeto literal con query params a actualizar
-   * @param {Object} [customPathname] — ruta personalizada a la cual se le setea los query params, por defecto es la ruta actual
-   * @param {boolean} [options.replaceAll] — true = actualizar los nuevos valores cuando las keys de paramsObj existen en los query params, false = reemplazar POR COMPLETO por nuevos query params */
+   * @param paramsObj - objeto literal con query params a actualizar
+   * @param customPathname - ruta personalizada a la cual se le setea los query params, por defecto es la ruta actual
+   * @param options.replaceAll - true = actualizar los nuevos valores cuando las keys de paramsObj existen en los query params, false = reemplazar POR COMPLETO por nuevos query params */
   const setQueryParams = useCallback(
     (paramsObj: Record<string, any> = {}, options?: IOptionsSetQueryParams): void => {
       const { replaceAll = false, customPathname = null } = options ?? {};

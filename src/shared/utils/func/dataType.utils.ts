@@ -227,41 +227,41 @@ export const forceConvertToString = (value: any | string): string => {
 * ' COMunicaciÓN    ' devuelve  'comunicacion'
 * [1, 2, 3]           devuelve   [1, 2, 3]
 *
-* @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
+* @param string - valor a normalizar. Si no es string o está vacío, se devuelve tal cual
 
-* @param {Object} [options]                           opciones de normalización
+* @param options - opciones de normalización
 
-* @param {boolean} [options.clearAccents]             true: borrar las tildes
-                                                      false: NO borrar las tildes
+* @param options.clearAccents - true: borrar las tildes
+                                false: NO borrar las tildes
 
-* @param {boolean} [options.clearSpecialCharacters]   true: BORRAR caracteres especiales
-                                                      false: CONSERVAR caracteres especiales
+* @param options.clearSpecialCharacters - true: BORRAR caracteres especiales
+                                          false: CONSERVAR caracteres especiales
 
-* @param {boolean} [options.enyeWithN]                true: REEMPLAZAR "ñ" y "Ñ" por "n"
-                                                      false: CONSERVAR letra "ñ"
+* @param options.enyeWithN - true: REEMPLAZAR "ñ" y "Ñ" por "n"
+                             false: CONSERVAR letra "ñ"
 
-* @param {boolean} [options.clearNumbers]             true: BORRAR numeros
-                                                      false: CONSERVAR numeros
+* @param options.clearNumbers - true: BORRAR numeros
+                                false: CONSERVAR numeros
 
-* @param {'upperCase' | 'lowerCase' | 'titleCase' | null}  [options.caseTransform]  "upperCase": convertir texto a MAYUSCULA
-                                                                                    "lowerCase": convertir texto a minuscula
-                                                                                    "titleCase": iniciales en mayuscula
-                                                                                    null: NO modifica mayusculas ni minusculas
+* @param options.caseTransform - "upperCase": convertir texto a MAYUSCULA
+                                 "lowerCase": convertir texto a minuscula
+                                 "titleCase": iniciales en mayuscula
+                                 null: NO modifica mayusculas ni minusculas
 
-* @param {'trim' | 'trimStart' | 'trimEnd' | null}  [options.trimType] controla como borrar los espacios en blanco
-                                                                      "trim": borrar espacio en blanco al PRINCIPIO Y FINAL
-                                                                      "trimStart": borrar espacio en blanco al PRINCIPIO
-                                                                      "trimEnd": borrar espacio en blanco al FINAL
-                                                                      null: NO borrar espacios en blanco
+* @param options.trimType - controla como borrar los espacios en blanco
+                            "trim": borrar espacio en blanco al PRINCIPIO Y FINAL
+                            "trimStart": borrar espacio en blanco al PRINCIPIO
+                            "trimEnd": borrar espacio en blanco al FINAL
+                            null: NO borrar espacios en blanco
 
-* @param {boolean} [options.clearBlankSpaces] true: reemplazar tabs, multiples espacios en blanco '   ' y saltos de linea \n por espacio en blanco ' '
-                                              false: conservar tabs, multiples espacios en blanco '   ' y saltos de linea \n
+* @param options.clearBlankSpaces - true: reemplazar tabs, multiples espacios en blanco '   ' y saltos de linea \n por espacio en blanco ' '
+                                    false: conservar tabs, multiples espacios en blanco '   ' y saltos de linea \n
 
-* @param {'-' | '_' | null} [options.typeOfDash] null: NO reemplazar espacios en blanco " " por guiones
-                                                "-": reemplaza espacios por guion MEDIO
-                                                "_" : reemplaza espacios por guion BAJO
+* @param options.typeOfDash - null: NO reemplazar espacios en blanco " " por guiones
+                              "-": reemplaza espacios por guion MEDIO
+                              "_" : reemplaza espacios por guion BAJO
 
-* @returns {string|any}                               string normalizado o el valor original si no es string */
+* @returns string normalizado o el valor original si no es string */
 interface IOptionsNormalizeStr {
   clearAccents?: boolean;
   clearSpecialCharacters?: boolean;

@@ -24,10 +24,7 @@ import {
 import { Method } from '@/shared/api/http-client/data-types/types/gateway.type';
 import { ILoaderState } from '@/shared/stores/loader/loader.store';
 
-/*
- ***************************
- * validar peticiones HTTP *
- *************************** */
+/** validar peticiones HTTP */
 async function executeRequest<T = unknown>(
   method: Method,
   url: string = '',
