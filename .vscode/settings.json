@@ -1,4 +1,18 @@
 {
+  // Ocultar en el explorador y en la búsqueda los enlaces simbólicos de los harness de IA (apuntan a .agents, donde están los archivos reales)
+  "files.exclude": {
+    ".github": true,
+    ".claude": true,
+    ".cursor": true,
+    ".deepcode": true,
+    ".grok": true,
+    ".gemini": true,
+    ".opencode": true,
+    ".pi": true,
+    ".codex": true,
+    ".openclaw": true
+  },
+
   // 🎨 Tema VS Code adaptado a la paleta de colores de React
   "workbench.colorCustomizations": {
     // Barra lateral izquierda (explorador, extensiones, etc.)
