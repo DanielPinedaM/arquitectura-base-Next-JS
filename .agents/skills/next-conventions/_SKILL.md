@@ -3248,3 +3248,122 @@ useEffect(() => {
 - Si el `useEffect` necesita cleanup, retornar una cleanup function que solo llame a funciones.
 
 - Si varias funciones dependen de arrays de dependencias distintos, sepáralas en `useEffect` distintos.
+
+## Comentarios Semánticos
+Todo comentario debe ser semántico: declara su intención con una sintaxis estándar que el editor entiende, en lugar de texto libre. Se usan dos sintaxis:
+
+1. **TSDoc** para documentar `.ts` y `.tsx` (componentes, props, hooks, funciones, stores, interfaces, etc)
+
+2. **Etiquetas de Todo Tree** cuando el comentario marca trabajo pendiente, un error o código provisorio.
+
+Esta regla define **cómo** escribir un comentario, no **cuándo** agregarlo.
+
+## TSDoc, no JSDoc
+TSDoc no repite los tipos porque TypeScript ya los declara en el contrato (`interface` o `type`).
+
+**Incorrecto**
+JSDoc repite los tipos entre llaves (`{User}`), que se desincronizan cuando cambia la firma.
+
+```ts
+// user.utils.ts
+
+/**
+ * Devuelve el nombre del usuario en mayúsculas.
+ * @param {User} user el usuario
+ * @returns {string} el nombre en mayúsculas
+ */
+export const getUpperName = (user: User): string => user.name.toUpperCase();
+```
+
+Un comentario `//` sobre la propiedad no aparece al pasar el cursor en el editor de codigo.
+
+```tsx
+// UserCard.tsx
+
+interface UserCardProps {
+  // nombre del usuario
+  name: string;
+}
+```
+
+**Correcto**
+TSDoc sin tipos, con `@param nombre - descripción` y etiquetas estándar de TSDoc (`@returns`, `@remarks`, `@deprecated`, `@example`, `{@link}`).
+
+```ts
+// user.utils.ts
+
+/**
+ * Devuelve el nombre del usuario en mayúsculas.
+ *
+ * @param user - El usuario.
+ * @returns El nombre en mayúsculas. */
+export const getUpperName = (user: User): string => user.name.toUpperCase();
+```
+
+```tsx
+// UserCard.tsx
+
+interface UserCardProps {
+  /** Nombre del usuario. */
+  name: string;
+}
+```
+
+### Etiquetas de Todo Tree
+Cuando aplique, el comentario empieza con una etiqueta de Todo Tree en mayúsculas seguida de `:` y la descripción. Todo Tree resalta la etiqueta en el editor y la lista en su panel, así el trabajo pendiente se encuentra sin buscar texto libre.
+
+| Etiqueta | ¿Qué indica? | Ejemplo |
+| --- | --- | --- |
+| `TODO` | Tarea pendiente general o mejora futura. | `// TODO: paginar la lista cuando el endpoint lo soporte` |
+| `FIXME` | Código roto o con errores que necesita corrección inmediata. | `// FIXME: el Server Action no revalida la ruta después de guardar` |
+| `BUG` | Fallo detectado que debe resolverse. | `{/* BUG: el <Image> se deforma en mobile porque falta sizes */}` |
+| `HACK` | Solución temporal, atajo o código "sucio" que debe reescribirse. | `// HACK: 'use client' en todo el layout para usar useState; mover el estado a un componente hijo` |
+| `XXX` | Zona del código dudosa o que requiere atención. | `// XXX: este useEffect escribe en localStorage en cada cambio del filtro` |
+
+**Incorrecto**
+Texto libre, etiqueta en minúscula o etiqueta inventada: Todo Tree no los detecta.
+
+```tsx
+// ProductList.tsx
+
+// falta paginar la lista
+// todo: validar stock antes de agregar al carrito
+// NOTA: esto es temporal, arreglar después
+
+export default function ProductList() {
+  return (
+    <ul>
+      {/* arreglar: el botón no se deshabilita mientras se envía el formulario */}
+    </ul>
+  );
+}
+```
+
+**Correcto**
+
+```tsx
+// ProductList.tsx
+
+// TODO: paginar la lista cuando el endpoint lo soporte
+// FIXME: validar stock antes de agregar al carrito
+// HACK: 'use client' en todo el layout para usar useState; mover el estado a un componente hijo
+
+export default function ProductList() {
+  return (
+    <ul>
+      {/* BUG: el botón no se deshabilita mientras se envía el formulario */}
+    </ul>
+  );
+}
+```
+
+## Reglas
+* Usar solo las [etiquetas de la tabla](#etiquetas-de-todo-tree). Todo Tree distingue mayúsculas de minúsculas y por defecto no resalta etiquetas propias (`NOTA`, `PENDIENTE`, `OPTIMIZE`).
+
+* Un comentario que solo explica el código, sin trabajo pendiente, no lleva etiqueta de Todo Tree: aparecería en el panel como algo por resolver.
+
+* Escribir la etiqueta de Todo Tree en un comentario `//` aparte, fuera del bloque `/** */`: Todo Tree no la detecta dentro del TSDoc.
+
+* Dentro de TSX, la etiqueta de Todo Tree va en `{/* */}`, porque `//` no es válido entre etiquetas TSX.
+
+* Las etiquetas de TSDoc y de Todo Tree se escriben en inglés, la descripción en español
