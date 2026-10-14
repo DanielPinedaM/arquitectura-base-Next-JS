@@ -129,10 +129,10 @@ Para que la configuración funcione, debes tener instalado:
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
-2. Instalar:
+2. Instalar de forma global la ultima version estable de `pnpm`:
 
 ```console
-npm install -g pnpm@latest-11
+npm i -g pnpm@latest
 ```
 
 3. Cerrar y volver abrir Git Bash
@@ -228,7 +228,11 @@ Usar Node.js, prohibido usar alternativas como:
 * [Deno](https://deno.com/)
 
 # 📦 Manejador de Paquetes
-Usar `pnpm`, `pnpm-lock.yaml` y `pnpm dlx <paquete>` version `>=11.0.0 <12.0.0`. Esta 🚫 **BLOQUEADO** el uso de otras alternativas como:
+Usar `pnpm` version `>=12.0.0 <13.0.0`, `pnpm-lock.yaml` y `pnpm dlx <paquete>`. Esta 🚫 **BLOQUEADO** el uso de:
+
+* Otras versiones de `pnpm` fuera de ese rango (por ejemplo pnpm 11 o pnpm 13).
+
+* Otros manejadores de paquetes como:
 
 | Concepto ⬇️ / Nombre manejador de paquetes ➡️            | `npm`                                   | `yarn`                              |
 | --------------------------------------------------------- | --------------------------------------- | ----------------------------------- |
