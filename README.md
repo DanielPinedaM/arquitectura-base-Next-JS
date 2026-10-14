@@ -232,13 +232,20 @@ Usar `pnpm` version `>=12.0.0 <13.0.0`, `pnpm-lock.yaml` y `pnpm dlx <paquete>`.
 | Lockfile                                                  | `package-lock.json`                     | `yarn.lock`                         |
 | Ejecutar un paquete temporal (sin instalarlo globalmente) | `npx <paquete>`<br>`npm exec <paquete>` | `yarn dlx <paquete>` *(Yarn Berry)* |
 
-# 🟢 Administrador de Versiones para Node.js
-Usar `fnm`. Está prohibido usar alternativas como:
+Para esto en `package.json` se agrego:
 
-* nvm
-* volta
-
-Este proyecto usa Node.js 24.21.0
+```JSON
+{
+  "packageManager": "pnpm@12.11.2",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=12.0.0 <13.0.0",
+      "onFail": "download"
+    }
+  }
+}
+```
 
 # 🏷️ Alias
 Para todos los comandos de `pnpm` usar el alias `pn`
