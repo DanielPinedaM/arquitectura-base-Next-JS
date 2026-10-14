@@ -119,13 +119,6 @@ Para que la configuración funcione, debes tener instalado:
 
 * [fnm](https://github.com/Schniz/fnm)
 
-> [!TIP]
-> # ⚡ **Empieza de inmediato**
->
-> 👍 Si quieres empezar a programar con IA sin perder tiempo configurando herramientas, utiliza **Claude Code**. Este proyecto ya incluye las configuraciones de **MCP**, **Skills** y [`AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks) listas para usar.
->
-> 👎 Si prefieres otra IA, deberás configurar manualmente sus funcionalidades equivalentes según la forma en que esa herramienta las implemente.
-
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
