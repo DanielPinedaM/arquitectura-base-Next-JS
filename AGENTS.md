@@ -4,11 +4,16 @@ Arquitectura base agnóstica a las features para iniciar un nuevo proyecto en Ne
 # Ejecución de Proyecto
 
 * Runtime: Node.js 24
-* Administrador de versiones: fnm
+* Administrador de versiones: pnpm
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
 
 # Reglas **OBLIGATORIAS** de Next.js
+
+## Preguntar
+Las modificaciones triviales se implementan directamente; las de complejidad media o alta, solo después de utilizar la [skill `question-me`](.agents/skills/question-me/SKILL.md)
+
+**Razón:** preguntar cuesta menos que revisar y deshacer código basado en una suposición incorrecta.
 
 ## Fuentes de consulta
 Antes de editar código y responder, consulta solo las fuentes cuya columna **¿Cuándo leerlo?** coincida con la tarea, y aplica a la vez las reglas y la documentación consultadas.
@@ -23,11 +28,6 @@ Cuando las fuentes se contradicen, gana la de número menor en la columna **Prio
 | 4 | [Skill `next-16.3.8-docs`](.agents/skills/next-16.3.8-docs/SKILL.md) | [Documentación oficial completa de Next.js](https://nextjs.org/docs) | Al responder y usar APIs de Next.js (aunque creas conocerla) y ante errores. Respeta sus avisos de deprecación. |
 | 5 | [llms.txt de React](https://react.dev/llms.txt) | Tabla de contenido con enlaces a la documentación oficial de React | Leer solo el índice no basta: abre las páginas enlazadas que correspondan. Hazlo al responder y usar APIs de React (aunque creas conocerla) y ante errores |
 | 6 | Datos de entrenamiento | Tu conocimiento previo | Puedes usarlo, pero las fuentes anteriores tienen prioridad: este proyecto usa Next.js 16, cuyos breaking changes pueden haberlo dejado desactualizado. Que esté desactualizado no significa que esté mal; solo que puede no aplicar a esta versión. |
-
-## Preguntar
-Si detectas un error, una inconsistencia o una ambigüedad, o tienes alguna duda, detente y pregúntame antes de escribir o modificar código. No supongas cómo debe implementarse algo.
-
-**Razón:** preguntar cuesta menos que revisar y deshacer código basado en una suposición incorrecta.
 
 # Resumen de la Skill `next-conventions`
 
