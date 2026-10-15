@@ -1,8 +1,6 @@
 ---
 name: git-commit
 description: Convención obligatoria de git commits (Conventional Commits + Gitmoji, 1 commit = 1 feature). Aplicar siempre antes de cualquier commit.
-when_to_use: Aplicar en TODOS los git commits sin excepción. Triggers — "haz un commit", "hacer commit", "commitear", "crea un commit", "nuevo commit", "git commit", "git push", "registra los cambios", "guarda en git", "commit los cambios", "sube los cambios a git".
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git config:*), Bash(git add:*), Bash(git commit:*), Write(.agents/skills/git-commit/COMMIT_MSG_TEMP.txt), Bash(rm -f .agents/skills/git-commit/COMMIT_MSG_TEMP.txt)
 ---
 
 # Flujo de Trabajo
