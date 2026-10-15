@@ -103,6 +103,11 @@ En este proyecto se usa CSS para estilos globales y Tailwind para los estilos de
 >
 > Puedes hacer clic en el nombre de cada tecnología para ver cursos y aprenderlas
 
+> [!TIP]
+> # 🧠 **Aprende**
+
+* [🔗 Enlace - HTTP Cats - Explicación de los Status HTTP](https://http.cat/)
+
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
 ## 🛠️ Antes de Empezar
@@ -255,10 +260,14 @@ Para todos los comandos de `pnpm` usar el alias `pn`
 Este comando instala los paquetes que estan en `package.json` que son Next.js, React, TypeScript, Tailwind, etc:
 
 ```console
+cd /ruta/a/carpeta/raiz/del/proyecto
+```
+
+```console
 pn i
 ```
 
-# ▶️ Scripts de Desarrollo
+# ▶️ Comandos para Ejecutar Proyecto
 
 | Comando          | Ambiente    | Variable de Entorno            |
 | ---------------- | ----------- | ------------------------------ |
@@ -266,7 +275,7 @@ pn i
 | `pn start:test`  | Pruebas     | `environments/.env.test`       |
 | `pn start:prod`  | Producción  | `environments/.env.production` |
 
-# 🚀 Generar Carpeta `.next` (`build`) para Desplegar
+# 🚀 Comandos para Generar Carpeta `.next` (`build`) para Desplegar
 
 | Comando         | Ambiente    | Variable de Entorno            |
 | --------------- | ----------- | ------------------------------ |
@@ -390,25 +399,6 @@ debugger;
 4. Navegue hasta la pantalla donde se encuentra el componente que contiene el `debugger;`
 
 5. Automaticamente el navegador abre la pestaña "Fuentes" ("Sources") de las devtools donde puede ver el código a depurar que contiene `debugger;`
-
-# Arquitectura del Proyecto
-
-> [!TIP]
-> # 🧠 **Aprende antes de pedir cambios**
->
-> No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto.
->
-> Hazle preguntas a la IA sobre:
->
-> 1. [`AGENTS.md`](https://youtu.be/eS5HmdpcqnM?si=D7X-HFPQAfCkZ4Ks)
-> 2. `.agents/skills/***`
-> 3. Los **"🔗 Enlaces"**
->
-> Hasta comprender cómo funciona el proyecto.
->
-> Aunque es un texto largo, aprenderás la arquitectura, buenas prácticas y a detectar revisando el código, cuando la IA alucina
-
-# [🔗 Enlace - HTTP Cats - Explicación de los Status HTTP](https://http.cat/)
 
 # 🤖 Uso de IA
 
@@ -697,6 +687,30 @@ Solo funciona en Claude. Crea un mockup (similar a Figma) que puedes editar con 
 /design cambia el color del titulo del texto X por rojo
 ```
 
+## `skill-creator`
+Para aprender como crear una nueva skill [mira este video](https://youtu.be/oZTXrgHRi-k ), **SIEMPRE** agregar las skills en la carpeta `.agents\skills\NOMBRE-DE-LA-SKILL\SKILL.md`, **NUNCA** en otra carpeta (`.claude`, `.codex`, etc), esto sin importar que harness y modelo de IA uses (Claude Code, Codex, etc)
+
+Para crear una nueva skill, hay que llamar la skill `skill-creator`. Ejemplo:
+
+```bash
+/skill-creator en la carpeta .agents\skills\ crear una skill sobre <<aqui describes sobre que trata la skill>>
+```
+
+## `question-me`
+Esta skill esta basada en:
+
+| Autor       | Nombre de la skill | Enlace                                                                                                                                                                |
+| ----------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Matt Pocock | `grill-me`         | [https://www.skills.sh/mattpocock/skills/grill-me](https://www.skills.sh/mattpocock/skills/grill-me)                                                                  |
+| Matt Pocock | `grill-with-docs`  | [https://www.skills.sh/mattpocock/skills/grill-with-docs](https://www.skills.sh/mattpocock/skills/grill-with-docs)                                                    |
+| Fazt        | `fxquestionme`     | [(https://github.com/fazt/dotfiles/blob/master/claude/skills/fxquestionme/SKILL.md](https://github.com/fazt/dotfiles/blob/master/claude/skills/fxquestionme/SKILL.md) |
+
+Permite que la IA te haga preguntas para aclarar tus objetivos y eliminar ambigüedades, logrando modificaciones más precisas.
+
+```bash
+/question-me << Aqui describir el bug a solucionar, el código a refactorizar o la nueva feature a implementar >>
+```
+
 # MCP
 
 ## 🔗 Enlaces - Mas Ejemplos de MCP
@@ -763,24 +777,24 @@ Sirve para que la IA desde la terminal pueda controlar el navegador. Ejemplos de
 
 | Pregunta ⬇️ / Modo ➡️                                                                  | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
 |-----------------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
-| ¿Para qué sirve?                                                                        | Ejecutar o automatizar un flujo de la app | Encontrar la causa de un bug                 |
+| ¿Para qué sirve?                                                                        | Ejecutar o automatizar un flujo de la app | Encontrar la causa y corregir bugs           |
 | Ejemplo de uso                                                                          | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
-| ¿Escribe codigo de testing en Jest, Vitest, etc?                                        | ❌ No                                     | ❌ No                                       |
 | Modifica código fuente                                                                  | ❌ No                                     | ✅ Sí                                       |
 | Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | ❌ No                                     | ✅ Sí                                       |
+| ¿Escribe codigo de testing en Jest, Vitest, etc?                                        | ❌ No                                     | ❌ No                                       |
+| ¿Ejecuta tests?                                                                         | ❌ No                                     | ✅ Sí, pero solo si el proyecto tiene tests |
 | ¿Ejecuta ESLint?                                                                        | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
 | ¿Genera el build de la aplicacion?                                                      | ❌ No                                     | ✅ Sí                                       |
 | ¿Abre el navegador y usa comandos de `playwright-cli`?                                  | ✅ Sí                                     | ✅ Sí                                       |
-| ¿Pide usuario y contraseña y hace login?                                                | ✅ Sí                                     | ✅ Sí                                       |
+| ¿Crea un sub agente para verificar la solución del bug?                                 | ❌ No                                     | ✅ Sí                                       |
 
-**SIEMPRE** que necesites controlar el navegador con la IA:
+**SIEMPRE** antes de llamar la skill `playwright-cli` para controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
 
 2. Llamar [la skill `playwright-cli`](.agents/skills/playwright-cli/SKILL.md) y **NO** [playwright MCP](https://github.com/microsoft/playwright-mcp)
 
 3. Usar este prompt:
 
-***Ejemplo de Prompt:***
 ```txt
 /playwright-cli <<< Aqui describir de forma MUY DETALLADA
 la funcionalidad a testear, bug a solucionar o el proceso a automatizar,
