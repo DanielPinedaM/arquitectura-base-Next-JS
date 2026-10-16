@@ -5,7 +5,9 @@ description: 'Automatiza flujos y depura bugs de la interfaz ejecutando la app r
 
 # Depuración y automatización de frontend con `playwright-cli`
 
-Verifica el comportamiento ejecutando la app real en el navegador, no suponiendo qué hace el código.
+Verifica el comportamiento ejecutando la app real en el navegador.
+
+Leer el código permite **deducir qué debería suceder**; ejecutar la app con `playwright-cli` y hacer peticiones HTTP con el comando `curl` muestra lo que **sucede realmente** en el frontend.
 
 ## Cómo leer esta skill
 
@@ -62,9 +64,9 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 - **5.1 Reproducir.** Antes de tocar nada, revisa el estado del repositorio: si ya hay cambios, avisa al usuario y anótalos (los usan 5.9, 5.13 y 5.14). Después ejecuta el flujo hasta el fallo. Si no se reproduce, pide los pasos exactos.
 - **5.2 Observar desde fuera.** Revisa la consola (`console`: errores y mensajes), las peticiones de red (`requests`: URL, método, status y headers; los cuerpos se piden aparte; si el detalle es muy grande, pide solo la parte que necesitas; los recursos estáticos, solo si sospechas de uno), el DOM o el estado (`eval`) y un `screenshot` si el bug es visual. Instrumenta solo si esto no basta.
 - **5.3 Aislar frontend vs backend** (si el fallo involucra una API):
-  1. Inspecciona la petición real con playwright-cli y repítela desde la terminal: primero idéntica (método, cuerpo y headers de autenticación) y, cuando apliquen, con datos inválidos (400/422) y sin token (401/403). Si la petición escribe datos, repetirla requiere autorización previa.
-  2. La terminal responde mal → bug del backend: deja de instrumentar el frontend, repórtalo y sigue en la sección 6.
-  3. La terminal responde bien y la app falla → revisa primero en la consola errores de CORS o de cookies: si los hay, ese es el hallazgo y va con su evidencia a la pregunta de 5.7; si no los hay, el bug es del frontend.
+  1. Inspecciona la petición real con playwright-cli y repítela desde la terminal con el comando `curl`: primero idéntica (método, cuerpo y headers de autenticación) y, cuando apliquen, con datos inválidos (400/422) y sin token (401/403). Si la petición escribe datos, repetirla requiere autorización previa.
+  2. `curl` responde mal → bug del backend: deja de instrumentar el frontend, repórtalo y sigue en la sección 6.
+  3. `curl` responde bien y la app falla → revisa primero en la consola errores de CORS o de cookies: si los hay, ese es el hallazgo y va con su evidencia a la pregunta de 5.7; si no los hay, el bug es del frontend.
   4. Si la API no responde, aplica la regla del backend caído (sección 7).
 - **5.4 Inspeccionar `node_modules` (opcional).** Solo si el bug apunta a una dependencia: lee únicamente los archivos de esa dependencia (sus tipos o su implementación). Nunca leas `node_modules` completo ni lo modifiques. Si el diagnóstico apunta a la librería, llévalo a la pregunta de 5.7.
 - **5.5 Instrumentar con console.log temporal — BUCLE DE INSTRUMENTACIÓN: pasos 5.5.2 → 5.5.3.**
