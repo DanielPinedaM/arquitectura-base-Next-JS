@@ -304,7 +304,7 @@ pn start
 ## Cambiar de Ambiente
 Volver a ejecutar `pn start` NO cambia el ambiente. Para cambiarlo, generar de nuevo la carpeta `.next` con `pn build:test` o `pn build:prod` según el ambiente requerido, y después ejecutar `pn start`.
 
-# 🪲 Scripts para Hacer Debugging
+# 🪲 Comandos para Hacer Debugging
 
 > [!TIP]
 > Deja de escribir `console.log()` para ver valores de variables y estados, mejor usa el debugging
