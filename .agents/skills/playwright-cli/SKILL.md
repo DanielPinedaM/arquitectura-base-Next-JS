@@ -4,7 +4,7 @@ description: 'Automatiza flujos y depura bugs de la interfaz ejecutando la app r
 ---
 
 # Depuración y automatización de frontend con `playwright-cli`
-Verifica el comportamiento ejecutando la app real en el navegador.
+Verifica el comportamiento ejecutando el frontend en el navegador.
 
 Leer el código permite **deducir qué debería suceder**; ejecutar la app con `playwright-cli` y hacer peticiones HTTP con el comando `curl` muestra lo que **sucede realmente** en el frontend.
 
