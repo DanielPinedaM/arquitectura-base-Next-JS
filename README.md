@@ -5,7 +5,7 @@
 # ⚛️ Stack Frontend del Proyecto
 A continuación se resumen las principales tecnologías del proyecto y el motivo por el que se utilizan. No se incluyen todas las dependencias.
 
-* Node.js 24.21.0
+* Node.js 24.22.1
 
 * [**Next.js 16 con App Router (`app`):**](https://youtu.be/_SPoSMmN3ZU?si=QCw1smESqt2qE_6a) _Framework semi-opinionado_ que evita configurar el proyecto desde cero, a diferencia de _React + Vite_, que es mas _abierto_. Incluye soporte nativo para _SSR (Server-Side Rendering)_, _SSG (Static Site Generation)_, _ISR (Incremental Static Regeneration)_ y _CSR (Client-Side Rendering)_.
 
@@ -148,10 +148,10 @@ Para que `fnm` automáticamente al entrar a la carpeta del proyecto seleccione l
 
 1. Abrir Git Bash.
 
-2. Instalar Node.js 24.21.0:
+2. Instalar Node.js 24.22.1:
 
 ```console
-fnm install 24.21.0
+fnm install 24.22.1
 ```
 
 3. Copiar completo el siguiente comando y ejecutarlo:
@@ -177,10 +177,10 @@ fnm current
 node -v
 ```
 
-6. Debería mostrarte `v24.21.0` automáticamente, sin que hayas escrito manualmente
+6. Debería mostrarte `v24.22.1` automáticamente, sin que hayas escrito manualmente
 
 ```console
-fnm use 24.21.0
+fnm use 24.22.1
 ```
 
 ## ⌨️ Autocompletado, Formatear Código y Linter
