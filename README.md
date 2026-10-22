@@ -700,11 +700,11 @@ Para crear una nueva skill, hay que llamar la skill `skill-creator`. Ejemplo:
 ## `question-me`
 Esta skill esta basada en:
 
-| Autor       | Nombre de la skill | Enlace                                                                                                                                                                |
-| ----------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Matt Pocock | `grill-me`         | [https://www.skills.sh/mattpocock/skills/grill-me](https://www.skills.sh/mattpocock/skills/grill-me)                                                                  |
-| Matt Pocock | `grill-with-docs`  | [https://www.skills.sh/mattpocock/skills/grill-with-docs](https://www.skills.sh/mattpocock/skills/grill-with-docs)                                                    |
-| Fazt        | `fxquestionme`     | [(https://github.com/fazt/dotfiles/blob/master/claude/skills/fxquestionme/SKILL.md](https://github.com/fazt/dotfiles/blob/master/claude/skills/fxquestionme/SKILL.md) |
+| Autor       | Skill                                                                        |
+| ----------- | ---------------------------------------------------------------------------- |
+| Matt Pocock | [`grill-me`](https://www.skills.sh/mattpocock/skills/grill-me)               |
+| Matt Pocock | [`grill-with-docs`](https://www.skills.sh/mattpocock/skills/grill-with-docs) |
+| Fazt        | [`fxquestionme` ](https://github.com/fazt/dotfiles)                          |
 
 Permite que la IA te haga preguntas para aclarar tus objetivos y eliminar ambigüedades, logrando modificaciones más precisas.
 
