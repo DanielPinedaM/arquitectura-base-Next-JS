@@ -4,7 +4,7 @@ Arquitectura base agnóstica a las features para iniciar un nuevo proyecto en Ne
 # Ejecución de Proyecto
 
 * Runtime: Node.js 24
-* Administrador de versiones: pnpm
+* Administrador de versiones: pnpm, a partir de pnpm 12 no es necesario fnm ni nvm
 * Manejador de paquetes: pnpm
 * Archivo de bloqueo: pnpm-lock.yaml
 
