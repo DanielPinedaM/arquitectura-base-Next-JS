@@ -58,7 +58,7 @@ Los bugs que encuentres de paso se reportan, no se corrigen. La única excepció
 ## 3. Login (solo si el flujo exige sesión)
 1. Abre el punto de inicio del flujo. Pide usuario y contraseña solo si la app redirige a un login, muestra un formulario de acceso o el flujo es el propio login.
 
-2. Nunca inventes ni deduzcas las credenciales (del código, seeds, archivos de entorno, tests, documentación ni el valor por defecto del formulario) ni ofrezcas valores adivinados como opción. Úsalas tal cual las escribió el usuario y nunca las muestres en reportes, logs ni `eval`. Si el usuario cancela, sigue en la sección 6 y dilo.
+2. Nunca inventes ni deduzcas las credenciales (del código, seeds, archivos de entorno, tests, documentación ni el valor por defecto del formulario) ni ofrezcas valores adivinados como opción. Úsalas tal cual las escribió el usuario y nunca las muestres en reportes, logs ni `eval`; la única excepción es el prompt del subagente revisor (5.14), que tampoco las muestra. Si el usuario cancela, sigue en la sección 6 y dilo.
 
 3. Haz el login por la interfaz: la ruta del login sale de la app (no la asumas) y los refs, del snapshot. No lo repitas: la sesión queda abierta. Si rearrancas, reutiliza las credenciales ya dadas.
 
@@ -129,11 +129,17 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
   5. Si el usuario autoriza corregir: vuelve al paso 5.8, corrige solo lo autorizado y repite 5.8 hasta 5.13.
 - **5.14 Verificar con un subagente revisor — BUCLE DE REVISIÓN: pasos 5.8 hasta 5.14.**
-  1. Lanza, con un prompt y sin crear archivos, un subagente nuevo de solo lectura: no edita nada; solo lee y ejecuta `git status` y `git diff`. Espera su veredicto.
+  1. Lanza con un prompt un subagente nuevo de solo lectura: no edita ningún archivo; lee, ejecuta `git status` y `git diff`, y verifica la app con `playwright-cli` y, si el flujo hace peticiones HTTP, también con `curl`. Espera su veredicto.
 
-  2. Pásale hechos, no conclusiones: el requisito del usuario (lo que pidió verificar en modo DEPURAR: comportamiento esperado, fallo observado y pasos para reproducirlo), la evidencia observada, el alcance autorizado (incluido lo que añada la excepción de Playwright de la sección 7), los archivos que ya tenían cambios (5.1), la salida del linter, los tests y el build (5.10–5.12) con los errores que el usuario decidió no corregir en 5.13, y los hallazgos que ya descartó. No le pases tu diagnóstico.
+  2. Pásale hechos, no conclusiones: el requisito del usuario (lo que pidió verificar en modo DEPURAR: comportamiento esperado, fallo observado y pasos para reproducirlo), la evidencia observada, el alcance autorizado (incluido lo que añada la excepción de Playwright de la sección 7), los archivos que ya tenían cambios (5.1), la salida del linter, los tests y el build (5.10–5.12) con los errores que el usuario decidió no corregir en 5.13, los hallazgos que ya descartó, el script que levanta la app con su puerto y, si el flujo exige sesión, el usuario y la contraseña tal cual los escribió el usuario. No le pases tu diagnóstico.
 
-  3. El revisor comprueba que el diff soluciona el bug y cumple el requisito del usuario, que no introduce bugs nuevos, que no cambia nada fuera del alcance y que no deja instrumentación. No opina de estilo. Responde «sin hallazgos» o una lista con archivo, línea y evidencia.
+  3. El revisor comprueba que el diff soluciona el bug y cumple el requisito del usuario, que no introduce bugs nuevos, que no cambia nada fuera del alcance y que no deja instrumentación. Para verificarlo en la app:
+     - Arranca el script con los pasos 4 a 6 de la sección 2, en su propia sesión del navegador (`playwright-cli -s=revisor open --headed http://<hostname>:<puerto>`, y `-s=revisor` en cada comando posterior), y hace el login por la interfaz si el flujo exige sesión (sección 3).
+     - Repite el flujo del requisito (consola sin errores, peticiones con el status esperado y captura final) y prueba casos límite y flujos vecinos que toque el diff: datos inválidos, ramas de error forzadas desde la red (5.6) y otras pantallas que usan los archivos modificados.
+     - Si el flujo hace peticiones HTTP, también usa `curl`.
+     - Antes de responder, cierra su navegador, detiene el script y verifica que el puerto ya no responde (pasos 2 y 3 de la sección 6).
+
+     No opina de estilo. Responde «sin hallazgos» o una lista con archivo, línea y evidencia; si el hallazgo sale de la app, la evidencia es el mensaje de consola, la petición, la respuesta de `curl` o la captura.
 
   4. **Salida del bucle**: si el revisor responde «sin hallazgos», o si en el punto 6 el usuario decide no corregir → sigue en la sección 6.
 
