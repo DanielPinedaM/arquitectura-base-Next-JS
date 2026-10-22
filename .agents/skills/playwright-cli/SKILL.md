@@ -23,7 +23,7 @@ Pregunta el modo antes de ejecutar nada, siempre (aunque el usuario ya lo haya d
 | Para qué sirve | ejecutar o automatizar un flujo de la app | verificar el funcionamiento del frontend, encontrar la causa y solucionar bugs |
 | Modifica código fuente | no | sí, en dos casos |
 | Diagnostica (`console`, `requests`, `eval`, `screenshot`) | no | sí |
-| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si el linter está configurado |
+| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si hay linters configurados |
 | ¿Ejecuta tests? | no | sí, pero solo si el proyecto tiene tests |
 | ¿Genera el build de la aplicación? | no | sí |
 | ¿Abre el navegador y usa comandos de `playwright-cli`? | sí | sí |
@@ -155,7 +155,7 @@ Durante una pregunta interactiva dentro del turno, mantén vivos los procesos. S
 
 - No escribas tests de otras herramientas de testing. Playwright Test sí, también cuando lo deduzcas de la petición: es la excepción a no modificar código.
 
-- No alteres configuración, funcionalidad, maquetación, dependencias ni variables de entorno, ni ejecutes paquetes que el proyecto no declare, por iniciativa propia: solo si el usuario lo pidió o lo autorizó. Excepción: si faltan Playwright Test o playwright-cli, instálalos sin preguntar.
+- No alteres configuración, funcionalidad, maquetación, dependencias ni variables de entorno, ni ejecutes paquetes que el proyecto no declare, por iniciativa propia: solo si el usuario lo pidió o lo autorizó. Excepción: si faltan Playwright Test o playwright-cli, instálalos sin preguntar
 
 - No refactorices, renombres, corrijas ni «mejores» código fuera de la corrección autorizada.
 
