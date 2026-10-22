@@ -172,3 +172,8 @@ Durante una pregunta interactiva dentro del turno, mantén vivos los procesos. S
 - No refactorices, renombres, corrijas ni «mejores» código fuera de la corrección autorizada.
 
 - No inventes la causa del bug. Si no está clara, reporta lo que descartaste, lo que falta por descartar y por qué no encontraste el bug.
+
+- Las operaciones criticas requieren preguntar antes de ejecutar. Esto incluye:
+  - Crear, actualizar o borrar datos directamente en la base de datos
+
+  - Leer está permitido: las peticiones con métodos que no mutan (GET, HEAD, OPTIONS) se ejecutan sin preguntar. Antes de cada petición con un método que muta (POST, PUT, PATCH, DELETE), también las del flujo que el usuario pidió, pregunta al usuario mostrando su método, ruta y body (con la contraseña redactada); solo el login de la sección 3 queda exento. Si es un lote de la misma petición (mismo método y ruta) con distintos datos, como un insert masivo, haz una sola pregunta con el método, la ruta, un body de ejemplo y cuántas veces se va a ejecutar.
