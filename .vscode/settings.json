@@ -1,6 +1,20 @@
 {
-  // Ocultar en el explorador y en la búsqueda los enlaces simbólicos de los harness de IA (apuntan a .agents, donde están los archivos reales)
+  // ocultar en el explorador de VS Code (Ctrl + Shift + E) las carpetas de configuracion para IA diferentes a .agents
   "files.exclude": {
+    ".github": true,
+    ".claude": true,
+    ".cursor": true,
+    ".deepcode": true,
+    ".grok": true,
+    ".gemini": true,
+    ".opencode": true,
+    ".pi": true,
+    ".codex": true,
+    ".openclaw": true
+  },
+
+  // ocultar en la busqueda de VS Code (Ctrl + Shift + F) las carpetas de configuracion para IA diferentes a .agents
+  "search.exclude": {
     ".github": true,
     ".claude": true,
     ".cursor": true,
