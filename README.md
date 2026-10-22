@@ -791,6 +791,20 @@ Sirve para que la IA desde la terminal pueda controlar el navegador. Ejemplos de
 | ¿Pide usuario y contraseña y hace login?                                                | ✅ Sí, pero solo si el flujo exige sesión | ✅ Sí, pero solo si el flujo exige sesión                                    |
 | ¿Crea un sub agente para verificar la solución del bug?                                  | ❌ No                                     | ✅ Sí                                                                       |
 
+Instalar:
+
+```bash
+pnpm add -g @playwright/cli@latest
+```
+
+Si la instalacion de `playwright-cli` es correcta, al ejecutar
+
+```bash
+playwright-cli --version
+```
+
+Debe mostrar un numero con la version de `playwright-cli` instalada
+
 **SIEMPRE** antes de llamar la skill `playwright-cli` para controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
 
