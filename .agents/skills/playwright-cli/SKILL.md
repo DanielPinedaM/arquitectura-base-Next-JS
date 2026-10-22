@@ -20,17 +20,25 @@ Pregunta el modo antes de ejecutar nada, siempre (aunque el usuario ya lo haya d
 
 | | Modo AUTOMATIZAR | Modo DEPURAR |
 |---|---|---|
-| Para qué sirve | ejecutar o automatizar un flujo de la app | verificar el funcionamiento del frontend, encontrar la causa y solucionar bugs |
-| Modifica código fuente | no | sí, en dos casos |
-| Diagnostica (`console`, `requests`, `eval`, `screenshot`) | no | sí |
-| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si hay linters configurados |
+| ¿Para qué sirve? | ejecutar o automatizar un flujo de la app | verificar el funcionamiento del frontend, encontrar la causa y solucionar bugs |
+| Ejemplo de uso | Llenar un formulario muchas veces | La pagina web no es responsive, corrigela |
+| ¿Modifica código fuente? | no | sí |
+| Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | no | sí |
+| ¿Escribe código de testing (Jest, Vitest, etc.)? | no | sí, pero solo si el proyecto ya tiene tests y en dos casos: al modificar una funcionalidad que ya tenía tests escritos o cuando el usuario lo pide explícitamente |
 | ¿Ejecuta tests? | no | sí, pero solo si el proyecto tiene tests |
+| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si hay linters configurados |
 | ¿Genera el build de la aplicación? | no | sí |
 | ¿Abre el navegador y usa comandos de `playwright-cli`? | sí | sí |
-| ¿Pide usuario y contraseña y hace login? | solo si el flujo exige sesión | solo si el flujo exige sesión |
-| ¿Usa un subagente para verificar la solución del bug? | no | sí |
+| ¿Pide usuario y contraseña para hacer login? | solo si el flujo exige sesión | solo si el flujo exige sesión |
+| ¿Usa un subagente revisor de solo lectura para verificar la solución del bug? | no | sí |
 
-DEPURAR modifica el código solo en dos casos: la instrumentación temporal (los logs de 5.5, que no cambian el comportamiento, y el `throw` de 5.6), que se aplica sin preguntar y siempre se borra antes de terminar el turno; y la corrección autorizada (5.7). Los bugs que encuentres de paso se reportan, no se corrigen; la única excepción son los errores del linter, los tests o el build que el usuario elija en 5.13.
+DEPURAR modifica el código solo en los siguientes casos:
+
+1. **La instrumentación temporal:** los logs de 5.5, que no cambian el comportamiento, y el `throw` de 5.6. Se aplica sin preguntar y siempre se borra antes de terminar el turno.
+
+2. **La corrección autorizada (5.7):** incluye tests solo si el proyecto ya tiene tests y en dos casos: al modificar una funcionalidad que ya tenía tests escritos o cuando el usuario lo pide explícitamente.
+
+Los bugs que encuentres de paso se reportan, no se corrigen. La única excepción son los errores del linter, los tests o el build que el usuario elija en 5.13.
 
 ## 2. Preparar el entorno
 1. Deduce si el proyecto usa npm o pnpm por su lockfile y por el campo `packageManager` del `package.json`. Si se contradicen, no hay ninguno o es otro gestor, pregunta. El catálogo usa pnpm: con npm, usa los comandos equivalentes.
@@ -83,7 +91,7 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
 - **5.4 Inspeccionar `node_modules` (opcional).** Solo si el bug apunta a una dependencia: lee únicamente los archivos de esa dependencia (sus tipos o su implementación). Nunca leas `node_modules` completo ni lo modifiques. Si el diagnóstico apunta a la librería, llévalo a la pregunta de 5.7.
 
-- **5.5 Instrumentar con console.log temporal — BUCLE DE INSTRUMENTACIÓN: pasos 5.5.2 → 5.5.3.**
+- **5.5 Instrumentar con console.log temporal — BUCLE DE INSTRUMENTACIÓN: pasos 5.5.2 hasta 5.5.3.**
   1. Formato: `console.log('[ruta/relativa/archivo.ext] [funciónOMétodo]:', valor); // DBG-<id>`, con un `<id>` de 4 caracteres, el mismo en toda la sesión. Desenvuelve los valores reactivos antes de loguearlos.
 
   2. Dónde poner los logs — por niveles, solo en el camino sospechoso:
@@ -98,7 +106,7 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
 - **5.6 Forzar la rama de error.** Fuerza el fallo desde la red: una respuesta simulada con status de error (sin él, responde 200) o una caída de red; al terminar, quita la simulación y restaura la red. Usa un `throw` en el código solo si no se puede desde fuera, únicamente en el `catch` investigado y marcado con `DBG-<id>`.
 
-- **5.7 PARAR y preguntar — nunca corregir por tu cuenta — BUCLE DE DIAGNÓSTICO: pasos 5.2 → 5.7.** Si aún no tienes evidencia (el log, el status o el error que lo prueba), no preguntes: vuelve al paso 5.2 y repite 5.2 → 5.7. **Salida del bucle**: con evidencia, haz la pregunta; si agotaste los niveles de 5.5 sin evidencia, no inventes la causa: reporta lo que descartaste, lo que falta por descartar y por qué no la encontraste, y sigue en la sección 6. La pregunta muestra el bug (archivo, línea, causa raíz y evidencia), al menos 2 soluciones con su consecuencia, una recomendada con su motivo y «Otra — la describo yo». Si el usuario autoriza una, sigue en el paso 5.8; si no autoriza ninguna, ve al paso 5.9 y después a la sección 6.
+- **5.7 PARAR y preguntar — nunca corregir por tu cuenta — BUCLE DE DIAGNÓSTICO: pasos 5.2 hasta 5.7.** Si aún no tienes evidencia (el log, el status o el error que lo prueba), no preguntes: vuelve al paso 5.2 y repite 5.2 hasta 5.7. **Salida del bucle**: con evidencia, haz la pregunta; si agotaste los niveles de 5.5 sin evidencia, no inventes la causa: reporta lo que descartaste, lo que falta por descartar y por qué no la encontraste, y sigue en la sección 6. La pregunta muestra el bug (archivo, línea, causa raíz y evidencia), al menos 2 soluciones con su consecuencia, una recomendada con su motivo y «Otra — la describo yo». Si el usuario autoriza una, sigue en el paso 5.8; si no autoriza ninguna, ve al paso 5.9 y después a la sección 6.
 
 - **5.8 Corregir y verificar — BUCLE DE VERIFICACIÓN: paso 5.8.** Aplica solo lo autorizado y después haz que el cambio llegue a la app: si vienes de un bucle con los procesos cerrados, rearráncalos desde el paso 4 de la sección 2, con el mismo entorno, y repite el login con las mismas credenciales si hace falta; si siguen vivos, aplica el paso 7 de la sección 2. Repite el flujo completo: consola sin errores, peticiones con el status esperado y captura final. Si no pasa (también si la app no compila o no arranca con la corrección) y el arreglo cabe en lo autorizado, ajústalo y repite este paso; si exige salir de lo autorizado, vuelve al paso 5.7 con la nueva evidencia. **Salida del bucle**: el flujo pasa → sigue en el paso 5.9.
 
@@ -110,7 +118,7 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
 - **5.12 Ejecutar el build.** Usa el script elegido en el paso 3 de la sección 2; si el usuario eligió «Omitir el build», sáltalo y menciónalo en el reporte. Antes, borra su carpeta de salida solo si confirmaste que es la de ese build.
 
-- **5.13 Separar los errores y preguntar — BUCLE DE CORRECCIÓN: pasos 5.8 → 5.13.**
+- **5.13 Separar los errores y preguntar — BUCLE DE CORRECCIÓN: pasos 5.8 hasta 5.13.**
   1. Lee la salida completa de 5.10–5.12, no solo el código de salida, incluidos los warnings (un build puede terminar sin fallar y aun así avisar de algo que rompiste), y cita los mensajes exactos.
 
   2. **Salida del bucle**: si los pasos que se ejecutaron no dieron errores ni warnings, si solo quedan los que el usuario ya decidió no corregir, o si en el punto 4 decide no corregir → sigue en el paso 5.14.
@@ -119,8 +127,8 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
   4. PARA y pregunta con el formato de 5.7, con dos listas (errores que pertenecen al bug y errores que no), cada error con archivo, línea y mensaje. Si una lista está vacía, dilo, y no repitas los que el usuario ya decidió no corregir. Los errores que no pertenecen al bug solo se corrigen si el usuario los elige explícitamente.
 
-  5. Si el usuario autoriza corregir: vuelve al paso 5.8, corrige solo lo autorizado y repite 5.8 → 5.13.
-- **5.14 Verificar con un subagente revisor — BUCLE DE REVISIÓN: pasos 5.8 → 5.14.**
+  5. Si el usuario autoriza corregir: vuelve al paso 5.8, corrige solo lo autorizado y repite 5.8 hasta 5.13.
+- **5.14 Verificar con un subagente revisor — BUCLE DE REVISIÓN: pasos 5.8 hasta 5.14.**
   1. Lanza, con un prompt y sin crear archivos, un subagente nuevo de solo lectura: no edita nada; solo lee y ejecuta `git status` y `git diff`. Espera su veredicto.
 
   2. Pásale hechos, no conclusiones: el requisito del usuario (lo que pidió verificar en modo DEPURAR: comportamiento esperado, fallo observado y pasos para reproducirlo), la evidencia observada, el alcance autorizado (incluido lo que añada la excepción de Playwright de la sección 7), los archivos que ya tenían cambios (5.1), la salida del linter, los tests y el build (5.10–5.12) con los errores que el usuario decidió no corregir en 5.13, y los hallazgos que ya descartó. No le pases tu diagnóstico.
@@ -133,7 +141,7 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
   6. Antes de iniciar cada iteración, PARA y pregunta al usuario con el formato de 5.7, incluidos los hallazgos refutados con su evidencia (aunque lo estén todos): el usuario tiene la última palabra sobre qué queda confirmado.
 
-  7. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 → 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
+  7. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 hasta 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
 
 ## 6. Cerrar y reportar
 Antes de terminar el turno, por cualquier camino (al acabar, si abandonas, si el arranque falló, si el usuario no autoriza la corrección, si no encuentras la causa o si la pregunta queda como texto final):
@@ -152,8 +160,6 @@ Durante una pregunta interactiva dentro del turno, mantén vivos los procesos. S
 - Ante una duda o un conflicto entre reglas, para y pregunta con opciones.
 
 - Si la API no responde (backend caído), reporta la petición que falló y pregunta si el usuario levanta el backend y se reintenta, si se simulan las respuestas de la API o si se cancela. Nunca arranques ni detengas el backend.
-
-- No escribas tests de otras herramientas de testing. Playwright Test sí, también cuando lo deduzcas de la petición: es la excepción a no modificar código.
 
 - No alteres configuración, funcionalidad, maquetación, dependencias ni variables de entorno, ni ejecutes paquetes que el proyecto no declare, por iniciativa propia: solo si el usuario lo pidió o lo autorizó. Excepción: si faltan Playwright Test o playwright-cli, instálalos sin preguntar
 
