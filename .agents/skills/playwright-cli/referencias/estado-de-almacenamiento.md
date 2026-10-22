@@ -10,20 +10,20 @@ Guarda y restaura el estado completo del navegador, incluidas las cookies y el a
 
 ```bash
 # Guardar con un nombre de archivo autogenerado (storage-state-{timestamp}.json)
-pnpm exec playwright-cli state-save
+playwright-cli state-save
 
 # Guardar con un nombre de archivo específico
-pnpm exec playwright-cli state-save my-auth-state.json
+playwright-cli state-save my-auth-state.json
 ```
 
 ### Restaurar el estado de almacenamiento
 
 ```bash
 # Cargar el estado de almacenamiento desde un archivo
-pnpm exec playwright-cli state-load my-auth-state.json
+playwright-cli state-load my-auth-state.json
 
 # Recargar la página para aplicar las cookies
-pnpm exec playwright-cli open https://example.com
+playwright-cli open https://example.com
 ```
 
 ### Formato del archivo de estado de almacenamiento
@@ -61,50 +61,50 @@ El archivo guardado contiene:
 ### Listar todas las cookies
 
 ```bash
-pnpm exec playwright-cli cookie-list
+playwright-cli cookie-list
 ```
 
 ### Filtrar las cookies por dominio
 
 ```bash
-pnpm exec playwright-cli cookie-list --domain=example.com
+playwright-cli cookie-list --domain=example.com
 ```
 
 ### Filtrar las cookies por ruta
 
 ```bash
-pnpm exec playwright-cli cookie-list --path=/api
+playwright-cli cookie-list --path=/api
 ```
 
 ### Obtener una cookie específica
 
 ```bash
-pnpm exec playwright-cli cookie-get session_id
+playwright-cli cookie-get session_id
 ```
 
 ### Establecer una cookie
 
 ```bash
 # Cookie básica
-pnpm exec playwright-cli cookie-set session abc123
+playwright-cli cookie-set session abc123
 
 # Cookie con opciones
-pnpm exec playwright-cli cookie-set session abc123 --domain=example.com --path=/ --httpOnly --secure --sameSite=Lax
+playwright-cli cookie-set session abc123 --domain=example.com --path=/ --httpOnly --secure --sameSite=Lax
 
 # Cookie con expiración (timestamp Unix)
-pnpm exec playwright-cli cookie-set remember_me token123 --expires=1893456000
+playwright-cli cookie-set remember_me token123 --expires=1893456000
 ```
 
 ### Eliminar una cookie
 
 ```bash
-pnpm exec playwright-cli cookie-delete session_id
+playwright-cli cookie-delete session_id
 ```
 
 ### Limpiar todas las cookies
 
 ```bash
-pnpm exec playwright-cli cookie-clear
+playwright-cli cookie-clear
 ```
 
 ### Avanzado: varias cookies u opciones personalizadas
@@ -112,7 +112,7 @@ pnpm exec playwright-cli cookie-clear
 Para escenarios complejos, como agregar varias cookies a la vez, usa `run-code`:
 
 ```bash
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().addCookies([
     { name: 'session_id', value: 'sess_abc123', domain: 'example.com', path: '/', httpOnly: true },
     { name: 'preferences', value: JSON.stringify({ theme: 'dark' }), domain: 'example.com', path: '/' }
@@ -125,37 +125,37 @@ pnpm exec playwright-cli run-code "async page => {
 ### Listar todos los elementos de localStorage
 
 ```bash
-pnpm exec playwright-cli localstorage-list
+playwright-cli localstorage-list
 ```
 
 ### Obtener un solo valor
 
 ```bash
-pnpm exec playwright-cli localstorage-get token
+playwright-cli localstorage-get token
 ```
 
 ### Establecer un valor
 
 ```bash
-pnpm exec playwright-cli localstorage-set theme dark
+playwright-cli localstorage-set theme dark
 ```
 
 ### Establecer un valor JSON
 
 ```bash
-pnpm exec playwright-cli localstorage-set user_settings '{"theme":"dark","language":"en"}'
+playwright-cli localstorage-set user_settings '{"theme":"dark","language":"en"}'
 ```
 
 ### Eliminar un solo elemento
 
 ```bash
-pnpm exec playwright-cli localstorage-delete token
+playwright-cli localstorage-delete token
 ```
 
 ### Limpiar todo localStorage
 
 ```bash
-pnpm exec playwright-cli localstorage-clear
+playwright-cli localstorage-clear
 ```
 
 ### Avanzado: varias operaciones
@@ -163,7 +163,7 @@ pnpm exec playwright-cli localstorage-clear
 Para escenarios complejos, como establecer varios valores a la vez, usa `run-code`:
 
 ```bash
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.evaluate(() => {
     localStorage.setItem('token', 'jwt_abc123');
     localStorage.setItem('user_id', '12345');
@@ -177,31 +177,31 @@ pnpm exec playwright-cli run-code "async page => {
 ### Listar todos los elementos de sessionStorage
 
 ```bash
-pnpm exec playwright-cli sessionstorage-list
+playwright-cli sessionstorage-list
 ```
 
 ### Obtener un solo valor
 
 ```bash
-pnpm exec playwright-cli sessionstorage-get form_data
+playwright-cli sessionstorage-get form_data
 ```
 
 ### Establecer un valor
 
 ```bash
-pnpm exec playwright-cli sessionstorage-set step 3
+playwright-cli sessionstorage-set step 3
 ```
 
 ### Eliminar un solo elemento
 
 ```bash
-pnpm exec playwright-cli sessionstorage-delete step
+playwright-cli sessionstorage-delete step
 ```
 
 ### Limpiar sessionStorage
 
 ```bash
-pnpm exec playwright-cli sessionstorage-clear
+playwright-cli sessionstorage-clear
 ```
 
 ## IndexedDB
@@ -209,7 +209,7 @@ pnpm exec playwright-cli sessionstorage-clear
 ### Listar las bases de datos
 
 ```bash
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return await page.evaluate(async () => {
     const databases = await indexedDB.databases();
     return databases;
@@ -220,7 +220,7 @@ pnpm exec playwright-cli run-code "async page => {
 ### Eliminar una base de datos
 
 ```bash
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.evaluate(() => {
     indexedDB.deleteDatabase('myDatabase');
   });
@@ -233,18 +233,18 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Paso 1: iniciar sesión y guardar el estado
-pnpm exec playwright-cli open https://app.example.com/login
-pnpm exec playwright-cli snapshot
-pnpm exec playwright-cli fill e1 "user@example.com"
-pnpm exec playwright-cli fill e2 "password123"
-pnpm exec playwright-cli click e3
+playwright-cli open https://app.example.com/login
+playwright-cli snapshot
+playwright-cli fill e1 "user@example.com"
+playwright-cli fill e2 "password123"
+playwright-cli click e3
 
 # Guardar el estado autenticado
-pnpm exec playwright-cli state-save auth.json
+playwright-cli state-save auth.json
 
 # Paso 2: más tarde, restaurar el estado y omitir el inicio de sesión
-pnpm exec playwright-cli state-load auth.json
-pnpm exec playwright-cli open https://app.example.com/dashboard
+playwright-cli state-load auth.json
+playwright-cli open https://app.example.com/dashboard
 # ¡Ya con la sesión iniciada!
 ```
 
@@ -252,17 +252,17 @@ pnpm exec playwright-cli open https://app.example.com/dashboard
 
 ```bash
 # Configurar el estado de autenticación
-pnpm exec playwright-cli open https://example.com
-pnpm exec playwright-cli eval "() => { document.cookie = 'session=abc123'; localStorage.setItem('user', 'john'); }"
+playwright-cli open https://example.com
+playwright-cli eval "() => { document.cookie = 'session=abc123'; localStorage.setItem('user', 'john'); }"
 
 # Guardar el estado en un archivo
-pnpm exec playwright-cli state-save my-session.json
+playwright-cli state-save my-session.json
 
 # ... más tarde, en una sesión nueva ...
 
 # Restaurar el estado
-pnpm exec playwright-cli state-load my-session.json
-pnpm exec playwright-cli open https://example.com
+playwright-cli state-load my-session.json
+playwright-cli open https://example.com
 # ¡Las cookies y localStorage se restauran!
 ```
 

@@ -6,15 +6,15 @@ Captura trazas de ejecución detalladas para depuración y análisis. Las trazas
 
 ```bash
 # Iniciar la grabación de la traza
-pnpm exec playwright-cli tracing-start
+playwright-cli tracing-start
 
 # Realizar acciones
-pnpm exec playwright-cli open https://example.com
-pnpm exec playwright-cli click e1
-pnpm exec playwright-cli fill e2 "test"
+playwright-cli open https://example.com
+playwright-cli click e1
+playwright-cli fill e2 "test"
 
 # Detener la grabación de la traza
-pnpm exec playwright-cli tracing-stop
+playwright-cli tracing-stop
 ```
 
 ## Archivos de salida de la traza
@@ -64,22 +64,22 @@ Cuando inicias el tracing, Playwright crea un directorio `.playwright-cli/traces
 ### Depurar acciones fallidas
 
 ```bash
-pnpm exec playwright-cli tracing-start
-pnpm exec playwright-cli open https://app.example.com
+playwright-cli tracing-start
+playwright-cli open https://app.example.com
 
 # Este click falla - ¿por qué?
-pnpm exec playwright-cli click e5
+playwright-cli click e5
 
-pnpm exec playwright-cli tracing-stop
+playwright-cli tracing-stop
 # Abrir la traza para ver el estado del DOM cuando se intentó el click
 ```
 
 ### Analizar el rendimiento
 
 ```bash
-pnpm exec playwright-cli tracing-start
-pnpm exec playwright-cli open https://slow-site.com
-pnpm exec playwright-cli tracing-stop
+playwright-cli tracing-start
+playwright-cli open https://slow-site.com
+playwright-cli tracing-stop
 
 # Ver la cascada de red (waterfall) para identificar los recursos lentos
 ```
@@ -88,15 +88,15 @@ pnpm exec playwright-cli tracing-stop
 
 ```bash
 # Grabar un flujo de usuario completo para documentación
-pnpm exec playwright-cli tracing-start
+playwright-cli tracing-start
 
-pnpm exec playwright-cli open https://app.example.com/checkout
-pnpm exec playwright-cli fill e1 "4111111111111111"
-pnpm exec playwright-cli fill e2 "12/25"
-pnpm exec playwright-cli fill e3 "123"
-pnpm exec playwright-cli click e4
+playwright-cli open https://app.example.com/checkout
+playwright-cli fill e1 "4111111111111111"
+playwright-cli fill e2 "12/25"
+playwright-cli fill e3 "123"
+playwright-cli click e4
 
-pnpm exec playwright-cli tracing-stop
+playwright-cli tracing-stop
 # La traza muestra la secuencia exacta de eventos
 ```
 
@@ -117,10 +117,10 @@ pnpm exec playwright-cli tracing-stop
 
 ```bash
 # Traza todo el flujo, no solo el paso que falla
-pnpm exec playwright-cli tracing-start
-pnpm exec playwright-cli open https://example.com
+playwright-cli tracing-start
+playwright-cli open https://example.com
 # ... todos los pasos que llevan al problema ...
-pnpm exec playwright-cli tracing-stop
+playwright-cli tracing-stop
 ```
 
 ### 2. Limpia las trazas antiguas

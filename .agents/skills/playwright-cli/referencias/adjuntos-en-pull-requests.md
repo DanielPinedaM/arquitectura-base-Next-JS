@@ -1,6 +1,6 @@
 # Adjuntar capturas de pantalla y videos a pull requests
 
-`gh` 2.99+ sube imágenes y videos locales con el flag repetible `--attach` en `gh pr create`, `gh pr comment`, `gh pr edit`, `gh issue create`, `gh issue comment` y `gh issue edit`. Se aceptan PNG, JPEG, GIF, WebP, SVG, MP4, MOV y WebM, por lo que la salida de `pnpm exec playwright-cli screenshot` y de `video-start` se puede adjuntar tal cual.
+`gh` 2.99+ sube imágenes y videos locales con el flag repetible `--attach` en `gh pr create`, `gh pr comment`, `gh pr edit`, `gh issue create`, `gh issue comment` y `gh issue edit`. Se aceptan PNG, JPEG, GIF, WebP, SVG, MP4, MOV y WebM, por lo que la salida de `playwright-cli screenshot` y de `video-start` se puede adjuntar tal cual.
 
 ## Cuándo adjuntar
 
@@ -10,12 +10,12 @@ Adjunta evidencia visual cuando le ahorre al revisor hacer un checkout: una capt
 
 ```bash
 # capturar la evidencia
-pnpm exec playwright-cli open http://localhost:3000/settings
-pnpm exec playwright-cli screenshot --filename=settings-after.png
-pnpm exec playwright-cli video-start settings-flow.webm
-pnpm exec playwright-cli click e5
-pnpm exec playwright-cli fill e7 "New name" --submit
-pnpm exec playwright-cli video-stop
+playwright-cli open http://localhost:3000/settings
+playwright-cli screenshot --filename=settings-after.png
+playwright-cli video-start settings-flow.webm
+playwright-cli click e5
+playwright-cli fill e7 "New name" --submit
+playwright-cli video-stop
 
 # adjuntar al crear el PR; el texto alternativo va después de "#" (solo imágenes)
 gh pr create --title "fix(settings): keep name after save" --body-file body.md \
@@ -43,7 +43,7 @@ Adjunta las capturas de pantalla y los videos que Playwright Test ya guarda en `
 permissions:
   pull-requests: write
 steps:
-  - run: pnpm exec playwright test
+  - run: pnpm dlx playwright test
   - name: Adjuntar al PR las capturas de pantalla y los videos de los fallos
     if: failure() && github.event_name == 'pull_request'
     env:

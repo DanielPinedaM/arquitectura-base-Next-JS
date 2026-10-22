@@ -7,7 +7,7 @@ Flujo de trabajo de extremo a extremo para crear y mantener pruebas de Playwrigh
 - **Generar** — convertir un spec en archivos de pruebas de Playwright. Actualizar el spec si es vago o está desactualizado.
 - **Reparar** — diagnosticar las pruebas que fallan, corregir el código y conciliar el spec con la realidad.
 
-Planificar / generar / reparar se apoyan en la misma mecánica: ejecutar `pnpm exec playwright test --debug=cli` en segundo plano y luego `pnpm exec playwright-cli attach tw-XXXX` para manejar de forma interactiva la página pausada. Consulta [pruebas-de-playwright.md](pruebas-de-playwright.md) para la mecánica de depurar/adjuntar (debug/attach).
+Planificar / generar / reparar se apoyan en la misma mecánica: ejecutar `pnpm dlx playwright test --debug=cli` en segundo plano y luego `playwright-cli attach tw-XXXX` para manejar de forma interactiva la página pausada. Consulta [pruebas-de-playwright.md](pruebas-de-playwright.md) para la mecánica de depurar/adjuntar (debug/attach).
 
 ---
 
@@ -17,22 +17,22 @@ Cada acción que realizas con `playwright-cli` genera el código TypeScript de P
 
 ```bash
 # Iniciar una sesión
-pnpm exec playwright-cli open https://example.com/login
+playwright-cli open https://example.com/login
 
 # Tomar un snapshot para ver los elementos
-pnpm exec playwright-cli snapshot
+playwright-cli snapshot
 # La salida muestra: e1 [textbox "Email"], e2 [textbox "Password"], e3 [button "Sign In"]
 
 # Rellenar los campos del formulario - genera código automáticamente
-pnpm exec playwright-cli fill e1 "user@example.com"
+playwright-cli fill e1 "user@example.com"
 # Ran Playwright code:
 # await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
 
-pnpm exec playwright-cli fill e2 "password123"
+playwright-cli fill e2 "password123"
 # Ran Playwright code:
 # await page.getByRole('textbox', { name: 'Password' }).fill('password123');
 
-pnpm exec playwright-cli click e3
+playwright-cli click e3
 # Ran Playwright code:
 # await page.getByRole('button', { name: 'Sign In' }).click();
 ```
@@ -45,7 +45,7 @@ Reúne el código generado en una prueba de Playwright:
 import { test, expect } from '@playwright/test';
 
 test('login flow', async ({ page }) => {
-  // Código generado a partir de la sesión de pnpm exec playwright-cli:
+  // Código generado a partir de la sesión de playwright-cli:
   await page.goto('https://example.com/login');
   await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('password123');
@@ -73,10 +73,10 @@ await page.locator('#submit-btn').click();
 Toma snapshots para entender la estructura de la página antes de grabar las acciones:
 
 ```bash
-pnpm exec playwright-cli open https://example.com
-pnpm exec playwright-cli snapshot
+playwright-cli open https://example.com
+playwright-cli snapshot
 # Revisar la estructura de los elementos
-pnpm exec playwright-cli click e5
+playwright-cli click e5
 ```
 
 ### Agrega las aserciones manualmente
@@ -89,7 +89,7 @@ El código generado captura las acciones pero no las aserciones. Agrega las expe
 - `toBeChecked() / toBeUnchecked()` — el estado del checkbox coincide
 - `toMatchAriaSnapshot(snapshot)` — la página (o el locator) coincide con un snapshot de accesibilidad parcial
 
-Usa `pnpm exec playwright-cli generate-locator <target>` para producir la expresión del locator para la aserción, y los comandos snapshot/eval para capturar el valor esperado.
+Usa `playwright-cli generate-locator <target>` para producir la expresión del locator para la aserción, y los comandos snapshot/eval para capturar el valor esperado.
 
 Al hacer aserciones sobre el contenido de texto, asegúrate de que el locator generado no contenga texto del propio elemento. `getByTestId()` o `getByLabel()` suelen funcionar bien para hacer aserciones sobre el texto. Cuando el locator está basado en texto, prefiere `toBeVisible()` en su lugar.
 
@@ -97,19 +97,19 @@ El snapshot que se va a comparar no tiene que contener toda la información - ca
 
 ```bash
 # Obtener un locator estable para una ref de elemento para usarlo en la aserción
-pnpm exec playwright-cli --raw generate-locator e5
+playwright-cli --raw generate-locator e5
 # getByRole('button', { name: 'Submit' })
 
 # Capturar el contenido de texto esperado para toHaveText
-pnpm exec playwright-cli --raw eval "el => el.textContent" e5
+playwright-cli --raw eval "el => el.textContent" e5
 
 # Capturar el valor esperado del input para toHaveValue/toBeEmpty
-pnpm exec playwright-cli --raw eval "el => el.value" e5
+playwright-cli --raw eval "el => el.value" e5
 
 # Capturar el aria snapshot esperado para toMatchAriaSnapshot/toBeChecked
 # (toda la página, o usa una ref para acotar a una región)
-pnpm exec playwright-cli --raw snapshot
-pnpm exec playwright-cli --raw snapshot e5
+playwright-cli --raw snapshot
+playwright-cli --raw snapshot e5
 ```
 
 ```typescript
@@ -150,7 +150,7 @@ Comprueba que el workspace tenga Playwright instalado antes que nada:
 ```bash
 # Cualquiera de estos confirma un workspace:
 test -f playwright.config.ts || test -f playwright.config.js
-pnpm exec playwright --version
+pnpm dlx playwright --version
 ```
 
 Si no hay una instalación de Playwright, inicializa una y deja que el usuario elija los valores por defecto:
@@ -205,19 +205,19 @@ Si no existe un seed, crea uno que al menos navegue a la aplicación.
 Lanza la aplicación mediante el seed en segundo plano y adjúntate:
 
 ```bash
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test tests/seed.spec.ts --debug=cli
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test tests/seed.spec.ts --debug=cli
 # esperar a "Debugging Instructions" y al nombre de sesión tw-XXXX
-pnpm exec playwright-cli attach tw-XXXX
+playwright-cli attach tw-XXXX
 ```
 
 Reanuda para que el seed se ejecute y luego sondea la aplicación:
 
 ```bash
-pnpm exec playwright-cli resume                   # reanudar para que la prueba seed se ejecute por completo
-pnpm exec playwright-cli snapshot                 # inventario de elementos interactivos
-pnpm exec playwright-cli click e5                 # seguir un flujo
-pnpm exec playwright-cli eval "location.href"     # leer la URL / el estado
-pnpm exec playwright-cli show --annotate          # pedirle al usuario que señale algo
+playwright-cli resume                   # reanudar para que la prueba seed se ejecute por completo
+playwright-cli snapshot                 # inventario de elementos interactivos
+playwright-cli click e5                 # seguir un flujo
+playwright-cli eval "location.href"     # leer la URL / el estado
+playwright-cli show --annotate          # pedirle al usuario que señale algo
 ```
 
 Mapea:
@@ -293,8 +293,8 @@ Objetivo: tomar un archivo de spec y producir archivos de pruebas de Playwright.
 Para cada escenario objetivo, en secuencia (nunca en paralelo — los escenarios comparten la sesión del seed):
 
 ```bash
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test <seed-file> --debug=cli   # en segundo plano
-pnpm exec playwright-cli attach tw-XXXX
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test <seed-file> --debug=cli   # en segundo plano
+playwright-cli attach tw-XXXX
 # reanudar
 ```
 
@@ -305,10 +305,10 @@ Recorre los `Steps:` del escenario uno por uno con `playwright-cli`, tratando el
 Cada acción imprime el TypeScript de Playwright equivalente (consulta [Cómo funciona la generación](#0-cómo-funciona-la-generación)):
 
 ```bash
-pnpm exec playwright-cli snapshot                         # encontrar las refs
-pnpm exec playwright-cli fill e3 "John Doe"               # -> page.getByRole('textbox', {...}).fill(...)
-pnpm exec playwright-cli press Enter
-pnpm exec playwright-cli click e7
+playwright-cli snapshot                         # encontrar las refs
+playwright-cli fill e3 "John Doe"               # -> page.getByRole('textbox', {...}).fill(...)
+playwright-cli press Enter
+playwright-cli click e7
 ```
 
 Para cada viñeta `- expect:`, agrega una aserción explícita. Consulta [Cómo funciona la generación](#0-cómo-funciona-la-generación) para más detalles.
@@ -356,7 +356,7 @@ Repite [2.2](#22-generar-un-escenario) sobre los escenarios objetivo de uno en u
 Después de la generación, ejecuta las pruebas nuevas una vez:
 
 ```bash
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test tests/<group>/<scenario>.spec.ts
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test tests/<group>/<scenario>.spec.ts
 ```
 
 Cualquier fallo pasa a la [Sección 3](#3-reparar).
@@ -370,7 +370,7 @@ Objetivo: corregir las pruebas que fallan y actualizar el spec si el comportamie
 ### 3.1 Encontrar las pruebas que fallan
 
 ```bash
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test
 ```
 
 Registra la lista de entradas `<file>:<line>` que fallan y procésalas de una en una. No intentes correcciones en paralelo — el estado compartido y la única sesión de la CLI lo hacen frágil.
@@ -380,18 +380,18 @@ Registra la lista de entradas `<file>:<line>` que fallan y procésalas de una en
 Ejecuta la única prueba que falla en modo debug en segundo plano y luego adjúntate:
 
 ```bash
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test tests/<group>/<scenario>.spec.ts:<line> --debug=cli
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test tests/<group>/<scenario>.spec.ts:<line> --debug=cli
 # esperar a "Debugging Instructions" y al nombre de sesión tw-XXXX
-pnpm exec playwright-cli attach tw-XXXX
+playwright-cli attach tw-XXXX
 ```
 
 La prueba está pausada al inicio. Avanza o ejecuta hasta justo antes de la acción o aserción que falla, y luego diagnostica:
 
 ```bash
-pnpm exec playwright-cli snapshot                # ¿el elemento cambió / se movió / se renombró?
-pnpm exec playwright-cli console                 # ¿errores del lado de la aplicación?
-pnpm exec playwright-cli requests                # ¿petición fallida? ¿payload incorrecto?
-pnpm exec playwright-cli show --annotate         # pedirle al usuario que señale algo
+playwright-cli snapshot                # ¿el elemento cambió / se movió / se renombró?
+playwright-cli console                 # ¿errores del lado de la aplicación?
+playwright-cli requests                # ¿petición fallida? ¿payload incorrecto?
+playwright-cli show --annotate         # pedirle al usuario que señale algo
 ```
 
 Causas comunes: deriva de selectores, un nuevo elemento contenedor, renombrado de label/ARIA, tiempos (transición, carga asíncrona), texto de la aserción actualizado en la aplicación, datos de prueba que se filtran entre ejecuciones.

@@ -6,26 +6,26 @@ Captura las sesiones de automatización del navegador como video para depuració
 
 ```bash
 # Abrir primero el navegador
-pnpm exec playwright-cli open
+playwright-cli open
 
 # Iniciar la grabación, --cursor dibuja un cursor de mouse animado que viaja hasta cada punto de acción
 # y espacia las acciones 800ms para que tenga tiempo de desplazarse
-pnpm exec playwright-cli video-start demo.webm --cursor --fps=60
+playwright-cli video-start demo.webm --cursor --fps=60
 
 # Agregar un marcador de capítulo para las transiciones entre secciones
-pnpm exec playwright-cli video-chapter "Getting Started" --description="Opening the homepage" --duration=2000
+playwright-cli video-chapter "Getting Started" --description="Opening the homepage" --duration=2000
 
 # Navegar y realizar acciones
-pnpm exec playwright-cli goto https://example.com
-pnpm exec playwright-cli snapshot
-pnpm exec playwright-cli click e1
+playwright-cli goto https://example.com
+playwright-cli snapshot
+playwright-cli click e1
 
 # Agregar otro capítulo
-pnpm exec playwright-cli video-chapter "Filling Form" --description="Entering test data" --duration=2000
-pnpm exec playwright-cli fill e2 "test input"
+playwright-cli video-chapter "Filling Form" --description="Entering test data" --duration=2000
+playwright-cli fill e2 "test input"
 
 # Detener y guardar
-pnpm exec playwright-cli video-stop
+playwright-cli video-stop
 ```
 
 ## Cursor, resaltado del objetivo y punto de click
@@ -37,16 +37,16 @@ opcionales y se les da estilo con declaraciones CSS simples, para que se vean ex
 
 ```bash
 # Solo el cursor, nada más en pantalla
-pnpm exec playwright-cli video-start demo.webm --cursor
+playwright-cli video-start demo.webm --cursor
 
 # Globo de la acción, más un punto de click rojo y un marco oscuro alrededor del objetivo
-pnpm exec playwright-cli video-show-actions --duration=800 --position=top-right \
+playwright-cli video-show-actions --duration=800 --position=top-right \
   --point-style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,0,0,.7)" \
   --highlight-style="outline: 2px solid #333; background: rgba(0,128,255,.15)" \
   --title-style="font-size: 16px"
 
 # Dejar de anotar las acciones
-pnpm exec playwright-cli video-hide-actions
+playwright-cli video-hide-actions
 ```
 
 Las mismas opciones están disponibles de forma programática, que es la mejor opción para los hero scripts:
@@ -84,8 +84,8 @@ Notas:
 
 ```bash
 # Incluir contexto en el nombre del archivo
-pnpm exec playwright-cli video-start recordings/login-flow-2024-01-15.webm
-pnpm exec playwright-cli video-start recordings/checkout-test-run-42.webm
+playwright-cli video-start recordings/login-flow-2024-01-15.webm
+playwright-cli video-start recordings/checkout-test-run-42.webm
 ```
 
 ### 2. Graba hero scripts completos.
@@ -95,7 +95,7 @@ Esto permite insertar pausas apropiadas entre las acciones y anotar el video. Ha
 
 1) Realiza el escenario usando la CLI y toma nota de todos los locators y acciones. Necesitarás esos locators para solicitar sus bounding boxes para el resaltado.
 2) Crea un archivo con el script previsto para el video (abajo). Usa pressSequentially con delay para una escritura agradable, haz pausas razonables.
-3) Usa pnpm exec playwright-cli run-code --filename your-script.js
+3) Usa playwright-cli run-code --filename your-script.js
 
 **Importante**: Los overlays son `pointer-events: none` — no interfieren con las interacciones de la página. Puedes mantener de forma segura los overlays fijos (sticky) visibles mientras haces click, rellenas o realizas cualquier acción en la página.
 

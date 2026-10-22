@@ -1,10 +1,10 @@
 # Ejecutar pruebas de Playwright
 
-Para ejecutar pruebas de Playwright, usa el comando `pnpm exec playwright test`, o un script del gestor de paquetes. Para evitar que se abra el reporte html interactivo, usa la variable de entorno `PLAYWRIGHT_HTML_OPEN=never`.
+Para ejecutar pruebas de Playwright, usa el comando `pnpm dlx playwright test`, o un script del gestor de paquetes. Para evitar que se abra el reporte html interactivo, usa la variable de entorno `PLAYWRIGHT_HTML_OPEN=never`.
 
 ```bash
 # Ejecutar todas las pruebas
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test
 
 # Ejecutar todas las pruebas mediante un script pnpm personalizado
 PLAYWRIGHT_HTML_OPEN=never pnpm run special-test-command
@@ -20,13 +20,13 @@ Una vez que se impriman las instrucciones que contienen el nombre de una sesión
 
 ```bash
 # Ejecutar la prueba
-PLAYWRIGHT_HTML_OPEN=never pnpm exec playwright test --debug=cli
+PLAYWRIGHT_HTML_OPEN=never pnpm dlx playwright test --debug=cli
 # ...
 # ... instrucciones de depuración para la sesión "tw-abcdef" ...
 # ...
 
 # Adjuntar a la prueba
-pnpm exec playwright-cli attach tw-abcdef
+playwright-cli attach tw-abcdef
 ```
 
 Mantén la prueba ejecutándose en segundo plano mientras exploras y buscas una solución.

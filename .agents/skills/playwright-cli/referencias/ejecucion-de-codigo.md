@@ -5,7 +5,7 @@ Usa `run-code` para ejecutar código arbitrario de Playwright en escenarios avan
 ## Sintaxis
 
 ```bash
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   // Tu código de Playwright aquí
   // Accede a page.context() para las operaciones del contexto del navegador
 }"
@@ -14,7 +14,7 @@ pnpm exec playwright-cli run-code "async page => {
 También puedes cargar la función desde un archivo:
 
 ```bash
-pnpm exec playwright-cli run-code --filename=./my-script.js
+playwright-cli run-code --filename=./my-script.js
 ```
 
 
@@ -29,19 +29,19 @@ y `TextDecoder` sí están disponibles.
 
 ```bash
 # Conceder el permiso de geolocalización y establecer la ubicación
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().grantPermissions(['geolocation']);
   await page.context().setGeolocation({ latitude: 37.7749, longitude: -122.4194 });
 }"
 
 # Establecer la ubicación en Londres
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().grantPermissions(['geolocation']);
   await page.context().setGeolocation({ latitude: 51.5074, longitude: -0.1278 });
 }"
 
 # Limpiar la anulación (override) de la geolocalización
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().clearPermissions();
 }"
 ```
@@ -50,7 +50,7 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Conceder varios permisos
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().grantPermissions([
     'geolocation',
     'notifications',
@@ -60,7 +60,7 @@ pnpm exec playwright-cli run-code "async page => {
 }"
 
 # Conceder permisos para un origen específico
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().grantPermissions(['clipboard-read'], {
     origin: 'https://example.com'
   });
@@ -71,22 +71,22 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Emular el esquema de color oscuro
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.emulateMedia({ colorScheme: 'dark' });
 }"
 
 # Emular el esquema de color claro
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.emulateMedia({ colorScheme: 'light' });
 }"
 
 # Emular movimiento reducido
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
 }"
 
 # Emular el medio de impresión
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.emulateMedia({ media: 'print' });
 }"
 ```
@@ -95,22 +95,22 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Esperar a que la red esté inactiva
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.waitForLoadState('networkidle');
 }"
 
 # Esperar a un elemento específico
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.locator('.loading').waitFor({ state: 'hidden' });
 }"
 
 # Esperar a que una función devuelva true
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.waitForFunction(() => window.appReady === true);
 }"
 
 # Esperar con timeout
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.locator('.result').waitFor({ timeout: 10000 });
 }"
 ```
@@ -119,13 +119,13 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Trabajar con un iframe
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   const frame = page.locator('iframe#my-iframe').contentFrame();
   await frame.locator('button').click();
 }"
 
 # Obtener todos los frames
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   const frames = page.frames();
   return frames.map(f => f.url());
 }"
@@ -135,7 +135,7 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Manejar la descarga de un archivo
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Download' }).click();
   const download = await downloadPromise;
@@ -148,13 +148,13 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Leer el portapapeles (requiere permiso)
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.context().grantPermissions(['clipboard-read']);
   return await page.evaluate(() => navigator.clipboard.readText());
 }"
 
 # Escribir en el portapapeles
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.evaluate(text => navigator.clipboard.writeText(text), 'Hello clipboard!');
 }"
 ```
@@ -163,22 +163,22 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Obtener el título de la página
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return await page.title();
 }"
 
 # Obtener la URL actual
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return page.url();
 }"
 
 # Obtener el contenido de la página
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return await page.content();
 }"
 
 # Obtener el tamaño del viewport
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return page.viewportSize();
 }"
 ```
@@ -187,7 +187,7 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Ejecutar JavaScript y devolver el resultado
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   return await page.evaluate(() => {
     return {
       userAgent: navigator.userAgent,
@@ -198,7 +198,7 @@ pnpm exec playwright-cli run-code "async page => {
 }"
 
 # Pasar argumentos a evaluate
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   const multiplier = 5;
   return await page.evaluate(m => document.querySelectorAll('li').length * m, multiplier);
 }"
@@ -208,7 +208,7 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Try-catch en run-code
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   try {
     await page.getByRole('button', { name: 'Submit' }).click({ timeout: 1000 });
     return 'clicked';
@@ -222,7 +222,7 @@ pnpm exec playwright-cli run-code "async page => {
 
 ```bash
 # Iniciar sesión y guardar el estado
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   await page.goto('https://example.com/login');
   await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('secret');
@@ -233,7 +233,7 @@ pnpm exec playwright-cli run-code "async page => {
 }"
 
 # Extraer datos (scraping) de varias páginas
-pnpm exec playwright-cli run-code "async page => {
+playwright-cli run-code "async page => {
   const results = [];
   for (let i = 1; i <= 3; i++) {
     await page.goto(\`https://example.com/page/\${i}\`);
