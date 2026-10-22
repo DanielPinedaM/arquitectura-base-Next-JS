@@ -776,18 +776,19 @@ Sirve para que la IA desde la terminal pueda controlar el navegador. Ejemplos de
 
 [Esta skill](.agents/skills/playwright-cli/SKILL.md) esta basada en [la skill oficial de Microsoft](https://github.com/microsoft/playwright-cli/blob/main/skills/playwright-cli/SKILL.md). La diferencia es que esta skill tiene dos modos diferentes:
 
-| Pregunta ⬇️ / Modo ➡️                                                                  | Modo AUTOMATIZAR                          | Modo DEPURAR                                 |
-|-----------------------------------------------------------------------------------------|-------------------------------------------|----------------------------------------------|
-| ¿Para qué sirve?                                                                        | Ejecutar o automatizar un flujo de la app | Encontrar la causa y corregir bugs           |
-| Ejemplo de uso                                                                          | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela    |
-| Modifica código fuente                                                                  | ❌ No                                     | ✅ Sí                                       |
-| Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | ❌ No                                     | ✅ Sí                                       |
-| ¿Escribe codigo de testing en Jest, Vitest, etc?                                        | ❌ No                                     | ❌ No                                       |
-| ¿Ejecuta tests?                                                                         | ❌ No                                     | ✅ Sí, pero solo si el proyecto tiene tests |
-| ¿Ejecuta ESLint?                                                                        | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado |
-| ¿Genera el build de la aplicacion?                                                      | ❌ No                                     | ✅ Sí                                       |
-| ¿Abre el navegador y usa comandos de `playwright-cli`?                                  | ✅ Sí                                     | ✅ Sí                                       |
-| ¿Crea un sub agente para verificar la solución del bug?                                 | ❌ No                                     | ✅ Sí                                       |
+| Pregunta ⬇️ / Modo ➡️                                                                  | Modo AUTOMATIZAR                          | Modo DEPURAR                                                                  |
+|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------------|
+| ¿Para qué sirve?                                                                        | Ejecutar o automatizar un flujo de la app |verificar el funcionamiento del frontend, encontrar la causa y solucionar bugs |
+| Ejemplo de uso                                                                          | Llenar un formulario muchas veces         | La pagina web no es responsive, corrigela                                     |
+| Modifica código fuente                                                                  | ❌ No                                     | ✅ Sí                                                                        |
+| Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | ❌ No                                     | ✅ Sí                                                                        |
+| ¿Escribe codigo de testing en Jest, Vitest, etc?                                        | ❌ No                                     | ❌ No                                                                        |
+| ¿Ejecuta tests?                                                                         | ❌ No                                     | ✅ Sí, pero solo si el proyecto tiene tests                                  |
+| ¿Ejecuta ESLint?                                                                        | ❌ No                                     | ✅ sí, pero solo si ESLint está configurado                                  |
+| ¿Genera el build de la aplicacion?                                                      | ❌ No                                     | ✅ Sí                                                                        |
+| ¿Abre el navegador y usa comandos de `playwright-cli`?                                  | ✅ Sí                                     | ✅ Sí                                                                        |
+| ¿Pide usuario y contraseña y hace login?                                                | ✅ Sí, pero solo si el flujo exige sesión | ✅ Sí, pero solo si el flujo exige sesión                                    |
+| ¿Crea un sub agente para verificar la solución del bug?                                  | ❌ No                                     | ✅ Sí                                                                       |
 
 **SIEMPRE** antes de llamar la skill `playwright-cli` para controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
