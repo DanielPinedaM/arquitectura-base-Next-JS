@@ -91,8 +91,8 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
 - **5.4 Inspeccionar `node_modules` (opcional).** Solo si el bug apunta a una dependencia: lee únicamente los archivos de esa dependencia (sus tipos o su implementación). Nunca leas `node_modules` completo ni lo modifiques. Si el diagnóstico apunta a la librería, llévalo a la pregunta de 5.7.
 
-- **5.5 Instrumentar con console.log temporal — BUCLE DE INSTRUMENTACIÓN: pasos 5.5.2 hasta 5.5.3.**
-  1. Formato: `console.log('[ruta/relativa/archivo.ext] [funciónOMétodo]:', valor); // DBG-<id>`, con un `<id>` de 4 caracteres, el mismo en toda la sesión. Desenvuelve los valores reactivos antes de loguearlos.
+- **5.5 Instrumentar con console.log temporal — BUCLE DE INSTRUMENTACIÓN: puntos 2 hasta 3.**
+  1. Formato: `console.log('[ruta/relativa/archivo.extension] [funciónOMétodo]:', valor); // DBG-<id>`, con un `<id>` de 4 caracteres, el mismo en toda la sesión. Desenvuelve los valores reactivos antes de loguearlos.
 
   2. Dónde poner los logs — por niveles, solo en el camino sospechoso:
      - **Nivel 1**: entrada y retorno de la función sospechosa; antes y después de cada llamada HTTP; el error completo dentro de cada `catch`; el handler del evento que inicia el flujo.
