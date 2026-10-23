@@ -808,9 +808,11 @@ Debe mostrar un numero con la version de `playwright-cli` instalada
 **SIEMPRE** antes de llamar la skill `playwright-cli` para controlar el navegador con la IA:
 1. Detener la ejecucion del proyecto
 
-2. Llamar [la skill `playwright-cli`](.agents/skills/playwright-cli/SKILL.md) y **NO** [playwright MCP](https://github.com/microsoft/playwright-mcp)
+2. Si es posible. Si tienes cambios en el git working directory o staging area, entonces hacer `git commit` y `git push`, esto se hace para que la IA pueda diferenciar que cambios hizo
 
-3. Usar este prompt:
+3. Llamar [la skill `playwright-cli`](.agents/skills/playwright-cli/SKILL.md) y **NO** [playwright MCP](https://github.com/microsoft/playwright-mcp)
+
+4. Usar este prompt:
 
 ```txt
 /playwright-cli <<< Aqui describir de forma MUY DETALLADA
