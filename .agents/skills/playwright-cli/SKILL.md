@@ -152,13 +152,15 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
      No opina de estilo. Responde «sin hallazgos» o una lista con archivo, línea y evidencia; si el hallazgo sale de la app, la evidencia es el mensaje de consola, la petición, la respuesta de `curl` o la captura.
 
-  4. **Salida del bucle**: si el revisor responde «sin hallazgos», o si en el punto 6 el usuario decide no corregir → sigue en la sección 6.
+  4. Cada vez que el revisor se detiene con una petición mutable, pregunta al usuario por esa petición, con su método, ruta y body (con la contraseña redactada): una pregunta por petición, siempre antes de ejecutarla. Pásale la respuesta al mismo revisor para que continúe: si el usuario la autorizó, la ejecuta; si no, la marca como «no probada» y sigue con la siguiente.
 
-  5. No asumas que un hallazgo del revisor es correcto: verifícalo primero y confírmalo o refútalo con evidencia. Solo se corrige lo confirmado.
+  5. **Salida del bucle**: si el revisor responde «sin hallazgos», o si en el punto 7 el usuario decide no corregir → sigue en la sección 6.
 
-  6. Antes de iniciar cada iteración, PARA y pregunta al usuario con el formato de 5.7, incluidos los hallazgos refutados con su evidencia (aunque lo estén todos): el usuario tiene la última palabra sobre qué queda confirmado.
+  6. No asumas que un hallazgo del revisor es correcto: verifícalo primero y confírmalo o refútalo con evidencia. Solo se corrige lo confirmado.
 
-  7. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 hasta 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
+  7. Antes de iniciar cada iteración, PARA y pregunta al usuario con el formato de 5.7, incluidos los hallazgos refutados con su evidencia (aunque lo estén todos): el usuario tiene la última palabra sobre qué queda confirmado.
+
+  8. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 hasta 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
 
 ## 6. Cerrar y reportar
 Antes de terminar el turno, por cualquier camino (al acabar, si abandonas, si el arranque falló, si el usuario no autoriza la corrección, si no encuentras la causa o si la pregunta queda como texto final):
