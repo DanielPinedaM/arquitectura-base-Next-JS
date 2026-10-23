@@ -41,7 +41,7 @@ DEPURAR modifica el código solo en los siguientes casos:
 Los bugs que encuentres de paso se reportan, no se corrigen. La única excepción son los errores del linter, los tests o el build que el usuario elija en 5.13.
 
 ## 2. Preparar el entorno
-1. Deduce si el proyecto usa npm o pnpm por su lockfile y por el campo `packageManager` del `package.json`. Si se contradicen, no hay ninguno o es otro gestor, pregunta. El catálogo usa pnpm: con npm, usa los comandos equivalentes.
+1. Deduce si el proyecto usa npm o pnpm por su lockfile y por el campo `packageManager` del `package.json`. Si se contradicen, no hay ninguno o es otro gestor, pregunta.
 
 2. Pregunta qué script se ejecuta: una opción por cada script del `package.json` que levante la app, con su nombre exacto, y en la descripción su configuración, su puerto, el backend al que apunta y si compila el código o sirve un build ya generado, deducidos de lo que ejecuta (nunca de su nombre). Añade «Otra — la indico yo». Pregunta aunque haya un solo candidato.
 
