@@ -47,7 +47,7 @@ Los bugs que encuentres de paso se reportan, no se corrigen. La única excepció
 
 3. Al empezar DEPURAR, o al pasar a DEPURAR desde AUTOMATIZAR, pregunta también qué script de build se ejecuta, con las mismas reglas. Si no hay ninguno, ofrece «Otra — indico yo el comando» y «Omitir el build».
 
-4. Si algo responde en el puerto, mata ese proceso con su árbol hasta que el puerto quede libre. Nunca lo reutilices.
+4. Si el puerto está ocupado, mata el proceso y su árbol hasta liberarlo. Nunca lo reutilices.
 
 5. Arranca tú el script elegido en segundo plano (nunca le pidas al usuario que lo arranque) y guarda su identificador. En DEPURAR, si el script sirve un build ya generado, regenera antes el build con el script del paso 3 (si se omitió, avisa de que el build puede no corresponder al código). Espera a que acepte conexiones, sin esperas fijas, y lee su salida para confirmar el puerto real y que compiló. Si falla, reporta el error exacto y detente; pero si el fallo lo causa tu propio cambio (instrumentación de 5.5, `throw` de 5.6 o corrección de 5.8), corrígelo en vez de detenerte (en 5.8 cuenta como «no pasa»).
 
