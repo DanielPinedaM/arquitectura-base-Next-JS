@@ -23,12 +23,12 @@ Pregunta el modo antes de ejecutar nada, siempre (aunque el usuario ya lo haya d
 | ¿Para qué sirve? | ejecutar o automatizar un flujo de la app | verificar el funcionamiento del frontend, encontrar la causa y solucionar bugs |
 | Ejemplo de uso | Llenar un formulario muchas veces | La pagina web no es responsive, corrigela |
 | ¿Modifica código fuente? | no | sí |
-| Cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | no | sí |
+| Usando `playwright-cli` y `curl`, cuando el frontend hace peticiones HTTP, determina si el bug está en frontend o backend | no | sí |
+| ¿Abre el navegador y usa comandos de `playwright-cli`? | sí | sí |
+| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si hay linters configurados |
 | ¿Escribe código de testing (Jest, Vitest, etc.)? | no | sí, pero solo si el proyecto ya tiene tests y en dos casos: al modificar una funcionalidad que ya tenía tests escritos o cuando el usuario lo pide explícitamente |
 | ¿Ejecuta tests? | no | sí, pero solo si el proyecto tiene tests |
-| ¿Ejecuta linters?, por ejemplo ESLint | no | sí, pero solo si hay linters configurados |
 | ¿Genera el build de la aplicación? | no | sí |
-| ¿Abre el navegador y usa comandos de `playwright-cli`? | sí | sí |
 | ¿Pide usuario y contraseña para hacer login? | solo si el flujo exige sesión | solo si el flujo exige sesión |
 | ¿Usa un subagente revisor de solo lectura para verificar la solución del bug? | no | sí |
 
