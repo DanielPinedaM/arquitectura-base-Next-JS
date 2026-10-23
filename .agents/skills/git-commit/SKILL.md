@@ -7,108 +7,35 @@ description: Convención obligatoria de git commits (Conventional Commits + Gitm
 Antes de crear cualquier commit, copiar este checklist y marcarlo a medida que se avanza:
 
 - [ ] 1. Verificar que el usuario pidió explícitamente el commit; si no lo pidió, NO commitear.
-- [ ] 2. Revisar los cambios e identificar cuántas features distintas contiene el working directory (ver [Granularidad de Commits: 1 Commit = 1 Feature](#granularidad-de-commits-1-commit--1-feature)).
-- [ ] 3. Por cada feature: mover al staging area únicamente los archivos que le corresponden.
+- [ ] 2. Revisar los cambios e identificar cuántas features distintas contiene el working directory.
+- [ ] 3. Por cada feature: mover al staging area únicamente sus archivos.
 - [ ] 4. Elegir `<emoji>` y `<type>` desde la tabla y determinar el `<scope>`.
 - [ ] 5. Redactar el encabezado y el `body` como lista de puntos.
-- [ ] 6. Obtener el autor del commit desde `git config` (ver [Autoría del Commit](#autoría-del-commit)).
-- [ ] 7. Escribir el mensaje en un archivo, ejecutar el commit con `git commit --author ... -F` y eliminar el archivo temporal (ver [Cómo Ejecutar el Commit](#cómo-ejecutar-el-commit)); si quedan más features, volver al paso 3.
-- [ ] 8. Mostrar el resultado de cada commit creado (ver [Mostrar el Commit Después de Realizarlo](#mostrar-el-commit-después-de-realizarlo)).
+- [ ] 6. Obtener el autor desde `git config`.
+- [ ] 7. Escribir el mensaje en el archivo temporal, ejecutar `git commit --author ... -F` y eliminar el archivo; si quedan features, volver al paso 3.
+- [ ] 8. Mostrar el resultado de cada commit creado.
 
 # Cuándo Hacer un Commit
-Está PROHIBIDO hacer un commit de forma autónoma al terminar una tarea, fase, proceso, paso o modificación de código. El único motivo válido para ejecutar un commit es que el usuario lo solicite explícitamente en su mensaje. Si el usuario no pidió un commit, no hacerlo bajo ninguna circunstancia, aunque el trabajo haya concluido.
+* Únicamente cuando el usuario lo pida explícitamente en su mensaje. PROHIBIDO commitear de forma autónoma al terminar una tarea, fase, proceso, paso o modificación de código, aunque el trabajo haya concluido.
 
-Si el prompt del usuario es "git push" o cualquier otra frase equivalente que implique subir cambios (ver los triggers de `when_to_use`), primero ejecutar este skill para crear el/los commit(s) correspondientes y, una vez creados, proceder con el `git push`.
+* Si el usuario pide `git push` o cualquier frase equivalente que implique subir cambios: primero crear el/los commit(s) con esta skill y luego hacer el `git push`.
+
+* Al pedirs un commit, está PROHIBIDO realizar cualquier modificación. Si detectas un problema, informarlo y esperar autorización explícita del usuario; nunca hacer cambios por iniciativa propia ni asumir autorización sin preguntar.
 
 # Formato del Mensaje de Commit
-`<emoji>` `<type>`(`<scope>`): `<mensaje en español>`
+Encabezado `<emoji> <type>(<scope>): <mensaje en español>`, línea en blanco y `body`. Todo es obligatorio salvo `<scope>`:
+* `<emoji>`: de la tabla, siempre al inicio.
 
-El `<emoji>` siempre va al inicio, antes del `<type>`. A continuación del encabezado, escribir siempre el `body` como una lista de puntos con los cambios realizados.
+* `<type>`: de la tabla, en inglés.
 
-Elementos obligatorios en todo commit:
-* `<emoji>`: tomado de la tabla.
+* `<scope>`: opcional
+  * Antes de omitirlo, intentar determinarlo revisando los archivos modificados, rutas, carpetas y módulos o features afectados, y validar que represente realmente el cambio.
 
-* `<type>`: tomado de la tabla y escrito en inglés.
+  * Usarlo solo si el área modificada se identifica de forma clara y directa; si genera duda o no hay información suficiente, omitirlo. No inventarlo por suposiciones ni invertir demasiado tiempo en uno ambiguo.
 
-* El único elemento opcional es `<scope>`, regido por la sección [Reglas para el Scope](#reglas-para-el-scope).
+* `<mensaje en español>` (`subject`): resumen conciso de lo que se hizo, en español.
 
-* `<mensaje en español>`: resumen conciso de lo que se hizo (`subject`), redactado en español.
-
-* `body`: explicación descriptiva de los cambios realizados, redactada en español como una lista de puntos, no como un párrafo. Es obligatorio en todo commit.
-
-* El `body` nunca debe ser idéntico al `<mensaje en español>`. El `<mensaje en español>` resume el cambio, mientras que el `body` lo detalla punto por punto. Aunque el cambio sea muy pequeño y ambos puedan parecer similares, desarrollar el `body` con los puntos concretos del cambio en lugar de repetir el `<mensaje en español>`.
-
-# Emojis por Tipo de Commit
-
-| Tipo de commit | Emoji | Definición                                                                                                                                                                                                                                                                                           |
-| ------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| feat          | ✨ | Nueva funcionalidad o capacidad del sistema                                                                                                                                                                                                                                                              |
-| fix           | 🐛 | Corrección de un bug que NO es urgente. El push del cambio se realiza a ramas DIFERENTES de `main`, `hotfix` y `develop` (development)                                                                                                                                                                   |
-| hotfix        | 🚑 | Corrección urgente de un bug crítico. El push del cambio se realiza directamente a las ramas `main`, `hotfix` y `develop` (development)                                                                                                                                                                  |
-| docs          | 📝 | Cambios únicamente en documentación: archivos Markdown, README.md, AGENTS.md, carpeta docs, guías, manuales y contenido informativo                                                                                                                                                                      |
-| style         | 💄 | Cambios visuales, estilos (CSS, Sass, Tailwind), maquetación, UI/UX, responsive, textos visibles, animaciones, transiciones sin modificar lógica del negocio                                                                                                                                             |
-| refactor      | ♻️ | Reestructuración del código existente sin cambiar su comportamiento. No incluye eliminar archivos, carpetas o código completo (ver `remove`)                                                                                                                                                             |
-| remove        | ⚰️ | Eliminación definitiva de archivos, carpetas o código que ya no son necesarios                                                                                                                                                                                                                           |
-| perf          | ⚡ | Mejoras de rendimiento o eficiencia                                                                                                                                                                                                                                                                      |
-| test          | 🧪 | Creación o modificación de pruebas de software (unitarias, de integración, etc.)                                                                                                                                                                                                                         |
-| mock          | 🤡 | ÚNICAMENTE datos quemados (hardcoded) en variables, estados u otras estructuras, utilizados para simular información real en pruebas o desarrollo                                                                                                                                                        |
-| build         | 📦 | Cambios relacionados con build, compilación o empaquetado                                                                                                                                                                                                                                                |
-| ci            | 👷 | Cambios en integración continua o automatización de pipelines                                                                                                                                                                                                                                            |
-| chore         | 🔧 | Cualquier cambio que no afecte la funcionalidad del proyecto y no corresponda a ningún otro tipo de esta tabla: tareas de mantenimiento general, configuración del entorno o de herramientas (distintas de ESLint/Prettier, ver `lint`), scripts, comentarios de código, archivos auxiliares, .gitignore |
-| lint          | 🎨 | ÚNICAMENTE formateo de código y reglas de ESLint/Prettier: indentación, estilo de código, análisis estático y configuración de estas herramientas, sin modificar la lógica ni el comportamiento                                                                                                          |
-| revert        | ⏪ | Reversión de cambios, versiones o despliegues anteriores                                                                                                                                                                                                                                                 |
-| docker        | 🐳 | Cambios relacionados con Docker, Kubernetes y contenedores                                                                                                                                                                                                                                               |
-| deps          | ⬆️ | Cambios relacionados con dependencias: agregar, actualizar o eliminar paquetes del proyecto                                                                                                                                                                                                              |
-| wip           | 🚧 | Trabajo en progreso no finalizado                                                                                                                                                                                                                                                                        |
-| init          | 🎉 | Inicialización del proyecto o configuración inicial                                                                                                                                                                                                                                                      |
-| merge         | 🔀 | Integración de ramas, combinación de cambios y resolución de conflictos de Git                                                                                                                                                                                                                           |
-| i18n          | 🌐 | Internacionalización o traducciones                                                                                                                                                                                                                                                                      |
-| accessibility | ♿ | Mejoras de accesibilidad                                                                                                                                                                                                                                                                                 |
-
-# Reglas para el Scope
-* El `<scope>` es opcional.
-
-* Cuando se use, escribir el `<scope>` en inglés.
-
-* Antes de omitirlo, intentar determinarlo revisando los archivos modificados, las rutas, los nombres de carpetas y los módulos o features afectados.
-
-* Usar el `<scope>` únicamente cuando la funcionalidad, el módulo o el área modificada pueda identificarse de forma clara y directa.
-
-* No inventar un `<scope>` basado en suposiciones.
-
-* No invertir demasiado tiempo en deducir un `<scope>` ambiguo.
-
-* Si tras revisar los cambios no hay información suficiente para determinarlo con seguridad, omitir el `<scope>`.
-
-Flujo para determinar el `<scope>`:
-1. Revisar los archivos modificados.
-
-2. Identificar la feature, el módulo o el área afectada.
-
-3. Validar que el `<scope>` represente realmente el cambio realizado.
-
-4. Si el `<scope>` es claro, usarlo.
-
-5. Si el `<scope>` genera duda, omitirlo.
-
-# Granularidad de Commits: 1 Commit = 1 Feature
-Cada commit debe representar exactamente una feature, corrección o cambio atómico. Está PROHIBIDO agrupar varias features en un solo commit.
-
-Antes de crear cualquier commit, revisar el working directory para identificar cuántas features distintas contiene:
-
-* Si el working directory tiene cambios de **una sola feature**: agregar todos esos cambios al staging area y crear un único commit.
-
-* Si el working directory tiene cambios de **N features distintas**: crear N commits separados, uno por feature. Para cada commit, agregar al staging area únicamente los archivos que correspondan a esa feature, ejecutar el commit y luego repetir el proceso con la siguiente feature.
-
-Una "feature" es cualquier unidad de cambio con una intención semántica propia: una nueva funcionalidad, una corrección de bug, un cambio de estilo, una actualización de documentación, etc. La intención semántica es el único criterio válido para agrupar cambios en una misma feature. Que dos cambios compartan el mismo `<type>` y el mismo `<scope>` NO es suficiente para considerarlos la misma feature: por ejemplo, dos correcciones de bugs no relacionados entre sí dentro del mismo módulo comparten `fix` y el mismo `<scope>`, pero son dos features distintas y deben ir en dos commits separados.
-
-# Regla Cuando el Cambio no Coincide Exactamente con la Tabla
-* Nunca omitir el emoji.
-
-* Priorizar la coherencia semántica sobre la coincidencia exacta: elegir el tipo y el emoji de la tabla que mejor representen la intención del cambio.
-
-**Ejemplo**
-El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, el `body` desarrolla los cambios como lista de puntos.
+* `body`: lista de puntos en español (no párrafo) con los cambios realizados. Nunca idéntico al `subject`: este resume y el `body` detalla punto por punto los cambios concretos, aunque el cambio sea muy pequeño.
 
 ```
 ✨ feat(auth): agregar validación de token JWT
@@ -118,104 +45,67 @@ El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, 
 - Agregar mensajes de error específicos para cada caso de validación.
 ```
 
-En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto por punto lo que resume el `<mensaje en español>` "agregar validación de token JWT", sin repetirlo literalmente.
+# Emojis por Tipo de Commit
+| Tipo de commit | Emoji | Definición |
+| --- | --- | --- |
+| feat | ✨ | Nueva funcionalidad o capacidad del sistema |
+| fix | 🐛 | Corrección de un bug que NO es urgente. El push del cambio se realiza a ramas DIFERENTES de `main`, `hotfix` y `develop` (development) |
+| hotfix | 🚑 | Corrección urgente de un bug crítico. El push del cambio se realiza directamente a las ramas `main`, `hotfix` y `develop` (development) |
+| docs | 📝 | Cambios únicamente en documentación: archivos Markdown, carpeta docs, guías, manuales y contenido informativo |
+| style | 💄 | Cambios visuales, estilos (CSS, Sass, Tailwind), maquetación, UI/UX, responsive, textos visibles, animaciones, transiciones sin modificar lógica del negocio |
+| refactor | ♻️ | Reestructuración del código existente sin cambiar su comportamiento. No incluye eliminar archivos, carpetas o código completo |
+| remove | ⚰️ | Eliminación definitiva de archivos, carpetas o código que ya no son necesarios |
+| perf | ⚡ | Mejoras de rendimiento o eficiencia |
+| test | 🧪 | Creación o modificación de pruebas de software (unitarias, de integración, e2e, etc.) |
+| mock | 🤡 | datos quemados (hardcoded) en variables, estados u otras estructuras, utilizados para simular información real en pruebas o desarrollo |
+| build | 📦 | Cambios relacionados con build, compilación o empaquetado |
+| ci | 👷 | Cambios en integración continua o automatización de pipelines |
+| chore | 🔧 | Cualquier cambio que no afecte la funcionalidad del proyecto y no corresponda a ningún otro tipo de esta tabla: tareas de mantenimiento general, configuración del entorno o de herramientas (distintas de ESLint/Prettier), scripts, comentarios de código, archivos auxiliares, .gitignore |
+| lint | 🎨 | formateo de código y reglas de ESLint/Prettier: indentación, estilo de código, análisis estático y configuración de estas herramientas, sin modificar la lógica ni el comportamiento |
+| revert | ⏪ | Reversión de cambios, versiones o despliegues anteriores |
+| deps | ⬆️ | Cambios relacionados con dependencias: agregar, actualizar o eliminar paquetes del proyecto |
+| docker | 🐳 | Cambios relacionados con Docker, Kubernetes y contenedores |
+| wip | 🚧 | Trabajo en progreso no finalizado |
+| init | 🎉 | Inicialización del proyecto o configuración inicial |
+| merge | 🔀 | Integración de ramas, combinación de cambios y resolución de conflictos de Git |
+| i18n | 🌐 | Internacionalización del software (traducciones) |
+| accessibility | ♿ | Mejoras de accesibilidad |
+
+* Esta tabla es la única fuente de verdad: tomar el tipo y el emoji exclusivamente de sus filas, con prioridad absoluta. Conventional Commits y Gitmoji quedan estrictamente limitados a ella.
+
+* Si el cambio no coincide exactamente con ninguna fila: nunca omitir el emoji ni crear un tipo o emoji nuevo; priorizar la coherencia semántica y usar el tipo y el emoji existentes que mejor representen la intención del cambio.
+
+# Granularidad: 1 Commit = 1 Feature
+Cada commit representa exactamente una feature, corrección o cambio atómico; PROHIBIDO agrupar varias features en un commit. Es posible que un mismo archivo contenga mas de una feature. Con una sola feature en el working directory, agregar todos sus cambios al staging area y crear un único commit; con N features, crear N commits, agregando en cada uno solo los archivos de esa feature.
+
+**Feature:** unidad de cambio con intención semántica propia (nueva funcionalidad, corrección de bug, cambio de estilo, actualización de documentación, etc.). La intención semántica es el único criterio para agrupar: compartir `<type>` y `<scope>` NO basta (dos `fix` no relacionados en el mismo módulo van en dos commits).
 
 # Autoría del Commit
-El autor de todo commit creado por este skill es siempre el usuario configurado en git en esta máquina, nunca ningun modelo de IA (sin importar el proveedor: Anthropic, OpenAI, Google, etc.).
+El autor es siempre el usuario configurado en git en esta máquina, nunca un modelo de IA (sin importar el proveedor). PROHIBIDO commitear sin `--author "<nombre> <correo>"` construido con la salida literal de `git config user.name` y `git config user.email`, sin interpolación ni sustitución de comandos del shell (`$()`, `` `n ``, backticks, etc.): cada shell la interpreta distinto y una interpolación fallida puede colar texto sobrante en el autor.
 
-Antes de ejecutar el commit, obtener los valores exactos de:
+Los `< >` que rodean el correo son caracteres literales (git exige `Nombre <correo>`), no notación de placeholder: `--author "JuanPerez <juan.perez@example.com>"`. PROHIBIDO omitirlos: sin ellos, git trata el texto como un patrón para buscar un autor existente y, si no hay coincidencia, falla con `fatal: --author '...' is not 'Name <email>' and matches no existing author` (bug real).
 
-```bash
-git config user.name
-git config user.email
-```
-
-Usar esos dos valores, tal como los devuelve git, para construir la bandera `--author "<nombre> <correo>"` del comando de commit (ver [Cómo Ejecutar el Commit](#cómo-ejecutar-el-commit)). Reemplazar `<nombre>` y `<correo>` con el texto literal obtenido de cada comando, sin interpolación ni sustitución de comandos del shell (`$()`, `` `n ``, backticks, etc.): el mismo motivo detallado en el [Bugs Reales que Originan Estas Reglas](#bugs-reales-que-originan-estas-reglas) aplica aquí, ya que cada shell interpreta esa sintaxis de forma distinta y una interpolación fallida puede colar texto sobrante dentro del autor del commit.
-
-El formato que exige `git` para `--author` es literalmente `Nombre <correo>`: los signos `<` y `>` no son parte de la notación de placeholder que usa el resto de este documento (donde `<nombre>` y `<correo>` solo marcan "reemplazar por el valor real"), sino caracteres literales que deben rodear el correo en el comando final. Con `git config user.name` devolviendo `JuanPerez` y `git config user.email` devolviendo `juan.perez@example.com`, la bandera correcta se ve así:
-
-```bash
---author "JuanPerez <juan.perez@example.com>"
-```
-
-PROHIBIDO omitir los signos `< >` alrededor del correo. Git espera que un autor nuevo tenga el formato `Nombre <correo>`. Si se omiten (por ejemplo `--author "JuanPerez juan.perez@example.com"`), Git no reconoce el argumento como una identidad de autor con formato válido y puede interpretarlo como un patrón para buscar un autor existente en el historial. Si no encuentra coincidencia, el commit falla con `fatal: --author '...' is not 'Name <email>' and matches no existing author`.
+PROHIBIDO incluir autoría o coautoría de un modelo de IA (Claude, GPT, Gemini u otro proveedor de IA) en `--author` o en cualquier línea del mensaje, ya sea como `Co-Authored-By` (p. ej. `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`).
 
 # Cómo Ejecutar el Commit
-El mensaje de commit siempre es multilínea (encabezado + línea en blanco + `body`). Pasar ese texto directamente como argumento en la línea de comandos es la causa de que se filtren caracteres sobrantes dentro del mensaje, por eso existe **un único método permitido**:
+Pasar el mensaje multilínea como argumento en la línea de comandos cuela caracteres sobrantes en él. Único método permitido, desde la raíz del repositorio (las rutas son relativas a ella):
 
-1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente. El `body` de este mensaje NUNCA incluye líneas de autoría o coautoría de ningún modelo de IA (ver [Autoría del Commit](#autoría-del-commit)).
+1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en `.agents/skills/git-commit/COMMIT_MSG_TEMP.md` con la herramienta `Write`, NUNCA con el shell (`echo`, `printf`, `Set-Content`, `Out-File`, `>`), en UTF-8 sin BOM para que el emoji se registre correctamente.
 
-2. Ejecutar el commit leyendo el mensaje desde ese archivo e indicando explícitamente el autor obtenido en [Autoría del Commit](#autoría-del-commit):
+2. `git commit --author "<nombre> <correo>" -F .agents/skills/git-commit/COMMIT_MSG_TEMP.md`
 
-```bash
-git commit --author "<nombre> <correo>" -F .agents/skills/git-commit/COMMIT_MSG_TEMP.md
-```
+3. Eliminar el archivo inmediatamente: `rm -f .agents/skills/git-commit/COMMIT_MSG_TEMP.md` (PowerShell: `Remove-Item -Force .agents/skills/git-commit/COMMIT_MSG_TEMP.md`).
 
-Donde `<nombre>` y `<correo>` son, respectivamente, la salida literal de `git config user.name` y `git config user.email`.
+4. Por cada feature adicional, repetir desde el paso 1.
 
-3. Eliminar el archivo temporal inmediatamente después de crear el commit:
+Motivos: `Write` guarda el texto tal cual, sin pasar por el shell. El archivo vive junto a esta skill (al lado de las reglas que lo generan, fácil de encontrar), pero, a diferencia de `.git`, forma parte del working directory: mientras existe aparece como untracked y puede colarse en un commit o reutilizarse por error con el mensaje obsoleto de otra feature. Por eso se elimina tras cada commit y cada commit escribe su mensaje desde cero.
 
-```bash
-rm -f .agents/skills/git-commit/COMMIT_MSG_TEMP.md
-```
+**PROHIBIDO:**
+* Pasar un mensaje multilínea con `-m`, construirlo concatenando `\n`, `` `n `` o varios `-m`, o usar here-strings de PowerShell (`@'...'@`) o heredocs POSIX (`<<'EOF' ... EOF`): la sintaxis del shell equivocado no da error, se inserta como texto literal en el mensaje (bug real: `git commit -m @'...'@` en Bash creó un commit que empezaba con `@`).
 
-4. Por cada feature adicional, repetir el proceso completo desde el paso 1: escribir de nuevo el archivo con el mensaje de esa feature, ejecutar el commit y volver a eliminar el archivo.
+* Ejecutar `git commit` sin `-F`, ni siquiera con un mensaje de una sola línea (el `body` es obligatorio).
 
-Motivo de este método: la herramienta de escritura de archivos guarda el texto tal cual, sin pasar por el intérprete del shell, por lo que ningún carácter de la sintaxis del shell puede terminar dentro del mensaje.
+* Dejar `COMMIT_MSG_TEMP.md` sin eliminar, reutilizarlo de un commit anterior o agregarlo al staging area o a un commit. Por eso, PROHIBIDO `git add .`, `git add -A` o `git add --all` mientras exista: agregar los archivos de la feature nombrándolos uno por uno.
 
-Motivo de la ubicación del archivo: `COMMIT_MSG_TEMP.md` vive junto a esta skill, en la misma carpeta que la define, por lo que el mensaje del commit queda al lado de las reglas que lo generan y es fácil de encontrar. La ruta se escribe relativa a la raíz del repositorio, así que los comandos `git commit -F` y `rm` se ejecutan desde esa raíz.
-
-Advertencia sobre esta ubicación: a diferencia de la carpeta `.git`, esta ruta SÍ forma parte del working directory, por lo que el archivo aparece como untracked mientras existe y puede colarse en el commit. Por eso es obligatorio eliminarlo apenas se crea el commit y está prohibido agregarlo al staging area.
-
-Motivo de eliminar el archivo: es un archivo temporal cuya única función es transportar el mensaje hasta `git commit -F`. Si se deja, queda un archivo untracked con un mensaje obsoleto que puede colarse en un commit posterior o reutilizarse por error, aplicándole a una feature el mensaje de otra. Al borrarlo, cada commit obliga a escribir su propio mensaje desde cero.
-
-En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .agents/skills/git-commit/COMMIT_MSG_TEMP.md`.
-
-## Bugs Reales que Originan Estas Reglas
-Ejecutar `git commit -m @'...'@` (here-string de PowerShell) dentro de un shell POSIX/Bash creó un commit cuyo mensaje empezaba con `@`, porque Bash no interpreta `@'` como here-string: lo lee como el carácter literal `@` concatenado con la cadena entre comillas simples. El comando terminó con éxito y el `@` sobrante quedó dentro del historial. Usar `git commit -F` evita por completo esta clase de bug.
-
-Ejecutar `git commit --author "JuanPerez juan.perez@example.com" -F ...` (sin los signos `< >` alrededor del correo) hizo fallar el commit con `fatal: --author 'JuanPerez juan.perez@example.com' is not 'Name <email>' and matches no existing author`, porque git exige el formato literal `Nombre <correo>` y, sin los corchetes angulares, trató todo el texto como un patrón de búsqueda entre autores existentes en vez de como un autor nuevo a asignar. Seguir el ejemplo literal de la sección [Autoría del Commit](#autoría-del-commit) evita esta clase de bug.
-
-# Mostrar el Commit Después de Realizarlo
-Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
-
-# Reglas
-* Está **TOTALMENTE PROHIBIDO** realizar cualquier modificación cuando te solicite hacer un **commit**.
-
-Si detectas algún problema, **infórmamelo y espera mi autorización explícita para poder modificar**. **Nunca** realices cambios por iniciativa propia ni asumas autorización sin antes preguntarme.
-
-* PROHIBIDO usar cualquier autor que no sea el obtenido de `git config user.name` / `git config user.email`.
-
-* PROHIBIDO agregar autoría o coautoría de un modelo de IA en cualquier parte del commit: ni como `--author`, ni como una línea `Co-Authored-By` (por ejemplo `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`) u otra atribución equivalente dentro del mensaje, sin importar el modelo o proveedor de IA.
-
-## Prohibiciones al Ejecutar el Commit
-* PROHIBIDO pasar un mensaje multilínea con `-m`.
-
-* PROHIBIDO usar here-strings de PowerShell (`@'...'@`) o heredocs de shell POSIX (`<<'EOF' ... EOF`) para pasar el mensaje. Cada shell interpreta una sintaxis distinta y la del shell equivocado NO produce un error: se inserta como texto literal dentro del mensaje del commit.
-
-* PROHIBIDO construir el mensaje concatenando `\n`, `` `n `` o varios `-m` seguidos.
-
-* PROHIBIDO ejecutar `git commit` sin `-F`, salvo un `<mensaje en español>` de una sola línea sin `body`, caso que igualmente está prohibido porque el `body` es obligatorio en todo commit.
-
-* PROHIBIDO ejecutar `git commit` sin la bandera `--author` construida con los valores de `git config user.name` / `git config user.email` (ver [Autoría del Commit](#autoría-del-commit)).
-
-* PROHIBIDO que el `<nombre>` o el `<correo>` del `--author`, o cualquier línea del mensaje, contengan autoría o coautoría de un modelo de IA (Claude, GPT, Gemini u otro).
-
-* PROHIBIDO dejar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md` sin eliminar después de crear el commit.
-
-* PROHIBIDO agregar `COMMIT_MSG_TEMP.md` al staging area o incluirlo dentro de un commit. Por lo mismo, PROHIBIDO usar `git add .`, `git add -A` o `git add --all` mientras el archivo exista: mover al staging area únicamente los archivos de la feature, nombrándolos uno por uno.
-
-* PROHIBIDO reutilizar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md` de un commit anterior: cada commit escribe su propio mensaje en un archivo nuevo.
-
-## Fuente Única de Verdad para los Commits
-* Prohibido eliminar, agregar, editar o alterar la tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit).
-
-* La tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit) es la única fuente de verdad para construir cualquier commit. El tipo y el emoji deben seleccionarse exclusivamente desde sus filas.
-
-* Antes de crear un commit, dar prioridad absoluta a la tabla: tomar siempre el tipo y el emoji desde ella.
-
-* El uso de Conventional Commits y Gitmoji está estrictamente limitado a la tabla. Está prohibido usar tipos, emojis o definiciones que no aparezcan en ella.
-
-* Está prohibido inventar nuevos tipos de commit, nuevos emojis o nuevas definiciones de commit.
-
-* Si los cambios no encajan exactamente con ninguna fila de la tabla, está prohibido crear un tipo o un emoji nuevo. En ese caso, utilizar el tipo y el emoji existentes que más se aproximen a la intención real del cambio.
+# Mostrar el Commit
+Tras crear cada commit, mostrar en la respuesta su encabezado (`<emoji> <type>(<scope>): <mensaje en español>`) y su `body`.
