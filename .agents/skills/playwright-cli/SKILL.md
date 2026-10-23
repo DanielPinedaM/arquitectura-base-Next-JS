@@ -80,6 +80,17 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
 
 - **5.2 Observar desde fuera.** Revisa la consola (`console`: errores y mensajes), las peticiones de red (`requests`: URL, método, status y headers; los cuerpos se piden aparte; si el detalle es muy grande, pide solo la parte que necesitas; los recursos estáticos, solo si sospechas de uno), el DOM o el estado (`eval`) y un `screenshot` si el bug es visual. Instrumenta solo si esto no basta.
 
+  | Status | Dónde mirar primero |
+  |---|---|
+  | 404 | la URL que armó el frontend: la URL base del backend al que apunta el script (paso 2 de la sección 2), el prefijo o la versión de la ruta, un parámetro vacío (`/users/undefined`) o, si la petición va al puerto del dev server, su proxy |
+  | 400 / 422 | el cuerpo que envió el frontend: sigue el campo que nombra el mensaje de error desde el formulario hasta el cuerpo (nombre, tipo, formato o ausencia) y por qué la validación del formulario no lo detuvo |
+  | 401 / 403 | los headers de autenticación de la petición: si falta el token o la cookie, el código que los añade; si caducó, la renovación de la sesión; en 403, si la UI debería ocultar esa acción al rol del usuario |
+  | 5xx | si el proxy del dev server no alcanzó el backend (lo dice su salida, paso 5 de la sección 2), sigue la fila «sin respuesta»; si no, el error es del backend: confírmalo con 5.3 |
+  | 2xx con datos incorrectos | compara el cuerpo de la respuesta con lo que muestra la UI: si llega bien, el mapeo, el estado o el renderizado; si llega mal, los parámetros que envió el frontend y después 5.3; si llega HTML en vez de JSON, la petición no llegó al backend: la URL base o el proxy |
+  | sin respuesta: conexión rechazada, timeout, CORS o cancelada | la consola: un error de CORS o de cookies es el hallazgo (5.3); si la canceló el propio frontend, el código que la aborta; si no, la URL base del backend al que apunta el script (paso 2 de la sección 2) o el backend caído (sección 7) |
+
+  El status también puede ser erróneo: por ejemplo, un 201 sin que se haya creado el recurso.
+
 - **5.3 Aislar frontend vs backend** (si el fallo involucra una API):
   1. Inspecciona la petición real con playwright-cli y repítela desde la terminal con el comando `curl`: primero idéntica (método, cuerpo y headers de autenticación) y, cuando apliquen, con datos inválidos (400/422) y sin token (401/403). Si la petición escribe datos, repetirla requiere autorización previa.
 
