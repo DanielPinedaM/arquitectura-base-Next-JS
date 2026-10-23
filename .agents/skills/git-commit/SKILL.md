@@ -143,12 +143,12 @@ PROHIBIDO omitir los signos `< >` alrededor del correo. Git espera que un autor 
 # Cómo Ejecutar el Commit
 El mensaje de commit siempre es multilínea (encabezado + línea en blanco + `body`). Pasar ese texto directamente como argumento en la línea de comandos es la causa de que se filtren caracteres sobrantes dentro del mensaje, por eso existe **un único método permitido**:
 
-1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.txt`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente. El `body` de este mensaje NUNCA incluye líneas de autoría o coautoría de ningún modelo de IA (ver [Autoría del Commit](#autoría-del-commit)).
+1. Escribir el mensaje completo (encabezado + línea en blanco + `body`) en el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md`, usando la herramienta de escritura de archivos (`Write`), NUNCA el shell (`echo`, `printf`, `Set-Content`, `Out-File`, redirecciones `>`). Guardar en UTF-8 sin BOM para que el `<emoji>` se registre correctamente. El `body` de este mensaje NUNCA incluye líneas de autoría o coautoría de ningún modelo de IA (ver [Autoría del Commit](#autoría-del-commit)).
 
 2. Ejecutar el commit leyendo el mensaje desde ese archivo e indicando explícitamente el autor obtenido en [Autoría del Commit](#autoría-del-commit):
 
 ```bash
-git commit --author "<nombre> <correo>" -F .agents/skills/git-commit/COMMIT_MSG_TEMP.txt
+git commit --author "<nombre> <correo>" -F .agents/skills/git-commit/COMMIT_MSG_TEMP.md
 ```
 
 Donde `<nombre>` y `<correo>` son, respectivamente, la salida literal de `git config user.name` y `git config user.email`.
@@ -156,20 +156,20 @@ Donde `<nombre>` y `<correo>` son, respectivamente, la salida literal de `git co
 3. Eliminar el archivo temporal inmediatamente después de crear el commit:
 
 ```bash
-rm -f .agents/skills/git-commit/COMMIT_MSG_TEMP.txt
+rm -f .agents/skills/git-commit/COMMIT_MSG_TEMP.md
 ```
 
 4. Por cada feature adicional, repetir el proceso completo desde el paso 1: escribir de nuevo el archivo con el mensaje de esa feature, ejecutar el commit y volver a eliminar el archivo.
 
 Motivo de este método: la herramienta de escritura de archivos guarda el texto tal cual, sin pasar por el intérprete del shell, por lo que ningún carácter de la sintaxis del shell puede terminar dentro del mensaje.
 
-Motivo de la ubicación del archivo: `COMMIT_MSG_TEMP.txt` vive junto a esta skill, en la misma carpeta que la define, por lo que el mensaje del commit queda al lado de las reglas que lo generan y es fácil de encontrar. La ruta se escribe relativa a la raíz del repositorio, así que los comandos `git commit -F` y `rm` se ejecutan desde esa raíz.
+Motivo de la ubicación del archivo: `COMMIT_MSG_TEMP.md` vive junto a esta skill, en la misma carpeta que la define, por lo que el mensaje del commit queda al lado de las reglas que lo generan y es fácil de encontrar. La ruta se escribe relativa a la raíz del repositorio, así que los comandos `git commit -F` y `rm` se ejecutan desde esa raíz.
 
 Advertencia sobre esta ubicación: a diferencia de la carpeta `.git`, esta ruta SÍ forma parte del working directory, por lo que el archivo aparece como untracked mientras existe y puede colarse en el commit. Por eso es obligatorio eliminarlo apenas se crea el commit y está prohibido agregarlo al staging area.
 
 Motivo de eliminar el archivo: es un archivo temporal cuya única función es transportar el mensaje hasta `git commit -F`. Si se deja, queda un archivo untracked con un mensaje obsoleto que puede colarse en un commit posterior o reutilizarse por error, aplicándole a una feature el mensaje de otra. Al borrarlo, cada commit obliga a escribir su propio mensaje desde cero.
 
-En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .agents/skills/git-commit/COMMIT_MSG_TEMP.txt`.
+En PowerShell, el comando equivalente para eliminarlo es `Remove-Item -Force .agents/skills/git-commit/COMMIT_MSG_TEMP.md`.
 
 ## Bugs Reales que Originan Estas Reglas
 Ejecutar `git commit -m @'...'@` (here-string de PowerShell) dentro de un shell POSIX/Bash creó un commit cuyo mensaje empezaba con `@`, porque Bash no interpreta `@'` como here-string: lo lee como el carácter literal `@` concatenado con la cadena entre comillas simples. El comando terminó con éxito y el `@` sobrante quedó dentro del historial. Usar `git commit -F` evita por completo esta clase de bug.
@@ -201,11 +201,11 @@ Si detectas algún problema, **infórmamelo y espera mi autorización explícita
 
 * PROHIBIDO que el `<nombre>` o el `<correo>` del `--author`, o cualquier línea del mensaje, contengan autoría o coautoría de un modelo de IA (Claude, GPT, Gemini u otro).
 
-* PROHIBIDO dejar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.txt` sin eliminar después de crear el commit.
+* PROHIBIDO dejar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md` sin eliminar después de crear el commit.
 
-* PROHIBIDO agregar `COMMIT_MSG_TEMP.txt` al staging area o incluirlo dentro de un commit. Por lo mismo, PROHIBIDO usar `git add .`, `git add -A` o `git add --all` mientras el archivo exista: mover al staging area únicamente los archivos de la feature, nombrándolos uno por uno.
+* PROHIBIDO agregar `COMMIT_MSG_TEMP.md` al staging area o incluirlo dentro de un commit. Por lo mismo, PROHIBIDO usar `git add .`, `git add -A` o `git add --all` mientras el archivo exista: mover al staging area únicamente los archivos de la feature, nombrándolos uno por uno.
 
-* PROHIBIDO reutilizar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.txt` de un commit anterior: cada commit escribe su propio mensaje en un archivo nuevo.
+* PROHIBIDO reutilizar el archivo `.agents/skills/git-commit/COMMIT_MSG_TEMP.md` de un commit anterior: cada commit escribe su propio mensaje en un archivo nuevo.
 
 ## Fuente Única de Verdad para los Commits
 * Prohibido eliminar, agregar, editar o alterar la tabla de la sección [Emojis por Tipo de Commit](#emojis-por-tipo-de-commit).
