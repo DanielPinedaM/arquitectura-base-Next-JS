@@ -148,19 +148,18 @@ No diagnostiques; toma una captura solo si el usuario la pide. Si el flujo se ro
      - Arranca el script con los pasos 4 a 6 de la sección 2, en su propia sesión del navegador (`playwright-cli -s=revisor open --headed http://<hostname>:<puerto>`, y `-s=revisor` en cada comando posterior), y hace el login por la interfaz si el flujo exige sesión (sección 3).
      - Repite el flujo del requisito (consola sin errores, peticiones con el status esperado y captura final) y prueba casos límite y flujos vecinos que toque el diff: datos inválidos, ramas de error forzadas desde la red (5.6) y otras pantallas que usan los archivos modificados.
      - Si el flujo hace peticiones HTTP, también usa `curl`.
+     - Antes de cada petición con un método que muta (POST, PUT, PATCH, DELETE), pregunta directamente al usuario según la sección 7: si el usuario la autoriza, la ejecuta; si no, la marca como «no probada» y sigue con la siguiente.
      - Antes de responder, cierra su navegador, detiene el script y verifica que el puerto ya no responde (pasos 2 y 3 de la sección 6).
 
-     No opina de estilo. Responde «sin hallazgos» o una lista con archivo, línea y evidencia; si el hallazgo sale de la app, la evidencia es el mensaje de consola, la petición, la respuesta de `curl` o la captura.
+     No opina de estilo. Responde «sin hallazgos» o una lista con archivo, línea y evidencia; si el hallazgo sale de la app, la evidencia es el mensaje de consola, la petición, la respuesta de `curl` o la captura. Reporta como «no probadas» las peticiones mutables que el usuario no autorizó.
 
-  4. Cada vez que el revisor se detiene con una petición mutable, pregunta al usuario por esa petición, con su método, ruta y body (con la contraseña redactada): una pregunta por petición, siempre antes de ejecutarla. Pásale la respuesta al mismo revisor para que continúe: si el usuario la autorizó, la ejecuta; si no, la marca como «no probada» y sigue con la siguiente.
+  4. **Salida del bucle**: si el revisor responde «sin hallazgos», o si en el punto 6 el usuario decide no corregir → sigue en la sección 6.
 
-  5. **Salida del bucle**: si el revisor responde «sin hallazgos», o si en el punto 7 el usuario decide no corregir → sigue en la sección 6.
+  5. No asumas que un hallazgo del revisor es correcto: verifícalo primero y confírmalo o refútalo con evidencia. Solo se corrige lo confirmado.
 
-  6. No asumas que un hallazgo del revisor es correcto: verifícalo primero y confírmalo o refútalo con evidencia. Solo se corrige lo confirmado.
+  6. Antes de iniciar cada iteración, PARA y pregunta al usuario con el formato de 5.7, incluidos los hallazgos refutados con su evidencia (aunque lo estén todos): el usuario tiene la última palabra sobre qué queda confirmado.
 
-  7. Antes de iniciar cada iteración, PARA y pregunta al usuario con el formato de 5.7, incluidos los hallazgos refutados con su evidencia (aunque lo estén todos): el usuario tiene la última palabra sobre qué queda confirmado.
-
-  8. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 hasta 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
+  7. Si el usuario autoriza una corrección: vuelve al paso 5.8, corrige únicamente los errores relacionados con el requisito del usuario (incluidos los bugs nuevos, los fallos de alcance y la instrumentación que dejó tu propia corrección; un bug ajeno y previo solo se reporta) y repite 5.8 hasta 5.14, lo que incluye volver a ejecutar el linter, los tests y el build (5.10–5.12).
 
 ## 6. Cerrar y reportar
 Antes de terminar el turno, por cualquier camino (al acabar, si abandonas, si el arranque falló, si el usuario no autoriza la corrección, si no encuentras la causa o si la pregunta queda como texto final):
@@ -184,7 +183,7 @@ Durante una pregunta interactiva dentro del turno, mantén vivos los procesos. S
 
 - No inventes la causa del bug. Si no está clara, reporta lo que descartaste, lo que falta por descartar y por qué no encontraste el bug.
 
-- Las operaciones criticas requieren preguntar antes de ejecutar. Esto incluye:
+- Las operaciones criticas requieren preguntar antes de ejecutar: cada agente, también el subagente revisor, le pregunta directamente al usuario, que abre ese agente para responderle. Esto incluye:
   - Crear, actualizar o borrar datos directamente en la base de datos
 
   - Leer está permitido: las peticiones con métodos que no mutan (GET, HEAD, OPTIONS) se ejecutan sin preguntar. Antes de cada petición con un método que muta (POST, PUT, PATCH, DELETE), también las del flujo que el usuario pidió, pregunta al usuario mostrando su método, ruta y body (con la contraseña redactada); solo el login de la sección 3 queda exento. Si es un lote de la misma petición (mismo método y ruta) con distintos datos, como un insert masivo, haz una sola pregunta con el método, la ruta, un body de ejemplo y cuántas veces se va a ejecutar.
