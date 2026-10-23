@@ -176,8 +176,6 @@ Antes de terminar el turno, por cualquier camino (al acabar, si abandonas, si el
 Durante una pregunta interactiva dentro del turno, mantén vivos los procesos. Si el usuario sigue con el mismo bug en otro turno, rearranca desde el paso 4 de la sección 2 con el mismo entorno (desde el paso 3 si pasa a DEPURAR y aún no eligió el build).
 
 ## 7. Reglas
-- Ante una duda o un conflicto entre reglas, para y pregunta con opciones.
-
 - Si la API no responde (backend caído), reporta la petición que falló y pregunta si el usuario levanta el backend y se reintenta, si se simulan las respuestas de la API o si se cancela. Nunca arranques ni detengas el backend.
 
 - No alteres configuración, funcionalidad, maquetación, dependencias ni variables de entorno, ni ejecutes paquetes que el proyecto no declare, por iniciativa propia: solo si el usuario lo pidió o lo autorizó. Excepción: si faltan Playwright Test o playwright-cli, instálalos sin preguntar
