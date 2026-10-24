@@ -894,7 +894,7 @@ Es un archivo de instrucciones que el harness carga automáticamente en el conte
 
 * Respete la arquitectura del proyecto.
 
-* Consulte la [documentación oficial de Next.js](http://nextjs.org/docs) que está en la [skill next-16.4.3-docs](.agents/skills/next-16.4.3-docs/SKILL.md)
+* Consulte la [documentación oficial de Next.js](http://nextjs.org/docs) usando la [skill next-16.4.3-docs](#next-1643-docs)
 
 * Use Next.js moderno y no legacy.
 
