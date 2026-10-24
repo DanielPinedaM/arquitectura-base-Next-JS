@@ -45,4 +45,4 @@ Cuando las fuentes se contradicen, gana la de número menor en la columna **Prio
 ## Gestión de Estado
 * Mantén las transformaciones de estado puras y predecibles
 
-* Para estados globales usar Zustand, **PROHIBIDO** usar alternativas como Redux, `useContext`, etc.
+* Para estado global usar Zustand, **PROHIBIDO** usar alternativas como Redux, `useContext`, etc.
