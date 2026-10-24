@@ -644,28 +644,28 @@ La salida debe contener algo similar a esto:
 Read 57 lines
 ```
 
-## `next-16.3.8-docs`
+## `next-16.4.3-docs`
 Esta skill sirve para que la IA pueda leer la documentacion de Next.js
 
 [Segun la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents), al instalar Next.js, se agregan archivos markdown en la ruta `node_modules/next/dist/docs/` que contienen la [documentacion oficial de Next.js](https://nextjs.org/docs)
 
 Esta skill se hizo de la siguiente forma:
-1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.agents\skills\next-16.3.8-docs\`
+1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.agents\skills\next-16.4.3-docs\`
 
-2. Se agrego un archivo `.agents\skills\next-16.3.8-docs\SKILL.md`
+2. Se agrego un archivo `.agents\skills\next-16.4.3-docs\SKILL.md`
 
-3. En `.agents\skills\next-16.3.8-docs\SKILL.md` y `.agents\skills\next-16.3.8-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
+3. En `.agents\skills\next-16.4.3-docs\SKILL.md` y `.agents\skills\next-16.4.3-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
 
 Para probar que funcione:
 
 ```txt
-/next-16.3.8-docs ¿como funciona Next.js App Router?, explicar, citar textual y traducir cita textual a español
+/next-16.4.3-docs ¿como funciona Next.js App Router?, explicar, citar textual y traducir cita textual a español
 ```
 
 La salida debe contener algo similar a esto:
 
 ```bash
-● Read(\skills\next-16.3.8-docs\docs\01-app\01-getting-started\03-layouts-and-pages.md · lines 1-80)
+● Read(\skills\next-16.4.3-docs\docs\01-app\01-getting-started\03-layouts-and-pages.md · lines 1-80)
 
 Read 80 lines
 ```
