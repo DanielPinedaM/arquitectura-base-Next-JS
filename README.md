@@ -166,13 +166,14 @@ Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte n
 ```
 
 * 🔗 Mira estos enlaces para que aprendas de IA enfocada en desarrollo de software:
-1. [Benchmark de IA](https://artificialanalysis.ai/)
+1. [Ollama: IA local gratis](https://youtu.be/p2zZ6zuaCDM)
 2. [Spec Driven Development](https://www.youtube.com/watch?v=_jJJDQOXSxM)
-3. [Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
-4. [Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
-5. [Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
-6. [Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
-7. [Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
+3. [Benchmark de IA](https://artificialanalysis.ai/)
+4. [Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
+5. [Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
+6. [Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
+7. [Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
+8. [Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
 
 # ⬇️ Instalaciones
 
