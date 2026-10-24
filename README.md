@@ -377,8 +377,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 >
 > Ignorar esta sección ocasionará que la IA genere código que no respeta la arquitectura, estructura ni las convenciones del proyecto, produciendo código legacy, inconsistente, desordenado y con malas practicas
 
-**¿Qué es el Harness Engineering y por qué mejora los resultados de la IA?**
-
+**¿Qué es el Harness Engineering y por qué mejora los resultados de la IA?:**
 [Mira este video](https://youtu.be/DOgIFhpndW0?si=k5ulr68LgZt4MumG) que responde la pregunta.
 
 *Harness Engineering* consiste en diseñar el entorno que rodea al modelo: instrucciones, contexto, herramientas y ciclos de ejecución y verificación. Un buen *harness* permite obtener resultados más fiables incluso con el mismo modelo.
