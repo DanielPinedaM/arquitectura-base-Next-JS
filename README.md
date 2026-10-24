@@ -382,7 +382,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 
 Software que envuelve al modelo y lo convierte en un sistema útil. Gestiona el bucle de ejecución: construye el prompt (instrucciones de sistema, contexto, historial), le da herramientas (leer o escribir archivos, ejecutar comandos, buscar en la web), ejecuta las acciones que el modelo pide, le devuelve los resultados y repite hasta terminar la tarea. Un buen harness permite obtener resultados más fiables incluso con el mismo modelo.
 
-Por eso, se recomienda usar herramientas de IA desde la terminal, como las de la columna [Terminal / Bash / CLI](#principales-ia-para-desarrollo-de-software): Claude Code, Codex CLI, Antigravity CLI, OpenCode CLI, Cursor CLI, etc.
+Por eso, se recomienda usar herramientas de IA desde la terminal, como las de la columna [Terminal / Bash / CLI](#principales-ia-para-desarrollo-de-software): Claude Code, Codex CLI, etc.
 
 ### Principales IA para Desarrollo de Software
 
