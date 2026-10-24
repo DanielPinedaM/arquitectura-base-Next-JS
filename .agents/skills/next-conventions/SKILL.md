@@ -1661,7 +1661,7 @@ h1 {
 ```
 
 ### Sintaxis de Rango
-Escribir las media queries con la sintaxis de rango (operadores de comparación) de CSS Media Queries Level 4. Está **PROHIBIDO** usar los prefijos `min-width` y `max-width`.
+Escribir las media queries con la sintaxis de rango (operadores de comparación) de CSS Media Queries Level 4. Está **PROHIBIDO** usar `min-width` y `max-width`.
 
 La sintaxis de rango también se escribe como se especifica en el titulo [Mobile First](#mobile-first): se parte del estilo base de móvil y se amplía hacia arriba con `width >=`. Por lo tanto, dentro de la sintaxis de rango también está **PROHIBIDO** `width <=` (desktop first) y acotar entre dos anchos (`768px <= width <= 1023px`).
 
