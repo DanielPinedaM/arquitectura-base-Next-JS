@@ -860,7 +860,7 @@ C:\Users\NOMBRE_USUARIO\.claude\settings.json
 ```
 
 # Compatibilidad de este Proyecto con Múltiples Harness y Modelos de IA
-Aunque este `README.md` menciona configuraciones de Claude, las skills y las instrucciones de este proyecto funcionan en casi cualquier harness de IA y, por lo tanto, con cualquier modelo que se ejecute dentro de ellos. Esto se logra con dos mecanismos:
+Aunque este `README.md` menciona configuraciones de Claude, las skills, MCP y las configuraciones de IA de este proyecto funcionan en casi cualquier harness de IA y, por lo tanto, con cualquier modelo que se ejecute dentro de ellos. Esto se logra con dos mecanismos:
 
 1. **Enlaces simbólicos** hacia la carpeta `.agents/skills/`.
 
