@@ -905,7 +905,7 @@ Si usas Claude Code, [Claude también lee `AGENTS.md`](https://code.claude.com/d
 Para probar que funcione `AGENTS.md` envia este prompt:
 
 ```txt
-citarme textualmente de la documentación oficial de Next.js convenciones de carpetas y archivos
+citar textualmente de la documentación oficial convenciones de carpetas y archivos de Next.js app router
 ```
 
 La salida debe contener algo similar a esto:
