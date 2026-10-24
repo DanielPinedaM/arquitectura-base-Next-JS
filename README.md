@@ -395,6 +395,7 @@ Por eso, se recomienda usar herramientas de IA desde la terminal, como las de la
 | Cursor                       | [Cursor Web](https://cursor.com/agents)                                                 | [Cursor Desktop](https://youtu.be/XWsOQTqVl0w?si=0OVGRnYSCH46v2zf)    | [Cursor CLI](https://cursor.com/es/cli)                                                |
 | xAI                          | [Grok Web](https://grok.com/)                                                           | [Grok Desktop](https://youtu.be/Soec3__wdTQ?si=DDx206q48bfzxsnU)      | [Grok Build](https://youtu.be/ya35W4R6wU0?si=dBaoGmGGCdnOtKJx)                         |
 | Basic Technology Research Co | [DeepSeek Web](https://chat.deepseek.com/)                                              | [DeepSeek Desktop](https://www.deepseek.com/en/download/)             | [DeepCode CLI](https://api-docs.deepseek.com/quick_start/agent_integrations/deepcode/) |
+| Microsoft                    | [GitHub Copilot web](https://github.com/copilot)                                        | [GitHub Copilot Desktop](https://youtu.be/qGXVeWw7vz8)                | [GitHub Copilot CLI](https://youtu.be/SmQE6HazA38)                                     |
 
 #### ✏️ Edición de Código
 Este proyecto esta configurado para usar IA de pago y desde la terminal. **NO** sirve si usas IA gratis o desde una pagina web, porque estan limitadas.
