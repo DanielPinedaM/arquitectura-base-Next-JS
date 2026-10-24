@@ -122,10 +122,10 @@ Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y
 
 ```console
 Leer estas skills. Cuando las skills se contradicen, prevalece la que tenga el número menor en la columna **Prioridad**
-| Prioridad | Skill |
-| --- | --- |
-| 1 | `.agents/skills/next-conventions/SKILL.md` |
-| 2 | `.agents/skills/next-16.4.3-docs/SKILL.md` |
+| Prioridad | Skill                                      |
+| --------- | ------------------------------------------ |
+| 1         | `.agents/skills/next-conventions/SKILL.md` |
+| 2         | `.agents/skills/next-16.4.3-docs/SKILL.md` |
 
 Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte ninguno, basándote en ambas skills. Cuando sea posible, muestra un ejemplo correcto y uno incorrecto:
 - Estructura de archivos y carpetas (feature arquitecture y Next.js app router)
@@ -166,12 +166,12 @@ Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte n
 ```
 
 * Mira estos enlaces para que aprendas de IA enfocada en desarrollo de software:
-  1. [🔗 Benchmark de IA](https://artificialanalysis.ai/)
-  2. [🔗 Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
-  3. [🔗 Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
-  4. [🔗 Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
-  5. [🔗 Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
-  6. [🔗 Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
+1. [🔗 Benchmark de IA](https://artificialanalysis.ai/)
+2. [🔗 Categorización de los tipos de IA: Modelos, Harnesses y Orquestadores](https://youtu.be/_HxDbdItVcs?si=VB6SHcZB1enB2Qvl)
+3. [🔗 Mejores Modelos de IA](https://youtu.be/EPz00z1ACPc?si=Dkw3zECIk1d84YxX)
+4. [🔗 Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
+5. [🔗 Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
+6. [🔗 Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
 
 # ⬇️ Instalaciones
 
