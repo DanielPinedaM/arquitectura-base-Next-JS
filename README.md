@@ -777,6 +777,8 @@ Es un protocolo (no es exactamente una API REST, aunque es similar) que permite 
 ### 🔗 Enlaces - Mas Ejemplos de MCP
 Estos MCP no estan configurados en este proyecto:
 
+* [Next.js MCP](https://nextjs.org/docs/app/guides/mcp)
+
 * [Repositorios con MCP](https://mcpservers.org/es/)
 
 * [Repositorios con MCP de Claude](https://claude.ai/directory)
