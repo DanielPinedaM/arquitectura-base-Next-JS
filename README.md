@@ -187,7 +187,7 @@ Esto es obligatorio, sin esto no puedes ejecutar el proyecto
 > 4. [**NO** instales un administrador de versiones para Node.js (fnm, nvm, volta, etc)](#instalar-fnm-opcional)
 > Sino haces esto asi entonces el proyecto queda mal configurado, todo esto se explica a continuacion y en orden
 
-### Instalar `pnpm`
+### [Instalar `pnpm`](https://youtu.be/MZ6JxWWCA5M?si=Ms3yvVtPOh3k4111)
 1. Ejecutar Power Shell como administrador
 
 2. Instalar la ultima version estable de `pnpm` y agregar `pnpm` a la variable de entorno PATH
