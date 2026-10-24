@@ -380,7 +380,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 **¿Qué es el Harness Engineering y por qué mejora los resultados de la IA?:**
 [Mira este video](https://youtu.be/DOgIFhpndW0?si=k5ulr68LgZt4MumG) que responde la pregunta.
 
-*Harness Engineering* consiste en diseñar el entorno que rodea al modelo: instrucciones, contexto, herramientas y ciclos de ejecución y verificación. Un buen *harness* permite obtener resultados más fiables incluso con el mismo modelo.
+Software que envuelve al modelo y lo convierte en un sistema útil. Gestiona el bucle de ejecución: construye el prompt (instrucciones de sistema, contexto, historial), le da herramientas (leer o escribir archivos, ejecutar comandos, buscar en la web), ejecuta las acciones que el modelo pide, le devuelve los resultados y repite hasta terminar la tarea. Un buen harness permite obtener resultados más fiables incluso con el mismo modelo.
 
 Por eso, se recomienda usar herramientas de IA desde la terminal, como las de la columna [Terminal / Bash / CLI](#principales-ia-para-desarrollo-de-software): Claude Code, Codex CLI, Antigravity CLI, OpenCode CLI, Cursor CLI, etc.
 
@@ -675,14 +675,6 @@ Sistema entrenado con datos que, dada una entrada (texto, imagen, audio), produc
 - GPT-6 Astra, GPT-6 Sol (OpenAI)
 - Gemini 4 Argon (Google)
 - DeepSeek 4
-
-## Harness de IA
-Software que envuelve al modelo y lo convierte en un sistema útil. Gestiona el bucle de ejecución: construye el prompt (instrucciones de sistema, contexto, historial), le da herramientas (leer o escribir archivos, ejecutar comandos, buscar en la web), ejecuta las acciones que el modelo pide, le devuelve los resultados y repite hasta terminar la tarea. El mismo modelo rinde muy distinto según el harness que lo envuelva.
-
-**Ejemplos:**
-- Claude Code (Antropic) y Codex CLI (Open AI): harness de programación en terminal
-- Cursor, GitHub Copilot: harness de programación dentro del editor de codigo
-- Las aplicaciones moviles y web de [ChatGPT](https://chatgpt.com/) y [claude.ai](https://claude.ai/): harness con UI de chat
 
 ## Skill
 Es una carpeta cuyo archivo principal es `SKILL.md`, con instrucciones para enseñarle a la IA cómo ejecutar un proceso o darle conocimiento sobre un tema. Puede incluir archivos adicionales (scripts, plantillas, documentos de referencia).
