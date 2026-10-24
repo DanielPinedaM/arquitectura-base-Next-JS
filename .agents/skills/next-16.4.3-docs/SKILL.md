@@ -1,11 +1,11 @@
 ---
-name: next-16.3.8-docs
+name: next-16.4.3-docs
 description: Official Next.js 16 documentation (App Router and Pages Router) mirrored locally as markdown, with a table of contents that maps every page to the moment it becomes relevant. Use this skill whenever a task touches Next.js at all - routing, layouts, Server and Client Components, data fetching, caching and revalidation, Server Actions and forms, metadata and SEO, next.config.js options, the next CLI, proxy/middleware, deployment, testing setup, or migrations and version upgrades - and always consult it before answering a Next.js API question from memory, because Next.js 16 renamed, deprecated and removed APIs that older training data still recommends.
 ---
 
 # What is this?
 
-Every `.md` file under `.agents/skills/next-docs/docs/` is a local, offline copy of the **official Next.js documentation** published at <https://nextjs.org/docs>. The folder tree mirrors the sections of the website, and each file keeps its original frontmatter (`title`, `description`, `related`) followed by the full page body.
+Every `.md` file under `.agents/skills/next-16.4.3-docs/docs/` is a local, offline copy of the **official Next.js documentation** published at <https://nextjs.org/docs>. The folder tree mirrors the sections of the website, and each file keeps its original frontmatter (`title`, `description`, `related`) followed by the full page body.
 
 This project runs **Next.js**, whose breaking changes may contradict your training data. Treat these files as the source of truth: when a file and your memory disagree, the file wins, and every deprecation notice inside them applies.
 
@@ -24,7 +24,7 @@ Every folder inside `docs/` has an `index.md`. It is the landing page of that se
 - **Section overviews** — a real page that explains the model the whole folder assumes and compares the siblings inside it (for example [`docs/01-app/02-guides/testing/index.md`](docs/01-app/02-guides/testing/index.md) weighs Cypress, Playwright, Vitest and Jest against each other before you pick one).
 
 # How to read the documentation
-Read the `.md` files located in `.agents/skills/next-docs/docs/` **on demand**: use the [Table of Contents](#table-of-contents) as a reference to infer which files the task you are solving needs, and open only those files.
+Read the `.md` files located in `.agents/skills/next-16.4.3-docs/docs/` **on demand**: use the [Table of Contents](#table-of-contents) as a reference to infer which files the task you are solving needs, and open only those files.
 
 **Reason**: reading every file consumes context and tokens unnecessarily.
 
