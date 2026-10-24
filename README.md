@@ -275,7 +275,7 @@ git config --global user.name "nombre_de_usuario"
 5. Verificar que se configuro usuario de Git
 
 ```console
-git config user.name
+git config --global user.name
 ```
 
 6. Configurar correo de Git
@@ -287,7 +287,7 @@ git config --global user.email correo@gmail.com
 7. Verificar que se configuro correo de Git
 
 ```console
-git config user.email
+git config --global user.email
 ```
 
 #### Configurar Enlaces Simbolicos de Git
