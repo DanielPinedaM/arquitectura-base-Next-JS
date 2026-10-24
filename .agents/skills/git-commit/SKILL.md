@@ -100,7 +100,7 @@ Pasar el mensaje multilínea como argumento en la línea de comandos cuela carac
 
 Motivos: `Write` guarda el texto tal cual, sin pasar por el shell. El archivo vive junto a esta skill (al lado de las reglas que lo generan, fácil de encontrar), pero, a diferencia de `.git`, forma parte del working directory: mientras existe aparece como untracked y puede colarse en un commit o reutilizarse por error con el mensaje obsoleto de otra feature. Por eso se elimina tras cada commit y cada commit escribe su mensaje desde cero.
 
-**Esta PROHIBIDO lo siguiente:**
+# Esta PROHIBIDO lo siguiente:
 * Pasar un mensaje multilínea con `-m`, construirlo concatenando `\n`, `` `n `` o varios `-m`, o usar here-strings de PowerShell (`@'...'@`) o heredocs POSIX (`<<'EOF' ... EOF`): la sintaxis del shell equivocado no da error, se inserta como texto literal en el mensaje (bug real: `git commit -m @'...'@` en Bash creó un commit que empezaba con `@`).
 
 * Ejecutar `git commit` sin `-F`, ni siquiera con un mensaje de una sola línea (el `body` es obligatorio).
