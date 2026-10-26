@@ -187,7 +187,33 @@ Esto es obligatorio, sin esto no puedes ejecutar el proyecto
 > 4. [**NO** instales un administrador de versiones para Node.js (fnm, nvm, volta, etc)](#instalar-fnm-opcional)
 > Sino haces esto asi entonces el proyecto queda mal configurado, todo esto se explica a continuacion y en orden
 
-### [Instalar `pnpm`](https://youtu.be/MZ6JxWWCA5M?si=Ms3yvVtPOh3k4111)
+### [📦 Instalar `pnpm` (Manejador de Paquetes)](https://youtu.be/MZ6JxWWCA5M?si=Ms3yvVtPOh3k4111)
+Usar `pnpm` version `>=12.0.0 <13.0.0`, `pnpm-lock.yaml` y `pnpm dlx <paquete>`. Esta 🚫 **BLOQUEADO** el uso de:
+
+* Otras versiones de `pnpm` fuera de ese rango (por ejemplo pnpm 11 o pnpm 13).
+
+* Otros manejadores de paquetes como:
+
+| Concepto ⬇️ / Nombre manejador de paquetes ➡️            | `npm`                                   | `yarn`                              |
+| --------------------------------------------------------- | --------------------------------------- | ----------------------------------- |
+| Lockfile                                                  | `package-lock.json`                     | `yarn.lock`                         |
+| Ejecutar un paquete temporal (sin instalarlo globalmente) | `npx <paquete>`<br>`npm exec <paquete>` | `yarn dlx <paquete>` *(Yarn Berry)* |
+
+Para esto en `package.json` se agrego:
+
+```JSON
+{
+  "packageManager": "pnpm@12.11.2",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=12.0.0 <13.0.0",
+      "onFail": "download"
+    }
+  }
+}
+```
+
 1. Ejecutar Power Shell como administrador
 
 2. Instalar la ultima version estable de `pnpm` y agregar `pnpm` a la variable de entorno PATH
@@ -491,33 +517,6 @@ node -v
 
 ```console
 fnm use 24.22.1
-```
-
-# 📦 Manejador de Paquetes
-Usar `pnpm` version `>=12.0.0 <13.0.0`, `pnpm-lock.yaml` y `pnpm dlx <paquete>`. Esta 🚫 **BLOQUEADO** el uso de:
-
-* Otras versiones de `pnpm` fuera de ese rango (por ejemplo pnpm 11 o pnpm 13).
-
-* Otros manejadores de paquetes como:
-
-| Concepto ⬇️ / Nombre manejador de paquetes ➡️            | `npm`                                   | `yarn`                              |
-| --------------------------------------------------------- | --------------------------------------- | ----------------------------------- |
-| Lockfile                                                  | `package-lock.json`                     | `yarn.lock`                         |
-| Ejecutar un paquete temporal (sin instalarlo globalmente) | `npx <paquete>`<br>`npm exec <paquete>` | `yarn dlx <paquete>` *(Yarn Berry)* |
-
-Para esto en `package.json` se agrego:
-
-```JSON
-{
-  "packageManager": "pnpm@12.11.2",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": ">=12.0.0 <13.0.0",
-      "onFail": "download"
-    }
-  }
-}
 ```
 
 # 🏷️ Alias
