@@ -899,8 +899,6 @@ Trabajar bajo el principio:
 
 El skill [`.agents\skills\git-commit\SKILL.md`](.agents/skills/git-commit/SKILL.md) te permite realizar commits.
 
-***Ejemplos de prompt:***
-
 ```console
 git commit y git push
 ```
@@ -997,34 +995,27 @@ useState is a React Hook that lets you add a state variable to your component.
 Esta definición corresponde a la [documentacion oficial de React](https://react.dev/reference/react/useState)
 
 ## `next-16.4.3-docs`
-Esta skill sirve para que la IA pueda leer la documentacion de Next.js
+Sirve para que la IA tenga informacion actualizada de la documentacion oficial de Next.js 16.4.3.
 
-[Segun la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents), al instalar Next.js, se agregan archivos markdown en la ruta `node_modules/next/dist/docs/` que contienen la [documentacion oficial de Next.js](https://nextjs.org/docs)
+[Segun la documentacion oficial de Next.js](https://nextjs.org/docs/app/guides/ai-agents), al instalar Next.js, se agregan archivos markdown en la ruta `node_modules/next/dist/docs/` que contienen la [documentacion oficial de Next.js](https://nextjs.org/docs/llms.txt)
 
-Esta skill se hizo de la siguiente forma:
-1. Se copio la documentacion `node_modules/next/dist/docs/` a la ruta donde se leen las skills `.agents\skills\next-16.4.3-docs\`
-
-2. Se agrego un archivo `.agents\skills\next-16.4.3-docs\SKILL.md`
-
-3. En `.agents\skills\next-16.4.3-docs\SKILL.md` y `.agents\skills\next-16.4.3-docs\references\` se agrego una tabla de contenido donde se le explica a la IA ¿Como leer la skill con la documentacion oficial de Next.js?
+El problema de pedirle a la IA que lea `node_modules/next/dist/docs/`, incluso [usando la tool nextjs_docs de Next.js MCP](https://nextjs.org/docs/app/guides/mcp) es que contiene archivos en blanco, lo cual es confuso para la IA. Por lo cual, para crear esta skill se hizo con el proceso descrito en `llms.txt` y `llms-full.txt`.
 
 Para probar que funcione:
 
 ```txt
-/next-16.4.3-docs ¿como funciona Next.js App Router?, explicar, citar textual y traducir cita textual a español
+/next-16.4.3-docs Usar la skill para citar textualmente Layouts and Pages - file-system based routing
 ```
 
 La salida debe contener algo similar a esto:
 
 ```bash
-● Read(\skills\next-16.4.3-docs\docs\01-app\01-getting-started\03-layouts-and-pages.md · lines 1-80)
+● Skill(next-16.4.3-docs)
 
-Read 80 lines
+Next.js uses file-system based routing, meaning you can use folders and files to define routes (..)
 ```
 
-Es decir, la IA debe consultar los archivos de la skill que contienen la información relacionada con la pregunta. En este ejemplo, al preguntar sobre Next.js App Router, la IA leyó el archivo `03-layouts-and-pages.md`, que contiene la información necesaria para responder.
-
-El texto de `03-layouts-and-pages.md` es el mismo que el de [este enlace de la documentacion oficial de Next.js](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
+La respesta corresponde a [este enlace de la documentacion oficial de Next.js](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
 
 ## `design`
 [Mira este video](https://youtu.be/Bb-hjNbvXmM?si=LGrcN90kD-J0IlFB) para aprender a usar la skill `design`.
