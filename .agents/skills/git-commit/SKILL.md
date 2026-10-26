@@ -107,7 +107,7 @@ Motivos: `Write` guarda el texto tal cual, sin pasar por el shell. El archivo vi
 
 * Dejar `COMMIT_MSG_TEMP.md` sin eliminar, reutilizarlo de un commit anterior o agregarlo al staging area o a un commit. Por eso, PROHIBIDO `git add .`, `git add -A` o `git add --all` mientras exista: agregar los archivos de la feature nombrándolos uno por uno.
 
-* Ejecutar `git push --force`, `git reset --hard`, `git branch -D`, `git stash drop`, `git stash clear`
+* Ejecutar `git push --force`, `git reset --hard`, `git branch -D`, `git stash drop`, `git stash clear`, `git merge`
 
 # Mostrar el Commit
 Tras crear cada commit, mostrar en la respuesta su encabezado (`<emoji> <type>(<scope>): <mensaje en español>`) y su `body`.
