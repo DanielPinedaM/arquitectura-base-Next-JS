@@ -233,7 +233,7 @@ Debe mostrar un numero con la version de `npm` instalada
 
 > [!CAUTION]
 > # ⚠️ Advertencia
-> Es importante hacer esto, porque saltarse estos pasos elimina las [configuraciones de IA de este proyecto](#compatibilidad-de-este-proyecto-con-multiples-harness-y-modelos-de-ia)
+> Es importante hacer esto, porque saltarse estos pasos elimina las [configuraciones de IA de este proyecto](#compatibilidad-de-este-proyecto-con-múltiples-harness-y-modelos-de-ia)
 
 [Clic aqui para **aprender** Git Bash](https://youtu.be/niPExbK8lSw?si=gQCFLrUmqHHV-rCLy)
 
