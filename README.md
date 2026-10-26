@@ -840,6 +840,8 @@ Es un archivo de instrucciones que el harness carga automáticamente en el conte
 
 * Respete la arquitectura del proyecto.
 
+* Consulte la [documentación oficial de React](http://react.dev/) usando la [skill react-19.3.1-docs](#react-1931-docs)
+
 * Consulte la [documentación oficial de Next.js](http://nextjs.org/docs) usando la [skill next-16.4.3-docs](#next-1643-docs)
 
 * Use Next.js moderno y no legacy.
@@ -974,6 +976,25 @@ Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte n
   - Zustand con y sin immer, ¿cual debo usar segun la skill `next-conventions`?
   - Como definir y actualizar estados con Zustand
 ```
+
+## `react-19.3.1-docs`
+Sirve para que la IA tenga informacion actualizada de la documentacion oficial de React 19.3.1.
+
+Para probar que funcione:
+
+```txt
+/react-19.3.1-docs citar textulmente la definicion de useState de la skill
+```
+
+La salida debe contener algo similar a esto:
+
+```bash
+● Skill(react-19.3.1-docs)
+
+useState is a React Hook that lets you add a state variable to your component.
+```
+
+Esta definición corresponde a la [documentacion oficial de React](https://react.dev/reference/react/useState)
 
 ## `next-16.4.3-docs`
 Esta skill sirve para que la IA pueda leer la documentacion de Next.js
