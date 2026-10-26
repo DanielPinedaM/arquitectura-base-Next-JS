@@ -212,7 +212,7 @@ node -v
 
 Debe mostrar un numero con la version de Node.js instalada
 
-### Instalar `npm`
+### 📦 Instalar `npm` (Manejador de Paquetes)
 1. Instalar `npm` a traves de `pnpm`
 
 ```console
