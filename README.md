@@ -194,7 +194,7 @@ Esto es obligatorio, sin esto no puedes ejecutar el proyecto
 2. Instalar la ultima version estable de `pnpm` y agregar `pnpm` a la variable de entorno PATH
 
 ```console
-Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
+irm https://get.pnpm.io/ps1 | iex
 ```
 
 3. Cerrar y volver abrir Power Shell como administrador
