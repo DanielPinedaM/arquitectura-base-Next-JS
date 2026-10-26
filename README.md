@@ -115,55 +115,7 @@ Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y
 
 * [🔗 Enlace - HTTP Cats - Explicación de los Status HTTP](https://http.cat/)
 
-* Para entender la arquitectura del proyecto:
-  * Lee la [skill next-conventions](.agents/skills/next-conventions/SKILL.md)
-
-  * Si no entiendes algo de la skill, pregúntale a la IA en lugar de pedirle solo *"hazme X"*. Aunque la skill es larga, aprenderás la arquitectura del proyecto y buenas prácticas, y podrás detectar cuándo la IA alucina al revisar el código. Por ejemplo, este prompt resume la arquitectura de este proyecto:
-
-```console
-Leer estas skills. Cuando las skills se contradicen, prevalece la que tenga el número menor en la columna **Prioridad**
-| Prioridad | Skill                                      |
-| --------- | ------------------------------------------ |
-| 1         | `.agents/skills/next-conventions/SKILL.md` |
-| 2         | `.agents/skills/next-16.4.3-docs/SKILL.md` |
-
-Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte ninguno, basándote en ambas skills. Cuando sea posible, muestra un ejemplo correcto y uno incorrecto:
-- Estructura de archivos y carpetas (feature arquitecture y Next.js app router)
-
-- Manejo de fechas: En este proyecto se usa Luxon y no `new Date` nativo de JavaScript
-
-- Maquetacion:
-  - ¿Como maquetar componentes de UI?
-  - ¿Como usar el prefijo dark: de Tailwind para tema oscuro y claro en los componentes?
-  - ¿Como usar CSS global y Tailwind para componentes?
-  - CSS nesting
-  - Mobile First en Tailwind y CSS
-  - En este proyecto se usa sintaxis de rango de CSS Media Queries Level 4 y esta prohibido `min-width` y `max-width`
-
-- Botones:
-  - ¿Como escribir un boton?
-  - ¿Es correcto usar <button> de HTML nativo en los componentes?
-  - Tipos de botones: Boton con solo texto, solo icono, icono y texto
-
-- Consumo de API
-  - ¿Como consumir una API?
-  - ¿Es correcto escribir try catch al llamar a una API?
-  - ¿Como validar cuando peticion HTTP es exitosa y erronea?
-
-- ¿Como crear una nueva ruta en Next.js app router siguiendo las practicas de feature arquitecture del proyecto?
-
-- Formularios:
-  - ¿Es correcto usar input nativo de HTML para formularios?
-  - ¿Como definir y validar formularios con React Hook Form, Zod y Shad cn?
-  - ¿Porque no debo de escribir logica de negocio/dominio dentro de los componentes de Shad cn ni en la carpeta shared del proyecto?, explicarme alto acoplamiento y composicion de componentes
-
-- ¿Que significa mantener las transformaciones de estado puras y predecibles?, explicar concepto de inmutabilidad y spread operator de JavaScript aplicado a los useState() de React
-
-- Explicar reglas de estado global para este proyecto de Next.js:
-  - Se prohibe usar manejadores de estado global diferentes a Zustand, como por ejemplo Redux y useContext()
-  - Zustand con y sin immer, ¿cual debo usar segun la skill `next-conventions`?
-  - Como definir y actualizar estados con Zustand
-```
+* [Leer esto](#next-conventions) para entender la arquitectura del proyecto.
 
 * 🔗 Mira estos enlaces para que aprendas de IA enfocada en desarrollo de software:
 1. [Ollama: IA local gratis](https://youtu.be/p2zZ6zuaCDM)
@@ -968,6 +920,59 @@ La salida debe contener algo similar a esto:
 ● Read(\.agents\skills\vercel-react-best-practices\reglas\[carpeta]\[nombre_archivo].md)
 
 Read 57 lines
+```
+
+## `next-conventions`
+Contiene reglas que explican la arquitectura del proyecto.
+
+Para entender la arquitectura del proyecto:
+* Lee la [skill next-conventions](.agents/skills/next-conventions/SKILL.md)
+
+* Si no entiendes algo de la skill, pregúntale a la IA en lugar de pedirle solo *"hazme X"*. Aunque la skill es larga, aprenderás la arquitectura del proyecto y buenas prácticas, y podrás detectar cuándo la IA alucina al revisar el código. Por ejemplo, este prompt resume la arquitectura de este proyecto:
+
+```console
+Leer estas skills. Cuando las skills se contradicen, prevalece la que tenga el número menor en la columna **Prioridad**
+| Prioridad | Skill                                      |
+| --------- | ------------------------------------------ |
+| 1         | `.agents/skills/next-conventions/SKILL.md` |
+| 2         | `.agents/skills/next-16.4.3-docs/SKILL.md` |
+
+Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte ninguno, basándote en ambas skills. Cuando sea posible, muestra un ejemplo correcto y uno incorrecto:
+- Estructura de archivos y carpetas (feature arquitecture y Next.js app router)
+
+- Manejo de fechas: En este proyecto se usa Luxon y no `new Date` nativo de JavaScript
+
+- Maquetacion:
+  - ¿Como maquetar componentes de UI?
+  - ¿Como usar el prefijo dark: de Tailwind para tema oscuro y claro en los componentes?
+  - ¿Como usar CSS global y Tailwind para componentes?
+  - CSS nesting
+  - Mobile First en Tailwind y CSS
+  - En este proyecto se usa sintaxis de rango de CSS Media Queries Level 4 y esta prohibido `min-width` y `max-width`
+
+- Botones:
+  - ¿Como escribir un boton?
+  - ¿Es correcto usar <button> de HTML nativo en los componentes?
+  - Tipos de botones: Boton con solo texto, solo icono, icono y texto
+
+- Consumo de API
+  - ¿Como consumir una API?
+  - ¿Es correcto escribir try catch al llamar a una API?
+  - ¿Como validar cuando peticion HTTP es exitosa y erronea?
+
+- ¿Como crear una nueva ruta en Next.js app router siguiendo las practicas de feature arquitecture del proyecto?
+
+- Formularios:
+  - ¿Es correcto usar input nativo de HTML para formularios?
+  - ¿Como definir y validar formularios con React Hook Form, Zod y Shad cn?
+  - ¿Porque no debo de escribir logica de negocio/dominio dentro de los componentes de Shad cn ni en la carpeta shared del proyecto?, explicarme alto acoplamiento y composicion de componentes
+
+- ¿Que significa mantener las transformaciones de estado puras y predecibles?, explicar concepto de inmutabilidad y spread operator de JavaScript aplicado a los useState() de React
+
+- Explicar reglas de estado global para este proyecto de Next.js:
+  - Se prohibe usar manejadores de estado global diferentes a Zustand, como por ejemplo Redux y useContext()
+  - Zustand con y sin immer, ¿cual debo usar segun la skill `next-conventions`?
+  - Como definir y actualizar estados con Zustand
 ```
 
 ## `next-16.4.3-docs`
