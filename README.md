@@ -976,7 +976,7 @@ Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte n
 ```
 
 ## `react-19.3.1-docs`
-Sirve para que la IA tenga informacion actualizada de la documentacion oficial de React 19.3.1.
+Sirve para que la IA tenga informacion actualizada de la [documentacion oficial de React 19.3.1](https://react.dev/)
 
 Para probar que funcione:
 
