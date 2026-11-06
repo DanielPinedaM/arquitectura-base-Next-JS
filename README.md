@@ -1198,4 +1198,6 @@ Esto no esta configurado en este proyecto:
 
 * [Chrome DevTools MCP](https://youtu.be/2wxCXppbpgs?si=tFR4TWmJUy3CSSW3)
 
+* [Extensión de Google Chrome para Claude Code](https://youtu.be/24jWxU7hztk)
+
 * [Vercel Agent Browser](https://github.com/vercel-labs/agent-browser/tree/main)
