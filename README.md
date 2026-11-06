@@ -1079,6 +1079,18 @@ Permite que la IA te haga preguntas para aclarar tus objetivos y eliminar ambig�
 /question-me << Aqui describir el bug a solucionar, el código a refactorizar o la nueva feature a implementar >>
 ```
 
+## `zod-4`
+Esta skill está basada en [este repositorio de GitHub](https://github.com/anivar/zod-skill). Le explica a la IA:
+- ¿Dónde usar Zod? Por ejemplo, en los formularios
+
+- Buenas prácticas de Zod
+
+- Breaking changes de Zod 4 para escribir código de Zod actualizado
+
+```bash
+/zod-4 Explícame con teoría y ejemplo: esquema de Zod 4 en un formulario de Next.js con React Hook Form y zodResolver
+```
+
 # **MCP** Configurados en este Proyecto
 
 ## [React DevTools MCP](https://react.dev/reference/dev-tools/react-devtools-cdt-mcp)
