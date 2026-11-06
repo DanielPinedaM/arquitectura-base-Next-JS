@@ -417,7 +417,7 @@ Aunque el backend del proyecto no use Python y los agentes de IA de terminal fun
 
 **Ejemplo:** En un proyecto de TypeScript, el agente de IA puede ejecutar esto para leer las dependencias de `package.json`:
 
-```bash
+```console
 python3 -c "import json; print(json.load(open('package.json'))['dependencies'])"
 ```
 
@@ -533,7 +533,7 @@ El ambiente queda **hardcodeado dentro de la carpeta `.next`** durante el build.
 
 2. Ejecutar la carpeta `.next`
 
-```bash
+```console
 pn start
 ```
 
@@ -606,7 +606,7 @@ debugger;
 
 4. Seleccionar el entorno que quiere depurar en la lista, según la tabla de scripts:
 
-```txt
+```console
 🪲 debugging en Chrome local host
 
 🪲 debugging en Chrome pruebas
@@ -685,7 +685,7 @@ Estos skills no estan configurados en este proyecto:
 
 2. Ejecutar el comando de la skill a descargar:
 
-```bash
+```console
 pn dlx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices
 ```
 
@@ -725,7 +725,7 @@ Ejecutar comandos:
 cd /ruta/a/carpeta/raiz/del/proyecto
 ```
 
-```bash
+```console
 /skills
 ```
 
@@ -873,13 +873,13 @@ Si usas Claude Code, [Claude también lee `AGENTS.md`](https://code.claude.com/d
 
 Para probar que funcione `AGENTS.md` envia este prompt:
 
-```txt
+```console
 citar textualmente de la documentación oficial convenciones de carpetas y archivos de Next.js app router
 ```
 
 La salida debe contener algo similar a esto:
 
-```bash
+```console
 ● Skill(next-16.4.3-docs)
 ```
 
@@ -931,13 +931,13 @@ Permite a la IA escribir código limpio de React.
 
 Para probar que funcione:
 
-```txt
+```console
 /vercel-react-best-practices explicame `async-paralelo` - Use Promise.all() for independent operations
 ```
 
 La salida debe contener algo similar a esto:
 
-```bash
+```console
 ● Read(\.agents\skills\vercel-react-best-practices\reglas\[carpeta]\[nombre_archivo].md)
 
 Read 57 lines
@@ -1001,13 +1001,13 @@ Sirve para que la IA tenga informacion actualizada de la [documentacion oficial 
 
 Para probar que funcione:
 
-```txt
+```console
 /react-19.3.1-docs citar textulmente la definicion de useState de la skill
 ```
 
 La salida debe contener algo similar a esto:
 
-```bash
+```console
 ● Skill(react-19.3.1-docs)
 
 useState is a React Hook that lets you add a state variable to your component.
@@ -1024,13 +1024,13 @@ El problema de pedirle a la IA que lea `node_modules/next/dist/docs/`, incluso [
 
 Para probar que funcione:
 
-```txt
+```console
 /next-16.4.3-docs Usar la skill para citar textualmente Layouts and Pages - file-system based routing
 ```
 
 La salida debe contener algo similar a esto:
 
-```bash
+```console
 ● Skill(next-16.4.3-docs)
 
 Next.js uses file-system based routing, meaning you can use folders and files to define routes (..)
@@ -1045,11 +1045,11 @@ Solo funciona en Claude. Crea un mockup (similar a Figma) que puedes editar con 
 
 **Ejemplos**
 
-```txt
+```console
 /design crea una landing page para un portafolio
 ```
 
-```txt
+```console
 /design cambia el color del titulo del texto X por rojo
 ```
 
@@ -1060,7 +1060,7 @@ Para aprender como crear una nueva skill [mira este video](https://youtu.be/oZTX
 
 Para crear una nueva skill, hay que llamar la skill `skill-creator`. Ejemplo:
 
-```bash
+```console
 /skill-creator en la carpeta .agents\skills\ crear una skill sobre <<aqui describes sobre que trata la skill>>
 ```
 
@@ -1075,7 +1075,7 @@ Esta skill esta basada en:
 
 Permite que la IA te haga preguntas para aclarar tus objetivos y eliminar ambigüedades, logrando modificaciones más precisas.
 
-```bash
+```console
 /question-me << Aqui describir el bug a solucionar, el código a refactorizar o la nueva feature a implementar >>
 ```
 
@@ -1087,7 +1087,7 @@ Esta skill está basada en [este repositorio de GitHub](https://github.com/aniva
 
 - Breaking changes de Zod 4 para escribir código de Zod actualizado
 
-```bash
+```console
 /zod-4 Explícame con teoría y ejemplo: esquema de Zod 4 en un formulario de Next.js con React Hook Form y zodResolver
 ```
 
@@ -1125,7 +1125,7 @@ Sirve para que la IA desde la terminal pueda controlar el navegador. Ejemplos de
 
 Puedes pedir a la IA que te explique la skill con este prompt:
 
-```bash
+```console
 /design crear un diagrama de flujo para la skill .agents\skills\playwright-cli\SKILL.md
 
 explicar:
@@ -1154,13 +1154,13 @@ explicar:
 
 Instalar:
 
-```bash
+```console
 pnpm add -g @playwright/cli@latest
 ```
 
 Si la instalacion de `playwright-cli` es correcta, al ejecutar
 
-```bash
+```console
 playwright-cli --version
 ```
 
@@ -1175,7 +1175,7 @@ Debe mostrar un numero con la version de `playwright-cli` instalada
 
 4. Usar este prompt:
 
-```txt
+```console
 /playwright-cli <<< Aqui describir de forma MUY DETALLADA
 la funcionalidad a testear, bug a solucionar o el proceso a automatizar,
 para mejorar el resultado es bueno decirle a la IA
