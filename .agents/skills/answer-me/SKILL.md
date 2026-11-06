@@ -1,6 +1,6 @@
 ---
 name: answer-me
-description: 'Responde explicando primero la teoría (concepto y causa, sin código) y después la evidencia: citas textuales con ruta:línea. Úsala siempre que el usuario pregunte por qué pasa algo o pida explicar un código, error, comportamiento o resultado, aunque no pida citas. Ejemplos: «¿por qué no se ve el botón?», «explícame este error», «qué hace esta función», «responder sin modificar».'
+description: 'Responde explicando primero la teoría (concepto y causa, sin código) y después la evidencia: citas textuales con ruta:línea. Úsala siempre que el usuario pregunte por qué pasa algo o pida explicar un código, error, comportamiento o resultado. Ejemplos: «¿por qué no se ve el botón?», «explícame este error», «qué hace esta función», «responder sin modificar».'
 ---
 
 # Responder preguntas del usuario
