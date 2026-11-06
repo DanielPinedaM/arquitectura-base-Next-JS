@@ -393,12 +393,33 @@ Este proyecto esta configurado para usar IA de pago y desde la terminal. **NO** 
 ## Instalaciones Recomendadas
 Son opcionales. Puedes ejecutar el proyecto sin ellas, pero te ayudarán a programar mejor.
 
-### Herdr
-* [Click aqui para **instalar** Herdr](https://herdr.dev/docs/install/)
+### Herdr (Multiplexor de Terminales de IA)
+[Click aqui para aprender Herdr](https://youtu.be/VQ-swm4PQQU)
 
-* [Click aqui para **aprender** Herdr](https://youtu.be/Hr693AAnCV0)
+1. Ejecutar Power Shell como administrador
+
+2. Ejecutar los siguientes comandos:
+
+```console
+powershell -c "irm https://releases.herdr.dev/app/install.ps1 | iex"
+```
+
+```console
+powershell -c "irm https://releases.herdr.dev/core/install.ps1 | iex"
+```
 
 Tambien sirve alternativas como [Orca](https://youtu.be/ze7AgvWfRwM?si=MnVb42vL8hfvD1KO)
+
+### Python 3
+[Clic aqui para instalar Python 3](https://www.python.org/downloads/)
+
+Aunque el backend del proyecto no use Python y los agentes de IA de terminal funcionen sin Python, es recomendable instalarlo, porque a menudo los agentes de IA usan Python de forma automatica para ejecutar scripts que analizan y editan código.
+
+**Ejemplo:** En un proyecto de TypeScript, el agente de IA puede ejecutar esto para leer las dependencias de `package.json`:
+
+```bash
+python3 -c "import json; print(json.load(open('package.json'))['dependencies'])"
+```
 
 ### [Instalar `fnm` (Opcional)](https://github.com/Schniz/fnm)
 
