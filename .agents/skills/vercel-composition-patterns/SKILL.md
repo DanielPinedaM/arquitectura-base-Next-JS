@@ -1,11 +1,6 @@
 ---
 name: vercel-composition-patterns
-description:
-  Patrones de composición de React que escalan. Úsala al refactorizar componentes con
-  proliferación de props booleanas, al construir librerías de componentes flexibles o al
-  diseñar APIs reutilizables. Se activa en tareas que involucran compound components,
-  render props, context providers o arquitectura de componentes. Incluye los cambios de API
-  de React 19.
+description: Patrones de composición de React que escalan. Úsala al refactorizar componentes con proliferación de props booleanas, al construir librerías de componentes flexibles o al diseñar APIs reutilizables. Se activa en tareas que involucran compound components, render props, context providers o arquitectura de componentes. Incluye los cambios de API de React 19.
 ---
 
 # Patrones de composición de React
