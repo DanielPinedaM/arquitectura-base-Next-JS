@@ -2,7 +2,7 @@
 Aplican a toda respuesta o modificación de código de este proyecto.
 
 ## 1. Autoridad de la Skill
-Las decisiones de arquitectura, estructura y convenciones definidas en esta skill son la fuente de la verdad del proyecto. No las cuestiones, no las reemplaces, no las contradigas y no las ignores. Desobedecerlas genera malas practicas y código inescalable. Esta restricción aplica solo a lo que la skill define de forma explícita; fuera de ese alcance rige el [3. Caso no Definido en la Skill](#3-caso-no-definido-en-la-skill).
+Las reglas que definen la arquitectura del proyecto están definidas en la tabla de contenido, debes de cumplirlas sin ignorarlas aunque existan alternativas
 
 ## 2. Instrucción que Contradice una Regla Definida
 Se aplica cuando la instrucción recibida contradice una regla explícitamente definida en esta skill.
@@ -1030,7 +1030,7 @@ const response = await firstValueFrom(
   * Operador de RxJS `catchError`
   * Callback `error` del objeto pasado a `subscribe()`
 
-* El manejo de errores se tiene que hacer con `if else` asi:
+* El manejo de errores se tiene que hacer con early return asi:
 
 ```ts
 async getBots() {
@@ -3367,3 +3367,135 @@ export default function ProductList() {
 * Dentro de TSX, la etiqueta de Todo Tree va en `{/* */}`, porque `//` no es válido entre etiquetas TSX.
 
 * Las etiquetas de TSDoc y de Todo Tree se escriben en inglés, la descripción en español
+
+## Condicionales
+Escribir los condicionales planos, para que se lean de arriba abajo, un caso a la vez. Cada nivel de anidación obliga a recordar qué condiciones se cumplieron para llegar a una línea, y eso vuelve el código difícil de leer y de modificar.
+
+### Early Return
+En funciones y métodos, usar early return: apenas un caso tiene su resultado, salir de la función con `return` o `throw`, para que la lógica principal quede al nivel raíz de la función.
+
+**Incorrecto**
+Los `if` anidados obligan a seguir cada rama para saber qué devuelve la función, y la lógica principal (`return user.name`) queda dos niveles adentro.
+
+```typescript
+function getUserName(user?: User): string {
+  if (user) {
+    if (user.isActive) {
+      return user.name;
+    } else {
+      return 'Usuario inactivo';
+    }
+  } else {
+    return 'Invitado';
+  }
+}
+```
+
+**Correcto:**
+Los casos especiales salen primero con su `return`, y `return user.name` queda al final, sin anidación.
+
+```typescript
+function getUserName(user?: User): string {
+  if (!user) return 'Invitado';
+  if (!user.isActive) return 'Usuario inactivo';
+
+  return user.name;
+}
+```
+
+### Lookup Table
+Cuando haga falta encadenar muchos `if`/`else if` que comparan una misma variable contra valores fijos, usar en su lugar una lookup table (tabla de búsqueda o dictionary mapping): un objeto que asocia cada valor con su resultado. Agregar un caso nuevo es agregar una línea a la tabla, sin tocar la lógica.
+
+**Incorrecto**
+Un `else if` por cada estado: cada estado nuevo alarga la cadena.
+
+```typescript
+function getStatusLabel(status: string): string {
+  if (status === 'pending') {
+    return 'Pendiente';
+  } else if (status === 'in-progress') {
+    return 'En progreso';
+  } else if (status === 'done') {
+    return 'Hecha';
+  } else {
+    return 'Desconocido';
+  }
+}
+```
+
+**Correcto:**
+La lookup table asocia cada estado con su texto en una sola línea, y el último `else` pasa a ser el fallback de la tabla.
+
+```typescript
+const STATUS_LABELS: Record<string, string> = {
+  pending: 'Pendiente',
+  'in-progress': 'En progreso',
+  done: 'Hecha',
+};
+
+function getStatusLabel(status: string): string {
+  return STATUS_LABELS[status] ?? 'Desconocido';
+}
+```
+
+#### Cuándo No Usar Lookup Table
+No usar lookup table cuando la condición es un rango o una comparación, como `amount >= 1000`: la tabla solo encuentra claves exactas, así que esos casos se resuelven con early return.
+
+**Incorrecto**
+La comparación convertida en clave de la tabla: la condición queda escondida dentro de `String()` y la tabla solo puede distinguir dos casos, `'true'` y `'false'`.
+
+```typescript
+const DISCOUNTS = {
+  true: 0.2,
+  false: 0.0,
+};
+const d = DISCOUNTS[String(amount >= 1000)]; // ilegible y frágil
+```
+
+**Correcto:**
+Un early return por cada rango, del monto más alto al más bajo: el primero que se cumple sale de la función.
+
+```typescript
+function getDiscount(amount: number): number {
+  if (amount >= 10000) return 0.20;
+  if (amount >= 1000) return 0.10;
+  if (amount >= 100) return 0.05;
+  return 0;
+}
+```
+
+### Prohibido `switch`
+Prohibido usar la sentencia `switch` de TypeScript, con sus `case` y `default`: necesita varias líneas por caso donde una lookup table necesita una, y cada `case` tiene que terminar en `return` o `break` para no ejecutar también el siguiente. Reemplazarla por una lookup table o por early return, según lo definido en [Lookup Table](#lookup-table).
+
+**Incorrecto**
+Un `switch` con un `case` por cada rol y un `default` para los demás: tres bloques para lo que se resuelve con dos `if`.
+
+```typescript
+function canEditTask(user: User, task: Task): boolean {
+  switch (user.role) {
+    case 'admin':
+      return true;
+    case 'editor':
+      return task.ownerId === user.id;
+    default:
+      return false;
+  }
+}
+```
+
+**Correcto:**
+Como el rol `editor` calcula su resultado en lugar de devolver un valor fijo, el `switch` se reemplaza con early return, y el `default` pasa a ser el `return` final.
+
+```typescript
+function canEditTask(user: User, task: Task): boolean {
+  if (user.role === 'admin') return true;
+  if (user.role === 'editor') return task.ownerId === user.id;
+
+  return false;
+}
+```
+
+### Reglas
+* Ningún `else` después de una rama que termina en `return` o `throw`: el código que sigue a esa rama solo se ejecuta cuando no se cumple, así que el `else` sobra y agrega un nivel de anidación.
+
+* En una lookup table, el fallback va con `??`, nunca con `||`: `||` también descarta `0`, `''` y `false`, que pueden ser valores válidos de la tabla.
