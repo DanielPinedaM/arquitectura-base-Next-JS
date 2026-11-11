@@ -281,7 +281,6 @@ img,
 video,
 canvas,
 audio,
-iframe,
 embed,
 object,
 picture {
@@ -320,6 +319,20 @@ Ajustar imagen y video ampliándolo y conservando su calidad. Es probable que la
 img,
 video {
   object-fit: cover;
+}
+
+/*
+  iframe responsive
+  https://youtu.be/R0YPFW5Dv3c
+  https://developer.chrome.com/blog/responsive-iframes?hl=es-419
+*/
+
+iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  frame-sizing: content-height;
 }
 
 /*

@@ -32,6 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='es-ES' suppressHydrationWarning>
+      <head>
+        <meta name='responsive-embedded-sizing' content='allow-origins=*' />
+      </head>
+
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
           attribute='class'
