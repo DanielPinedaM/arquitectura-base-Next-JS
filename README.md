@@ -111,11 +111,13 @@ Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y
 > [!TIP]
 > # 🧠 **Aprende**
 
+> [!IMPORTANT]
+> ❗ **Importante**
+> [Leer esto](#next-conventions) para entender la arquitectura del proyecto.
+
 * 🎥 Puedes hacer clic en el nombre de cada tecnología para ver cursos y aprenderlas
 
 * [🔗 Enlace - HTTP Cats - Explicación de los Status HTTP](https://http.cat/)
-
-* [Leer esto](#next-conventions) para entender la arquitectura del proyecto.
 
 * 🔗 Mira estos enlaces para que aprendas de IA enfocada en desarrollo de software:
 1. [Ollama: IA local gratis](https://youtu.be/p2zZ6zuaCDM)
