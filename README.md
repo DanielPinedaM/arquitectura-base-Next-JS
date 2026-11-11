@@ -113,6 +113,7 @@ Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y
 
 > [!IMPORTANT]
 > ❗ **Importante**
+>
 > [Leer esto](#next-conventions) para entender la arquitectura del proyecto.
 
 * 🎥 Puedes hacer clic en el nombre de cada tecnología para ver cursos y aprenderlas
@@ -969,9 +970,10 @@ Leer estas skills. Cuando las skills se contradicen, prevalece la que tenga el n
 | --------- | ------------------------------------------ |
 | 1         | `.agents/skills/next-conventions/SKILL.md` |
 | 2         | `.agents/skills/next-16.4.3-docs/SKILL.md` |
+| 3         | `.agents/skills/zod-4/SKILL.md`            |
 
 Explica cada uno de los siguientes puntos con teoría y ejemplos, sin saltarte ninguno, basándote en ambas skills. Cuando sea posible, muestra un ejemplo correcto y uno incorrecto:
-- Estructura de archivos y carpetas (feature arquitecture y Next.js app router)
+- Explicar feature arquitecture definido en la skill `next-conventions` y su relacion con estructura de archivos y carpetas y Next.js app router
 
 - Manejo de fechas: En este proyecto se usa Luxon y no `new Date` nativo de JavaScript
 
