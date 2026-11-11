@@ -30,7 +30,7 @@ Cuando las fuentes se contradicen, gana la de número menor en la columna **Prio
 | 3 | [Skill `vercel-composition-patterns`](.agents/skills/vercel-composition-patterns/SKILL.md) | Reglas de terceros de Vercel sobre composición de componentes de React | Al crear, modificar o revisar la API de un componente reutilizable: props booleanas, compound components, render props, context providers o `forwardRef`. |
 | 4 | [Skill `next-16.4.3-docs`](.agents/skills/next-16.4.3-docs/SKILL.md) | [Documentación oficial de Next.js](https://nextjs.org/docs/llms.txt) | Al responder y usar APIs de **Next.js** (aunque creas conocerla). Respeta sus avisos de deprecación. |
 | 5 | [Skill `react-19.3.1-docs`](.agents/skills/react-19.3.1-docs/SKILL.md) | [Documentación oficial de React.js](https://react.dev/llms.txt) | Al responder y usar APIs de **React.js** (aunque creas conocerla) |
-| 6 | [Skill `zod-4`](.agents/skills/zod-4/SKILL.md) | Breaking changes de Zod 4 | Al responder preguntas y editar codigo de Zod |
+| 6 | [Skill `zod-4`](.agents/skills/zod-4/SKILL.md) | Reglas, referencia de la API y breaking changes de Zod 4 | Al escribir, revisar o testear código de Zod (schemas, parseo, errores, tipos inferidos) y al responder preguntas sobre Zod, aunque creas conocer su API. |
 | 7 | Datos de entrenamiento | Tu conocimiento previo | Puedes usarlo, pero las fuentes anteriores tienen prioridad: este proyecto usa Next.js 16, React 19 y Zod 4, cuyos breaking changes pueden dejar tus datos de entrenamiento desactualizados. Que esté desactualizado no significa que esté mal; solo que puede no aplicar a esta versión. |
 
 # Resumen de la Skill `next-conventions`
