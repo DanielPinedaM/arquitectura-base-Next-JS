@@ -1,11 +1,8 @@
 ---
-title: Usa compound components
-impact: HIGH
-impactDescription: permite una composición flexible sin prop drilling
 tags: composition, compound-components, architecture
 ---
 
-## Usa compound components
+## Usa compound components, permite una composición flexible sin prop drilling
 
 Estructura los componentes complejos como compound components con un context compartido. Cada
 subcomponente accede al estado compartido mediante el context, no mediante props. Los consumidores componen las

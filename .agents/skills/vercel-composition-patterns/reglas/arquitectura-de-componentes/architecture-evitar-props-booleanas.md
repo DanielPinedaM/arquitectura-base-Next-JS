@@ -1,11 +1,8 @@
 ---
-title: Evita la proliferación de props booleanas
-impact: CRITICAL
-impactDescription: evita variantes de componentes inmantenibles
 tags: composition, props, architecture
 ---
 
-## Evita la proliferación de props booleanas
+## Evita la proliferación de props booleanas, evita variantes de componentes inmantenibles
 
 No agregues props booleanas como `isThread`, `isEditing`, `isDMThread` para personalizar
 el comportamiento de un componente. Cada booleano duplica los estados posibles y crea

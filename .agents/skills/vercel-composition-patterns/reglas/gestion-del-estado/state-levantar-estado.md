@@ -1,11 +1,8 @@
 ---
-title: Levanta el estado a componentes provider
-impact: HIGH
-impactDescription: permite compartir el estado fuera de los límites del componente
 tags: composition, state, context, providers
 ---
 
-## Levanta el estado a componentes provider
+## Levanta el estado a componentes provider, permite compartir el estado fuera de los límites del componente
 
 Mueve la gestión del estado a componentes provider dedicados. Esto permite que los componentes
 hermanos fuera de la UI principal accedan al estado y lo modifiquen sin prop drilling

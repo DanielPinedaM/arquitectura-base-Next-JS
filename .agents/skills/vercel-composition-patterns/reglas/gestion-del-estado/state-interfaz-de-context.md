@@ -1,11 +1,8 @@
 ---
-title: Define interfaces de context genéricas para la inyección de dependencias
-impact: HIGH
-impactDescription: permite un estado inyectable como dependencia en distintos casos de uso
 tags: composition, context, state, typescript, dependency-injection
 ---
 
-## Define interfaces de context genéricas para la inyección de dependencias
+## Define interfaces de context genéricas para la inyección de dependencias, permite un estado inyectable como dependencia en distintos casos de uso
 
 Define una **interfaz genérica** para el context de tu componente con tres partes:
 `state`, `actions` y `meta`. Esta interfaz es un contrato que cualquier provider

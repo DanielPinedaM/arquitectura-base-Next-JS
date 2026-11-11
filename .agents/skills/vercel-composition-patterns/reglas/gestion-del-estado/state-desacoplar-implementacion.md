@@ -1,11 +1,8 @@
 ---
-title: Desacopla la gestión del estado de la UI
-impact: MEDIUM
-impactDescription: permite intercambiar implementaciones de estado sin cambiar la UI
 tags: composition, state, architecture
 ---
 
-## Desacopla la gestión del estado de la UI
+## Desacopla la gestión del estado de la UI, permite intercambiar implementaciones de estado sin cambiar la UI
 
 El componente provider debe ser el único lugar que sabe cómo se gestiona el estado.
 Los componentes de UI consumen la interfaz del context; no saben si el estado viene de

@@ -1,11 +1,8 @@
 ---
-title: Crea variantes explícitas de componentes
-impact: MEDIUM
-impactDescription: código autodocumentado, sin condicionales ocultos
 tags: composition, variants, architecture
 ---
 
-## Crea variantes explícitas de componentes
+## Crea variantes explícitas de componentes, código autodocumentado, sin condicionales ocultos
 
 En lugar de un solo componente con muchas props booleanas, crea componentes de variantes
 explícitas. Cada variante compone las piezas que necesita. El código se documenta

@@ -1,7 +1,4 @@
 ---
-title: Prefiere componer children en lugar de render props
-impact: MEDIUM
-impactDescription: composición más limpia, mejor legibilidad
 tags: composition, children, render-props
 ---
 

@@ -1,7 +1,4 @@
 ---
-title: Cambios en la API de React 19
-impact: MEDIUM
-impactDescription: definiciones de componentes y uso del context más limpios
 tags: react19, refs, context, hooks
 ---
 

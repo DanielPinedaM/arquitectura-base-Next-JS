@@ -1,6 +1,11 @@
 ---
 name: vercel-composition-patterns
-description: Patrones de composición de React que escalan. Úsala al refactorizar componentes con proliferación de props booleanas, al construir librerías de componentes flexibles o al diseñar APIs reutilizables. Se activa en tareas que involucran compound components, render props, context providers o arquitectura de componentes. Incluye los cambios de API de React 19.
+description:
+  Patrones de composición de React que escalan. Úsala al refactorizar componentes con
+  proliferación de props booleanas, al construir librerías de componentes flexibles o al
+  diseñar APIs reutilizables. Se activa en tareas que involucran compound components,
+  render props, context providers o arquitectura de componentes. Incluye los cambios de API
+  de React 19.
 ---
 
 # Patrones de composición de React
@@ -92,4 +97,4 @@ Cada archivo de regla contiene: una breve explicación de por qué es importante
 | [Cambios en la API de React 19](reglas/apis-de-react-19/react19-no-forwardref.md) | Al escribir o migrar componentes de un proyecto con React 19 o superior que usan `forwardRef` para recibir una `ref`, o `useContext()` para leer un context: en React 19, `ref` es una prop normal y `use()` reemplaza a `useContext()` (y se puede llamar de forma condicional). No aplica a React 18 ni a versiones anteriores. |
 
 **Referencias:**
-* Esta skill es [traducida del GitHub de Vercel](https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-patterns)
+* [Esta skill es traducida del GitHub de Vercel](https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-patterns)
