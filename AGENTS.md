@@ -13,7 +13,7 @@ Arquitectura base agnóstica a las features para iniciar un nuevo proyecto en Ne
 ## Preguntar
 Implementar directamente las modificaciones triviales. Si detectas ambigüedades, contradicciones o errores, preguntar antes de modificar usando la [skill `question-me`](.agents/skills/question-me/SKILL.md).
 
-**Razón:** preguntar cuesta menos que revisar y deshacer código basado en una suposición incorrecta.
+**¿Por qué?:** preguntar cuesta menos que revisar y deshacer código basado en una suposición incorrecta.
 
 ## Responder
 Para responder preguntas al usuario usar el formato de la [skill `answer-me`](.agents/skills/answer-me/SKILL.md).
