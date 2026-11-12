@@ -693,20 +693,20 @@ const today = DateTime.now();
 Las props del calendario reciben y emiten `Date` nativo.
 
 ```typescript
-interface CalendarProps = {
+interface CalendarProps {
   selected?: Date;
   onSelect?: (date: Date | undefined) => void;
-};
+}
 ```
 
 **Correcto:**
 Las props del calendario reciben y emiten `DateTime` de Luxon.
 
 ```typescript
-interface CalendarProps = {
+interface CalendarProps {
   selected?: DateTime;
   onSelect?: LuxonOnSelectHandler<DateTime | undefined>;
-};
+}
 ```
 
 3. Usar exclusivamente los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios) para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta `<input type="date">` nativa de HTML.
