@@ -669,29 +669,134 @@ URLs resultantes: `/iniciar-sesion` y `/asignar-nueva-clave/123`
 
 **Reglas:**
 
-1. Usar Luxon para el manejo de fechas y horas. **PROHIBIDO** utilizar `new Date()` nativo de JavaScript o cualquier otra librería de fechas diferente de Luxon.
+1. Usar Luxon para el manejo de fechas y horas. **PROHIBIDO** usar cualquier otra alternativa, como `new Date()` nativo de JavaScript o cualquier otra librería de fechas.
+
+**Incorrecto:**
+Usa el `Date` nativo de JavaScript.
+
+```typescript
+const today = new Date();
+```
+
+**Correcto:**
+Usa `DateTime` de Luxon.
+
+```typescript
+import { DateTime } from 'luxon';
+
+const today = DateTime.now();
+```
 
 2. En todos los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), toda su interfaz pública de fechas (props, como `selected` y `onSelect`) es de tipo Luxon `DateTime`.
 
-3. Usar los calendarios para la selección de fechas definidos en [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios). **PROHIBIDO** usar cualquier otro componente de calendario, incluyendo el `<input type="date">` nativo de HTML.
+**Incorrecto:**
+Las props del calendario reciben y emiten `Date` nativo.
 
-4. Usar exclusivamente los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios) para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta`<input type="date">` nativa de HTML.
+```typescript
+interface CalendarProps = {
+  selected?: Date;
+  onSelect?: (date: Date | undefined) => void;
+};
+```
 
-5. Mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), a través de sus props (`selected`, `onSelect`, etc.), ya que representan una fecha seleccionada por el usuario. **PROHIBIDO** convertir ese `DateTime` a UTC (`.toUTC()`) dentro del flujo de estos componentes. Si necesitas persistir un instante (por ejemplo, `createdAt`) o enviarlo en el **payload** al backend, convierte ese `DateTime` a UTC únicamente justo antes de persistirlo o incluirlo en el payload, nunca antes. Este valor viaja en el payload como un `string` en formato ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
+**Correcto:**
+Las props del calendario reciben y emiten `DateTime` de Luxon.
+
+```typescript
+interface CalendarProps = {
+  selected?: DateTime;
+  onSelect?: LuxonOnSelectHandler<DateTime | undefined>;
+};
+```
+
+3. Usar exclusivamente los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios) para la selección de fechas. **PROHIBIDO** utilizar cualquier otro componente de calendario, incluyendo la etiqueta `<input type="date">` nativa de HTML.
+
+**Incorrecto:**
+Usa la etiqueta `<input type="date">` nativa de HTML.
+
+```tsx
+<input type="date" onChange={handleDateChange} />
+```
+
+**Correcto:**
+Usa un calendario permitido.
+
+```tsx
+<DatePicker mode="single" selected={birthDate} onSelect={handleDateChange} />
+```
+
+4. Mantener en zona horaria local el `DateTime` de Luxon que entra o sale de los componentes definidos en la sección [Componentes Permitidos de Calendarios](#componentes-permitidos-de-calendarios), a través de sus props (`selected`, `onSelect`, etc.), ya que representa una fecha seleccionada por el usuario. **PROHIBIDO** convertirlo a UTC (`.toUTC()`) dentro del flujo de estos componentes.
+
+**Incorrecto:**
+Convierte a UTC la fecha que emite el calendario.
+
+```tsx
+<Calendar mode="single" selected={birthDate} onSelect={(date) => setBirthDate(date?.toUTC())} />
+```
+
+**Correcto:**
+Guarda la fecha en zona horaria local, tal como la emite el calendario.
+
+```tsx
+<Calendar mode="single" selected={birthDate} onSelect={(date) => setBirthDate(date)} />
+```
+
+5. Convertir el `DateTime` de Luxon únicamente justo antes de incluirlo en el **payload** al backend, nunca antes. Viaja como `string` según lo que representa:
+* Fecha y hora: ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ssZ`), por ejemplo: `2024-06-15T14:30:00Z`.
+* Fecha: `YYYY-MM-DD` con `.toISODate()`, sin convertir de zona horaria para que no cambie de día, por ejemplo: `2024-06-15`.
+* Hora: hora militar `HH:mm:ss`, sin zona horaria, por ejemplo: `14:30:00`.
+
+**Incorrecto:**
+La fecha y hora no está en UTC, la fecha cambia de día al convertirla a UTC y la hora no es militar.
+
+```typescript
+// usuario en UTC+2
+const payload = {
+  startsAt: startsAt.toISO(), // '2024-06-15T16:30:00.000+02:00'
+  birthDate: birthDate.toUTC().toISODate(), // '2024-06-14'
+  openingTime: openingTime.toFormat('hh:mm a'), // '02:30 PM'
+};
+```
+
+**Correcto:**
+Cada valor usa el formato de lo que representa.
+
+```typescript
+// usuario en UTC+2
+const payload = {
+  startsAt: startsAt.toUTC().toFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"), // '2024-06-15T14:30:00Z'
+  birthDate: birthDate.toISODate(), // '2024-06-15'
+  openingTime: openingTime.toFormat('HH:mm:ss'), // '14:30:00'
+};
+```
 
 6. En `src/shared/utils/func/luxon.utils.ts` existen funciones utilitarias reutilizables para el manejo y formateo de fechas y horas con Luxon. Reutilizarlas cuando cubran la necesidad. **PROHIBIDO** duplicar su funcionalidad. Estas funciones no contienen lógica de negocio.
 
+**Incorrecto:**
+Duplica en un componente la conversión que ya hace `formatDate()`.
+
+```typescript
+const toDateTime = (rawDate: string): DateTime | null => {
+  const date = DateTime.fromISO(rawDate);
+  return date.isValid ? date.toUTC() : null;
+};
+```
+
+**Correcto:**
+Reutiliza `formatDate()` de `luxon.utils.ts`.
+
+```typescript
+import { formatDate } from '@/shared/utils/func/luxon.utils';
+
+const date = formatDate(rawDate);
+```
+
 ## Componentes Permitidos de Calendarios
 
-### `src\shared\ui\shad-cn\react-hook-form\date\calendar`
-* `Calendar` con prop `mode="single"`: selección de una única fecha `selected?: DateTime`, `onSelect?: LuxonOnSelectHandler<DateTime | undefined>`
-* `Calendar` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
-* `Calendar` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
-
-### `src\shared\ui\shad-cn\react-hook-form\date\date-picker`
-* `DatePicker` con prop `mode="single"`: selección de una única fecha `selected?: DateTime`, `onSelect?: LuxonOnSelectHandler<DateTime | undefined>`
-* `DatePicker` con prop `mode="range"`: selección de un rango de fechas `selected?: DateTimeRange`, `onSelect?: LuxonOnSelectHandler<DateTimeRange | undefined>`
-* `DatePicker` con prop `mode="multiple"`: selección de múltiples fechas `selected?: DateTime[]`, `onSelect?: LuxonOnSelectHandler<DateTime[] | undefined>`
+| Nombre Componente | Ruta                                                     |
+| ----------------- | -------------------------------------------------------- |
+| `Calendar`        | `src\shared\ui\shad-cn\react-hook-form\date\calendar`    |
+| `DatePicker`      | `src\shared\ui\shad-cn\react-hook-form\date\date-picker` |
 
 # Formularios - Integración Shad cn y React Hook Form
 
