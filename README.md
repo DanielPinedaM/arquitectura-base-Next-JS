@@ -5,7 +5,7 @@
 # ⚛️ Stack Frontend del Proyecto
 A continuación se resumen las principales tecnologías del proyecto y el motivo por el que se utilizan. No se incluyen todas las dependencias.
 
-## 🟢 Node.js 24.22.1
+## 🟢 Node.js 26.13.1
 
 ## [Next.js 16 con App Router (`app`)](https://youtu.be/_SPoSMmN3ZU?si=QCw1smESqt2qE_6a)
 _Framework semi-opinionado_ que evita configurar el proyecto desde cero, a diferencia de _React + Vite_, que es mas _abierto_. Incluye soporte nativo para _SSR (Server-Side Rendering)_, _SSG (Static Site Generation)_, _ISR (Incremental Static Regeneration)_ y _CSR (Client-Side Rendering)_.
@@ -206,7 +206,7 @@ Usar Node.js, prohibido usar alternativas como:
 1. Instalar Node.js de forma global con `pnpm`, sin depender de fnm, nvm, etc
 
 ```console
-pnpm runtime set node 24.22.1 -g
+pnpm runtime set node 26.13.1 -g
 ```
 
 2. Cerrar y volver abrir Power Shell como administrador
@@ -448,14 +448,14 @@ La razon de porque existe:
 
 es por compatibilidad, [segun la documentacion oficial de pnpm](https://pnpm.io/blog/whats-different-in-pnpm-12) a partir de pnpm 12, no es necesario instalar un administrador de versiones para Node.js (fnm, nvm, volta, etc) porque pnpm permite cambiar de version de Node.js
 
-Este proyecto usa Node.js 24.22.1. Para esto en `package.json` se agrego:
+Este proyecto usa Node.js 26.13.1. Para esto en `package.json` se agrego:
 
 ```JSON
 {
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "24.22.1",
+      "version": "26.13.1",
       "onFail": "download"
     }
   }
@@ -472,10 +472,10 @@ Para que `fnm` automáticamente al entrar a la carpeta del proyecto seleccione l
 winget install Schniz.fnm
 ```
 
-3. Instalar Node.js 24.22.1:
+3. Instalar Node.js 26.13.1:
 
 ```console
-fnm install 24.22.1
+fnm install 26.13.1
 ```
 
 4. Copiar completo el siguiente comando y ejecutarlo:
@@ -501,10 +501,10 @@ fnm current
 node -v
 ```
 
-7. Debería mostrarte `v24.22.1` automáticamente, sin que hayas escrito manualmente
+7. Debería mostrarte `v26.13.1` automáticamente, sin que hayas escrito manualmente
 
 ```console
-fnm use 24.22.1
+fnm use 26.13.1
 ```
 
 # 🏷️ Alias
