@@ -325,6 +325,8 @@ Usar VS Code o cualquier editor basado en VS Code para instalar las siguientes e
 
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
+* [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+
 * [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
 
 * [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
