@@ -8,7 +8,7 @@ import { InputText } from '@shad-cn/InputText';
 import { InputPassword } from '@shad-cn/InputPassword';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { IFormLogin, loginSchema } from '@/app/(features)/(auth)/iniciar-sesion/login.schema';
+import { IFormLogin, loginSchema } from '@/app/(features)/(auth)/iniciar-sesion/login.schemas';
 import {
   forceConvertToString,
   isLiteralObject,
