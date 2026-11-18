@@ -132,6 +132,7 @@ Contiene iconos para todo. Los iconos provienen de muchas librerías de iconos y
 5. [Mejores Harnesses de IA](https://youtu.be/Fzn9uWRRDXM?si=NJJmsOYuzTXl_aad)
 6. [Mejores Orquestadores de IA](https://youtu.be/rANNn5fIVmg?si=RxFAUjPUEYzXJpbq)
 7. [Desarrollo de software con IA: MCP, CLI, RAG](https://youtu.be/sn1o1Hr1pJs)
+8. [Testing con IA](https://youtu.be/uZ1QVeKvo_0?si=AmxvX2ecisb4MopP)
 
 # ⬇️ Instalaciones
 
