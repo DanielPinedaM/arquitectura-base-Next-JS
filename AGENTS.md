@@ -44,7 +44,7 @@ Cuando las fuentes se contradicen, gana la de número menor en la columna **Prio
 
 * **PROHIBIDO** usar alternativas a `zodResolver`/Zod para validar formularios: reglas de validación nativas del navegador (`required`, `pattern` en el TSX), lógica de validación manual/imperativa dentro de handlers, `yupResolver`, `joiResolver`, class-validator, o validator functions custom sin Zod
 
-* Los Zod schema tienen que estar dentro de un archivo `.schema.ts` dentro de la carpeta padre del componente al que pertenece cada validación de formulario
+* Los Zod schema tienen que estar dentro de un archivo `.schemas.ts` dentro de la carpeta padre del componente al que pertenece cada validación de formulario
 
 ## Gestión de Estado
 * Mantén las transformaciones de estado puras y predecibles

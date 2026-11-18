@@ -960,7 +960,7 @@ Un input reutilizable debe:
 
 ### 9. Validaciones
 
-- Todas las validaciones se definen en un Zod schema, dentro de un archivo `.schema.ts` ubicado en la carpeta padre mas cercana al componente que contiene el formulario.
+- Todas las validaciones se definen en un Zod schema, dentro de un archivo `.schemas.ts` ubicado en la carpeta padre mas cercana al componente que contiene el formulario.
 - El Zod schema se conecta en el componente padre con `useForm({ resolver: zodResolver(schema) })`, importando `import { zodResolver } from '@hookform/resolvers/zod'`.
 - Prohibido usar la prop `rules` de `Controller` o `useController`, y las validaciones nativas de React Hook Form (`required`, `minLength`, `pattern`, `validate`, etc.).
 - El input no define validaciones. El mensaje de error lo muestra `FormErrorMessages` (ver [11. Mensajes de Error de Formulario](#11-mensajes-de-error-de-formulario)).
@@ -1046,7 +1046,7 @@ export { InputText };
 
 * Prohibido que un componente de `src/shared/ui/shad-cn/react-hook-form` reciba como prop una entidad del sistema (`user`, `task`, `product`, etc.) para decidir su comportamiento. Recibe solo valores primitivos de UI ya calculados por el padre.
 
-* Las validaciones de dominio se definen en el Zod schema (`.schema.ts`) de la feature, no dentro del input.
+* Las validaciones de dominio se definen en el Zod schema (`.schemas.ts`) de la feature, no dentro del input.
 
 * Si un input necesita una condición para funcionar, esa condición se calcula en el padre con `watch` (ver [Uso de `watch`](#6-uso-de-watch)) y llega al input como prop.
 
