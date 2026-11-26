@@ -406,6 +406,12 @@ Son opcionales. Puedes ejecutar el proyecto sin ellas, pero te ayudarán a progr
 ### Herdr (Multiplexor de Terminales de IA)
 Permite organizar varias terminales con agentes de IA en pestañas y ventanas, evitando tener múltiples terminales independientes abiertas.
 
+Tambien sirve alternativas como:
+
+- [Orca](https://youtu.be/ze7AgvWfRwM?si=MnVb42vL8hfvD1KO)
+
+- [T3 Code](https://youtu.be/dxTdFiE-dQI?si=c9GXSbL9drx0dC1C)
+
 [Click aqui para aprender Herdr](https://youtu.be/VQ-swm4PQQU)
 
 1. Ejecutar Power Shell como administrador
@@ -420,14 +426,84 @@ powershell -c "irm https://releases.herdr.dev/app/install.ps1 | iex"
 powershell -c "irm https://releases.herdr.dev/core/install.ps1 | iex"
 ```
 
-Tambien sirve alternativas como:
+3. Cerrar y volver abrir Power Shell como administrador
 
-- [Orca](https://youtu.be/ze7AgvWfRwM?si=MnVb42vL8hfvD1KO)
+4.  Si la instalacion de Herdr es correcta, al ejecutar
 
-- [T3 Code](https://youtu.be/dxTdFiE-dQI?si=c9GXSbL9drx0dC1C)
+```console
+herdr --version
+```
+
+Debe mostrar un numero con la version de Python instalada
+
+5. Instalar skill de herdr
+
+```console
+npx skills add https://github.com/herdrdev/herdr --skill herdr
+```
+
+6. La terminal hace las siguientes preguntas:
+
+* ¿Para que IA instalar la skill?
+Seleccionar Claude Code o el Harness de IA que uses
+
+* ¿Cual es el alcance de la skill? (Install scope)
+Seleccionar Global
+
+7. Ejecutar tu harness de IA con todos los permisos:
+
+```console
+codex --yolo
+```
+
+```console
+claude --dangerously-skip-permissions
+```
+
+8. Al listar las skills con el comando
+
+```console
+/skills
+```
+
+Debe mostrar la skill de herdr
+
+```console
+✅ herdr    global · ~110 tokens
+```
 
 ### Python 3
-[Clic aqui para instalar Python 3](https://www.python.org/downloads/)
+1. [Clic aqui para instalar Python 3](https://www.python.org/downloads/)
+
+2. Abrir CMD
+
+3. Si la instalacion de Python es correcta, al ejecutar
+
+```console
+python --version
+```
+
+Debe mostrar un numero con la version de Python instalada
+
+4. Instalar Numpy
+
+```console
+python -m pip install numpy
+```
+
+5. Instalar Pandas
+
+```console
+python -m pip install pandas
+```
+
+6. Si la instalacion de Pandas y Numpy es correcta, al ejecutar
+
+```console
+python -c "import numpy, pandas; print(numpy.__version__); print(pandas.__version__)"
+```
+
+Debe mostrar numeros con la version de Pandas y Numpy instalada
 
 Aunque el backend del proyecto no use Python y los agentes de IA de terminal funcionen sin Python, es recomendable instalarlo, porque a menudo los agentes de IA usan Python de forma automatica para ejecutar scripts que analizan y editan código.
 
@@ -708,7 +784,7 @@ pn dlx skills add https://github.com/vercel-labs/agent-skills --skill vercel-rea
 3. La terminal hace las siguientes preguntas:
 
 * ¿Para que IA instalar la skill?
-Seleccionar Claude Code
+Seleccionar Claude Code o el Harness de IA que uses
 
 * ¿Cual es el alcance de la skill? (Install scope)
 Seleccionar Project
